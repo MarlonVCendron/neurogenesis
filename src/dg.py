@@ -19,11 +19,13 @@ hipp_cells = nest.Create("hipp", N_hipps)
 # Granule cells connections
 for i in range(N_bcs):
   nest.Connect(granule_cells[i::N_bcs], basket_cells[i])
+
 # nest.Connect(granule_cells, mossy_cells)
 # nest.Connect(granule_cells, hipp_cells)
 
 # Basket cells connections
-# nest.Connect(basket_cells, granule_cells)
+for i in range(N_bcs):
+  nest.Connect(basket_cells[i], granule_cells[i::N_bcs])
 # nest.Connect(basket_cells, mossy_cells)
 
 # Mossy cells connections
@@ -37,21 +39,21 @@ for i in range(N_bcs):
 # nest.Connect(hipp_cells, mossy_cells)
 
 
-# connections = nest.GetConnections(granule_cells, basket_cells)
+connections = nest.GetConnections(granule_cells, basket_cells)
 
-# # Print number of connections
-# print(f"Total number of connections: {len(connections)}")
+# Print number of connections
+print(f"Total number of connections: {len(connections)}")
 
-# # Inspect a few connections (for example, the first 10 connections)
-# # for i, conn in enumerate(connections[:10]):
-# #     print(f"Connection {i + 1}: Source (GC) = {conn['source']}, Target (BC) = {conn['target']}")
+# Inspect a few connections (for example, the first 10 connections)
+# for i, conn in enumerate(connections[:10]):
+#     print(f"Connection {i + 1}: Source (GC) = {conn['source']}, Target (BC) = {conn['target']}")
 
-# # Verify the number of incoming connections per basket cell
-# for i, bc in enumerate(basket_cells):
-#   incoming = nest.GetConnections(target=bc)
-#   print(f"Basket cell {i + 1} has {len(incoming)} incoming connections")
+# Verify the number of incoming connections per basket cell
+for i, bc in enumerate(basket_cells[:10]):
+  incoming = nest.GetConnections(target=bc)
+  print(f"Basket cell {i + 1} has {len(incoming)} incoming connections")
 
 
-# for i, gc in enumerate(granule_cells[:10]):
-#   incoming = nest.GetConnections(source=gc)
-#   print(f"Granule cell {i + 1} has {len(incoming)} outgoing connections")
+for i, gc in enumerate(granule_cells[:10]):
+  incoming = nest.GetConnections(source=gc)
+  print(f"Granule cell {i + 1} has {len(incoming)} outgoing connections")
