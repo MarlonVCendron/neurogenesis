@@ -12,4 +12,5 @@ gc_params = {
     "b": 45.0,
 }
 
+# Modelo talvez seja: adaptive integrate-and-fire model, não o exponencial
 nest.CopyModel("aeif_cond_alpha", "gc", params=gc_params)
