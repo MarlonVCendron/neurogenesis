@@ -19,7 +19,7 @@ basket_cells = nest.Create("bc", N_bcs)
 mossy_cells = nest.Create("mc", N_mcs)
 hipp_cells = nest.Create("hipp", N_hipps)
 
-for i in range(N_clusters):
+def connectClusters(i, N_clusters):
   clusterConnect = clusterConnectGenerator(i, N_clusters)
 
   # Granule cells connections
@@ -41,13 +41,28 @@ for i in range(N_clusters):
   clusterConnect(hipp_cells, basket_cells)
   clusterConnect(hipp_cells, mossy_cells)
 
-# connections = nest.GetConnections(granule_cells, basket_cells)
-# print(f"Total number of connections: {len(connections)}")
 
-# printConnections(granule_cells, target=True)
-# printConnections(granule_cells, target=False)
-# printConnections(basket_cells, target=True)
-# printConnections(basket_cells, target=False)
+def main():
+  for i in range(N_clusters):
+    connectClusters(i, N_clusters)
 
-printConnections(mossy_cells, target=True)
-printConnections(mossy_cells, target=False)
+  print(nest.GetDefaults("static_synapse"))
+  # print(nest.GetDefaults('iaf_cond_alpha_mc')['receptor_types'])
+  # for x in nest.synapse_models:
+  #   print(x)
+
+  # connections = nest.GetConnections(granule_cells, basket_cells)
+  # print(f"Total number of connections: {len(connections)}")
+  
+  # printConnections(granule_cells, target=True)
+  # printConnections(granule_cells, target=False)
+  # printConnections(basket_cells, target=True)
+  # printConnections(basket_cells, target=False)
+  
+  printConnections(mossy_cells, target=True)
+  printConnections(mossy_cells, target=False)
+
+
+
+if __name__ == "__main__":
+  main()
