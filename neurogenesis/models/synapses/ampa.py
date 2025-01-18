@@ -4,8 +4,9 @@ from neurogenesis.util import heaviside
 
 def AMPA():
   eq_model = Equations('''
-    I_ampa = g_ampa * (Vm - E_ampa) : amp
-    # g_ampa = k_ampa 
+    I_ampa     = g_ampa * (Vm - E_ampa) : amp
+    g_ampa     = k_ampa * s_ampa        : siemens
+    ds_ampa/dt = 1                      : 1
     # e_ampa = (exp(-t/tau_ampa_d) - exp(-t/tau_ampa_r)) / (tau_ampa_d - tau_ampa_r) : 1
   ''')
 

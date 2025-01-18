@@ -6,7 +6,7 @@ params = {
     "g_L"       : 23.2 * nS,
     "E_L"       : -62.0 * mV,
     "g_ahp_max" : 76.9 * nS,
-    "tau_ahp"   : 2 * ms,
+    "tau_ahp"   : 2.0 * ms,
     "E_ahp"     : -75.0 * mV,
     "V_th"      : -52.5 * mV,
     "I_ampa"    : -250 * pA,
