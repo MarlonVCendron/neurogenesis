@@ -21,7 +21,7 @@ bc = NeuronGroup(
     model      = lif_eqs,
     threshold  = 'Vm > V_th',
     reset      = 'Vm = E_L',
-    method     = 'euler',
+    method     = 'rk2',
     refractory = 0*ms          # A way to have lastspike
 )
 for param, value in params.items():
