@@ -9,7 +9,9 @@ params = {
     "tau_ahp"   : 2 * ms,
     "E_ahp"     : -75.0 * mV,
     "V_th"      : -52.5 * mV,
-    "I_syn"     : -250 * pA,
+    "I_ampa"    : -250 * pA,
+    "I_nmda"    : 0 * pA,
+    "I_gaba"    : 0 * pA,
 }
 
 lif_eqs = LIF()
