@@ -22,6 +22,9 @@ def LIF():
     I_gaba    : amp      # Synaptic current (GABA)
   ''')
 
-  eqs = eq_model + eq_params
+  eqs        = eq_model + eq_params
+  threshold  = 'Vm > V_th',
+  reset      = 'Vm = E_L',
+  refractory = 0 * ms                # A way to have lastspike
 
-  return eqs
+  return (eqs, threshold, reset, refractory)

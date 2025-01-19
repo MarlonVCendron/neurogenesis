@@ -14,15 +14,15 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-lif_eqs = LIF()
+lif_eqs, threshold, reset, refractory = LIF()
 
 mc = NeuronGroup(
     10,
     model      = lif_eqs,
-    threshold  = 'Vm > V_th',
-    reset      = 'Vm = E_L',
+    threshold  = threshold,
+    reset      = reset,
+    refractory = refractory,
     method     = 'rk2',
-    refractory = 0*ms          # A way to have lastspike
 )
 for param, value in params.items():
   setattr(mc, param, value)
