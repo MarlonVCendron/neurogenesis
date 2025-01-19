@@ -14,17 +14,20 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-lif_eqs, threshold, reset, refractory = LIF()
+def create_hipp(N=1):
+  lif_eqs, threshold, reset, refractory = LIF()
 
-hipp = NeuronGroup(
-    10,
-    model      = lif_eqs,
-    threshold  = threshold,
-    reset      = reset,
-    refractory = refractory,
-    method     = 'rk2',
-)
-for param, value in params.items():
-  setattr(hipp, param, value)
+  hipp = NeuronGroup(
+      N          = N,
+      model      = lif_eqs,
+      threshold  = threshold,
+      reset      = reset,
+      refractory = refractory,
+      method     = 'rk2',
+  )
+  for param, value in params.items():
+    setattr(hipp, param, value)
 
-hipp.Vm = hipp.E_L
+  hipp.Vm = hipp.E_L
+
+  return hipp

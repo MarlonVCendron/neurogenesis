@@ -14,17 +14,21 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-lif_eqs, threshold, reset, refractory = LIF()
+def create_bc(N=1):
+  lif_eqs, threshold, reset, refractory = LIF()
+  
+  bc = NeuronGroup(
+      N          = N,
+      model      = lif_eqs,
+      threshold  = threshold,
+      reset      = reset,
+      refractory = refractory,
+      method     = 'rk2',
+  )
+  for param, value in params.items():
+    setattr(bc, param, value)
+  
+  bc.Vm = bc.E_L
 
-bc = NeuronGroup(
-    10,
-    model      = lif_eqs,
-    threshold  = threshold,
-    reset      = reset,
-    refractory = refractory,
-    method     = 'rk2',
-)
-for param, value in params.items():
-  setattr(bc, param, value)
-
-bc.Vm = bc.E_L
+  return bc
+  

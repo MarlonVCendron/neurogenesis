@@ -23,8 +23,8 @@ def LIF():
   ''')
 
   eqs        = eq_model + eq_params
-  threshold  = 'Vm > V_th',
-  reset      = 'Vm = E_L',
+  threshold  = 'Vm > V_th'
+  reset      = 'Vm = E_L'
   refractory = 0 * ms                # A way to have lastspike
 
   return (eqs, threshold, reset, refractory)
