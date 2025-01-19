@@ -14,7 +14,7 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-def create_hipp(N=1):
+def create_hipp(N):
   lif_eqs, threshold, reset, refractory = LIF()
 
   hipp = NeuronGroup(

@@ -14,7 +14,7 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-def create_gc(N=1):
+def create_gc(N):
   lif_eqs, threshold, reset, refractory = LIF()
   
   gc = NeuronGroup(
