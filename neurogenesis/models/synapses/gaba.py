@@ -1,6 +1,4 @@
 from brian2 import *
-from neurogenesis.util import heaviside
-
 
 def GABA():
   eq_model = Equations('''

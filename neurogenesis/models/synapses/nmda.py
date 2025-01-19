@@ -1,6 +1,4 @@
 from brian2 import *
-from neurogenesis.util import heaviside
-
 
 def NMDA():
   eq_model = Equations('''

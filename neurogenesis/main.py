@@ -1,4 +1,6 @@
 from brian2 import *
+import time
+from neurogenesis.util import lamellar_conn
 from neurogenesis.models.synapses import (AMPA, NMDA, GABA)
 from neurogenesis.models.cells import (
     create_gc,
@@ -7,13 +9,20 @@ from neurogenesis.models.cells import (
     create_hipp,
 )
 
-N_lamellae = 2                 # 20
-N_gc       = N_lamellae * 100
-N_bc       = N_lamellae * 1
-N_mc       = N_lamellae * 3
-N_hipp     = N_lamellae * 1
+N_lamellae = 20  # 20
 
-if __name__ == '__main__':
+N_gc_l   = 100 # 100
+N_bc_l   = 1
+N_mc_l   = 3
+N_hipp_l = 1
+
+N_gc   = N_lamellae * N_gc_l
+N_bc   = N_lamellae * N_bc_l
+N_mc   = N_lamellae * N_mc_l
+N_hipp = N_lamellae * N_hipp_l
+
+def main():
+  start_time = time.time()
   start_scope()
 
   # Cells
@@ -48,8 +57,40 @@ if __name__ == '__main__':
   hipp_gaba_bc = Synapses(hipp, bc, model=gaba_eqs)
   hipp_gaba_mc = Synapses(hipp, mc, model=gaba_eqs)
 
+  # Lamellar connections
+  gc_ampa_bc.connect(condition=lamellar_conn(N_gc_l, N_bc_l))
+  gc_nmda_bc.connect(condition=lamellar_conn(N_gc_l, N_bc_l))
+  gc_ampa_mc.connect(condition=lamellar_conn(N_gc_l, N_mc_l))
+  gc_nmda_mc.connect(condition=lamellar_conn(N_gc_l, N_mc_l))
+  gc_ampa_hipp.connect(condition=lamellar_conn(N_gc_l, N_hipp_l))
+  gc_nmda_hipp.connect(condition=lamellar_conn(N_gc_l, N_hipp_l))
+  
+  bc_gaba_gc.connect(condition=lamellar_conn(N_bc_l, N_gc_l))
+  bc_gaba_mc.connect(condition=lamellar_conn(N_bc_l, N_mc_l))
+  
+  mc_ampa_hipp.connect(condition=lamellar_conn(N_mc_l, N_hipp_l))
+  mc_nmda_hipp.connect(condition=lamellar_conn(N_mc_l, N_hipp_l))
+  
+  hipp_gaba_gc.connect(condition=lamellar_conn(N_hipp_l, N_gc_l))
+  hipp_gaba_bc.connect(condition=lamellar_conn(N_hipp_l, N_bc_l))
+  hipp_gaba_mc.connect(condition=lamellar_conn(N_hipp_l, N_mc_l))
+
+  # Cross-lamellar connections
+  # mc_ampa_gc.connect(condition='', p=0.2)
+  # mc_nmda_gc.connect(condition='', p=0.2)
+  # mc_ampa_bc.connect(condition='', p=0.2)
+  # mc_nmda_bc.connect(condition='', p=0.2)
+  
+  time_to_connect = time.time()
+  print("--- Time to connect: %s seconds ---" % (time_to_connect - start_time))
+
   run(100*ms)
 
+  print("--- Time to run simulation: %s seconds ---" % (time.time() - time_to_connect))
+
+
+if __name__ == '__main__':
+  main()
 
 # state_mon = StateMonitor(bc, 'Vm', record=True)
 # spike_mon = SpikeMonitor(bc)
