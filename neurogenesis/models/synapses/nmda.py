@@ -4,9 +4,10 @@ from neurogenesis.util import heaviside
 
 def NMDA():
   eq_model = Equations('''
-    I_nmda     = g_nmda * (Vm - E_nmda) : amp
+    I_nmda_syn = g_nmda * (Vm - E_nmda) : amp
     g_nmda     = k_nmda * s_nmda        : siemens
-    ds_nmda/dt = 1                      : 1
+    s_nmda     : 1
+    # ds_nmda/dt = 1                      : 1
   ''')
 
   eq_params = Equations('''
