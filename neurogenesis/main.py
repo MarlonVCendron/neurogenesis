@@ -1,6 +1,6 @@
 from brian2 import *
 import time
-from neurogenesis.util import lamellar_conn
+from neurogenesis.util import (lamellar_conn, cross_lamellar_conn)
 from neurogenesis.models.synapses import (AMPA, NMDA, GABA)
 from neurogenesis.models.cells import (
     create_gc,
@@ -11,7 +11,7 @@ from neurogenesis.models.cells import (
 
 N_lamellae = 20  # 20
 
-N_gc_l   = 100 # 100
+N_gc_l   = 100
 N_bc_l   = 1
 N_mc_l   = 3
 N_hipp_l = 1
@@ -76,10 +76,10 @@ def main():
   hipp_gaba_mc.connect(condition=lamellar_conn(N_hipp_l, N_mc_l))
 
   # Cross-lamellar connections
-  # mc_ampa_gc.connect(condition='', p=0.2)
-  # mc_nmda_gc.connect(condition='', p=0.2)
-  # mc_ampa_bc.connect(condition='', p=0.2)
-  # mc_nmda_bc.connect(condition='', p=0.2)
+  mc_ampa_gc.connect(condition=cross_lamellar_conn(N_mc_l, N_gc_l), p=0.2)
+  mc_nmda_gc.connect(condition=cross_lamellar_conn(N_mc_l, N_gc_l), p=0.2)
+  mc_ampa_bc.connect(condition=cross_lamellar_conn(N_mc_l, N_bc_l), p=0.2)
+  mc_nmda_bc.connect(condition=cross_lamellar_conn(N_mc_l, N_bc_l), p=0.2)
   
   time_to_connect = time.time()
   print("--- Time to connect: %s seconds ---" % (time_to_connect - start_time))
