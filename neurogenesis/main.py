@@ -7,6 +7,7 @@ from neurogenesis.models.cells import (
     create_bc,
     create_mc,
     create_hipp,
+    create_ec,
 )
 
 N_lamellae = 20  # 20
@@ -16,6 +17,7 @@ N_bc_l   = 1
 N_mc_l   = 3
 N_hipp_l = 1
 
+N_ec   = 400
 N_gc   = N_lamellae * N_gc_l
 N_bc   = N_lamellae * N_bc_l
 N_mc   = N_lamellae * N_mc_l
@@ -26,12 +28,16 @@ def main():
   start_scope()
 
   # Cells
+  ec   = create_ec(N=N_ec)
   gc   = create_gc(N=N_gc)
   bc   = create_bc(N=N_bc)
   mc   = create_mc(N=N_mc)
   hipp = create_hipp(N=N_hipp)
 
   # Synapses
+  ec_gc = Synapses(ec, gc, 'w = 0.07 * pA : amp', on_pre='I_ampa -= w')
+  ec_gc.connect(p=0.2)
+
   ampa_eqs = AMPA()
   nmda_eqs = NMDA()
   gaba_eqs = GABA()
@@ -88,23 +94,18 @@ def main():
 
   print("--- Time to run simulation: %s seconds ---" % (time.time() - time_to_connect))
 
+  spike_mon = SpikeMonitor(gc)
+  
+  run(400*ms)
+  
+  plot(spike_mon.t / ms, spike_mon.i, '|k')
+  xlabel('Time (ms)')
+  ylabel('Neuron index')
+  tight_layout
+  show()
+
+
 
 if __name__ == '__main__':
   main()
 
-# state_mon = StateMonitor(bc, 'Vm', record=True)
-# spike_mon = SpikeMonitor(bc)
-
-# run(100*ms)
-
-# figure(figsize=(12, 4))
-# subplot(121)
-# plot(state_mon.t / ms, state_mon.Vm[0] / mV)
-# xlabel('Time (ms)')
-# ylabel('Membrane potential (mV)')
-# subplot(122)
-# plot(spike_mon.t / ms, spike_mon.i, '|k')
-# xlabel('Time (ms)')
-# ylabel('Neuron index')
-# tight_layout
-# show()

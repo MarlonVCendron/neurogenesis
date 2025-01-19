@@ -9,7 +9,7 @@ params = {
     "tau_ahp"   : 10.0 * ms,
     "E_ahp"     : -80.0 * mV,
     "V_th"      : -32.0 * mV,
-    "I_ampa"    : -250 * pA,
+    "I_ampa"    : 0 * pA,
     "I_nmda"    : 0 * pA,
     "I_gaba"    : 0 * pA,
 }
