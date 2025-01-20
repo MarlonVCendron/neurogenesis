@@ -40,7 +40,7 @@ def main():
 
   # Synapses
   ec_mgc = Synapses(ec, mgc, 'w = 0.07 * pA : amp', on_pre='I_ampa -= w')
-  ec_mgc.connecat(p=0.2)
+  ec_mgc.connect(p=0.2)
 
   ampa_eqs = AMPA()
   nmda_eqs = NMDA()
