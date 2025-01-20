@@ -2,7 +2,7 @@ from brian2 import *
 
 def LIF():
   eq_model = Equations('''
-    dVm/dt = (-I_L -I_ahp -I_syn) / Cm                    : volt
+    dVm/dt = (-I_L -I_ahp -I_syn + I_ext) / Cm            : volt
     I_L    = g_L * (Vm - E_L)                             : amp
     I_ahp  = g_ahp * (Vm - E_ahp)                         : amp
     g_ahp  = g_ahp_max * exp(- (t - lastspike) / tau_ahp) : siemens
@@ -20,6 +20,7 @@ def LIF():
     I_ampa    : amp      # Synaptic current (AMPA)
     I_nmda    : amp      # Synaptic current (NMDA)
     I_gaba    : amp      # Synaptic current (GABA)
+    I_ext     : amp      # External current
   ''')
 
   eqs        = eq_model + eq_params
