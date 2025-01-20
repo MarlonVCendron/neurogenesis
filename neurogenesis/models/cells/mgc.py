@@ -14,6 +14,7 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
+# Mature granule cell
 def create_mgc(N):
   lif_eqs, threshold, reset, refractory = LIF()
   

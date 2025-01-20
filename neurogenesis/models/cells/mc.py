@@ -14,6 +14,7 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
+# Mossy cell
 def create_mc(N):
   lif_eqs, threshold, reset, refractory = LIF()
 

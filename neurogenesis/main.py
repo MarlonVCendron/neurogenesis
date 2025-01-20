@@ -4,6 +4,7 @@ from neurogenesis.util import (lamellar_conn, cross_lamellar_conn)
 from neurogenesis.models.synapses import (AMPA, NMDA, GABA)
 from neurogenesis.models.cells import (
     create_mgc,
+    create_igc,
     create_bc,
     create_mc,
     create_hipp,
@@ -12,13 +13,15 @@ from neurogenesis.models.cells import (
 
 N_lamellae = 20  # 20
 
-N_mgc_l  = 100
+N_mgc_l  = 90
+N_igc_l  = 10
 N_bc_l   = 1
 N_mc_l   = 3
 N_hipp_l = 1
 
 N_ec   = 400
 N_mgc  = N_lamellae * N_mgc_l
+N_igc  = N_lamellae * N_igc_l
 N_bc   = N_lamellae * N_bc_l
 N_mc   = N_lamellae * N_mc_l
 N_hipp = N_lamellae * N_hipp_l
@@ -30,6 +33,7 @@ def main():
   # Cells
   ec   = create_ec(N=N_ec)
   mgc  = create_mgc(N=N_mgc)
+  igc  = create_igc(N=N_igc)
   bc   = create_bc(N=N_bc)
   mc   = create_mc(N=N_mc)
   hipp = create_hipp(N=N_hipp)

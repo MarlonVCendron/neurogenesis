@@ -14,6 +14,7 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
+# Hilar perforant path-associated cell
 def create_hipp(N):
   lif_eqs, threshold, reset, refractory = LIF()
 
