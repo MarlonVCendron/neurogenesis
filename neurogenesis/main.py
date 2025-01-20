@@ -1,5 +1,4 @@
 from brian2 import *
-import time
 from neurogenesis.util import (lamellar_conn, cross_lamellar_conn)
 from neurogenesis.models.synapses import (AMPA, NMDA, GABA)
 from neurogenesis.models.cells import (
@@ -27,7 +26,6 @@ N_mc   = N_lamellae * N_mc_l
 N_hipp = N_lamellae * N_hipp_l
 
 def main():
-  start_time = time.time()
   start_scope()
 
   # Cells
@@ -91,13 +89,6 @@ def main():
   mc_ampa_bc.connect(condition=cross_lamellar_conn(N_mc_l, N_bc_l), p=0.2)
   mc_nmda_bc.connect(condition=cross_lamellar_conn(N_mc_l, N_bc_l), p=0.2)
   
-  time_to_connect = time.time()
-  print("--- Time to connect: %s seconds ---" % (time_to_connect - start_time))
-
-  run(100*ms)
-
-  print("--- Time to run simulation: %s seconds ---" % (time.time() - time_to_connect))
-
   spike_mon = SpikeMonitor(mgc)
   
   run(400*ms)
