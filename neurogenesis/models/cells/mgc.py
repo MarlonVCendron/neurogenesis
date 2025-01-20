@@ -14,10 +14,10 @@ params = {
     "I_gaba"    : 0 * pA,
 }
 
-def create_gc(N):
+def create_mgc(N):
   lif_eqs, threshold, reset, refractory = LIF()
   
-  gc = NeuronGroup(
+  mgc = NeuronGroup(
       N          = N,
       model      = lif_eqs,
       threshold  = threshold,
@@ -26,8 +26,8 @@ def create_gc(N):
       method     = 'rk2',
   )
   for param, value in params.items():
-    setattr(gc, param, value)
+    setattr(mgc, param, value)
   
-  gc.Vm = gc.E_L
+  mgc.Vm = mgc.E_L
   
-  return gc
+  return mgc
