@@ -1,18 +1,6 @@
 from brian2 import *
 from neurogenesis.models.general import LIF
-
-params = {
-    "Cm"        : 232.6 * pF,
-    "g_L"       : 23.2 * nS,
-    "E_L"       : -62.0 * mV,
-    "g_ahp_max" : 76.9 * nS,
-    "tau_ahp"   : 2.0 * ms,
-    "E_ahp"     : -75.0 * mV,
-    "V_th"      : -52.5 * mV,
-    "I_ampa"    : 0 * pA,
-    "I_nmda"    : 0 * pA,
-    "I_gaba"    : 0 * pA,
-}
+from neurogenesis.params import cell_params
 
 # Basket cell
 def create_bc(N):
@@ -26,7 +14,7 @@ def create_bc(N):
       refractory = refractory,
       method     = 'rk2',
   )
-  for param, value in params.items():
+  for param, value in cell_params['bc'].items():
     setattr(bc, param, value)
   
   bc.Vm = bc.E_L
