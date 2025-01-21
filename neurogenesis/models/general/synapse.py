@@ -1,6 +1,6 @@
 from brian2 import *
 
-def synapse_model(receptor):
+def synapse(receptor):
   R = receptor
 
   eq_model = Equations(f'''

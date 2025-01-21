@@ -1,9 +1,9 @@
 from brian2 import *
-from neurogenesis.models.synapses import synapse_model
+from neurogenesis.models.general import synapse
 
 
 def Connect(source, target, receptor, condition, delay, K, E, tau_r, tau_d, p=1):
-  (eqs, on_pre) = synapse_model(receptor)
+  (eqs, on_pre) = synapse(receptor)
 
   synapses = Synapses(
       source=source,

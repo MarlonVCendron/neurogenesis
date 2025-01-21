@@ -1,5 +1,5 @@
 from brian2 import *
-from neurogenesis.models.general.lif import LIF
+from neurogenesis.models.general import LIF
 
 params = {
     "Cm"        : 206.0 * pF,
