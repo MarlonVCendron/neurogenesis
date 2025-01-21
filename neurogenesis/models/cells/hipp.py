@@ -1,22 +1,10 @@
 from brian2 import *
-from neurogenesis.models.general import LIF
+from neurogenesis.utils.create_neuron_group import create_neuron_group
 from neurogenesis.params import cell_params
 
 # Hilar perforant path-associated cell
-def create_hipp(N):
-  lif_eqs, threshold, reset, refractory = LIF()
-
-  hipp = NeuronGroup(
-      N          = N,
-      model      = lif_eqs,
-      threshold  = threshold,
-      reset      = reset,
-      refractory = refractory,
-      method     = 'rk2',
-  )
-  for param, value in cell_params['hipp'].items():
-    setattr(hipp, param, value)
-
-  hipp.Vm = hipp.E_L
-
+def create_hipp(N=None):
+  params = cell_params['hipp'].copy()
+  params = {**params, "N": N if N is not None else params['N']}
+  hipp = create_neuron_group(**params)
   return hipp

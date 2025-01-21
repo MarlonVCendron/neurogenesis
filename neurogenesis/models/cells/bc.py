@@ -1,23 +1,10 @@
 from brian2 import *
-from neurogenesis.models.general import LIF
+from neurogenesis.utils.create_neuron_group import create_neuron_group
 from neurogenesis.params import cell_params
 
 # Basket cell
-def create_bc(N):
-  lif_eqs, threshold, reset, refractory = LIF()
-  
-  bc = NeuronGroup(
-      N          = N,
-      model      = lif_eqs,
-      threshold  = threshold,
-      reset      = reset,
-      refractory = refractory,
-      method     = 'rk2',
-  )
-  for param, value in cell_params['bc'].items():
-    setattr(bc, param, value)
-  
-  bc.Vm = bc.E_L
-
+def create_bc(N=None):
+  params = cell_params['bc'].copy()
+  params = {**params, "N": N if N is not None else params['N']}
+  bc = create_neuron_group(**params)
   return bc
-  
