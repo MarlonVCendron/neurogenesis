@@ -1,5 +1,6 @@
 from brian2 import *
 
+# These equations are all wrong
 def synapse(receptor):
   R = receptor
 
@@ -22,7 +23,7 @@ def synapse(receptor):
   on_pre = f'''
     y_{R}_r += w_{R}
     y_{R}_d += w_{R}
-    I_{R}   += I_{R}_syn
+    I_{R}   += I_{R}_syn # wrong
   '''
 
   eqs = eq_model + eq_params
