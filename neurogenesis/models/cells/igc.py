@@ -15,6 +15,8 @@ def create_igc(N):
       method     = 'rk2',
   )
   for param, value in cell_params['igc'].items():
+    if param == 'N':
+      continue
     setattr(igc, param, value)
   
   igc.Vm = igc.E_L

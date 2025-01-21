@@ -1,7 +1,7 @@
 from brian2 import *
 
 # Syntax: source_receptor_target
-synapse_params = {
+syn_params = {
     "ec_ampa_gc": {
         "K"     : 0.89 * pF,
         "tau_r" : 0.1 * ms,

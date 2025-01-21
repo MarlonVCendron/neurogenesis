@@ -1,6 +1,8 @@
 from brian2 import *
 from neurogenesis.utils.connections import (lamellar_conn, cross_lamellar_conn)
 from neurogenesis.utils.connect import Connect
+from neurogenesis.params import syn_params 
+from neurogenesis.params.cells import cell_params
 from neurogenesis.models.cells import (
     create_mgc,
     create_igc,
@@ -10,37 +12,23 @@ from neurogenesis.models.cells import (
     create_ec,
 )
 
-N_lamellae = 20  # 20
-
-N_mgc_l  = 90
-N_igc_l  = 10
-N_bc_l   = 1
-N_mc_l   = 3
-N_hipp_l = 1
-
-N_ec   = 400
-N_mgc  = N_lamellae * N_mgc_l
-N_igc  = N_lamellae * N_igc_l
-N_bc   = N_lamellae * N_bc_l
-N_mc   = N_lamellae * N_mc_l
-N_hipp = N_lamellae * N_hipp_l
-
 def main():
   start_scope()
 
   # Cells
-  ec   = create_ec(N=N_ec)
-  mgc  = create_mgc(N=N_mgc)
-  igc  = create_igc(N=N_igc)
-  bc   = create_bc(N=N_bc)
-  mc   = create_mc(N=N_mc)
-  hipp = create_hipp(N=N_hipp)
+  ec   = create_ec(N=cell_params['ec']['N'])
+  mgc  = create_mgc(N=cell_params['mgc']['N'])
+  igc  = create_igc(N=cell_params['igc']['N'])
+  bc   = create_bc(N=cell_params['bc']['N'])
+  mc   = create_mc(N=cell_params['mc']['N'])
+  hipp = create_hipp(N=cell_params['hipp']['N'])
 
   # Synapses
   ec_mgc = Synapses(ec, mgc, 'w = 0.07 * pA : amp', on_pre='I_ampa -= w')
   ec_mgc.connect(p=0.2)
 
-  mgc_ampa_mc = Connect(mgc, mc, 'ampa', condition=lamellar_conn(N_mgc_l, N_mc_l), delay=1.5*ms, K=9.58*pF, E=0*mV, tau_r=0.5*ms, tau_d=6.2*ms)
+  # mgc_ampa_mc = Connect(mgc, mc, 'ampa', condition=lamellar_conn(N_mgc_l, N_mc_l), delay=1.5*ms, K=9.58*pF, E=0*mV, tau_r=0.5*ms, tau_d=6.2*ms)
+  mgc_ampa_mc = Connect(mgc, mc, 'ampa', condition=lamellar_conn(N_mgc_l, N_mc_l), **syn_params['gc_ampa_mc'])
   mc_ampa_mgc = Connect(mc, mgc, 'ampa', condition=cross_lamellar_conn(N_mc_l, N_mgc_l), delay=3*ms, K=0.07*pF, E=0*mV, tau_r=0.1*ms, tau_d=2.5*ms)
 
 

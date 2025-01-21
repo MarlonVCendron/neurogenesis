@@ -1,7 +1,18 @@
 from brian2 import *
+from neurogenesis.params.general import N_lamellae
+
+N_mgc_per_lamella  = 90
+N_igc_per_lamella  = 10
+N_bc_per_lamella   = 1
+N_mc_per_lamella   = 3
+N_hipp_per_lamella = 1
 
 cell_params = {
+    "ec": {
+        "N"         : 400,
+    },
     "bc": {
+        "N"         : N_lamellae * N_bc_per_lamella,
         "Cm"        : 232.6 * pF,
         "g_L"       : 23.2 * nS,
         "E_L"       : -62.0 * mV,
@@ -11,6 +22,7 @@ cell_params = {
         "V_th"      : -52.5 * mV,
     },
     "hipp": {
+        "N"         : N_lamellae * N_hipp_per_lamella,
         "Cm"        : 94.3 * pF,
         "g_L"       : 2.7 * nS,
         "E_L"       : -65.0 * mV,
@@ -20,6 +32,7 @@ cell_params = {
         "V_th"      : -9.4 * mV,
     },
     "igc": {
+        "N"         : N_lamellae * N_igc_per_lamella,
         "Cm"        : 106.2 * pF,
         "g_L"       : 3.4 * nS,
         "E_L"       : -72.0 * mV,
@@ -29,6 +42,7 @@ cell_params = {
         "V_th"      : -53.4 * mV,
     },
     "mc": {
+        "N"         : N_lamellae * N_mc_per_lamella,
         "Cm"        : 206.0 * pF,
         "g_L"       : 5.0 * nS,
         "E_L"       : -62.0 * mV,
@@ -38,6 +52,7 @@ cell_params = {
         "V_th"      : -32.0 * mV,
     },
     "mgc": {
+        "N"         : N_lamellae * N_mgc_per_lamella,
         "Cm"        : 106.2 * pF,
         "g_L"       : 3.4 * nS,
         "E_L"       : -75.0 * mV,
