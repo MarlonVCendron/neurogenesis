@@ -10,7 +10,6 @@ def synapse(receptor):
     s_{R}       = (y_{R}_d - y_{R}_r) / (tau_{R}_d - tau_{R}_r) : Hz
     dy_{R}_r/dt = -y_{R}_r / tau_{R}_r                          : 1 (clock-driven)
     dy_{R}_d/dt = -y_{R}_d / tau_{R}_d                          : 1 (clock-driven)
-    w_{R}       = 1                                             : 1                 # Synaptic weight
   ''')
 
   eq_params = Equations(f'''
@@ -18,6 +17,7 @@ def synapse(receptor):
     E_{R}     : volt           # Reversal potential
     tau_{R}_r : second         # Rise time
     tau_{R}_d : second         # Decay time
+    w_{R} = 1 : 1              # Synaptic weight
   ''')
 
   on_pre = f'''
