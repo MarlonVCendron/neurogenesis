@@ -63,16 +63,24 @@ def main():
 
   print('Created connections')
 
-  spike_mon = SpikeMonitor(mgc)
+  neurons = [ec, mgc, igc, bc, mc, hipp]
+  labels = [neuron.name for neuron in neurons]
+  spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
+
+  net = Network(collect())
+  net.add(spike_monitors)
 
   print('Running simulation')
-  run(400*ms)
+  net.run(400*ms)
   
-  plot(spike_mon.t / ms, spike_mon.i, '|k')
-  xlabel('Time (ms)')
-  ylabel('Neuron index')
-  tight_layout
-  show()
+  for spike_mon in spike_monitors:
+    print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
+ 
+    plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
+    plt.plot(spike_mon.t / ms, spike_mon.i, '|k')
+    plt.xlabel('Time (ms)')
+    plt.ylabel(f'{labels[spike_monitors.index(spike_mon)]} index')
+  plt.show()
 
 
 

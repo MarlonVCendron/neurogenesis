@@ -3,7 +3,7 @@ from neurogenesis.models.general import LIF
 from neurogenesis.params import cell_params
 
 
-def create_neuron_group(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th):
+def create_neuron_group(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, name):
   lif_eqs, threshold, reset, refractory = LIF()
 
   neuron = NeuronGroup(
@@ -12,6 +12,7 @@ def create_neuron_group(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th):
       threshold  = threshold,
       reset      = reset,
       refractory = refractory,
+      name       = name,
       method     = 'rk2',
   )
 

@@ -9,9 +9,11 @@ N_hipp_l = 1
 
 cell_params = {
     "ec": {
+        "name"      : "ec",
         "N"         : 400,
     },
     "bc": {
+        "name"      : "bc",
         "N"         : N_lamellae * N_bc_l,
         "Cm"        : 232.6 * pF,
         "g_L"       : 23.2 * nS,
@@ -22,6 +24,7 @@ cell_params = {
         "V_th"      : -52.5 * mV,
     },
     "hipp": {
+        "name"      : "hipp",
         "N"         : N_lamellae * N_hipp_l,
         "Cm"        : 94.3 * pF,
         "g_L"       : 2.7 * nS,
@@ -32,6 +35,7 @@ cell_params = {
         "V_th"      : -9.4 * mV,
     },
     "igc": {
+        "name"      : "igc",
         "N"         : N_lamellae * N_igc_l,
         "Cm"        : 106.2 * pF,
         "g_L"       : 3.4 * nS,
@@ -42,6 +46,7 @@ cell_params = {
         "V_th"      : -53.4 * mV,
     },
     "mc": {
+        "name"      : "mc",
         "N"         : N_lamellae * N_mc_l,
         "Cm"        : 206.0 * pF,
         "g_L"       : 5.0 * nS,
@@ -52,6 +57,7 @@ cell_params = {
         "V_th"      : -32.0 * mV,
     },
     "mgc": {
+        "name"      : "mgc",
         "N"         : N_lamellae * N_mgc_l,
         "Cm"        : 106.2 * pF,
         "g_L"       : 3.4 * nS,
