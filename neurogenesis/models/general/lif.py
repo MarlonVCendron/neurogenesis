@@ -17,13 +17,29 @@ def LIF():
     tau_ahp   : second   # AHP time constant
     E_ahp     : volt     # AHP reversal potential
     V_th      : volt     # Threshold potential
-    I_ampa    : amp      # Synaptic current (AMPA)
-    I_nmda    : amp      # Synaptic current (NMDA)
-    I_gaba    : amp      # Synaptic current (GABA)
     I_ext     : amp      # External current
+
   ''')
 
-  eqs        = eq_model + eq_params
+  # Multiple synapses can't be summed over the same neuron variable, so we need to
+  # create a new variable for each synapse
+  eq_syn = Equations('''
+    I_ampa   = I_ampa_1 + I_ampa_2 + I_ampa_3 + I_ampa_4 : amp
+    I_nmda   = I_nmda_1 + I_nmda_2 + I_nmda_3 + I_nmda_4 : amp
+    I_gaba   = I_gaba_1 + I_gaba_2                       : amp
+    I_ampa_1 : amp
+    I_ampa_2 : amp
+    I_ampa_3 : amp
+    I_ampa_4 : amp
+    I_nmda_1 : amp
+    I_nmda_2 : amp
+    I_nmda_3 : amp
+    I_nmda_4 : amp
+    I_gaba_1 : amp
+    I_gaba_2 : amp
+  ''')
+
+  eqs        = eq_model + eq_params + eq_syn
   threshold  = 'Vm > V_th'
   reset      = 'Vm = E_L'
   refractory = 0 * ms                # A way to have lastspike
