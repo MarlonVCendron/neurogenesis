@@ -16,9 +16,9 @@ def Connect(source, target, receptor, delay, K, E, tau_r, tau_d, condition=None,
 
   synapses.connect(condition=condition, p=p)
 
-  synapses.__setattr__(f'K_{receptor}', K)
-  synapses.__setattr__(f'E_{receptor}', E)
-  synapses.__setattr__(f'tau_{receptor}_r', tau_r)
-  synapses.__setattr__(f'tau_{receptor}_d', tau_d) 
+  synapses.K     = K
+  synapses.E     = E
+  synapses.tau_r = tau_r
+  synapses.tau_d = tau_d
 
   return synapses
