@@ -23,9 +23,13 @@ def main():
   mc   = create_mc()
   hipp = create_hipp()
 
+  print('Created cells')
+
   # Synapses
-  ec_mgc = Synapses(ec, mgc, 'w = 0.07 * pA : amp', on_pre='I_ampa -= w')
-  ec_mgc.connect(p=0.2)
+  ec_ampa_mgc = Connect(ec, mgc, **syn_params['ec_ampa_mgc'])
+  ec_nmda_mgc = Connect(ec, mgc, **syn_params['ec_nmda_mgc'])
+  ec_ampa_igc = Connect(ec, igc, **syn_params['ec_ampa_igc'])
+  ec_nmda_igc = Connect(ec, igc, **syn_params['ec_nmda_igc'])
 
   mgc_ampa_bc   = Connect(mgc, bc, **syn_params['mgc_ampa_bc'])
   mgc_nmda_bc   = Connect(mgc, bc, **syn_params['mgc_nmda_bc'])
@@ -34,11 +38,20 @@ def main():
   mgc_ampa_hipp = Connect(mgc, hipp, **syn_params['mgc_ampa_hipp'])
   mgc_nmda_hipp = Connect(mgc, hipp, **syn_params['mgc_nmda_hipp'])
 
+  igc_ampa_bc   = Connect(igc, bc, **syn_params['igc_ampa_bc'])
+  igc_nmda_bc   = Connect(igc, bc, **syn_params['igc_nmda_bc'])
+  igc_ampa_mc   = Connect(igc, mc, **syn_params['igc_ampa_mc'])
+  igc_nmda_mc   = Connect(igc, mc, **syn_params['igc_nmda_mc'])
+  igc_ampa_hipp = Connect(igc, hipp, **syn_params['igc_ampa_hipp'])
+  igc_nmda_hipp = Connect(igc, hipp, **syn_params['igc_nmda_hipp'])
+
   bc_gaba_mgc = Connect(bc, mgc, **syn_params['bc_gaba_mgc'])
   bc_gaba_mc  = Connect(bc, mc, **syn_params['bc_gaba_mc'])
 
   mc_ampa_mgc  = Connect(mc, mgc, **syn_params['mc_ampa_mgc'])
   mc_nmda_mgc  = Connect(mc, mgc, **syn_params['mc_nmda_mgc'])
+  mc_ampa_igc  = Connect(mc, igc, **syn_params['mc_ampa_igc'])
+  mc_nmda_igc  = Connect(mc, igc, **syn_params['mc_nmda_igc'])
   mc_ampa_bc   = Connect(mc, bc, **syn_params['mc_ampa_bc'])
   mc_nmda_bc   = Connect(mc, bc, **syn_params['mc_nmda_bc'])
   mc_ampa_hipp = Connect(mc, hipp, **syn_params['mc_ampa_hipp'])
@@ -48,8 +61,11 @@ def main():
   hipp_gaba_bc  = Connect(hipp, bc, **syn_params['hipp_gaba_bc'])
   hipp_gaba_mc  = Connect(hipp, mc, **syn_params['hipp_gaba_mc'])
 
+  print('Created connections')
+
   spike_mon = SpikeMonitor(mgc)
 
+  print('Running simulation')
   run(400*ms)
   
   plot(spike_mon.t / ms, spike_mon.i, '|k')
