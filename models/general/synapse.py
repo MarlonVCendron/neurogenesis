@@ -6,14 +6,14 @@ def synapse(receptor):
 
   eq_model = Equations(f'''
     I_synapse    = g * (Vm - E)                  : amp
-    g            = K * s                         : siemens
+    g            = g_max * s                     : siemens
     ds/dt        = -s / tau_d + h0 * z * (1 - s) : 1 (clock-driven)
     dz/dt        = -z / tau_r                    : 1 (clock-driven)
     I_{R}_post   = I_synapse                     : amp (summed)
   ''')
 
   eq_params = Equations('''
-    K     : siemens             # Synaptic strength
+    g_max : siemens             # Synaptic strength
     E     : volt                # Reversal potential
     tau_r : second              # Rise time
     tau_d : second              # Decay time

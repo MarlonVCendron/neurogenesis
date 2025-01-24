@@ -2,7 +2,7 @@ from brian2 import *
 from neurogenesis.models.general import synapse
 
 
-def Connect(source, target, receptor, delay, K, E, tau_r, tau_d, condition=None, p=1):
+def Connect(source, target, receptor, delay, g_max, E, tau_r, tau_d, condition=None, p=1):
   (eqs, on_pre) = synapse(receptor)
 
   synapses = Synapses(
@@ -16,7 +16,7 @@ def Connect(source, target, receptor, delay, K, E, tau_r, tau_d, condition=None,
 
   synapses.connect(condition=condition, p=p)
 
-  synapses.K     = K
+  synapses.g_max = g_max
   synapses.E     = E
   synapses.tau_r = tau_r
   synapses.tau_d = tau_d
