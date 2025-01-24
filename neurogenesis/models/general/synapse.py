@@ -5,11 +5,11 @@ def synapse(receptor):
   R = receptor
 
   eq_model = Equations(f'''
-    I_synapse    = g * (Vm - E)                : amp
-    g            = K * s                       : siemens
+    I_synapse    = g * (Vm - E)                  : amp
+    g            = K * s                         : siemens
     ds/dt        = -s / tau_d + h0 * z * (1 - s) : 1 (clock-driven)
-    dz/dt        = -z / tau_r                  : 1 (clock-driven)
-    I_{R}_post   = I_synapse                   : amp (summed)
+    dz/dt        = -z / tau_r                    : 1 (clock-driven)
+    I_{R}_post   = I_synapse                     : amp (summed)
   ''')
 
   eq_params = Equations('''
