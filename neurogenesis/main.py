@@ -81,6 +81,8 @@ def main():
     plt.xlabel('Time (ms)')
     plt.ylabel(f'{labels[spike_monitors.index(spike_mon)]} index')
   plt.show()
+  # plt.savefig('neurogenesis/figures/spikes.png')
+  # plt.close()
 
 
 
