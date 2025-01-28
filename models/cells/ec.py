@@ -2,12 +2,15 @@ from brian2 import *
 import numpy as np
 
 rate = 40 * Hz
+active_p = 0.1
 
 # Entorhinal cortex
 def create_ec(N):
 
+  active_neurons = np.random.choice(range(N), size=int(N*active_p), replace=False)
+
   rates = np.zeros(N) * Hz
-  rates[np.random.randint(0, N, int(0.3 * N))] = rate
+  rates[active_neurons] = rate
 
   ec = PoissonGroup(N=N, rates=rates, name='ec')
 
