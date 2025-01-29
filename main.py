@@ -14,6 +14,8 @@ from neurogenesis.models.cells import (
 
 set_device('cpp_standalone', build_on_run=False)
 
+defaultclock.dt = 0.1 * ms
+
 def main():
   start_scope()
 
