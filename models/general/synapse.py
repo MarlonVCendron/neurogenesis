@@ -1,6 +1,5 @@
 from brian2 import *
 
-# These equations are all wrong
 def synapse(receptor):
   R = receptor
 
@@ -18,7 +17,7 @@ def synapse(receptor):
     tau_r : second              # Rise time
     tau_d : second              # Decay time
     w     = 1          : 1      # Synaptic weight
-    h0    = 1 * ms**-1 : hertz  # TODO: this is a param
+    h0    = 1 * ms**-1 : hertz  # Just to match units
   ''')
 
   on_pre = 'z += w'

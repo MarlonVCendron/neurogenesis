@@ -1,5 +1,4 @@
 from brian2 import *
-from neurogenesis.utils.connections import (lamellar_conn, cross_lamellar_conn)
 from neurogenesis.utils.connect import Connect
 from neurogenesis.params import syn_params 
 from neurogenesis.params.cells import cell_params
@@ -10,13 +9,17 @@ from neurogenesis.models.cells import (
     create_mc,
     create_hipp,
     create_ec,
+    start_ec,
 )
+
+set_device('cpp_standalone', build_on_run=False)
 
 def main():
   start_scope()
 
   # Cells
-  ec   = create_ec(N=cell_params['ec']['N'])
+  (ec, active_ec_neurons) = create_ec(N=cell_params['ec']['N'])
+
   mgc  = create_mgc()
   igc  = create_igc()
   bc   = create_bc()
@@ -70,9 +73,15 @@ def main():
   net = Network(collect())
   net.add(spike_monitors)
 
-  print('Running simulation')
-  net.run(400*ms)
-  
+  net.run(300*ms, report='text')
+
+  start_ec(ec, active_ec_neurons)
+
+  net.run(200*ms, report='text')
+
+
+  device.build()
+
   for spike_mon in spike_monitors:
     print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
  
