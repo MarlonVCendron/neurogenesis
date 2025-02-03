@@ -19,7 +19,7 @@ def synapse(receptor):
     E     : volt     # Reversal potential
     tau_r : second   # Rise time
     tau_d : second   # Decay time
-    w     = 1 : 1    # Synaptic weight
+    w = 1 : 1        # Synaptic weight
   ''')
 
   on_pre = 'h += w'
