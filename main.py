@@ -1,5 +1,6 @@
 from brian2 import *
 from neurogenesis.utils.connect import Connect
+from neurogenesis.utils.connectivity_matrices import connectivity_matrices
 from neurogenesis.params import syn_params 
 from neurogenesis.params.cells import cell_params
 from neurogenesis.params.sim import break_time, stim_time
@@ -21,7 +22,7 @@ def main():
   start_scope()
 
   # Cells
-  (ec, active_ec_neurons) = create_ec(N=cell_params['ec']['N'])
+  ec, _ = create_ec(N=cell_params['ec']['N'])
 
   mgc  = create_mgc()
   igc  = create_igc()
@@ -36,6 +37,8 @@ def main():
   ec_nmda_mgc = Connect(ec, mgc, **syn_params['ec_nmda_mgc'])
   ec_ampa_igc = Connect(ec, igc, **syn_params['ec_ampa_igc'])
   ec_nmda_igc = Connect(ec, igc, **syn_params['ec_nmda_igc'])
+  ec_ampa_bc  = Connect(ec, bc, **syn_params['ec_ampa_bc'])
+  ec_nmda_bc  = Connect(ec, bc, **syn_params['ec_nmda_bc'])
 
   mgc_ampa_bc   = Connect(mgc, bc, **syn_params['mgc_ampa_bc'])
   mgc_nmda_bc   = Connect(mgc, bc, **syn_params['mgc_nmda_bc'])
@@ -78,18 +81,17 @@ def main():
 
   net.run(break_time, report='text')
 
-  start_ec(ec, active_ec_neurons)
-
   net.run(stim_time, report='text')
 
-
   device.build()
+
+  # connectivity_matrices(net)
 
   for (i, spike_mon) in enumerate(spike_monitors):
     print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
  
     plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
-    plt.plot(spike_mon.t / ms, spike_mon.i, 'ok')
+    plt.plot(spike_mon.t / ms, spike_mon.i, 'ok', markersize=1)
     plt.xlabel('Time (ms)')
     plt.ylabel(f'{labels[i]} index')
     plt.xlim(break_time / ms, stim_time / ms)

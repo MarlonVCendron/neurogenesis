@@ -5,7 +5,7 @@ rate = 40 * Hz
 active_p = 0.1
 
 # Entorhinal cortex
-def create_ec(N, rate=0*Hz, active_p=active_p):
+def create_ec(N, rate=rate, active_p=active_p):
 
   active_neurons = np.random.choice(range(N), size=int(N*active_p), replace=False)
 
