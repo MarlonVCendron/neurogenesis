@@ -1,6 +1,7 @@
 from brian2 import *
 from neurogenesis.params.general import N_lamellae
 
+N_ec     = 400
 N_mgc_l  = 90
 N_igc_l  = 10
 N_bc_l   = 1
@@ -10,7 +11,7 @@ N_hipp_l = 1
 cell_params = {
     "ec": {
         "name"      : "ec",
-        "N"         : 400,
+        "N"         : N_ec
     },
     "bc": {
         "name"      : "bc",
