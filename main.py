@@ -2,6 +2,7 @@ from brian2 import *
 from neurogenesis.utils.connect import Connect
 from neurogenesis.params import syn_params 
 from neurogenesis.params.cells import cell_params
+from neurogenesis.params.sim import break_time, stim_time
 from neurogenesis.models.cells import (
     create_mgc,
     create_igc,
@@ -15,9 +16,6 @@ from neurogenesis.models.cells import (
 set_device('cpp_standalone', build_on_run=False)
 
 defaultclock.dt = 0.1 * ms
-
-break_time = 300 * ms
-stim_time = 1000 * ms
 
 def main():
   start_scope()
@@ -91,7 +89,7 @@ def main():
     print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
  
     plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
-    plt.plot(spike_mon.t / ms, spike_mon.i, '|k')
+    plt.plot(spike_mon.t / ms, spike_mon.i, 'ok')
     plt.xlabel('Time (ms)')
     plt.ylabel(f'{labels[i]} index')
     plt.xlim(break_time / ms, stim_time / ms)
