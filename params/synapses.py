@@ -1,5 +1,6 @@
 from brian2 import *
 from neurogenesis.utils.connections import (lamellar_conn, cross_lamellar_conn)
+from neurogenesis.params.general import igc_conn
 from neurogenesis.params.cells import (
     N_mgc_l,
     N_igc_l,
@@ -30,7 +31,7 @@ syn_params = {
     },
     "ec_ampa_igc": {
         "receptor" : "ampa_1",
-        "p"        : 0.2,
+        "p"        : 0.2 * igc_conn,
         "g_max"    : 0.89 * nS,
         "tau_r"    : 0.1 * ms,
         "tau_d"    : 2.5 * ms,
@@ -39,7 +40,7 @@ syn_params = {
     },
     "ec_nmda_igc": {
         "receptor" : "nmda_1",
-        "p"        : 0.2,
+        "p"        : 0.2 * igc_conn,
         "g_max"    : 0.15 * nS,
         "tau_r"    : 0.33 * ms,
         "tau_d"    : 50.0 * ms,
@@ -215,7 +216,7 @@ syn_params = {
     "mc_ampa_igc": {
         "receptor"  : "ampa_2",
         "condition" : cross_lamellar_conn(N_mc_l, N_igc_l),
-        "p"         : 0.2,
+        "p"         : 0.2 * igc_conn,
         "g_max"     : 0.07 * nS,
         "tau_r"     : 0.1 * ms,
         "tau_d"     : 2.5 * ms,
@@ -225,7 +226,7 @@ syn_params = {
     "mc_nmda_igc": {
         "receptor"  : "nmda_2",
         "condition" : cross_lamellar_conn(N_mc_l, N_igc_l),
-        "p"         : 0.2,
+        "p"         : 0.2 * igc_conn,
         "g_max"     : 0.01 * nS,
         "tau_r"     : 0.33 * ms,
         "tau_d"     : 50.0 * ms,
