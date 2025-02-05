@@ -6,11 +6,12 @@ N = cell_params['ec']['N']
 
 # Creates a binary pattern of active neurons
 def generate_pattern(p=p, N=N):
-  indices = np.random.choice(N, int(N*p), replace=False)
+  indices = np.random.choice(N, round(N*p), replace=False)
   pattern = np.zeros(N, dtype=int)
   pattern[indices] = 1
   return pattern
 
+# Generates similar patterns
 def generate_similar_patterns(pattern, step=0.1):
   N = len(pattern)
   patterns = []
@@ -34,18 +35,34 @@ def generate_similar_patterns(pattern, step=0.1):
 
   return patterns
 
-def pattern_similarity(a, b):
-  # not this
-  return np.sum(a == b) / len(a)
 
-pattern = generate_pattern(0.1, 400)
-patterns = generate_similar_patterns(pattern)
+# Percentage of active neurons in a pattern
+def activation_degree(pattern):
+  return np.mean(pattern)
 
-print(pattern)
-print('---')
-for p in patterns:
-  # print(len(np.where(p == 1)[0]))
-  # print(p)
-  print(pattern_similarity(pattern, p))
+# Average activation degree between two patterns
+def average_activation_degree(a, b):
+  d_a = activation_degree(a)
+  d_b = activation_degree(b)
+  return np.mean([d_a, d_b])
 
+# Pearson correlation coefficient between two patterns
+def correlation_degree(a, b):
+  correlation_matrix = np.corrcoef(a, b)
+  pearson_correlation = correlation_matrix[0, 1]
+  return pearson_correlation
 
+# Orthogonalization degree between two patterns (How dissimilar they are)
+def orthogonalization_degree(a, b):
+  correlation = correlation_degree(a, b)
+  return (1 - correlation) / 2
+
+# Distance between two patterns
+def pattern_distance(a, b):
+  return orthogonalization_degree(a, b) / average_activation_degree(a, b)
+
+# Pattern separation degree given two input patterns and two output patterns
+def pattern_separation_degree(in_1, in_2, out_1, out_2):
+  in_distance = pattern_distance(in_1, in_2)
+  out_distance = pattern_distance(out_1, out_2)
+  return out_distance/ in_distance 
