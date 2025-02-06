@@ -16,7 +16,7 @@ def create_ec(N, rate=rate, active_p=active_p, name='ec'):
 
   return (ec, active_neurons)
 
-def start_ec(ec, active_neurons, rate=rate):
+def set_ec_pattern(ec, pattern, rate=rate):
   rates = np.zeros(ec.N) * Hz
-  rates[active_neurons] = rate
+  rates[pattern] = rate
   ec.rates = rates

@@ -3,6 +3,7 @@ import numpy as np
 
 p = 0.1
 N = cell_params['ec']['N']
+step = 0.1
 
 # Creates a binary pattern of active neurons
 def generate_pattern(p=p, N=N):
@@ -12,7 +13,7 @@ def generate_pattern(p=p, N=N):
   return pattern
 
 # Generates similar patterns
-def generate_similar_patterns(pattern, step=0.1):
+def generate_similar_patterns(pattern, step=step):
   N = len(pattern)
   patterns = []
   for overlap_p in np.arange(step, 1.0, step):
@@ -35,6 +36,11 @@ def generate_similar_patterns(pattern, step=0.1):
 
   return patterns
 
+# Returns a list of patterns with increasing similarity to the original pattern, which is the last element
+def generate_patterns(p=p, N=N, step=step):
+  pattern = generate_pattern(p, N)
+  similar_patterns = generate_similar_patterns(pattern, step)
+  return similar_patterns.append(pattern)
 
 # Percentage of active neurons in a pattern
 def activation_degree(pattern):
