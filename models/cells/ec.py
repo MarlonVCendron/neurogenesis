@@ -18,5 +18,5 @@ def create_ec(N, rate=rate, active_p=active_p, name='ec'):
 
 def set_ec_pattern(ec, pattern, rate=rate):
   rates = np.zeros(ec.N) * Hz
-  rates[pattern] = rate
+  rates[pattern == 1] = rate
   ec.rates = rates
