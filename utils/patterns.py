@@ -66,10 +66,19 @@ def orthogonalization_degree(a, b):
 
 # Distance between two patterns
 def pattern_distance(a, b):
-  return orthogonalization_degree(a, b) / average_activation_degree(a, b)
+  avg_ad = average_activation_degree(a, b)
+
+  if(avg_ad == 0):
+    return float("inf")
+
+  return orthogonalization_degree(a, b) / avg_ad
 
 # Pattern separation degree given two input patterns and two output patterns
 def pattern_separation_degree(in_1, in_2, out_1, out_2):
   in_distance = pattern_distance(in_1, in_2)
   out_distance = pattern_distance(out_1, out_2)
-  return out_distance/ in_distance 
+
+  if(in_distance == 0):
+    return float("inf")
+
+  return out_distance / in_distance 
