@@ -40,7 +40,8 @@ def generate_similar_patterns(pattern, step=step):
 def generate_patterns(p=p, N=N, step=step):
   pattern = generate_pattern(p, N)
   similar_patterns = generate_similar_patterns(pattern, step)
-  return similar_patterns.append(pattern)
+  similar_patterns.append(pattern)
+  return similar_patterns
 
 # Percentage of active neurons in a pattern
 def activation_degree(pattern):
