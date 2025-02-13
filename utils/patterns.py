@@ -1,4 +1,5 @@
 from neurogenesis.params.cells import cell_params
+from neurogenesis.params.general import ec_rate
 import numpy as np
 
 p = 0.1
@@ -42,6 +43,10 @@ def generate_patterns(p=p, N=N, step=step):
   similar_patterns = generate_similar_patterns(pattern, step)
   similar_patterns.append(pattern)
   return similar_patterns
+
+# Generates activity patterns
+def generate_activity_patterns(rate=ec_rate):
+  return generate_patterns() * rate
 
 # Percentage of active neurons in a pattern
 def activation_degree(pattern):

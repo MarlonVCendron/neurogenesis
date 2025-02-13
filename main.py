@@ -1,46 +1,35 @@
 from brian2 import *
-from neurogenesis.utils.utils import get_neurons, get_neuron
-from neurogenesis.params.sim import break_time, stim_time
-from neurogenesis.models.general.network import network
+import tqdm_pathos
+import matplotlib.pyplot as plt
+from pathos.multiprocessing import ProcessingPool
+from os.path import join
+import numpy as np
+
 from neurogenesis.plotting.spike_trains import plot_spike_trains
-from neurogenesis.models.cells.ec import set_ec_pattern
-from neurogenesis.utils.patterns import generate_patterns
+from neurogenesis.utils.patterns import generate_activity_patterns
+from neurogenesis.sim import SimWrapper
 
-set_device('cpp_standalone', build_on_run=False)
 
-defaultclock.dt = 0.1 * ms
-
-trials = 30
+base_dir = './'
+results_dir = join(base_dir, 'res')
 
 def main():
-  start_scope()
+  set_device('cpp_standalone', build_on_run=False)
 
-  net = network()
+  seed(256)
+  np.random.seed(256)
+  defaultclock.dt = 0.1 * ms
 
-  print('Created network')
+  trials = 1  # 30
 
-  ec = net.get_neuron(net, 'ec')
-  mgc = net.get_neuron(net, 'mgc')
-  spike_monitors = [ec, mgc]
+  sim = SimWrapper()
 
-  net.add(spike_monitors)
+  patterns = [pattern for pattern in generate_activity_patterns() for _ in range(trials)]
 
-  net.store()
-
-  for trial in range(trials):
-    print(f'Trial {trial + 1} of {trials}')
-
-    patterns = generate_patterns()
-    for pattern in patterns:
-      net.restore()
-      set_ec_pattern(ec, pattern)
-
-      net.run(break_time + stim_time, report='text')
-
-  device.build()
-
-  # plot_spike_trains(net, spike_monitors)
-
+  spike_monitors = tqdm_pathos.map(sim.do_run, patterns)
+  
+  for i, r in enumerate(spike_monitors):
+    plot_spike_trains(r, i)
 
 if __name__ == '__main__':
   main()
