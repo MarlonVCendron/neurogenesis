@@ -5,7 +5,7 @@ from neurogenesis.params.general import ec_rate
 active_p = 0.1
 
 # Entorhinal cortex
-def create_ec(N, rate=0*Hz, active_p=active_p, name='ec'):
+def create_ec(N, rate=ec_rate, active_p=active_p, name='ec'):
 
   active_neurons = np.random.choice(range(N), size=int(N*active_p), replace=False)
 

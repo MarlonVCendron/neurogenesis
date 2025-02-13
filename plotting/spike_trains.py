@@ -1,8 +1,12 @@
-from brian2 import *
+from brian2 import ms
 
 from neurogenesis.params.sim import break_time, stim_time
 
 def plot_spike_trains(spike_monitors, num):
+  import matplotlib
+  matplotlib.use('TkAgg')
+  import matplotlib.pyplot as plt
+
   for spike_mon in spike_monitors:
     neuron = spike_mon.source
     print(f'Number of {neuron.name} that fired: {len(set(spike_mon.i))}')
@@ -14,6 +18,6 @@ def plot_spike_trains(spike_monitors, num):
     plt.ylabel(f'{neuron.name} index')
     plt.xlim(break_time / ms, stim_time / ms)
     plt.ylim(0, len(neuron))
-  # plt.show()
-  plt.savefig(f'neurogenesis/figures/spikes_{num}.png')
-  plt.close()
+  plt.show()
+  # plt.savefig(f'neurogenesis/figures/spikes_{num}.png')
+  # plt.close()
