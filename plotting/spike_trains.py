@@ -1,6 +1,6 @@
 from brian2 import ms
 
-from neurogenesis.params import break_time, stim_time
+from params import break_time, stim_time
 
 def plot_spike_trains(spike_monitors, num):
   import matplotlib

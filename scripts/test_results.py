@@ -2,8 +2,7 @@ import os
 import h5py
 import numpy as np
 
-base_dir = './neurogenesis'
-results_dir = os.path.join(base_dir, 'res')
+from params import results_dir
 
 subdirs = [os.path.join(results_dir, d) for d in os.listdir(results_dir) if os.path.isdir(os.path.join(results_dir, d))]
 

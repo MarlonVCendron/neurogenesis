@@ -1,5 +1,5 @@
 from brian2 import *
-from neurogenesis.params.general import N_lamellae, has_igc
+from params.general import N_lamellae, has_igc
 
 N_ec     = 400
 N_mgc_l  = 90 if has_igc else 100

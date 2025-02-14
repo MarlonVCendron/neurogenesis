@@ -1,8 +1,8 @@
 from brian2 import *
 import numpy as np
 
-from neurogenesis.params import ec_rate
-from neurogenesis.utils.patterns import generate_pattern
+from params import ec_rate
+from utils.patterns import generate_pattern
 
 active_p = 0.1
 

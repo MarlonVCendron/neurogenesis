@@ -24,5 +24,5 @@ stim_time = 100*ms
 # stim_time = 1000 * ms
 
 
-base_dir = './neurogenesis'
+base_dir = './'
 results_dir = join(base_dir, 'res')

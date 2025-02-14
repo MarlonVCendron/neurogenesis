@@ -1,1 +1,1 @@
-from neurogenesis.sim.SimWrapper import SimWrapper
+from sim.SimWrapper import SimWrapper

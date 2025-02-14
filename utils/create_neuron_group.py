@@ -1,6 +1,6 @@
 from brian2 import *
-from neurogenesis.models.general import LIF
-from neurogenesis.params import cell_params
+from models.general import LIF
+from params import cell_params
 
 
 def create_neuron_group(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, name):

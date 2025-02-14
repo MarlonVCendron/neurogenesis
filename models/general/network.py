@@ -1,8 +1,8 @@
 from brian2 import *
-from neurogenesis.utils.connect import Connect
-from neurogenesis.params import syn_params 
-from neurogenesis.params.cells import cell_params
-from neurogenesis.models.cells import (
+from utils.connect import Connect
+from params import syn_params 
+from params.cells import cell_params
+from models.cells import (
     create_mgc,
     create_igc,
     create_bc,

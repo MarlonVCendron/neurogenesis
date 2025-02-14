@@ -1,5 +1,5 @@
 from brian2 import *
-from neurogenesis.models.general import synapse
+from models.general import synapse
 
 
 def Connect(source, target, receptor, delay, g_max, E, tau_r, tau_d, condition=None, p=1):

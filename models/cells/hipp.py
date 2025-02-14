@@ -1,6 +1,6 @@
 from brian2 import *
-from neurogenesis.utils.create_neuron_group import create_neuron_group
-from neurogenesis.params import cell_params
+from utils.create_neuron_group import create_neuron_group
+from params import cell_params
 
 # Hilar perforant path-associated cell
 def create_hipp(N=None):

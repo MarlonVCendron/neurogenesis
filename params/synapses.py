@@ -1,7 +1,7 @@
 from brian2 import *
-from neurogenesis.utils.connections import (lamellar_conn, cross_lamellar_conn)
-from neurogenesis.params.general import igc_conn
-from neurogenesis.params.cells import (
+from utils.connections import (lamellar_conn, cross_lamellar_conn)
+from params.general import igc_conn
+from params.cells import (
     N_mgc_l,
     N_igc_l,
     N_bc_l,

@@ -1,11 +1,11 @@
 import tqdm_pathos
 from os.path import join
 
-from neurogenesis.plotting.spike_trains import plot_spike_trains
-from neurogenesis.utils.patterns import generate_activity_patterns
-from neurogenesis.utils.initialize import initialize
-from neurogenesis.sim import SimWrapper
-from neurogenesis.params import results_dir, trials
+from plotting.spike_trains import plot_spike_trains
+from utils.patterns import generate_activity_patterns
+from utils.initialize import initialize
+from sim import SimWrapper
+from params import results_dir, trials
 
 if __name__ == '__main__':
   initialize()

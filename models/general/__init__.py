@@ -1,2 +1,2 @@
-from neurogenesis.models.general.lif import LIF
-from neurogenesis.models.general.synapse import synapse
+from models.general.lif import LIF
+from models.general.synapse import synapse

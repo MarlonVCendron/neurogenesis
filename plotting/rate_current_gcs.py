@@ -1,7 +1,7 @@
 from brian2 import *
 import matplotlib.pyplot as plt
 import numpy as np
-from neurogenesis.models.cells import (create_mgc, create_igc)
+from models.cells import (create_mgc, create_igc)
 
 start_scope()
 

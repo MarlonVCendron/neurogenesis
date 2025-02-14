@@ -1,11 +1,11 @@
 from brian2 import *
 import numpy as np
 
-from neurogenesis.utils.utils import get_spike_monitors, get_neuron_monitor
-from neurogenesis.utils.save_to_file import save_to_file
-from neurogenesis.utils.patterns import get_population_pattern
-from neurogenesis.params import break_time, stim_time
-from neurogenesis.models.general.network import network
+from utils.utils import get_spike_monitors, get_neuron_monitor
+from utils.save_to_file import save_to_file
+from utils.patterns import get_population_pattern
+from params import break_time, stim_time
+from models.general.network import network
 
 
 class SimWrapper:
