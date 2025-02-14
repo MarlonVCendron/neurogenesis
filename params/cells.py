@@ -7,12 +7,15 @@ N_igc_l  = 10
 N_bc_l   = 1
 N_mc_l   = 3
 N_hipp_l = 1
+N_pca3_l = 30
+N_ica3_l = 3
 
 cell_params = {
     "pp": {
         "name"      : "pp",
         "N"         : N_pp
     },
+    # Dentate gyrus
     "bc": {
         "name"      : "bc",
         "N"         : N_lamellae * N_bc_l,
@@ -67,5 +70,28 @@ cell_params = {
         "tau_ahp"   : 20.0 * ms,
         "E_ahp"     : -80.0 * mV,
         "V_th"      : -53.4 * mV,
+    },
+    # CA3 - INNACURATE PARAMS
+    "pca3": {
+        "name"      : "pca3",
+        "N"         : N_lamellae * N_pca3_l,
+        "Cm"        : 100.0 * pF,
+        "g_L"       : 5.0 * nS,
+        "E_L"       : -75.0 * mV,
+        "g_ahp_max" : 10.0 * nS,
+        "tau_ahp"   : 20.0 * ms,
+        "E_ahp"     : -80.0 * mV,
+        "V_th"      : -50.0 * mV,
+    },
+    "ica3": {
+        "name"      : "ica3",
+        "N"         : N_lamellae * N_ica3_l,
+        "Cm"        : 100.0 * pF,
+        "g_L"       : 5.0 * nS,
+        "E_L"       : -75.0 * mV,
+        "g_ahp_max" : 10.0 * nS,
+        "tau_ahp"   : 20.0 * ms,
+        "E_ahp"     : -80.0 * mV,
+        "V_th"      : -50.0 * mV,
     },
 }

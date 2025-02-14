@@ -4,3 +4,5 @@ from models.cells.mc import create_mc
 from models.cells.bc import create_bc
 from models.cells.hipp import create_hipp
 from models.cells.pp import create_pp
+from models.cells.pca3 import create_pca3
+from models.cells.ica3 import create_ica3
