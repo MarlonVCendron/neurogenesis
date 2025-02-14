@@ -7,5 +7,11 @@ def get_neurons(net):
     key=lambda ng: ng.name
   )
 
+def get_spike_monitors(net):
+  return sorted(
+    [obj for obj in net.objects if isinstance(obj, SpikeMonitor)],
+    key=lambda sm: sm.source.name
+  )
+
 def get_neuron(net, name):
   return next((obj for obj in net.objects if obj.name == name), None)

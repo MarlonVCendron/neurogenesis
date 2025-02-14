@@ -1,21 +1,16 @@
 from brian2 import *
-from brian2.devices import device_module
+import numpy as np
 
-from neurogenesis.utils.utils import get_neuron
+from neurogenesis.utils.utils import get_spike_monitors
 from neurogenesis.params.sim import break_time, stim_time
 from neurogenesis.models.general.network import network
-from neurogenesis.models.cells.ec import set_ec_pattern
-from neurogenesis.utils.patterns import generate_patterns
 
 
 class SimWrapper:
   def __init__(self, report=None):
     self.net = network()
 
-    ec = get_neuron(self.net, 'ec')
-    mgc = get_neuron(self.net, 'mgc')
-    bc = get_neuron(self.net, 'bc')
-    neurons = [ec, mgc, bc]
+    neurons = [self.net['ec'], self.net['mgc'], self.net['bc']]
     self.monitors = [SpikeMonitor(neuron) for neuron in neurons]
     self.net.add(self.monitors)
 
@@ -31,11 +26,13 @@ class SimWrapper:
     for spike_mon in self.monitors:
       spike_mon.active = activate
 
-  def do_run(self, pattern):
+  def do_run(self, pattern, results_directory):
+    from brian2.devices import device_module
     device_module.active_device = self.device
 
     self.device.run(
-      run_args={self.net['ec'].rates: pattern},
+        results_directory=results_directory,
+        run_args={self.net['ec'].rates: pattern}
     )
 
-    return self.monitors
+    return get_spike_monitors(self.net)

@@ -1,20 +1,22 @@
 from brian2 import *
 import numpy as np
+
 from neurogenesis.params.general import ec_rate
+from neurogenesis.utils.patterns import generate_pattern
 
 active_p = 0.1
 
 # Entorhinal cortex
-def create_ec(N, rate=ec_rate, active_p=active_p, name='ec'):
-
-  active_neurons = np.random.choice(range(N), size=int(N*active_p), replace=False)
+def create_ec(N, rate=ec_rate, active_p=active_p, name='ec', init_rates=False):
 
   rates = np.zeros(N) * Hz
-  rates[active_neurons] = rate
+  if init_rates:
+    pattern = generate_pattern(active_p, N)
+    rates = pattern * rate
 
   ec = PoissonGroup(N=N, rates=rates, name=name)
 
-  return (ec, active_neurons)
+  return ec
 
 def set_ec_pattern(ec, pattern, rate=ec_rate):
   rates = np.zeros(ec.N) * Hz

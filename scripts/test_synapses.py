@@ -21,8 +21,8 @@ def to_100(params):
 def main():
   start_scope()
 
-  (ec, _)  = create_ec(N=1, active_p=1.0, rate=20*Hz)
-  # (mgc, _) = create_ec(N=2, active_p=1.0, rate=20*Hz, name='mgc')
+  ec  = create_ec(N=1, active_p=1.0, rate=20*Hz)
+  # mgc = create_ec(N=2, active_p=1.0, rate=20*Hz, name='mgc')
   # mgc     = create_mgc(N=1)
   bc      = create_bc(N=1)
 

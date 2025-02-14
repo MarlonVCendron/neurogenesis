@@ -14,7 +14,7 @@ from neurogenesis.models.cells import (
 
 def network():
   # Cells
-  ec, _ = create_ec(N=cell_params['ec']['N'])
+  ec   = create_ec(N=cell_params['ec']['N'])
   mgc  = create_mgc()
   igc  = create_igc()
   bc   = create_bc()

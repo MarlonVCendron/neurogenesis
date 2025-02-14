@@ -21,9 +21,9 @@ def to_100(params):
 def main():
   start_scope()
 
-  # (ec, _)  = create_ec(N=2, active_p=1.0, rate=20*Hz)
-  mgc     = create_mgc(N=1)
-  (bc, _) = create_ec(N=2, active_p=1.0, rate=1000*Hz, name='bc')
+  # ec  = create_ec(N=2, active_p=1.0, rate=20*Hz)
+  mgc = create_mgc(N=1)
+  bc  = create_ec(N=2, active_p=1.0, rate=1000*Hz, name='bc')
 
   bc_gaba_mgc = Connect(bc, mgc, **to_100(syn_params['bc_gaba_mgc']))
 
