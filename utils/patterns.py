@@ -1,5 +1,5 @@
 from params.cells import cell_params
-from params import ec_rate
+from params import ec_rate, break_time
 import numpy as np
 
 p = 0.1
@@ -98,5 +98,7 @@ def pattern_separation_degree(in_1, in_2, out_1, out_2):
 def get_population_pattern(monitor):
   neurons = monitor.source
   pattern = np.zeros(len(neurons), dtype=int)
-  pattern[monitor.i] = 1
+  for i, t in zip(monitor.i, monitor.t):
+    if t > break_time:
+      pattern[i] = 1
   return pattern
