@@ -1,9 +1,9 @@
 from params.cells import cell_params
-from params import ec_rate, break_time
+from params import pprate, break_time
 import numpy as np
 
 p = 0.1
-N = cell_params['ec']['N']
+N = cell_params['pp']['N']
 step = 0.1
 
 # Creates a binary pattern of active neurons
@@ -45,7 +45,7 @@ def generate_patterns(p=p, N=N, step=step):
   return similar_patterns
 
 # Generates activity patterns
-def generate_activity_patterns(rate=ec_rate, step=step):
+def generate_activity_patterns(rate=pprate, step=step):
   return [
     {
       'rates': pattern * rate,

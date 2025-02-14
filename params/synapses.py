@@ -11,7 +11,7 @@ from params.cells import (
 
 # Syntax: source_receptor_target
 syn_params = {
-    "ec_ampa_mgc": {
+    "ppampa_mgc": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
         "g_max"    : 0.89 * nS,
@@ -20,7 +20,7 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
-    "ec_nmda_mgc": {
+    "ppnmda_mgc": {
         "receptor" : "nmda_1",
         "p"        : 0.2,
         "g_max"    : 0.15 * nS,
@@ -29,7 +29,7 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
-    "ec_ampa_igc": {
+    "ppampa_igc": {
         "receptor" : "ampa_1",
         "p"        : 0.2 * igc_conn,
         "g_max"    : 0.89 * nS,
@@ -38,7 +38,7 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
-    "ec_nmda_igc": {
+    "ppnmda_igc": {
         "receptor" : "nmda_1",
         "p"        : 0.2 * igc_conn,
         "g_max"    : 0.15 * nS,
@@ -47,7 +47,7 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
-    "ec_ampa_bc": {
+    "ppampa_bc": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
         "g_max"    : 0.75 * nS,
@@ -56,7 +56,7 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
-    "ec_nmda_bc": {
+    "ppnmda_bc": {
         "receptor" : "nmda_1",
         "p"        : 0.2,
         "g_max"    : 0.13 * nS,

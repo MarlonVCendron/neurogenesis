@@ -8,7 +8,7 @@ from models.cells import (
     create_bc,
     create_mc,
     create_hipp,
-    create_ec,
+    create_pp,
 )
 
 seed(1)
@@ -21,13 +21,13 @@ def to_100(params):
 def main():
   start_scope()
 
-  ec  = create_ec(N=1, active_p=1.0, rate=20*Hz)
-  # mgc = create_ec(N=2, active_p=1.0, rate=20*Hz, name='mgc')
+  pp  = create_pp(N=1, active_p=1.0, rate=20*Hz)
+  # mgc = create_pp(N=2, active_p=1.0, rate=20*Hz, name='mgc')
   # mgc     = create_mgc(N=1)
   bc      = create_bc(N=1)
 
-  ec_ampa_bc  = Connect(ec, bc, **to_100(syn_params['ec_ampa_bc']))
-  # ec_nmda_bc  = Connect(ec, bc, **to_100(syn_params['ec_nmda_bc']))
+  ppampa_bc  = Connect(pp, bc, **to_100(syn_params['ppampa_bc']))
+  # ppnmda_bc  = Connect(pp, bc, **to_100(syn_params['ppnmda_bc']))
 
   # mgc_ampa_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_ampa_bc']))
   # mgc_nmda_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_nmda_bc']))
@@ -36,11 +36,11 @@ def main():
 
   # mon = StateMonitor(bc, 'Vm', record=True)
   mon = StateMonitor(bc, True, record=True)
-  mon_syn_ec = StateMonitor(ec_ampa_bc, 'g_syn', record=True)
+  mon_syn_pp = StateMonitor(ppampa_bc, 'g_syn', record=True)
   # mon_syn_mgc = StateMonitor(mgc_ampa_bc, 'g_syn', record=True)
 
-  # neurons = [ec, mgc, bc]
-  neurons = [ec, bc]
+  # neurons = [pp, mgc, bc]
+  neurons = [pp, bc]
   labels = [neuron.name for neuron in neurons]
   spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
 
@@ -53,7 +53,7 @@ def main():
   # plt.plot(mon.t / ms, mon.Vm[0] / mV)
   # plt.show()
 
-  plt.plot(mon_syn_ec.t / ms, mon_syn_ec.g_syn[0] / nS)
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g_syn[0] / nS)
   plt.xticks(rotation=45)
   plt.locator_params(axis="x", nbins=60)
   plt.grid(True, which="both", linestyle="--", alpha=0.2)
@@ -64,9 +64,9 @@ def main():
   # plt.plot(mon.t / ms, -1*mon.I_ampa_2[0] / nA, alpha=0.5)
   # plt.plot(mon.t / ms, -1*mon.I_ampa[0] / nA, alpha=0.5) 
   # plt.subplot(2, 1, 2)
-  # plt.plot(mon_syn_ec.t / ms, mon_syn_ec.g_syn[0])
+  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g_syn[0])
   # plt.plot(mon_syn_mgc.t / ms, mon_syn_mgc.g_syn[0])
-  # plt.plot(mon_syn_ec.t / ms, mon_syn_ec.g_syn[1])
+  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g_syn[1])
   # plt.plot(mon_syn_mgc.t / ms, mon_syn_mgc.g_syn[1])
   # # plt.plot(mon.t / ms, mon.I_ampa_2[0] / nA)
   # plt.show()

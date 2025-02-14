@@ -14,14 +14,12 @@ N_lamellae = 20
 igc_conn = 1.0 if has_igc else 0.0
 
 # Rate of EC neurons
-ec_rate = 40 * Hz
+pprate = 40 * Hz
 
 # Simulation time for the network to settle
-break_time = 0*ms
-# break_time = 300 * ms
+break_time = 300 * ms
 # Simulation time when activity is recorded
-stim_time = 100*ms
-# stim_time = 1000 * ms
+stim_time = 1000 * ms
 
 
 base_dir = './'

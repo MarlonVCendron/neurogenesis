@@ -8,7 +8,7 @@ from models.cells import (
     create_bc,
     create_mc,
     create_hipp,
-    create_ec,
+    create_pp,
 )
 
 seed(1)
@@ -21,9 +21,9 @@ def to_100(params):
 def main():
   start_scope()
 
-  # ec  = create_ec(N=2, active_p=1.0, rate=20*Hz)
+  # pp  = create_pp(N=2, active_p=1.0, rate=20*Hz)
   mgc = create_mgc(N=1)
-  bc  = create_ec(N=2, active_p=1.0, rate=1000*Hz, name='bc')
+  bc  = create_pp(N=2, active_p=1.0, rate=1000*Hz, name='bc')
 
   bc_gaba_mgc = Connect(bc, mgc, **to_100(syn_params['bc_gaba_mgc']))
 
@@ -31,7 +31,7 @@ def main():
 
   # mon = StateMonitor(bc, 'Vm', record=True)
   mon = StateMonitor(mgc, True, record=True)
-  mon_syn_ec = StateMonitor(bc_gaba_mgc, 'g_syn', record=True)
+  mon_syn_pp = StateMonitor(bc_gaba_mgc, 'g_syn', record=True)
 
   neurons = [mgc, bc]
   labels = [neuron.name for neuron in neurons]
@@ -47,7 +47,7 @@ def main():
   plt.subplot(2, 1, 1)
   plt.plot(mon.t / ms, mon.Vm[0] / mV, alpha=0.5) 
   plt.subplot(2, 1, 2)
-  plt.plot(mon_syn_ec.t / ms, mon_syn_ec.g_syn[0])
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g_syn[0])
   # plt.plot(mon.t / ms, mon.I_ampa_2[0] / nA)
   plt.show()
 

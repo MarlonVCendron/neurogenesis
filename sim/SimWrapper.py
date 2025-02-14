@@ -1,7 +1,7 @@
 from brian2 import *
 import numpy as np
 
-from utils.utils import get_spike_monitors, get_neuron_monitor
+from utils.utils import get_spike_monitors, get_neuron_monitor, get_neurons
 from utils.save_to_file import save_to_file
 from utils.patterns import get_population_pattern
 from params import break_time, stim_time
@@ -12,7 +12,8 @@ class SimWrapper:
   def __init__(self, report=None):
     self.net = network()
 
-    neurons = [self.net['ec'], self.net['mgc'], self.net['bc']]
+    # neurons = [self.net['pp'], self.net['mgc'], self.net['bc']]
+    neurons = get_neurons(self.net)
     self.monitors = [SpikeMonitor(neuron) for neuron in neurons]
     self.net.add(self.monitors)
 
@@ -38,7 +39,7 @@ class SimWrapper:
 
     self.device.run(
         results_directory=results_directory,
-        run_args={self.net['ec'].rates: pattern['rates']}
+        run_args={self.net['pp'].rates: pattern['rates']}
     )
     
     self.save_results(pattern, results_directory)

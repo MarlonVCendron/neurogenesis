@@ -8,13 +8,13 @@ from models.cells import (
     create_bc,
     create_mc,
     create_hipp,
-    create_ec,
+    create_pp,
 )
 
 
 def network():
   # Cells
-  ec   = create_ec(N=cell_params['ec']['N'])
+  pp   = create_pp(N=cell_params['pp']['N'])
   mgc  = create_mgc()
   igc  = create_igc()
   bc   = create_bc()
@@ -22,12 +22,12 @@ def network():
   hipp = create_hipp()
 
   # Synapses
-  ec_ampa_mgc = Connect(ec, mgc, **syn_params['ec_ampa_mgc'])
-  ec_nmda_mgc = Connect(ec, mgc, **syn_params['ec_nmda_mgc'])
-  ec_ampa_igc = Connect(ec, igc, **syn_params['ec_ampa_igc'])
-  ec_nmda_igc = Connect(ec, igc, **syn_params['ec_nmda_igc'])
-  ec_ampa_bc  = Connect(ec, bc, **syn_params['ec_ampa_bc'])
-  ec_nmda_bc  = Connect(ec, bc, **syn_params['ec_nmda_bc'])
+  ppampa_mgc = Connect(pp, mgc, **syn_params['ppampa_mgc'])
+  ppnmda_mgc = Connect(pp, mgc, **syn_params['ppnmda_mgc'])
+  ppampa_igc = Connect(pp, igc, **syn_params['ppampa_igc'])
+  ppnmda_igc = Connect(pp, igc, **syn_params['ppnmda_igc'])
+  ppampa_bc  = Connect(pp, bc, **syn_params['ppampa_bc'])
+  ppnmda_bc  = Connect(pp, bc, **syn_params['ppnmda_bc'])
 
   mgc_ampa_bc   = Connect(mgc, bc, **syn_params['mgc_ampa_bc'])
   mgc_nmda_bc   = Connect(mgc, bc, **syn_params['mgc_nmda_bc'])

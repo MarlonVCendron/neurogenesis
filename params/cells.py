@@ -1,7 +1,7 @@
 from brian2 import *
 from params.general import N_lamellae, has_igc
 
-N_ec     = 400
+N_pp     = 400
 N_mgc_l  = 90 if has_igc else 100
 N_igc_l  = 10
 N_bc_l   = 1
@@ -9,9 +9,9 @@ N_mc_l   = 3
 N_hipp_l = 1
 
 cell_params = {
-    "ec": {
-        "name"      : "ec",
-        "N"         : N_ec
+    "pp": {
+        "name"      : "pp",
+        "N"         : N_pp
     },
     "bc": {
         "name"      : "bc",

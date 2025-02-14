@@ -10,10 +10,10 @@ from params import results_dir, trials
 if __name__ == '__main__':
   initialize()
 
-  sim = SimWrapper()
+  sim = SimWrapper(report='text')
 
   patterns    = [pattern for pattern in generate_activity_patterns() for _ in range(trials)]
-  patterns    = patterns[:2]
+  patterns    = patterns[:1]
   result_dirs = [join(results_dir, f'{i}') for i in range(len(patterns))]
 
   results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
