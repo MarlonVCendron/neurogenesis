@@ -15,12 +15,12 @@ for subdir in subdirs:
     with h5py.File(file_path, 'r') as h5file:
       data = h5file
 
-      pppattern = np.array(data['pppattern'])
+      pp_pattern = np.array(data['pp_pattern'])
       mgc_pattern = np.array(data['mgc_pattern'])
       in_similarity = np.array(data['in_similarity'])
       
       merged_data[subdir] = {
-        'pppattern': pppattern,
+        'pp_pattern': pp_pattern,
         'mgc_pattern': mgc_pattern,
         'in_similarity': in_similarity
       }

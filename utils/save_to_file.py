@@ -5,12 +5,12 @@ import h5py
 
 def save_to_file(results_directory, pattern, mgc_pattern):
   in_similarity = pattern['similarity']
-  pppattern = pattern['rates'] 
+  pp_pattern = pattern['rates'] 
   
   makedirs(results_directory, exist_ok=True)
 
   with h5py.File(join(results_directory, 'patterns.h5'), 'w') as f:
-    f.create_dataset('pppattern', data=pppattern)
+    f.create_dataset('pp_pattern', data=pp_pattern)
     f.create_dataset('mgc_pattern', data=mgc_pattern)
     f.create_dataset('in_similarity', data=in_similarity)
   

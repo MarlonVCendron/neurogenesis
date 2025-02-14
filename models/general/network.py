@@ -22,12 +22,12 @@ def network():
   hipp = create_hipp()
 
   # Synapses
-  ppampa_mgc = Connect(pp, mgc, **syn_params['ppampa_mgc'])
-  ppnmda_mgc = Connect(pp, mgc, **syn_params['ppnmda_mgc'])
-  ppampa_igc = Connect(pp, igc, **syn_params['ppampa_igc'])
-  ppnmda_igc = Connect(pp, igc, **syn_params['ppnmda_igc'])
-  ppampa_bc  = Connect(pp, bc, **syn_params['ppampa_bc'])
-  ppnmda_bc  = Connect(pp, bc, **syn_params['ppnmda_bc'])
+  pp_ampa_mgc = Connect(pp, mgc, **syn_params['pp_ampa_mgc'])
+  pp_nmda_mgc = Connect(pp, mgc, **syn_params['pp_nmda_mgc'])
+  pp_ampa_igc = Connect(pp, igc, **syn_params['pp_ampa_igc'])
+  pp_nmda_igc = Connect(pp, igc, **syn_params['pp_nmda_igc'])
+  pp_ampa_bc  = Connect(pp, bc, **syn_params['pp_ampa_bc'])
+  pp_nmda_bc  = Connect(pp, bc, **syn_params['pp_nmda_bc'])
 
   mgc_ampa_bc   = Connect(mgc, bc, **syn_params['mgc_ampa_bc'])
   mgc_nmda_bc   = Connect(mgc, bc, **syn_params['mgc_nmda_bc'])

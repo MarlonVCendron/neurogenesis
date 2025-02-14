@@ -1,5 +1,5 @@
 from params.cells import cell_params
-from params import pprate, break_time
+from params import pp_rate, break_time
 import numpy as np
 
 p = 0.1
@@ -45,7 +45,7 @@ def generate_patterns(p=p, N=N, step=step):
   return similar_patterns
 
 # Generates activity patterns
-def generate_activity_patterns(rate=pprate, step=step):
+def generate_activity_patterns(rate=pp_rate, step=step):
   return [
     {
       'rates': pattern * rate,

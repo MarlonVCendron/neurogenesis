@@ -26,8 +26,8 @@ def main():
   # mgc     = create_mgc(N=1)
   bc      = create_bc(N=1)
 
-  ppampa_bc  = Connect(pp, bc, **to_100(syn_params['ppampa_bc']))
-  # ppnmda_bc  = Connect(pp, bc, **to_100(syn_params['ppnmda_bc']))
+  pp_ampa_bc  = Connect(pp, bc, **to_100(syn_params['pp_ampa_bc']))
+  # pp_nmda_bc  = Connect(pp, bc, **to_100(syn_params['pp_nmda_bc']))
 
   # mgc_ampa_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_ampa_bc']))
   # mgc_nmda_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_nmda_bc']))
@@ -36,7 +36,7 @@ def main():
 
   # mon = StateMonitor(bc, 'Vm', record=True)
   mon = StateMonitor(bc, True, record=True)
-  mon_syn_pp = StateMonitor(ppampa_bc, 'g_syn', record=True)
+  mon_syn_pp = StateMonitor(pp_ampa_bc, 'g_syn', record=True)
   # mon_syn_mgc = StateMonitor(mgc_ampa_bc, 'g_syn', record=True)
 
   # neurons = [pp, mgc, bc]
