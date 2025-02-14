@@ -4,7 +4,7 @@ import numpy as np
 from neurogenesis.utils.utils import get_spike_monitors, get_neuron_monitor
 from neurogenesis.utils.save_to_file import save_to_file
 from neurogenesis.utils.patterns import get_population_pattern
-from neurogenesis.params.sim import break_time, stim_time
+from neurogenesis.params import break_time, stim_time
 from neurogenesis.models.general.network import network
 
 

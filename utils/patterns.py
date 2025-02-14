@@ -1,5 +1,5 @@
 from neurogenesis.params.cells import cell_params
-from neurogenesis.params.general import ec_rate
+from neurogenesis.params import ec_rate
 import numpy as np
 
 p = 0.1
