@@ -7,7 +7,7 @@ from neurogenesis.plotting.spike_trains import plot_spike_trains
 from neurogenesis.utils.patterns import generate_activity_patterns
 from neurogenesis.sim import SimWrapper
 
-base_dir = './'
+base_dir = './neurogenesis'
 results_dir = join(base_dir, 'res')
 
 if __name__ == '__main__':

@@ -45,8 +45,14 @@ def generate_patterns(p=p, N=N, step=step):
   return similar_patterns
 
 # Generates activity patterns
-def generate_activity_patterns(rate=ec_rate):
-  return generate_patterns() * rate
+def generate_activity_patterns(rate=ec_rate, step=step):
+  return [
+    {
+      'rates': pattern * rate,
+      'similarity': (i+1) * step,
+    }
+    for i, pattern in enumerate(generate_patterns(step))
+  ]
 
 # Percentage of active neurons in a pattern
 def activation_degree(pattern):
@@ -87,3 +93,10 @@ def pattern_separation_degree(in_1, in_2, out_1, out_2):
     return float("inf")
 
   return out_distance / in_distance 
+
+# Calculates the pattern of active cells in a population of neurons given a spike monitor
+def get_population_pattern(monitor):
+  neurons = monitor.source
+  pattern = np.zeros(len(neurons), dtype=int)
+  pattern[monitor.i] = 1
+  return pattern
