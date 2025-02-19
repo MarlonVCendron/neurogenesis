@@ -2,6 +2,7 @@ import tqdm_pathos
 from os.path import join
 
 from plotting.spike_trains import plot_spike_trains
+from plotting.spikes_and_rates import plot_spikes_and_rates
 from utils.patterns import generate_activity_patterns
 from utils.initialize import initialize
 from sim import SimWrapper
@@ -18,5 +19,6 @@ if __name__ == '__main__':
 
   results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
 
-  for i, r in enumerate(results):
-    plot_spike_trains(r, i)
+  for i, (spikes, rates) in enumerate(results):
+    # plot_spike_trains(r, i)
+    plot_spikes_and_rates(spikes, rates, i)
