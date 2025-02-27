@@ -2,6 +2,7 @@ from brian2 import *
 import numpy as np
 
 from params import break_time, stim_time
+from utils.patterns import get_population_pattern
 
 def plot_spikes_and_rates(spike_monitors, rate_monitors, num):
   import matplotlib
@@ -13,7 +14,10 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num):
   for idx, spike_mon in enumerate(spike_monitors):
     neuron = spike_mon.source
     rate_mon = next(r for r in rate_monitors if r.source.name == spike_mon.source.name)
-    smooth_rates = rate_mon.smooth_rate(window='flat', width=50 * ms) / Hz
+    smooth_rates = rate_mon.smooth_rate(window='flat', width=100 * ms) / Hz
+
+    pattern = get_population_pattern(spike_mon)
+    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
@@ -28,5 +32,5 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num):
     ax2.set_ylabel('Firing rate (Hz)')
     ax2.set_ylim(0, max(smooth_rates) + 1) 
   # plt.show()
-  plt.savefig(f'figures/rates/full-network.png')
+  plt.savefig(f'figures/rates_experiments/09_invert-hipp-bc.png')
   plt.close()
