@@ -6,6 +6,7 @@ from utils.save_to_file import save_to_file
 from utils.patterns import get_population_pattern
 from params import break_time, stim_time
 from models.general.network import network
+from plotting.connectivity_matrices import connectivity_matrices
 
 
 class SimWrapper:
@@ -44,6 +45,7 @@ class SimWrapper:
         run_args={self.net['pp'].rates: pattern['rates']}
     )
     
+    connectivity_matrices(self.net)
     self.save_results(pattern, results_directory)
 
     return (get_spike_monitors(self.net), get_rate_monitors(self.net))

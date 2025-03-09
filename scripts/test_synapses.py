@@ -2,6 +2,7 @@ from brian2 import *
 from utils.connect import Connect
 from params import syn_params 
 from params.cells import cell_params
+from plotting.voltage import plot_voltage
 from models.cells import (
     create_mgc,
     create_igc,
@@ -21,13 +22,12 @@ def to_100(params):
 def main():
   start_scope()
 
-  pp  = create_pp(N=1, active_p=1.0, rate=20*Hz)
-  # mgc = create_pp(N=2, active_p=1.0, rate=20*Hz, name='mgc')
+  pp  = create_pp(N=8, active_p=1.0, rate=40*Hz, init_rates=True)
   # mgc     = create_mgc(N=1)
   bc      = create_bc(N=1)
 
   pp_ampa_bc  = Connect(pp, bc, **to_100(syn_params['pp_ampa_bc']))
-  # pp_nmda_bc  = Connect(pp, bc, **to_100(syn_params['pp_nmda_bc']))
+  pp_nmda_bc  = Connect(pp, bc, **to_100(syn_params['pp_nmda_bc']))
 
   # mgc_ampa_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_ampa_bc']))
   # mgc_nmda_bc   = Connect(mgc, bc, **to_100(syn_params['mgc_nmda_bc']))
@@ -36,8 +36,9 @@ def main():
 
   # mon = StateMonitor(bc, 'Vm', record=True)
   mon = StateMonitor(bc, True, record=True)
-  mon_syn_pp = StateMonitor(pp_ampa_bc, 'g_syn', record=True)
-  # mon_syn_mgc = StateMonitor(mgc_ampa_bc, 'g_syn', record=True)
+  mon_s = SpikeMonitor(bc)
+  # mon_syn_pp = StateMonitor(pp_ampa_bc, 'g_syn', record=True)
+  mon_syn_pp = StateMonitor(pp_nmda_bc, 'g_syn', record=True)
 
   # neurons = [pp, mgc, bc]
   neurons = [pp, bc]
@@ -48,9 +49,37 @@ def main():
   net.add(spike_monitors)
 
   print('Running simulation')
-  net.run(30*ms)
+  duration = 1000 * ms
+  # silent = 100 * ms
+  # net.run(silent)
+  # bc.I_ext = 0.25 * nA
+  # net.run(duration - 2*silent)
+  # bc.I_ext = 0.0 * nA
+  # net.run(silent)
+
+  net.run(duration)
 
   # plt.plot(mon.t / ms, mon.Vm[0] / mV)
+  # plt.show()
+
+  plot_voltage(mon, mon_s)
+
+  # plt.plot(mon.t / ms, mon.I_ampa[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.show()
+
+  # plt.plot(mon.t / ms, mon.I_L[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.show()
+
+  # plt.plot(mon.t / ms, mon.I_ahp[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
   # plt.show()
 
   plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g_syn[0] / nS)
@@ -72,6 +101,7 @@ def main():
   # plt.show()
 
   for spike_mon in spike_monitors:
+    print(f"Firing rate of {labels[spike_monitors.index(spike_mon)]}: {spike_mon.num_spikes / duration}")
     print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
  
     plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
