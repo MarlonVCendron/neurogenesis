@@ -32,5 +32,5 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num):
     ax2.set_ylabel('Firing rate (Hz)')
     ax2.set_ylim(0, max(smooth_rates) + 1) 
   # plt.show()
-  plt.savefig(f'figures/rates_experiments/10_?.png')
+  plt.savefig(f'figures/rates_experiments/?.png')
   plt.close()
