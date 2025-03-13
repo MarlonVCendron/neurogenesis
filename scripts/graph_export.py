@@ -3,6 +3,7 @@ import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
+from py2cytoscape.data.cyrest_client import CyRestClient
 
 from os.path import join
 from params import results_dir
@@ -49,9 +50,11 @@ def export_to_gexf():
         G.add_edge(source_node, target_node)
 
 
-  # Save the complete graph to a GEXF file for GEphi.
-  gephi_filename = join(results_dir, "connectivity.gexf")
+  gephi_filename = join(results_dir, "network.gexf")
   nx.write_gexf(G, gephi_filename)
+
+  cytoscape_filename = join(results_dir, "network_cytoscape.xml")
+  nx.write_graphml(G, cytoscape_filename)
 
 def get_neuron_attributes(cell, index):
   return {
