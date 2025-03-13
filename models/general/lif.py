@@ -1,12 +1,16 @@
 from brian2 import *
 
 def LIF():
-  eq_model = Equations('''
-    dVm/dt = (-I_L -I_ahp -I_syn + I_ext) / Cm            : volt
+  id = randint(0, 1000000)
+
+  eq_model = Equations(f'''
+    dVm/dt = (-I_L -I_ahp -I_syn + I_ext + I_noise) / Cm  : volt
     I_L    = g_L * (Vm - E_L)                             : amp
     I_ahp  = g_ahp * (Vm - E_ahp)                         : amp
     g_ahp  = g_ahp_max * exp(- (t - lastspike) / tau_ahp) : siemens
     I_syn  = I_ampa + I_nmda + I_gaba                     : amp
+
+    dI_noise/dt = (mu_noise - I_noise) / tau_noise + sigma_noise * (sqrt(2/tau_noise) * xi_{id}) : amp
   ''')
 
   eq_params = Equations('''
@@ -19,6 +23,9 @@ def LIF():
     V_th      : volt     # Threshold potential
     I_ext     : amp      # External current
 
+    tau_noise   = 15 * ms : second  # Noise time constant 
+    sigma_noise = 5 * pA  : amp     # Noise standard deviation
+    mu_noise    = 0 * pA  : amp     # Noise mean
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to
