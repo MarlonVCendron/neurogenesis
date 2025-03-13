@@ -58,9 +58,9 @@ def main():
   stim_time = 1000 * ms
 
   pp.active = False
-  net.run(break_time)
+  net.run(break_time, report='text')
   pp.active = True
-  net.run(stim_time)
+  net.run(stim_time, report='text')
   device.build()
 
   # plt.plot(mon.t / ms, mon.Vm[0] / mV)
