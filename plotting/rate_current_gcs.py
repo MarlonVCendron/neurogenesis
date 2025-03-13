@@ -45,6 +45,6 @@ ax.plot([curr for curr, _, _ in rates], [igc_rate for _, _, igc_rate in rates], 
 ax.set_xlabel('Current (pA)')
 ax.set_ylabel('Frequency (Hz)')
 ax.legend()
-# plt.show()
-plt.savefig('neurogenesis/figures/rate_current_gcs.png')
+plt.show()
+plt.savefig('figures/rate_current_gcs.png')
 plt.close()

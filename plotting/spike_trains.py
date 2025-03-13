@@ -21,5 +21,5 @@ def plot_spike_trains(spike_monitors, num):
     plt.xlim(break_time / ms, stim_time / ms)
     plt.ylim(0, len(neuron))
   plt.show()
-  # plt.savefig(f'neurogenesis/figures/spikes_{num}.png')
+  # plt.savefig(f'figures/spikes_{num}.png')
   # plt.close()
