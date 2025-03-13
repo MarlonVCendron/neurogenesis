@@ -29,8 +29,8 @@ class SimWrapper:
     self.device = get_device()
 
   def activate_monitors(self, activate=True):
-    for spike_mon in self.monitors:
-      spike_mon.active = activate
+    for mon in self.monitors:
+      mon.active = activate
     
   def save_results(self, pattern, results_directory):
     mgc_pattern = get_population_pattern(get_neuron_monitor(self.net, 'mgc'))
@@ -45,7 +45,8 @@ class SimWrapper:
         run_args={self.net['pp'].rates: pattern['rates']}
     )
     
-    connectivity_matrices(self.net)
+    # connectivity_matrices(self.net)
+
     self.save_results(pattern, results_directory)
 
     return (get_spike_monitors(self.net), get_rate_monitors(self.net))
