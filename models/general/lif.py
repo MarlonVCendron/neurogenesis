@@ -1,17 +1,25 @@
 from brian2 import *
 
 def LIF():
-  id = randint(0, 1000000)
-
   eq_model = Equations(f'''
-    dVm/dt = (-I_L -I_ahp -I_syn + I_ext + I_noise) / Cm  : volt
-    I_L    = g_L * (Vm - E_L)                             : amp
-    I_ahp  = g_ahp * (Vm - E_ahp)                         : amp
+    dVm/dt = (-I_L -I_ahp -I_syn + I_ext) / Cm : volt
+    I_syn  = I_ampa + I_nmda + I_gaba          : amp
+    I_L    = g_L * (Vm - E_L)                  : amp
+    I_ahp  = g_ahp * (Vm - E_ahp)              : amp
     g_ahp  = g_ahp_max * exp(- (t - lastspike) / tau_ahp) : siemens
-    I_syn  = I_ampa + I_nmda + I_gaba                     : amp
-
-    dI_noise/dt = (mu_noise - I_noise) / tau_noise + sigma_noise * (sqrt(2/tau_noise) * xi_{id}) : amp
   ''')
+
+  # AHP by sum of spikes
+  # g_ahp     = g_ahp_max * w_ahp : siemens
+  # dw_ahp/dt = -w_ahp/tau_ahp    : 1
+  # reset     = 'Vm = E_L; w_ahp += 1'
+
+  # Noise
+  # dVm/dt = (-I_L -I_ahp -I_syn + I_ext + I_noise) / Cm  : volt
+  # dI_noise/dt = (mu_noise - I_noise) / tau_noise + sigma_noise * (sqrt(2/tau_noise) * xi_{id}) : amp
+  # tau_noise   = 15 * ms : second  # Noise time constant 
+  # sigma_noise = 5 * pA  : amp     # Noise standard deviation
+  # mu_noise    = 0 * pA  : amp     # Noise mean
 
   eq_params = Equations('''
     Cm        : farad    # Membrane capacitance
@@ -22,10 +30,6 @@ def LIF():
     E_ahp     : volt     # AHP reversal potential
     V_th      : volt     # Threshold potential
     I_ext     : amp      # External current
-
-    tau_noise   = 15 * ms : second  # Noise time constant 
-    sigma_noise = 5 * pA  : amp     # Noise standard deviation
-    mu_noise    = 0 * pA  : amp     # Noise mean
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to
