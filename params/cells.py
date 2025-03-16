@@ -44,7 +44,7 @@ cell_params = {
         "g_ahp_max" : 10.4 * nS,
         "tau_ahp"   : 20.0 * ms,
         "E_ahp"     : -80.0 * mV,
-        "V_th"      : -53.4 * mV,
+        "V_th"      : -51.5 * mV,
     },
     "mc": {
         "name"      : "mc",
@@ -66,6 +66,6 @@ cell_params = {
         "g_ahp_max" : 10.4 * nS,
         "tau_ahp"   : 20.0 * ms,
         "E_ahp"     : -80.0 * mV,
-        "V_th"      : -53.4 * mV,
+        "V_th"      : -51.5 * mV,
     },
 }
