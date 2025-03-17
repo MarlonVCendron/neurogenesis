@@ -6,7 +6,7 @@ N_mgc_l  = 90 if has_igc else 100
 N_igc_l  = 10
 N_bc_l   = 1
 N_mc_l   = 3
-N_hipp_l = 1
+N_hipp_l = 2
 
 cell_params = {
     "pp": {
