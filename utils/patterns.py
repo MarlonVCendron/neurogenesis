@@ -1,5 +1,5 @@
 from params.cells import cell_params
-from params import pp_rate, break_time
+from params import pp_rate, break_time, N_lamellae
 import numpy as np
 
 p = 0.1
@@ -102,3 +102,6 @@ def get_population_pattern(monitor):
     if t > break_time:
       pattern[i] = 1
   return pattern
+
+def get_pattern_per_lamella(pattern):
+  return np.split(pattern, N_lamellae)

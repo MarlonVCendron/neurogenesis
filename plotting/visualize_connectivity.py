@@ -9,13 +9,11 @@ from os.path import join
 from params import results_dir
 
 
-filename = join(results_dir, "wta_connectivity_matrices.h5")
+filename = join(results_dir, "connectivity_matrices.h5")
 
 
 with h5py.File(filename, 'r') as f:
-  # group_name = "hipp->mgc"
-  # group_name = "pp->mgc"
-  group_name = "pp->hipp"
+  group_name = "bc->mgc"
   row = f[f"{group_name}/row"][:]
   col = f[f"{group_name}/col"][:]
   data = f[f"{group_name}/data"][:]

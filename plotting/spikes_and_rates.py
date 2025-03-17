@@ -2,7 +2,7 @@ from brian2 import *
 import numpy as np
 
 from params import break_time, stim_time
-from utils.patterns import get_population_pattern
+from utils.patterns import get_population_pattern, get_pattern_per_lamella
 
 def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=False, window_width=20*ms):
   import matplotlib
@@ -17,7 +17,8 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     smooth_rates = rate_mon.smooth_rate(window='flat', width=window_width) / Hz
 
     pattern = get_population_pattern(spike_mon)
-    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
+    per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
+    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella)}')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
