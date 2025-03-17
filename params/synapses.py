@@ -65,6 +65,24 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
+    "pp_ampa_hipp": {
+        "receptor" : "ampa_1",
+        "p"        : 0.2,
+        "g_max"    : 12.0 * nS,
+        "tau_r"    : 2.0 * ms,
+        "tau_d"    : 11.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    "pp_nmda_hipp": {
+        "receptor" : "nmda_1",
+        "p"        : 0.2,
+        "g_max"    : 3.04 * nS,
+        "tau_r"    : 4.8 * ms,
+        "tau_d"    : 110.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
 
     "mgc_ampa_bc": {
         "receptor"  : "ampa_2",
@@ -103,7 +121,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "mgc_ampa_hipp": {
-        "receptor"  : "ampa_1",
+        "receptor"  : "ampa_2",
         "condition" : lamellar_conn(N_mgc_l, N_hipp_l),
         "g_max"     : 0.08 * nS,
         "tau_r"     : 0.3 * ms,
@@ -112,7 +130,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "mgc_nmda_hipp": {
-        "receptor"  : "nmda_1",
+        "receptor"  : "nmda_2",
         "condition" : lamellar_conn(N_mgc_l, N_hipp_l),
         "g_max"     : 0.004 * nS,
         "tau_r"     : 1.2 * ms,
@@ -158,7 +176,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "igc_ampa_hipp": {
-        "receptor"  : "ampa_2",
+        "receptor"  : "ampa_3",
         "condition" : lamellar_conn(N_igc_l, N_hipp_l),
         "g_max"     : 0.08 * nS,
         "tau_r"     : 0.3 * ms,
@@ -167,7 +185,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "igc_nmda_hipp": {
-        "receptor"  : "nmda_2",
+        "receptor"  : "nmda_3",
         "condition" : lamellar_conn(N_igc_l, N_hipp_l),
         "g_max"     : 0.004 * nS,
         "tau_r"     : 1.2 * ms,
@@ -256,7 +274,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "mc_ampa_hipp": {
-        "receptor"  : "ampa_3",
+        "receptor"  : "ampa_4",
         "condition" : lamellar_conn(N_mc_l, N_hipp_l),
         "g_max"     : 4.09 * nS,
         "tau_r"     : 0.9 * ms,
@@ -265,7 +283,7 @@ syn_params = {
         "E"         : 0 * mV,
     },
     "mc_nmda_hipp": {
-        "receptor"  : "nmda_3",
+        "receptor"  : "nmda_4",
         "condition" : lamellar_conn(N_mc_l, N_hipp_l),
         "g_max"     : 0.25 * nS,
         "tau_r"     : 3.6 * ms,
