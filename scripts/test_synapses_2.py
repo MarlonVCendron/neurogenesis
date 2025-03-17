@@ -31,7 +31,7 @@ def main():
   mon = StateMonitor(bc, True, record=True)
   mon_s = SpikeMonitor(bc)
   # mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn', 'g_norm'], record=True)
-  mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn', 'f', 't_peak'], record=True)
+  mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn'], record=True)
   # mon_syn_pp = StateMonitor(pp_nmda_bc, ['g', 'h', 'g_syn'], record=True)
 
   # neurons = [pp, mgc, bc]

@@ -18,5 +18,5 @@ def plot_voltage(monitor, spike_monitor):
   plt.ylabel('Voltage (mV)')
 
   plt.show()
-  # plt.savefig(f'neurogenesis/figures/voltage_{num}.png')
+  # plt.savefig(f'figures/voltage_{num}.png')
   # plt.close()

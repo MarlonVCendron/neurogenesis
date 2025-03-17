@@ -3,6 +3,8 @@ from plotting.spikes_and_rates import plot_spikes_and_rates
 from utils.connect import Connect
 from params import syn_params 
 from plotting.voltage import plot_voltage
+from plotting.connectivity_matrices import connectivity_matrices
+from params.general import results_dir
 from models.cells import (
     create_mgc,
     create_igc,
@@ -47,7 +49,7 @@ def main():
   labels = [neuron.name for neuron in neurons]
   spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
   rate_monitors = [PopulationRateMonitor(neuron) for neuron in neurons]
-  rate_mon = PopulationRateMonitor(mgc)
+  mon = StateMonitor(mgc, True, record=True)
 
   net = Network(collect())
   net.add(spike_monitors)
@@ -63,7 +65,25 @@ def main():
   net.run(stim_time, report='text')
   device.build()
 
-  # plt.plot(mon.t / ms, mon.Vm[0] / mV)
+  # plt.plot(mon.t / ms, mon.I_nmda[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.xlim(break_time/ms, (break_time+100*ms) / ms)
+  # plt.show()
+
+  # plt.plot(mon.t / ms, mon.I_gaba[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.xlim(break_time/ms, (break_time+100*ms) / ms)
+  # plt.show()
+
+  # plt.plot(mon.t / ms, mon.I_syn[0] / nA)
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.xlim(break_time/ms, (break_time+100*ms) / ms)
   # plt.show()
 
   # plot_voltage(mon, mon_s)
@@ -80,6 +100,7 @@ def main():
   #   plt.ylabel(f'{labels[spike_monitors.index(spike_mon)]} index')
   #   plt.xlim(break_time/ms, (break_time+stim_time) / ms)
   # plt.show()
+  # connectivity_matrices(net, plot=False, filename="wta_connectivity_matrices.h5")
 
 
 if __name__ == '__main__':

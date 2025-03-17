@@ -21,8 +21,10 @@ class SimWrapper:
     self.net.add(self.monitors)
 
     self.activate_monitors(False)
+    # self.net['pp'].active = False
     self.net.run(break_time, report=report)
     self.activate_monitors(True)
+    # self.net['pp'].active = True
     self.net.run(stim_time, report=report)
 
     device.build(run=False)
