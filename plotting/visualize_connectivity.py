@@ -9,17 +9,21 @@ from os.path import join
 from params import results_dir
 
 
-filename = join(results_dir, "connectivity_matrices.h5")
+filename = join(results_dir, "wta_connectivity_matrices.h5")
 
 
 with h5py.File(filename, 'r') as f:
-  group_name = "pp->bc"
+  # group_name = "hipp->mgc"
+  # group_name = "pp->mgc"
+  group_name = "pp->hipp"
   row = f[f"{group_name}/row"][:]
   col = f[f"{group_name}/col"][:]
   data = f[f"{group_name}/data"][:]
 
   shape = (max(row) + 1, max(col) + 1)
   sparse_matrix = csr_matrix((data, (row, col)), shape=shape)
+  print(np.mean(np.sum(sparse_matrix, axis=1)))
+  print(np.mean(np.sum(sparse_matrix, axis=0)))
 
 plt.imshow(sparse_matrix.toarray(), aspect="auto", cmap="Greys", interpolation="nearest")
 plt.show()
