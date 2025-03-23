@@ -6,9 +6,9 @@ from plotting.voltage import plot_voltage
 from models.cells import (
     create_mgc,
     create_igc,
-    create_hipp,
+    create_mgc,
     create_mc,
-    create_hipp,
+    create_mgc,
     create_pp,
 )
 
@@ -23,19 +23,19 @@ def main():
   start_scope()
 
   pp  = create_pp(N=8, active_p=1.0, rate=40*Hz, init_rates=True)
-  hipp      = create_hipp(N=1)
+  mgc      = create_mgc(N=1)
 
-  pp_ampa_hipp  = Connect(pp, hipp, **to_100(syn_params['pp_ampa_hipp']))
-  pp_nmda_hipp  = Connect(pp, hipp, **to_100(syn_params['pp_nmda_hipp']))
+  pp_ampa_mgc  = Connect(pp, mgc, **to_100(syn_params['pp_ampa_mgc']))
+  pp_nmda_mgc  = Connect(pp, mgc, **to_100(syn_params['pp_nmda_mgc']))
 
-  mon = StateMonitor(hipp, True, record=True)
-  mon_s = SpikeMonitor(hipp)
-  # mon_syn_pp = StateMonitor(pp_ampa_hipp, ['g', 'h', 'g_syn', 'g_norm'], record=True)
-  mon_syn_pp = StateMonitor(pp_ampa_hipp, ['g', 'h', 'g_syn'], record=True)
-  # mon_syn_pp = StateMonitor(pp_nmda_hipp, ['g', 'h', 'g_syn'], record=True)
+  mon = StateMonitor(mgc, True, record=True)
+  mon_s = SpikeMonitor(mgc)
+  # mon_syn_pp = StateMonitor(pp_ampa_mgc, ['g', 'h', 'g_syn', 'g_norm'], record=True)
+  mon_syn_pp = StateMonitor(pp_ampa_mgc, ['g', 'h', 'g_syn'], record=True)
+  # mon_syn_pp = StateMonitor(pp_nmda_mgc, ['g', 'h', 'g_syn'], record=True)
 
-  # neurons = [pp, mgc, hipp]
-  neurons = [pp, hipp]
+  # neurons = [pp, mgc, mgc]
+  neurons = [pp, mgc]
   labels = [neuron.name for neuron in neurons]
   spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
 
@@ -43,12 +43,12 @@ def main():
   net.add(spike_monitors)
 
   print('Running simulation')
-  duration = 30 * ms
+  duration = 300 * ms
   # silent = 100 * ms
   # net.run(silent)
-  # hipp.I_ext = 0.25 * nA
+  # mgc.I_ext = 0.25 * nA
   # net.run(duration - 2*silent)
-  # hipp.I_ext = 0.0 * nA
+  # mgc.I_ext = 0.0 * nA
   # net.run(silent)
 
   net.run(duration)

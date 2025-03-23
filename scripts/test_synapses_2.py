@@ -31,7 +31,7 @@ def main():
   mon = StateMonitor(bc, True, record=True)
   mon_s = SpikeMonitor(bc)
   # mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn', 'g_norm'], record=True)
-  mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn'], record=True)
+  mon_syn_pp = StateMonitor(pp_ampa_bc, ['g', 'h', 'g_syn', 't_peak', 'f'], record=True)
   # mon_syn_pp = StateMonitor(pp_nmda_bc, ['g', 'h', 'g_syn'], record=True)
 
   # neurons = [pp, mgc, bc]
@@ -56,7 +56,7 @@ def main():
   # plt.plot(mon.t / ms, mon.Vm[0] / mV)
   # plt.show()
 
-  plot_voltage(mon, mon_s)
+  # plot_voltage(mon, mon_s)
 
   # plt.plot(mon.t / ms, mon.I_ampa[0] / nA)
   # plt.xticks(rotation=45)
@@ -101,6 +101,19 @@ def main():
   # plt.grid(True, which="both", linestyle="--", alpha=0.2)
   # plt.show()
 
+
+
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.t_peak[0])
+  plt.xticks(rotation=45)
+  plt.locator_params(axis="x", nbins=120)
+  plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  plt.show()
+
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.f[0])
+  plt.xticks(rotation=45)
+  plt.locator_params(axis="x", nbins=120)
+  plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  plt.show()
 
   plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g[0])
   plt.xticks(rotation=45)
