@@ -17,8 +17,9 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     smooth_rates = rate_mon.smooth_rate(window='flat', width=window_width) / Hz
 
     pattern = get_population_pattern(spike_mon)
-    per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
-    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella)}')
+    # per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
+    # print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella)}')
+    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
@@ -28,7 +29,7 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
       ax1.plot(spike_mon.t / ms, spike_mon.i, 'ok', markersize=1)
     ax1.set_xlabel('Time (ms)')
     ax1.set_ylabel(f'{neuron.name} index')
-    ax1.set_xlim(break_time / ms, stim_time / ms)
+    ax1.set_xlim(break_time / ms, (break_time + stim_time) / ms)
     ax1.set_ylim(0, len(neuron))
 
     ax2 = ax1.twinx()
