@@ -13,7 +13,6 @@ class SimWrapper:
   def __init__(self, report=None):
     self.net = network()
 
-    # neurons = [self.net['pp'], self.net['mgc'], self.net['bc']]
     neurons = get_neurons(self.net)
     spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
     rate_monitors = [PopulationRateMonitor(neuron) for neuron in neurons]
