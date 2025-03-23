@@ -37,7 +37,7 @@ def main():
   pp_ampa_hipp = Connect(pp, hipp, **syn_params['pp_ampa_hipp'])
   pp_nmda_hipp = Connect(pp, hipp, **syn_params['pp_nmda_hipp'])
 
-  hipp_gaba_mgc = Connect(hipp, mgc, **syn_params['hipp_gaba_mgc'])
+  # hipp_gaba_mgc = Connect(hipp, mgc, **syn_params['hipp_gaba_mgc'])
 
   # mon = StateMonitor(mgc, True, record=True)
   # mon_s = SpikeMonitor(mgc)

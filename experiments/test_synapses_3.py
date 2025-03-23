@@ -52,13 +52,14 @@ def main():
   # net.run(silent)
 
   net.run(duration)
+  print(np.average(mon.I_syn))
 
   # plt.plot(mon.t / ms, mon.Vm[0] / mV)
   # plt.show()
 
-  plot_voltage(mon, mon_s)
+  # plot_voltage(mon, mon_s)
 
-  # plt.plot(mon.t / ms, mon.I_ampa[0] / nA)
+  # plt.plot(mon.t / ms, mon.I_syn[0] / nA)
   # plt.xticks(rotation=45)
   # plt.locator_params(axis="x", nbins=60)
   # plt.grid(True, which="both", linestyle="--", alpha=0.2)
@@ -76,11 +77,11 @@ def main():
   # plt.grid(True, which="both", linestyle="--", alpha=0.2)
   # plt.show()
 
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g[0])
-  plt.xticks(rotation=45)
-  plt.locator_params(axis="x", nbins=120)
-  plt.grid(True, which="both", linestyle="--", alpha=0.2)
-  plt.show()
+  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.g[0])
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=120)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.show()
 
   # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.h[0])
   # plt.xticks(rotation=45)
@@ -95,15 +96,15 @@ def main():
   # plt.show()
 
 
-  for spike_mon in spike_monitors:
-    print(f"Firing rate of {labels[spike_monitors.index(spike_mon)]}: {spike_mon.num_spikes / duration}")
-    print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
+  # for spike_mon in spike_monitors:
+  #   print(f"Firing rate of {labels[spike_monitors.index(spike_mon)]}: {spike_mon.num_spikes / duration}")
+  #   print(f'Number of {labels[spike_monitors.index(spike_mon)]} that fired: {len(set(spike_mon.i))}')
  
-    plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
-    plt.plot(spike_mon.t / ms, spike_mon.i, '|k', markersize=1)
-    plt.xlabel('Time (ms)')
-    plt.ylabel(f'{labels[spike_monitors.index(spike_mon)]} index')
-  plt.show()
+  #   plt.subplot(len(spike_monitors), 1, spike_monitors.index(spike_mon) + 1)
+  #   plt.plot(spike_mon.t / ms, spike_mon.i, '|k', markersize=1)
+  #   plt.xlabel('Time (ms)')
+  #   plt.ylabel(f'{labels[spike_monitors.index(spike_mon)]} index')
+  # plt.show()
 
 
 if __name__ == '__main__':
