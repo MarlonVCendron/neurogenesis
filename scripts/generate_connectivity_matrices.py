@@ -1,11 +1,9 @@
 from brian2 import *
-from os.path import join
 import h5py
 
 from utils.initialize import initialize
-from params import connectivity_dir
 from models.general.network import network
-from utils.utils import get_synapses
+from utils.utils import get_synapses, get_connectivity_filepath
 from plotting.connectivity_matrices import connectivity_matrices
 
 if __name__ == '__main__':
@@ -22,13 +20,11 @@ if __name__ == '__main__':
     source = syn.source
     target = syn.target
     
-    W = np.full((len(source), len(target)), np.nan)
-    W[syn.i[:], syn.j[:]] = syn.w[:]
+    filepath = get_connectivity_filepath(source.name, target.name)
+    file = h5py.File(filepath, 'w')
 
-    filename = f"{source.name}_{target.name}.h5"
-    file = h5py.File(join(connectivity_dir,filename), 'w')
-
-    file.create_dataset("W", data=W)
+    file.create_dataset("i", data=syn.i[:])
+    file.create_dataset("j", data=syn.j[:])
     file.close()
     
   
