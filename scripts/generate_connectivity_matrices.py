@@ -6,6 +6,7 @@ from models.general.network import network
 from utils.utils import get_synapses, get_connectivity_filepath
 from plotting.connectivity_matrices import connectivity_matrices
 
+# NOTE: This script should be run with skip_connectivity_matrices = True
 if __name__ == '__main__':
   initialize()
   net = network()
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     source = syn.source
     target = syn.target
     
-    filepath = get_connectivity_filepath(source.name, target.name)
+    filepath = get_connectivity_filepath(source, target)
     file = h5py.File(filepath, 'w')
 
     file.create_dataset("i", data=syn.i[:])
