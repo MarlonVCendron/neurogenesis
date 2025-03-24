@@ -24,3 +24,4 @@ stim_time = 1000 * ms
 
 base_dir = './'
 results_dir = join(base_dir, 'res')
+connectivity_dir = join(base_dir, 'connectivity')
