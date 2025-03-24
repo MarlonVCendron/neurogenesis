@@ -6,7 +6,6 @@ from utils.save_to_file import save_to_file
 from utils.patterns import get_population_pattern
 from params import break_time, stim_time
 from models.general.network import network
-from plotting.connectivity_matrices import connectivity_matrices
 
 
 class SimWrapper:
@@ -20,10 +19,8 @@ class SimWrapper:
     self.net.add(self.monitors)
 
     self.activate_monitors(False)
-    # self.net['pp'].active = False
     self.net.run(break_time, report=report)
     self.activate_monitors(True)
-    # self.net['pp'].active = True
     self.net.run(stim_time, report=report)
 
     device.build(run=False)
@@ -45,8 +42,6 @@ class SimWrapper:
         results_directory=results_directory,
         run_args={self.net['pp'].rates: pattern['rates']}
     )
-    
-    # connectivity_matrices(self.net)
 
     self.save_results(pattern, results_directory)
 
