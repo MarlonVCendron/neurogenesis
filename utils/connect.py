@@ -1,9 +1,7 @@
 from brian2 import *
-from os.path import join
-import h5py
 
 from models.general import synapse
-from utils.utils import get_connectivity_filepath
+from utils.utils import read_connectivity
 
 def Connect(source, target, receptor, delay, g_max, E, tau_r, tau_d, condition=None, p=1):
   (eqs, on_pre) = synapse(receptor)
@@ -17,16 +15,7 @@ def Connect(source, target, receptor, delay, g_max, E, tau_r, tau_d, condition=N
       method='rk2',
   )
 
-  try:
-    filepath = get_connectivity_filepath(source, target)
-    file = h5py.File(filepath, 'r')
-    conn_i = file['i'][:]
-    conn_j = file['j'][:]
-    file.close()
-  except:
-    print(f'Skipping connectivity matrix: {filepath}')
-    conn_i = []
-    conn_j = []
+  conn_i, conn_j = read_connectivity(source, target)
   
   if len(conn_i) > 0 and len(conn_j) > 0:
     synapses.connect(i=conn_i, j=conn_j)

@@ -5,7 +5,7 @@ from os.path import join
 trials = 1 # 30
 
 # Whether the network has immature GCs
-has_igc = False
+has_igc = True
 
 # Number of lamellae
 N_lamellae = 20
@@ -21,6 +21,8 @@ break_time = 300 * ms
 # Simulation time when activity is recorded
 stim_time = 1000 * ms
 
+# Whether to skip the loading of connectivity matrices
+skip_connectivity_matrices = False
 
 base_dir = './'
 results_dir = join(base_dir, 'res')
