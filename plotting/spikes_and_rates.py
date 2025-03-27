@@ -1,5 +1,6 @@
 from brian2 import *
 import numpy as np
+from utils.args_config import args
 
 from params import break_time, stim_time
 from utils.patterns import get_population_pattern, get_pattern_per_lamella
@@ -37,7 +38,9 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     ax2.set_ylabel('Firing rate (Hz)')
     ax2.set_ylim(0, max(smooth_rates) + 1) 
   if save:
-    plt.savefig(f'figures/rates_experiments/?.png')
+    # filename = f'nmda_{args.nmda}_ampa_{args.ampa}_gaba_{args.gaba}'
+    filename = '?'
+    plt.savefig(f'figures/rates_experiments/{filename}.png')
     plt.close()
   else:
     plt.show()

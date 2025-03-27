@@ -1,11 +1,13 @@
 from brian2 import *
 from os.path import join
 
+from utils.args_config import args
+
 # Number of trials
 trials = 1 # 30
 
 # Whether the network has immature GCs
-has_igc = True
+has_igc = args.neurogenesis
 
 # Number of lamellae
 N_lamellae = 20
