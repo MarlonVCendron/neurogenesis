@@ -2,7 +2,7 @@ from params.cells import cell_params
 from params import pp_rate, break_time, N_lamellae
 import numpy as np
 
-p = 0.1
+p = 0.02
 N = cell_params['pp']['N']
 step = 0.1
 
@@ -51,7 +51,7 @@ def generate_activity_patterns(rate=pp_rate, step=step):
       'rates': pattern * rate,
       'similarity': (i+1) * step,
     }
-    for i, pattern in enumerate(generate_patterns(step))
+    for i, pattern in enumerate(generate_patterns(step=step))
   ]
 
 # Percentage of active neurons in a pattern
