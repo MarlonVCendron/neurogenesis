@@ -1,9 +1,9 @@
 from brian2 import *
 from utils.args_config import args
 
-alpha_nmda = args.nmda or 11  # NMDA scaling factor
-alpha_ampa = args.ampa or 5   # AMPA scaling factor
-alpha_gaba = args.gaba or 6   # GABA scaling factor
+alpha_nmda = args.nmda or 10  # NMDA scaling factor
+alpha_ampa = args.ampa or 10  # AMPA scaling factor
+alpha_gaba = args.gaba or 10  # GABA scaling factor
 
 def synapse(receptor):
   R = receptor
