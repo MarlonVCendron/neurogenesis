@@ -103,5 +103,8 @@ def get_population_pattern(monitor):
       pattern[i] = 1
   return pattern
 
+def get_pp_pattern(pattern):
+  return np.where(pattern['rates'] > 0, 1, 0)
+
 def get_pattern_per_lamella(pattern):
   return np.split(pattern, N_lamellae)

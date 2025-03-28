@@ -1,11 +1,12 @@
 from os import makedirs
 from os.path import join
-import numpy as np
 import h5py
+
+from utils.patterns import get_pp_pattern
 
 def save_to_file(results_directory, pattern, mgc_pattern):
   in_similarity = pattern['similarity']
-  pp_pattern = pattern['rates'] 
+  pp_pattern = get_pp_pattern(pattern) 
   
   makedirs(results_directory, exist_ok=True)
 
