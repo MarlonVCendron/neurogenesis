@@ -4,7 +4,7 @@ from os.path import join
 from utils.args_config import args
 
 # Number of trials
-trials = 1 # 30
+trials = 1 if args.single_run else args.trials
 
 # Whether the network has immature GCs
 has_igc = args.neurogenesis

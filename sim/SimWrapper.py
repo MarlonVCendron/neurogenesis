@@ -9,12 +9,12 @@ from models.general.network import network
 
 
 class SimWrapper:
-  def __init__(self, report=None):
+  def __init__(self, monitor_rate=True, report=None):
     self.net = network()
 
     neurons = get_neurons(self.net)
     spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
-    rate_monitors = [PopulationRateMonitor(neuron) for neuron in neurons]
+    rate_monitors = [PopulationRateMonitor(neuron) for neuron in neurons] if monitor_rate else []
     self.monitors = spike_monitors + rate_monitors
     self.net.add(self.monitors)
 
