@@ -26,5 +26,9 @@ for subdir in subdirs:
       }
 
 
-
-print(merged_data)
+# print(merged_data)
+# print(merged_data['./res/0']['in_similarity'])
+print(merged_data['./res/0']['pp_pattern'])
+print(merged_data['./res/0']['mgc_pattern'])
+print(np.sum(merged_data['./res/0']['pp_pattern']))
+print(np.sum(merged_data['./res/0']['mgc_pattern']))
