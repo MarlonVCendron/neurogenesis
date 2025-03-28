@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for neurogenesis in true false; do
+for neurogenesis in false true; do
   if [[ "$neurogenesis" == "false" ]]; then
     echo "Running: control"
     python -m main --trials=30

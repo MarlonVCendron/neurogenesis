@@ -18,7 +18,7 @@ def res_filename(i, total):
 if __name__ == '__main__':
   initialize()
 
-  sim = SimWrapper(report='text', monitor_rate=False)
+  sim = SimWrapper(report=None, monitor_rate=False)
 
   patterns    = [pattern for pattern in generate_activity_patterns() for _ in range(trials)]
   if args.single_run:
