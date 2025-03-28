@@ -5,8 +5,8 @@ parser.add_argument("--nmda", type=int, default=None, help="Scaling factor for N
 parser.add_argument("--gaba", type=int, default=None, help="Scaling factor for GABA")
 parser.add_argument("--ampa", type=int, default=None, help="Scaling factor for AMPA")
 parser.add_argument("--trials", type=int, default=1, help="Number of trials")
-parser.add_argument("--neurogenesis", type=bool, default=False, help="Whether to include neurogenesis")
-parser.add_argument("--single-run", type=bool, default=False, help="Whether to run a single pattern only")
+parser.add_argument("--neurogenesis", action="store_true", help="Whether to include neurogenesis")
+parser.add_argument("--single-run", action="store_true", help="Whether to run a single pattern only")
 
 args = parser.parse_args()
 
