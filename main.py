@@ -13,14 +13,15 @@ def res_filename(i, total):
   trial_index = i // patterns_per_trial
   pattern_index = i % patterns_per_trial
   flag = 'neurogenesis' if args.neurogenesis else 'control'
-  return f'{flag}_trial_{trial_index}_pattern_{pattern_index}'
+  return f'{args.prefix}_{flag}_trial_{trial_index}_pattern_{pattern_index}'
 
 if __name__ == '__main__':
   initialize()
 
-  sim = SimWrapper(report=None, monitor_rate=False)
+  monitor_rate = True
+  sim = SimWrapper(report='text', monitor_rate=monitor_rate)
 
-  patterns    = [pattern for pattern in generate_activity_patterns() for _ in range(trials)]
+  patterns    = [pattern for _ in range(trials) for pattern in generate_activity_patterns()]
   if args.single_run:
     patterns    = patterns[:1]
 
@@ -29,5 +30,6 @@ if __name__ == '__main__':
 
   results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
 
-  # for i, (spikes, rates) in enumerate(results):
-  #   plot_spikes_and_rates(spikes, rates, i)
+  if(monitor_rate):
+    for i, (spikes, rates) in enumerate(results):
+      plot_spikes_and_rates(spikes, rates, i)

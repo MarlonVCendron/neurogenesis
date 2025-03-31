@@ -1,8 +1,8 @@
 from params.cells import cell_params
-from params import pp_rate, break_time, N_lamellae
+from params import pp_rate, break_time, N_lamellae, active_p
 import numpy as np
 
-p = 0.02
+p = active_p
 N = cell_params['pp']['N']
 step = 0.1
 
