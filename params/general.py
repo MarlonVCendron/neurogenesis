@@ -18,6 +18,8 @@ N_lamellae = 20
 # IGC connectivity fraction
 igc_conn = args.igc_conn if has_igc else 0.0
 
+ca3 = args.ca3
+
 # Rate of EC neurons
 pp_rate = 40 * Hz
 

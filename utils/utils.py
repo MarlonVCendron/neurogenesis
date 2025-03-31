@@ -50,3 +50,5 @@ def read_connectivity(source, target):
     print(f'Skipping connectivity matrix for : {source.name} -> {target.name}')
 
   return conn_i, conn_j
+
+neuron_ordering = ['pp', 'mgc', 'igc', 'mc', 'bc', 'hipp', 'pca3', 'ica3']

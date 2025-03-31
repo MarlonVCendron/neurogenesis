@@ -6,7 +6,8 @@ from params.cells import (
     N_igc_l,
     N_bc_l,
     N_mc_l,
-    N_hipp_l
+    N_pca3_l,
+    N_ica3_l
 ) 
 
 # Syntax: source_receptor_target
@@ -122,6 +123,46 @@ syn_params = {
         "delay"     : 1.5 * ms,
         "E"         : 0 * mV,
     },
+    # INNACURATE PARAMS
+    "mgc_ampa_pca3": {
+        "receptor" : "ampa_2",
+        "condition" : lamellar_conn(N_mgc_l, N_pca3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "mgc_nmda_pca3": {
+        "receptor" : "nmda_2",
+        "condition" : lamellar_conn(N_mgc_l, N_pca3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "mgc_ampa_ica3": {
+        "receptor" : "ampa_1",
+        "condition" : lamellar_conn(N_mgc_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "mgc_nmda_ica3": {
+        "receptor" : "nmda_1",
+        "condition" : lamellar_conn(N_mgc_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
 
     "igc_ampa_bc": {
         "receptor"  : "ampa_3",
@@ -158,6 +199,46 @@ syn_params = {
         "tau_d"     : 100.0 * ms,
         "delay"     : 1.5 * ms,
         "E"         : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "igc_ampa_pca3": {
+        "receptor" : "ampa_3",
+        "condition" : lamellar_conn(N_igc_l, N_pca3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "igc_nmda_pca3": {
+        "receptor" : "nmda_3",
+        "condition" : lamellar_conn(N_igc_l, N_pca3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "igc_ampa_ica3": {
+        "receptor" : "ampa_2",
+        "condition" : lamellar_conn(N_igc_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "igc_nmda_ica3": {
+        "receptor" : "nmda_2",
+        "condition" : lamellar_conn(N_igc_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
     },
 
     "bc_gaba_mgc": {
@@ -244,6 +325,78 @@ syn_params = {
         "receptor" : "gaba_2",
         "p"        : 0.2,
         "g_max"    : 3.0 * nS,
+        "tau_r"    : 0.5 * ms,
+        "tau_d"    : 6.0 * ms,
+        "delay"    : 1.6 * ms,
+        "E"        : -86.0 * mV,
+    },
+
+    # INNACURATE PARAMS
+    "pca3_ampa_pca3": {
+        "receptor" : "ampa_4",
+        "p"        : 0.01,
+        "g_max"    : 2 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pca3_nmda_pca3": {
+        "receptor" : "nmda_4",
+        "p"        : 0.01,
+        "g_max"    : 2 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pca3_ampa_ica3": {
+        "receptor" : "ampa_3",
+        "condition" : lamellar_conn(N_pca3_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pca3_nmda_ica3": {
+        "receptor" : "nmda_3",
+        "condition" : lamellar_conn(N_pca3_l, N_ica3_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pca3_ampa_mc": {
+        "receptor" : "ampa_3",
+        "condition" : lamellar_conn(N_pca3_l, N_mc_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pca3_nmda_mc": {
+        "receptor" : "nmda_3",
+        "condition" : lamellar_conn(N_pca3_l, N_mc_l),
+        "g_max"    : 1 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+
+    # INNACURATE PARAMS
+    "ica3_gaba_pca3": {
+        "receptor" : "gaba_1",
+        "condition" : lamellar_conn(N_ica3_l, N_pca3_l),
+        "g_max"    : 30.0 * nS,
         "tau_r"    : 0.5 * ms,
         "tau_d"    : 6.0 * ms,
         "delay"    : 1.6 * ms,

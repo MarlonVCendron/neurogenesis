@@ -4,11 +4,14 @@ from utils.args_config import args
 
 from params import break_time, stim_time
 from utils.patterns import get_population_pattern, get_pattern_per_lamella
+from utils.utils import neuron_ordering
 
 def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=False, window_width=20*ms, filename='?'):
   import matplotlib
   matplotlib.use('TkAgg')
   import matplotlib.pyplot as plt
+  
+  spike_monitors = sorted(spike_monitors, key=lambda sm: neuron_ordering.index(sm.source.name))
 
   plt.figure(figsize=(10, len(spike_monitors) * 3))
 
