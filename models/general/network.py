@@ -9,16 +9,24 @@ from models.cells import (
     create_mc,
     create_hipp,
     create_pp,
+    create_pca3,
+    create_ica3,
 )
 
 
-def network():
+def network(ca3=False):
+  net = Network()
+  
   pp   = create_pp(N=cell_params['pp']['N'])
   mgc  = create_mgc()
   igc  = create_igc()
   bc   = create_bc()
   mc   = create_mc()
   hipp = create_hipp()
+  if ca3:
+    pca3 = create_pca3()
+    ica3 = create_ica3()
+    net.add(pca3, ica3)
 
   pp_ampa_mgc = Connect(pp, mgc, **syn_params['pp_ampa_mgc'])
   pp_nmda_mgc = Connect(pp, mgc, **syn_params['pp_nmda_mgc'])
@@ -49,6 +57,11 @@ def network():
 
   hipp_gaba_mgc = Connect(hipp, mgc, **syn_params['hipp_gaba_mgc'])
 
-  net = Network(collect())
+  if ca3:
+    pca3 = create_pca3()
+    ica3 = create_ica3()
+    net.add(pca3, ica3)
+
+  net.add(collect())
 
   return net

@@ -83,6 +83,26 @@ syn_params = {
         "delay"    : 3.0 * ms,
         "E"        : 0 * mV,
     },
+    # INNACURATE PARAMS
+    "pp_ampa_pca3": {
+        "receptor" : "ampa_1",
+        "p"        : 0.2,
+        "g_max"    : 0.75 * nS,
+        "tau_r"    : 2.0 * ms,
+        "tau_d"    : 6.3 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
+    # INNACURATE PARAMS
+    "pp_nmda_pca3": {
+        "receptor" : "nmda_1",
+        "p"        : 0.2,
+        "g_max"    : 0.13 * nS,
+        "tau_r"    : 6.6 * ms,
+        "tau_d"    : 126.0 * ms,
+        "delay"    : 3.0 * ms,
+        "E"        : 0 * mV,
+    },
 
     "mgc_ampa_bc": {
         "receptor"  : "ampa_2",
