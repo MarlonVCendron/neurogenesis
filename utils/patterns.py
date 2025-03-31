@@ -90,7 +90,7 @@ def pattern_separation_degree(in_1, in_2, out_1, out_2):
   out_distance = pattern_distance(out_1, out_2)
 
   if(in_distance == 0):
-    return float("inf")
+    return out_distance
 
   return out_distance / in_distance 
 
