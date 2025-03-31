@@ -32,7 +32,8 @@ class SimWrapper:
     
   def save_results(self, pattern, results_directory):
     mgc_pattern = get_population_pattern(get_neuron_monitor(self.net, 'mgc'))
-    save_to_file(results_directory, pattern, mgc_pattern)
+    igc_pattern = get_population_pattern(get_neuron_monitor(self.net, 'igc'))
+    save_to_file(results_directory, pattern, mgc_pattern, igc_pattern)
 
   def do_run(self, pattern, results_directory):
     from brian2.devices import device_module
