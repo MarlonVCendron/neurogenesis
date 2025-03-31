@@ -2,7 +2,7 @@ from brian2 import *
 from os.path import join
 import h5py
 
-from params import connectivity_dir, skip_connectivity_matrices, has_igc
+from params import connectivity_dir, skip_connectivity_matrices, has_igc, igc_conn
 
 def get_objects(net, obj_type):
   return sorted(
@@ -30,7 +30,7 @@ def get_synapses(net):
 
 def get_connectivity_filepath(source, target):
   filename = f"{source.name}_{target.name}.h5"
-  directory = 'control' if has_igc else 'neurogenesis'
+  directory = f'neurogenesis_{igc_conn}' if has_igc else 'control'
   return join(connectivity_dir, directory, filename)
 
 def read_connectivity(source, target):
