@@ -5,21 +5,22 @@ from plotting.spikes_and_rates import plot_spikes_and_rates
 from utils.patterns import generate_activity_patterns
 from utils.initialize import initialize
 from sim import SimWrapper
-from params import results_dir, trials
+from params import results_dir, trials, igc_conn
 from utils.args_config import args
 
 def res_filename(i, total):
   patterns_per_trial = total // trials
   trial_index = i // patterns_per_trial
   pattern_index = i % patterns_per_trial
-  flag = 'neurogenesis' if args.neurogenesis else 'control'
-  return f'{args.prefix}_{flag}_trial_{trial_index}_pattern_{pattern_index}'
+  flag = f'neurogenesis_{igc_conn}' if args.neurogenesis else 'control'
+  return f'{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}'
 
 if __name__ == '__main__':
   initialize()
 
-  monitor_rate = True
-  sim = SimWrapper(report='text', monitor_rate=monitor_rate)
+  monitor_rate = args.single_run
+  report = 'text' if args.single_run else None
+  sim = SimWrapper(report=report, monitor_rate=monitor_rate)
 
   patterns    = [pattern for _ in range(trials) for pattern in generate_activity_patterns()]
   if args.single_run:
