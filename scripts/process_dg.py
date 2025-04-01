@@ -57,14 +57,15 @@ for key in data:
     trial_entry['patterns'].sort(key=lambda p: p['in_similarity'])
 
 in_sim_dict = {}
+# for trial in data['neurogenesis_0.1']:
 for trial in data['control']:
   original_inp = trial['original_pattern']['pp_pattern']
-  original_out = trial['original_pattern']['mgc_pattern']
+  original_out = trial['original_pattern']['gc_pattern']
 
   for pattern in trial['patterns'][:-1]:
     sim = pattern['in_similarity']
     inp = pattern['pp_pattern']
-    out = pattern['mgc_pattern'] 
+    out = pattern['gc_pattern']
     s_d = pattern_separation_degree(original_inp, inp, original_out, out)
     # s_d = activation_degree(out)
     # s_d = correlation_degree(original_inp, inp)
