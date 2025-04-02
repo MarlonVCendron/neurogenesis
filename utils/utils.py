@@ -29,7 +29,10 @@ def get_synapses(net):
   return get_objects(net, Synapses)
 
 def get_connectivity_filepath(source, target):
-  filename = f"{source.name}_{target.name}.h5"
+  source_name = source if isinstance(source, str) else source.name
+  target_name = target if isinstance(target, str) else target.name
+  filename = f"{source_name}_{target_name}.h5"
+
   directory = f'neurogenesis_{igc_conn}' if has_igc else 'control'
   return join(connectivity_dir, directory, filename)
 

@@ -1,15 +1,17 @@
 from brian2 import *
 
-def plot_voltage(monitor, spike_monitor):
+def plot_voltage(monitor, spike_monitor, idx=0):
   import matplotlib
   matplotlib.use('TkAgg')
   import matplotlib.pyplot as plt
 
   neuron = monitor.source
-  threshold = neuron.get_states()['V_th'][0]
+  threshold = neuron.get_states()['V_th'][idx]
 
-  plt.plot(monitor.t / ms, monitor.Vm[0] / mV, color="black")
-  for spike_time in spike_monitor.t / ms:
+  all_spikes = spike_monitor.all_values()
+
+  plt.plot(monitor.t / ms, monitor.Vm[idx] / mV, color="black")
+  for spike_time in all_spikes['t'][idx] / ms:
     plt.plot([spike_time, spike_time], [threshold / mV, 20], color="black")
   plt.xticks(rotation=45)
   plt.locator_params(axis="x", nbins=60)
