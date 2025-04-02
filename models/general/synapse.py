@@ -9,20 +9,24 @@ def synapse(receptor):
   R = receptor
 
   eq_model = Equations(f'''
-    I_synapse  = g_syn * (Vm - E)                           : amp
-    g_syn      = g_max * g                                  : siemens
-    dg/dt      = -g / tau_r + (h * alpha) / (tau_r * tau_d) : 1 (clock-driven)
-    dh/dt      = -h / tau_d                                 : 1 (clock-driven)
+    I_synapse = g_syn * (Vm - E)                : amp
+    g_syn     = g_max * g                       : siemens
+    dg/dt     = -g / tau_d + h * (1 - g) * beta : 1 (clock-driven)
+    dh/dt     = -h / tau_r                      : 1 (clock-driven)
+
+    # dg/dt      = -g / tau_r + (h * alpha) / (tau_r * tau_d) : 1 (clock-driven)
+    # dh/dt      = -h / tau_d                                 : 1 (clock-driven)
 
     I_{R}_post = I_synapse                                  : amp (summed)
   ''')
 
   eq_params = Equations('''
-    g_max : siemens  # Synaptic strength
-    E     : volt     # Reversal potential
-    tau_r : second   # Rise time
-    tau_d : second   # Decay time
-    w     = 1 : 1    # Synaptic weight
+    g_max : siemens          # Synaptic strength
+    E     : volt             # Reversal potential
+    tau_r : second           # Rise time
+    tau_d : second           # Decay time
+    w     = 1          : 1   # Synaptic weight
+    beta  = 4 * ms**-1 : Hz  # Synaptic scaling factor
   ''')
 
   on_pre = 'h += w'
