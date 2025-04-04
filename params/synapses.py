@@ -335,7 +335,8 @@ syn_params = {
     # INNACURATE PARAMS
     "pca3_ampa_pca3": {
         "receptor" : "ampa_4",
-        "p"        : 0.01,
+        # "p"        : 0.01,
+        "p"        : 0.05,
         "g_max"    : 2 * nS,
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,

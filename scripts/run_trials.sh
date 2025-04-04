@@ -1,6 +1,6 @@
 #!/bin/bash
 
-prefix="run_02"
+prefix="run_03"
 trials=30
 
 echo "Running: control"

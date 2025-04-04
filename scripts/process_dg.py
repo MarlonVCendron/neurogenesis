@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from params import results_dir
 from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree
 
-run_02_dir = os.path.join(results_dir, 'run_02')
+run_02_dir = os.path.join(results_dir, 'run_03')
 subdirs = [os.path.join(run_02_dir, d) for d in os.listdir(run_02_dir) if os.path.isdir(os.path.join(run_02_dir, d))]
 
 data = {}
@@ -57,8 +57,8 @@ for key in data:
     trial_entry['patterns'].sort(key=lambda p: p['in_similarity'])
 
 in_sim_dict = {}
-# for trial in data['neurogenesis_0.1']:
-for trial in data['control']:
+for trial in data['neurogenesis_1.0']:
+# for trial in data['control']:
   original_inp = trial['original_pattern']['pp_pattern']
   original_out = trial['original_pattern']['gc_pattern']
 

@@ -1,14 +1,15 @@
 from brian2 import *
 from params.general import N_lamellae, has_igc
+from utils.args_config import args
 
-N_pp     = 400
-N_mgc_l  = 90 if has_igc else 100
-N_igc_l  = 10
-N_bc_l   = 1
-N_mc_l   = 4
-N_hipp_l = 2
-N_pca3_l = 30
-N_ica3_l = 3
+N_pp     = args.n_pp
+N_igc_l  = args.n_igc
+N_mgc_l  = (args.n_mgc - N_igc_l) if has_igc else args.n_mgc
+N_bc_l   = args.n_bc
+N_mc_l   = args.n_mc
+N_hipp_l = args.n_hipp
+N_pca3_l = args.n_pca3
+N_ica3_l = args.n_ica3
 
 cell_params = {
     "pp": {

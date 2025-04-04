@@ -13,7 +13,7 @@ active_p = args.active_p
 has_igc = args.neurogenesis
 
 # Number of lamellae
-N_lamellae = 20
+N_lamellae = args.n_lamellae
 
 # IGC connectivity fraction
 igc_conn = args.igc_conn if has_igc else 0.0
@@ -24,9 +24,9 @@ ca3 = args.ca3
 pp_rate = 40 * Hz
 
 # Simulation time for the network to settle
-break_time = 300 * ms
+break_time = args.break_time * ms
 # Simulation time when activity is recorded
-stim_time = 1000 * ms
+stim_time = args.stim_time * ms
 
 # Whether to skip the loading of connectivity matrices
 skip_connectivity_matrices = args.skip_connectivity_matrices

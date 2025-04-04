@@ -12,7 +12,9 @@ from params.cells import (
   N_igc_l,
   N_bc_l,
   N_mc_l,
-  N_hipp_l
+  N_hipp_l,
+  N_pca3_l,
+  N_ica3_l
 ) 
 
 cell_to_nl = {
@@ -21,6 +23,8 @@ cell_to_nl = {
   "mgc": N_mgc_l,
   "igc": N_igc_l,
   "hipp": N_hipp_l,
+  "pca3": N_pca3_l,
+  "ica3": N_ica3_l,
   "pp": 1
 }
 
@@ -52,9 +56,11 @@ def export_to_gexf():
 
   gephi_filename = join(results_dir, "network.gexf")
   nx.write_gexf(G, gephi_filename)
+  print(f"Exported to {gephi_filename}")
 
   cytoscape_filename = join(results_dir, "network_cytoscape.xml")
   nx.write_graphml(G, cytoscape_filename)
+  print(f"Exported to {cytoscape_filename}")
 
 def get_neuron_attributes(cell, index):
   return {

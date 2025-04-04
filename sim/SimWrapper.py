@@ -1,12 +1,12 @@
 from brian2 import *
-import numpy as np
 
 from utils.utils import get_spike_monitors, get_neuron_monitor, get_neurons, get_rate_monitors
 from utils.save_to_file import save_to_file
 from utils.patterns import get_population_pattern
 from params import break_time, stim_time
 from models.general.network import network
-
+from plotting.connectivity_matrices import connectivity_matrices
+from utils.args_config import args
 
 class SimWrapper:
   def __init__(self, monitor_rate=True, report=None):
@@ -43,6 +43,9 @@ class SimWrapper:
         results_directory=results_directory,
         run_args={self.net['pp'].rates: pattern['rates']}
     )
+
+    if args.generate_graph:
+      connectivity_matrices(self.net)
 
     self.save_results(pattern, results_directory)
 
