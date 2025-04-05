@@ -31,6 +31,6 @@ if __name__ == '__main__':
 
   results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
 
-  # if(monitor_rate):
-  #   for i, (spikes, rates) in enumerate(results):
-  #     plot_spikes_and_rates(spikes, rates, i, filename=res_filename(i, total_patterns))
+  if(monitor_rate):
+    for i, (spikes, rates) in enumerate(results):
+      plot_spikes_and_rates(spikes, rates, i, filename=res_filename(i, total_patterns))
