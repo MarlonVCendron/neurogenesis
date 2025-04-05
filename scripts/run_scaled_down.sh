@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python -m main \
+ARGS="\
   --single-run \
   --ca3 \
   --neurogenesis \
@@ -17,7 +17,9 @@ python -m main \
   --n-mc=2 \
   --n-hipp=1 \
   --n-pca3=6 \
-  --n-ica3=1
+  --n-ica3=1"
+
+python -m main $ARGS
 
 echo "Running graph export script..."
-python -m scripts.graph_export
+python -m scripts.graph_export $ARGS

@@ -23,10 +23,10 @@ parser.add_argument("--generate-graph", action="store_true", help="Whether to ge
 parser.add_argument("--n-lamellae", type=int, default=20, help="Number of lamellae")
 parser.add_argument("--n-pp", type=int, default=400, help="Number of PP axons")
 parser.add_argument("--n-mgc", type=int, default=100, help="Number of mGC neurons per lamella")
-parser.add_argument("--n-igc", type=int, default=100, help="Number of iMGC neurons per lamella")
+parser.add_argument("--n-igc", type=int, default=10, help="Number of iMGC neurons per lamella")
 parser.add_argument("--n-bc", type=int, default=1, help="Number of BC neurons per lamella")
 parser.add_argument("--n-mc", type=int, default=4, help="Number of MC neurons per lamella")
-parser.add_argument("--n-hipp", type=int, default=2, help="Number of HIPP neurons per lamella")
+parser.add_argument("--n-hipp", type=int, default=1, help="Number of HIPP neurons per lamella")
 parser.add_argument("--n-pca3", type=int, default=30, help="Number of CA3 neurons per lamella")
 parser.add_argument("--n-ica3", type=int, default=3, help="Number of ICA3 neurons per lamella")
 
