@@ -1,19 +1,19 @@
-C_m \frac{dV_m(t)}{dt} = -I_{L}(t) - I_{AHP}(t) - I_{syn}(t)\\\\
+C_m \frac{dV_m(t)}{dt} = -I_{L}(t) - I_{AHP}(t) - I_{syn}(t)   \\\\
 
-I_{L}(t) = g_L (V_m(t) - E_L)\\\\
+I_{L}(t) = g_L \, (V_m(t) - E_L)   \\\\
 
-I_{AHP}(t) = g_{AHP}(t) \cdot (V_m(t) - E_{AHP})\\\\
-g_{AHP}(t) = \bar{g}_{AHP} \cdot e^{(\frac{t_s-t}{\tau_{AHP}})}\\\\
+I_{AHP}(t) = g_{AHP}(t) (V_m(t) - E_{AHP})   \\\\
+g_{AHP}(t) = \bar{g}_{AHP} \, e^{(\frac{t_s-t}{\tau_{AHP}})}   \\\\
 
-I_{syn}(t) = I_{AMPA}(t) + I_{NMDA}(t) + I_{GABA}(t)\\\\
-I_{R}(t) = g_R(t) \cdot (V_m(t) - E_{R})\\\\
-% g_R(t) = \bar{g}_R \sum_{i=1}^{N_s}w_i s_i(t)\\\\
-g_R(t) = \bar{g}_R \cdot s(t) \\\\
-\frac{ds(t)}{dt} = \frac{-s}{\tau_{rise}} + (1-g) \cdot h \cdot \alpha \\\\
-\frac{dh(t)}{dt} = \frac{-h}{\tau_{decay}}\\\\
+I_{syn}(t) = I_{AMPA}(t) + I_{NMDA}(t) + I_{GABA}(t)   \\\\
+I_{R}(t) = g_R(t) \, (V_m(t) - E_{R})   \\\\
+% g_R(t) = \bar{g}_R \sum_{i=1}^{N_s}w_i s_i(t)   \\\\
+g_R(t) = \bar{g}_R \, s(t)   \\\\
+\frac{ds(t)}{dt} = \frac{-s}{\tau_{rise}} + (1-g) \, h \, \alpha   \\\\
+\frac{dh(t)}{dt} = \frac{-h}{\tau_{decay}}   \\\\
 
 
-\text{when} \quad V_m \gt V_{th}: \quad
+\text{if} \quad V_m \gt V_{th}: \quad
 \begin{cases}
 h \leftarrow h + w \\
 V_m \leftarrow E_L
