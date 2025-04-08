@@ -6,7 +6,7 @@ from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.collections import LineCollection
 from matplotlib.lines import Line2D
 
-from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree
+from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
 
 plt.style.use('seaborn-v0_8-poster')
@@ -24,36 +24,59 @@ plt.rcParams.update({
     "lines.linewidth": 3,
 })
 
-data = load_pattern_data('run_03')
+data = load_pattern_data('run_05')
 
-groups = list(data.keys())
+groups = sorted(list(data.keys()))
 
 def in_similarity():
   sds = {}
+  i_sds = {}
+  m_sds = {}
   boxplot_data = {}
   std_devs = {}
   for group in groups:
     in_sim_dict = {}
+    i_in_sim_dict = {}
+    m_in_sim_dict = {}
     for trial in data[group]:
-      # for trial in data['control']:
       original_inp = trial['original_pattern']['pp_pattern']
       original_out = trial['original_pattern']['gc_pattern']
+      original_iout = trial['original_pattern']['igc_pattern']
+      original_mout = trial['original_pattern']['mgc_pattern']
 
       for pattern in trial['patterns'][:-1]:
         sim = pattern['in_similarity']
         inp = pattern['pp_pattern']
         out = pattern['gc_pattern']
+        iout = pattern['igc_pattern']
+        mout = pattern['mgc_pattern']
+
         s_d = pattern_separation_degree(original_inp, inp, original_out, out)
+        i_s_d = pattern_integration_degree(original_inp, inp, original_iout, iout)
+        m_s_d = pattern_integration_degree(original_inp, inp, original_mout, mout)
 
         if sim not in in_sim_dict:
           in_sim_dict[sim] = []
         in_sim_dict[sim].append(s_d)
 
+        if sim not in i_in_sim_dict:
+          i_in_sim_dict[sim] = []
+        i_in_sim_dict[sim].append(i_s_d)
+
+        if sim not in m_in_sim_dict:
+          m_in_sim_dict[sim] = []
+        m_in_sim_dict[sim].append(m_s_d)
+
     mean_sd = np.mean([np.mean(sds) for sds in in_sim_dict.values()])
+    mean_i_sd = np.mean([np.mean(sds) for sds in i_in_sim_dict.values()])
+    mean_m_sd = np.mean([np.mean(sds) for sds in m_in_sim_dict.values()])
+
     # std_dev = np.std([np.std(sds, ddof=1) for sds in in_sim_dict.values()])
     std_dev = sem([np.mean(sds) for sds in in_sim_dict.values()])
 
     sds[group] = mean_sd
+    i_sds[group] = mean_i_sd
+    m_sds[group] = mean_m_sd
     boxplot_data[group] = [np.mean(sds) for sds in in_sim_dict.values()]
     std_devs[group] = std_dev
   
@@ -63,11 +86,10 @@ def in_similarity():
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
 
 
-  sorted_groups = sorted(groups)
-  sorted_sds = [sds[group] for group in sorted_groups]
-  sorted_std_devs = [std_devs[group] for group in sorted_groups]
-  sorted_boxplot_data = [boxplot_data[group] for group in sorted_groups]
-
+  sds = [sds[group] for group in groups]
+  i_sds = [i_sds[group] for group in groups]
+  m_sds = [m_sds[group] for group in groups]
+  
   # plt.gca().set_aspect('equal')
 
   # groups_indices = np.arange(len(sorted_groups))
@@ -81,9 +103,22 @@ def in_similarity():
 
   # plt.scatter(groups_indices, sorted_sds, c=sorted_sds, cmap=cmap, label=group)
 
-  plt.axhline(y=sorted_sds[0], color=c_color, linestyle='--')
+  print(sds)
+  plt.axhline(y=sds[0], color=c_color, linestyle='--', label='Control')
+  plt.axhline(y=1, color='gray', linestyle='--')
   
-  plt.plot(sorted_groups[1:], sorted_sds[1:], color='#16a4d8', label=group, marker='o')
+  alpha = 0.85
+  plt.plot(groups[1:], sds[1:], color='#8bd346', label='Full GC population pattern', marker='o', alpha=alpha)
+  plt.plot(groups[1:], i_sds[1:], color='#16a4d8', label='iGC pattern', marker='o', alpha=alpha)
+  plt.plot(groups[1:], m_sds[1:], color='#9b5fe0', label='mGC pattern', marker='o', alpha=alpha)
+  
+  plt.legend()
+  # lc = LineCollection(segments, cmap=cmap, norm=norm)
+  # lc.set_array(x)
+  # lc.set_linewidth(2)
+
+  # line = ax.add_collection(lc)
+
 
 
   # ax.errorbar(
@@ -109,7 +144,7 @@ def in_similarity():
   sm.set_array([])
   # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
 
-  plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group')
+  plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group and population')
   plt.xlabel('Groups')
   plt.ylabel('$\\mathcal{S}_D$')
   # plt.axhline(y=1, color='gray', linestyle='--')

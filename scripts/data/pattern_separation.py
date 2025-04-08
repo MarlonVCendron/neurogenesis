@@ -5,7 +5,7 @@ from scipy.stats import sem
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
 
-from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree
+from utils.patterns import pattern_separation_degree, pattern_integration_degree, activation_degree, correlation_degree
 from utils.data import load_pattern_data
 
 plt.style.use('seaborn-v0_8-poster')
@@ -23,9 +23,10 @@ plt.rcParams.update({
     "lines.linewidth": 3,
 })
 
-data = load_pattern_data('run_03')
+data = load_pattern_data('run_05')
 
-groups = list(data.keys())
+g = list(sorted(list(data.keys())))
+groups = np.concatenate((g[1:], g[0:1])) 
 
 def in_similarity():
   in_sims = []
@@ -35,8 +36,12 @@ def in_similarity():
     in_sim_dict = {}
     for trial in data[group]:
       # for trial in data['control']:
-      original_inp = trial['original_pattern']['pp_pattern']
-      original_out = trial['original_pattern']['gc_pattern']
+      original_pattern = trial['original_pattern']
+      # if original_pattern == None:
+      #   continue
+      
+      original_inp = original_pattern['pp_pattern']
+      original_out = original_pattern['gc_pattern']
 
       for pattern in trial['patterns'][:-1]:
         sim = pattern['in_similarity']
@@ -44,12 +49,14 @@ def in_similarity():
         out = pattern['gc_pattern']
         s_d = pattern_separation_degree(original_inp, inp, original_out, out)
         # s_d = activation_degree(out)
+        # s_d = activation_degree(inp)
         # s_d = correlation_degree(original_inp, inp)
         # s_d = correlation_degree(original_out, out)
 
         if sim not in in_sim_dict:
           in_sim_dict[sim] = []
-        in_sim_dict[sim].append(s_d)
+        if s_d != float("inf") and s_d != np.nan:
+          in_sim_dict[sim].append(s_d)
 
     average_sd = {sim: np.mean(sds) for sim, sds in in_sim_dict.items()}
     # std_error = {sim: sem(sds) for sim, sds in in_sim_dict.items()}
