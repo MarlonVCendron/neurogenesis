@@ -1,7 +1,18 @@
 #!/bin/bash
 
-prefix="run_03"
+prefix=$1
 trials=30
+
+if [ -z "$prefix" ]; then
+  echo "Usage: $0 <prefix>"
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  echo "No trials specified, using default: $trials"
+else
+  trials=$2
+fi
 
 echo "Running: control"
 python -m main --trials $trials --prefix $prefix
