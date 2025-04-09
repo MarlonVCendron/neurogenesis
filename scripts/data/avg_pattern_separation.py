@@ -87,7 +87,8 @@ def in_similarity():
     sems_i[group] = std_error_i
     sems_m[group] = std_error_m
   
-  fig, ax = plt.subplots()
+  fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
+  # fig, ax = plt.subplots()
 
   c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
@@ -185,7 +186,9 @@ def in_similarity():
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
   # plt.legend()
 
-  plt.show()
+  # plt.show()
+  plt.savefig(f'figures/plots/avg_pattern_separation.jpg', dpi=300, format='jpg')
+  plt.close()
 
 
 in_similarity()

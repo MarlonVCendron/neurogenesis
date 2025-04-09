@@ -22,7 +22,9 @@ plt.rcParams.update({
     "ytick.labelsize": 16,
     "legend.fontsize": 20,
 
-    "lines.linewidth": 3,
+    "lines.linewidth": 5,
+    'lines.solid_joinstyle': 'round',
+    'lines.solid_capstyle': 'round',
 })
 
 data = load_pattern_data('run_05')
@@ -34,8 +36,9 @@ def in_similarity():
   i_ids = {}
   m_ids = {}
   pp_ids = {}
-  boxplot_data = {}
-  std_devs = {}
+  sems = {}
+  sems_i = {}
+  sems_m = {}
   for group in groups:
     in_sim_dict = {}
     i_in_sim_dict = {}
@@ -54,34 +57,34 @@ def in_similarity():
         out = pattern['gc_pattern']
         iout = pattern['igc_pattern']
         mout = pattern['mgc_pattern']
-        # i_d = pattern_integration_degree(original_inp, inp, original_out, out)
-        # i_i_d = pattern_integration_degree(original_inp, inp, original_iout, iout)
-        # m_i_d = pattern_integration_degree(original_inp, inp, original_mout, mout)
+        i_d = pattern_integration_degree(original_inp, inp, original_out, out)
+        i_i_d = pattern_integration_degree(original_inp, inp, original_iout, iout)
+        m_i_d = pattern_integration_degree(original_inp, inp, original_mout, mout)
 
-        i_d = correlation_degree(original_out, out)
-        i_i_d = correlation_degree(original_iout, iout)
-        m_i_d = correlation_degree(original_mout, mout)
+        # i_d = correlation_degree(original_out, out)
+        # i_i_d = correlation_degree(original_iout, iout)
+        # m_i_d = correlation_degree(original_mout, mout)
         pp_i_d = correlation_degree(original_inp, inp)
 
         if sim not in in_sim_dict:
           in_sim_dict[sim] = []
-        if not math.isnan(i_d):
-          in_sim_dict[sim].append(i_d)
+        # if not math.isnan(i_d):
+        in_sim_dict[sim].append(i_d)
 
         if sim not in i_in_sim_dict:
           i_in_sim_dict[sim] = []
-        if not math.isnan(i_i_d):
-          i_in_sim_dict[sim].append(i_i_d)
+        # if not math.isnan(i_i_d):
+        i_in_sim_dict[sim].append(i_i_d)
         
         if sim not in m_in_sim_dict:
           m_in_sim_dict[sim] = []
-        if not math.isnan(m_i_d):
-          m_in_sim_dict[sim].append(m_i_d)
+        # if not math.isnan(m_i_d):
+        m_in_sim_dict[sim].append(m_i_d)
         
         if sim not in pp_in_sim_dict:
           pp_in_sim_dict[sim] = []
-        if not math.isnan(pp_i_d):
-          pp_in_sim_dict[sim].append(pp_i_d)
+        # if not math.isnan(pp_i_d):
+        pp_in_sim_dict[sim].append(pp_i_d)
     
 
     mean_id = np.mean([np.mean(ids) for ids in in_sim_dict.values()])
@@ -93,14 +96,15 @@ def in_similarity():
     # mean_m_id = np.mean([np.mean(ids) for ids in m_ids.values()])
     # mean_pp_id = np.mean([np.mean(ids) for ids in pp_ids.values()])
 
-    # std_dev = np.std([np.std(sds, ddof=1) for sds in in_sim_dict.values()])
-    std_dev = sem([np.mean(sds) for sds in in_sim_dict.values()])
-
-    ids[group] = mean_id / mean_pp_id
-    i_ids[group] = mean_i_id / mean_pp_id
-    m_ids[group] = mean_m_id / mean_pp_id
-    boxplot_data[group] = [np.mean(sds) for sds in in_sim_dict.values()]
-    std_devs[group] = std_dev
+    ids[group] = mean_id
+    i_ids[group] = mean_i_id
+    m_ids[group] = mean_m_id
+    # ids[group] = mean_id / mean_pp_id
+    # i_ids[group] = mean_i_id / mean_pp_id
+    # m_ids[group] = mean_m_id / mean_pp_id
+    sems[group] = sem([np.mean(sds) for sds in in_sim_dict.values()])
+    sems_i[group] = sem([np.mean(sds) for sds in i_in_sim_dict.values()])
+    sems_m[group] = sem([np.mean(sds) for sds in m_in_sim_dict.values()])
   
   fig, ax = plt.subplots()
 
@@ -111,27 +115,53 @@ def in_similarity():
   ids = [ids[group] for group in groups]
   i_ids = [i_ids[group] for group in groups]
   m_ids = [m_ids[group] for group in groups]
+
+  sems = [sems[group] for group in groups]
+  sems_i = [sems_i[group] for group in groups]
+  sems_m = [sems_m[group] for group in groups]
   
-  # plt.gca().set_aspect('equal')
-
-  # groups_indices = np.arange(len(sorted_groups))
-  # points = np.array([groups_indices, sorted_sds]).T.reshape(-1, 1, 2)
-  # segments = np.concatenate([points[:-1], points[1:]], axis=1)
-  
-  # # Create a LineCollection
-  # lc = LineCollection(segments, cmap=cmap, norm=plt.Normalize(min(sorted_sds), max(sorted_sds)))
-  # lc.set_array(sorted_sds)  # Set the values used for colormapping
-  # line = plt.gca().add_collection(lc)
-
-  # plt.scatter(groups_indices, sorted_sds, c=sorted_sds, cmap=cmap, label=group)
-
   print(i_ids)
   plt.axhline(y=ids[0], color=c_color, linestyle='--', label='Control')
+
+  ng_groups = groups[1:]
+  ids = ids[1:]
+  i_ids = i_ids[1:]
+  m_ids = m_ids[1:]
   
-  alpha = 0.85
-  plt.plot(groups[1:], ids[1:], color='#8bd346', label='Full GC population pattern', marker='o', alpha=alpha)
-  plt.plot(groups[1:], i_ids[1:], color='#16a4d8', label='iGC pattern', marker='o', alpha=alpha)
-  plt.plot(groups[1:], m_ids[1:], color='#9b5fe0', label='mGC pattern', marker='o', alpha=alpha)
+  alpha = 0.8
+  plt.plot(ng_groups, ids, color='#8bd346', label='Full GC population pattern', alpha=alpha)
+  plt.plot(ng_groups, i_ids, color='#16a4d8', label='iGC pattern', alpha=alpha)
+  plt.plot(ng_groups, m_ids, color='#9b5fe0', label='mGC pattern', alpha=alpha)
+
+  _,_,barlinecols = ax.errorbar(
+      ng_groups,
+      ids,
+      yerr=sems[1:],
+      ecolor='#8bd346',
+      alpha=alpha,
+      linestyle='None'
+  )
+  plt.setp(barlinecols[0], capstyle="round")
+
+  _,_,barlinecols = ax.errorbar(
+      ng_groups,
+      i_ids,
+      yerr=sems_i[1:],
+      ecolor='#16a4d8',
+      alpha=alpha,
+      linestyle='None'
+  )
+  plt.setp(barlinecols[0], capstyle="round")
+
+  _,_,barlinecols = ax.errorbar(
+      ng_groups,
+      m_ids,
+      yerr=sems_m[1:],
+      ecolor='#9b5fe0',
+      alpha=alpha,
+      linestyle='None'
+  )
+  plt.setp(barlinecols[0], capstyle="round")
 
   plt.legend()
   
@@ -146,7 +176,7 @@ def in_similarity():
   # ax.errorbar(
   #     sorted_groups,
   #     sorted_sds,
-  #     yerr=sorted_std_devs,
+  #     yerr=sorted_std_errors,
   #     # color=color
   # )
 
@@ -166,16 +196,17 @@ def in_similarity():
   sm.set_array([])
   # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
 
-  plt.title('Average pattern integration degree ($\\mathcal{I}_D$) by group and population')
-  plt.xlabel('Groups')
-  plt.ylabel('$\\mathcal{I}_D$')
-  # plt.axhline(y=1, color='gray', linestyle='--')
+  plt.ylabel('Average pattern integration degree ($\\mathcal{I}_D$)')
+  plt.xlabel('Neurogenesis models with X% connectivity fraction')
 
-  xlabels = ['Ng 10%', 'Ng 20%', 'Ng 30%', 'Ng 40%', 'Ng 50%', 'Ng 60%', 'Ng 70%', 'Ng 80%', 'Ng 90%', 'Ng 100%']
+  xlabels = range(10, 101, 10)
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
   # plt.legend()
 
-  plt.show()
+  # plt.show()
+  plt.savefig(f'figures/plots/pattern_integration.jpg', dpi=300, format='jpg')
+  plt.close()
+
 
 
 in_similarity()
