@@ -136,32 +136,32 @@ def in_similarity():
   ax.plot(ng_groups, iads[1:], color='#16a4d8', label='iGC pattern', marker='', alpha=alpha)
   ax.plot(ng_groups, mads[1:], color='#9b5fe0', label='mGC pattern', marker='', alpha=alpha)
 
-  ax.errorbar(
+  _,_,barlinecols = ax.errorbar(
       ng_groups,
       ads[1:],
       yerr=std_devs[1:],
-      ecolor='#16a51e',
-      elinewidth=8,
+      ecolor='#8bd346',
       linestyle='None'
   )
+  plt.setp(barlinecols[0], capstyle="round")
 
-  ax.errorbar(
+  _,_,barlinecols = ax.errorbar(
       ng_groups,
       iads[1:],
       yerr=std_devs_i[1:],
-      color='#1494c2',
-      elinewidth=8,
+      ecolor='#16a4d8',
       linestyle='None'
   )
+  plt.setp(barlinecols[0], capstyle="round")
   
-  ax.errorbar(
+  _,_,barlinecols = ax.errorbar(
       ng_groups,
       mads[1:],
       yerr=std_devs_m[1:],
-      color='#8a44db',
-      elinewidth=8,
+      ecolor='#9b5fe0',
       linestyle='None'
   )
+  plt.setp(barlinecols[0], capstyle="round")
       
 
   ax.legend()
