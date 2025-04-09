@@ -44,9 +44,9 @@ def in_similarity():
   ads = {}
   iads = {}
   mads = {}
-  std_devs = {}
-  std_devs_i = {}
-  std_devs_m = {}
+  std_errors = {}
+  std_errors_i = {}
+  std_errors_m = {}
 
   group_ads = {}
   group_iads = {}
@@ -94,17 +94,17 @@ def in_similarity():
     mean_iad = np.mean([np.mean(ads) for ads in i_in_sim_dict.values()])
     mean_mad = np.mean([np.mean(ads) for ads in m_in_sim_dict.values()])
 
-    std_dev_ad = sem([np.mean(ads) for ads in in_sim_dict.values()])
-    std_dev_iad = sem([np.mean(ads) for ads in i_in_sim_dict.values()])
-    std_dev_mad = sem([np.mean(ads) for ads in m_in_sim_dict.values()])
+    std_error_ad = sem([np.mean(ads) for ads in in_sim_dict.values()])
+    std_error_iad = sem([np.mean(ads) for ads in i_in_sim_dict.values()])
+    std_error_mad = sem([np.mean(ads) for ads in m_in_sim_dict.values()])
 
     ads[group] = mean_ad
     iads[group] = mean_iad
     mads[group] = mean_mad
 
-    std_devs[group] = std_dev_ad
-    std_devs_i[group] = std_dev_iad
-    std_devs_m[group] = std_dev_mad
+    std_errors[group] = std_error_ad
+    std_errors_i[group] = std_error_iad
+    std_errors_m[group] = std_error_mad
 
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
@@ -122,9 +122,9 @@ def in_similarity():
   iads = [iads[group] for group in groups]
   mads = [mads[group] for group in groups]
 
-  std_devs = np.array([std_devs[group] for group in groups])
-  std_devs_i = [std_devs_i[group] for group in groups]
-  std_devs_m = [std_devs_m[group] for group in groups]
+  std_errors = np.array([std_errors[group] for group in groups])
+  std_errors_i = [std_errors_i[group] for group in groups]
+  std_errors_m = [std_errors_m[group] for group in groups]
 
   # ax.axhline(y=ads[0], color=c_color, linestyle='--', label='Control')
   ax.axhline(y=ads[0], color=c_color, linestyle='--')
@@ -139,7 +139,7 @@ def in_similarity():
   _,_,barlinecols = ax.errorbar(
       ng_groups,
       ads[1:],
-      yerr=std_devs[1:],
+      yerr=std_errors[1:],
       ecolor='#8bd346',
       linestyle='None'
   )
@@ -148,7 +148,7 @@ def in_similarity():
   _,_,barlinecols = ax.errorbar(
       ng_groups,
       iads[1:],
-      yerr=std_devs_i[1:],
+      yerr=std_errors_i[1:],
       ecolor='#16a4d8',
       linestyle='None'
   )
@@ -157,7 +157,7 @@ def in_similarity():
   _,_,barlinecols = ax.errorbar(
       ng_groups,
       mads[1:],
-      yerr=std_devs_m[1:],
+      yerr=std_errors_m[1:],
       ecolor='#9b5fe0',
       linestyle='None'
   )

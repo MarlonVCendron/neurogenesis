@@ -38,7 +38,7 @@ def in_similarity():
   group_stats = {}
   in_sims = []
   sds = []
-  std_devs = []
+  std_errors = []
   for group in groups:
     in_sim_dict = {}
     trial_means_list = []
@@ -78,23 +78,23 @@ def in_similarity():
     group_stats[group] = group_sim_data
 
     average_sd = {sim: np.mean(sds) for sim, sds in in_sim_dict.items()}
-    # std_error = {sim: sem(sds) for sim, sds in in_sim_dict.items()}
-    std_dev = {sim: np.std(sds, ddof=1) for sim, sds in in_sim_dict.items()}  # Standard Deviation (SD)
+    std_error = {sim: sem(sds) for sim, sds in in_sim_dict.items()}
 
     sorted_in_sim = sorted(average_sd.keys())
     sorted_average_sd = [average_sd[sim] for sim in sorted_in_sim]
-    sorted_std_dev = [std_dev[sim] for sim in sorted_in_sim]
+    sorted_std_error = [std_error[sim] for sim in sorted_in_sim]
 
     in_sims.append(sorted_in_sim)
     sds.append(sorted_average_sd)
-    std_devs.append(sorted_std_dev)
+    std_errors.append(sorted_std_error)
 
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
   # ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
   formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
   ax.xaxis.set_major_formatter(formatter)
-  ax.set_ylim(0, max(max(y) for y in sds)+0.1)
+  # ax.set_ylim(0, max(max(y) for y in sds)+0.1)
+  ax.set_ylim(0, 6.5)
 
   c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ['#3f6719','#9dd963'])
@@ -102,8 +102,8 @@ def in_similarity():
   groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6', 'neurogenesis_0.7', 'neurogenesis_0.8']
   total_ng = len(groups) - len(groups_to_skip) - 1
   cmap_index = 0
-  # values = zip(in_sims, sds, std_devs)
-  for i, (in_sim, sd, std_dev) in enumerate(zip(in_sims, sds, std_devs)):
+  # values = zip(in_sims, sds, std_errors)
+  for i, (in_sim, sd, std_error) in enumerate(zip(in_sims, sds, std_errors)):
     group = groups[i]
     if group in groups_to_skip:
       continue
@@ -124,7 +124,7 @@ def in_similarity():
     plotline, caps, barlinecols = ax.errorbar(
         in_sim,
         sd,
-        yerr=std_dev,
+        yerr=std_error,
         ecolor=color,
         linestyle='None',
     )
