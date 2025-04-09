@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% SYNAPSES
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{caption}
+\usepackage[legalpaper, landscape, margin=1.0cm]{geometry}
+
+\begin{document}
+\begin{center}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{llccccccccccccccc}
+\toprule
+\multicolumn{2}{c}{\textbf{Target cells ($T$)}} & \multicolumn{6}{c}{GC} & \multicolumn{2}{c}{HIPP} & \multicolumn{4}{c}{BC} & \multicolumn{3}{c}{MC}  \\
+\cline{3-8}
+\cline{11-14}
+\multicolumn{2}{c}{\textbf{Source cells ($T$)}} & \multicolumn{2}{c}{EC} & \multicolumn{1}{c}{HIPP} & \multicolumn{2}{c}{MC} & \multicolumn{1}{c}{BC} & \multicolumn{2}{c}{EC} & \multicolumn{2}{c}{GC} & \multicolumn{2}{c}{MC} & \multicolumn{2}{c}{GC} & \multicolumn{1}{c}{BC}  \\
+\cline{3-4}
+\cline{6-7}
+\cline{9-10}
+% \cline{11-12}
+\cline{13-14}
+\cline{17-17}
+\multicolumn{2}{c}{\textbf{Receptor ($R$)}} & AMPA & NMDA & GABA & AMPA & NMDA & GABA & AMPA & NMDA & AMPA & NMDA & AMPA & NMDA & AMPA & NMDA & GABA\\
+\midrule
+$\bar{g}_R$ & $(nS)$ & 0.89 & 0.15 & 0.12 & 0.05 & 0.01 & 25.0 & 12.0 & 3.04 & 0.38 & 0.02 & 3.23 & 0.19& 6.84 & 1.22 & 3.08\\
+$\tau_{r}$ & $(ms)$ & 0.1 & 0.33 & 0.9 & 0.1 & 0.33 & 0.9 & 2.0 &4.8  & 2.5& 10.0 &2.5& 10.0 & 0.5& 4.0 & 0.3\\
+$\tau_{d}$ & $(ms)$ & 2.5 & 50.0 & 6.8 & 2.5 & 50.0 & 6.8 & 11.0& 110.0 & 3.5 &130.0 &3.5& 130.0 &6.2 &100.0 & 3.3\\
+$\tau_{l}$ & $(ms)$ & 3.0 & 3.0 & 1.6 & 3.0 & 3.0 & 0.85 & 3.0& 3.0 & 0.8 &0.8 &3.0 &3.0 &1.5& 1.5 & 1.5\\
+$E_R$      & $(mV)$     & 0.0 & 0.0 & -86.0 & 0.0 & 0.0 & -86.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & -86\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{ccccccc}
+\toprule
+\multicolumn{2}{c}{\textbf{Neuron}} & mGC & iGC & BC & MC & HIPP \\
+\midrule
+$C_m$ & $(pF)$ &106.2&106.2 & 232.6 & 206.0 & 94.3\\
+$g_{L}$ & $(nS)$ & 3.4& 3.4 & 23.2 & 5.0 & 2.7 \\
+$E_{L}$ & $(mV)$ & -75.0& -72.0  &-62.0 & -62.0 & -65.0 \\
+$\bar{g}_{AHP}$ & $(nS)$ & 10.4& 10.4 & 76.9 & 78.0 & 52.0  \\
+$\tau_{AHP}$ & $(ms)$ & 20.0& 20.0  &2.0 & 10.0 & 5.0  \\
+$E_{AHP}$ & $(mV)$ & -80.0& -80.0 & -75.0 & -80.0  &-75.0 \\
+$V_{th}$ & $(mV)$ & -51.5& -51.5 & -52.5 & -32.0 & -9.4  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{center}
+\end{document}
