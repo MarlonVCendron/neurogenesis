@@ -9,13 +9,13 @@ I_{syn}(t) = I_{AMPA}(t) + I_{NMDA}(t) + I_{GABA}(t)   \\\\
 I_{R}(t) = g_R(t) \, (V_m(t) - E_{R})   \\\\
 % g_R(t) = \bar{g}_R \sum_{i=1}^{N_s}w_i s_i(t)   \\\\
 g_R(t) = \bar{g}_R \, s(t)   \\\\
-\frac{ds(t)}{dt} = \frac{-s}{\tau_{rise}} + (1-g) \, h \, \alpha   \\\\
-\frac{dh(t)}{dt} = \frac{-h}{\tau_{decay}}   \\\\
+\frac{ds(t)}{dt} = \frac{-s}{\tau_{r}} + (1-s) \, h \, \alpha   \\\\
+\frac{dh(t)}{dt} = \frac{-h}{\tau_{d}}   \\\\
 
 
 \text{if} \quad V_m \gt V_{th}: \quad
 \begin{cases}
-h \leftarrow h + w \\
+h \leftarrow h + w \quad \text{after}\space \tau_l\\
 V_m \leftarrow E_L
 \end{cases}
 
