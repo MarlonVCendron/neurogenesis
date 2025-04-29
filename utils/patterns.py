@@ -1,3 +1,4 @@
+import math
 from params.cells import cell_params
 from params import pp_rate, break_time, N_lamellae, active_p
 import numpy as np
@@ -80,6 +81,7 @@ def pattern_distance(a, b):
   avg_ad = average_activation_degree(a, b)
 
   if(avg_ad == 0):
+    print('Warning: avg_ad is 0')
     return float("inf")
 
   return orthogonalization_degree(a, b) / avg_ad
@@ -90,9 +92,26 @@ def pattern_separation_degree(in_1, in_2, out_1, out_2):
   out_distance = pattern_distance(out_1, out_2)
 
   if(in_distance == 0):
+    print('Warning: in_distance is 0')
     return out_distance
 
   return out_distance / in_distance 
+
+# Pattern integration degree given two input patterns and two output patterns
+def pattern_integration_degree(in_1, in_2, out_1, out_2):
+  in_correlation = correlation_degree(in_1, in_2)
+  out_correlation = correlation_degree(out_1, out_2)
+
+  if(math.isnan(out_correlation) or math.isnan(in_correlation)):
+    return 0
+  
+  if(math.isinf(out_correlation) or math.isinf(in_correlation)):
+    return 0
+
+  if(in_correlation < 0.0001 and in_correlation > -0.0001):
+    return 0
+
+  return out_correlation / in_correlation 
 
 # Calculates the pattern of active cells in a population of neurons given a spike monitor
 def get_population_pattern(monitor):

@@ -126,7 +126,7 @@ def in_similarity():
   std_errors_i = [std_errors_i[group] for group in groups]
   std_errors_m = [std_errors_m[group] for group in groups]
 
-  # ax.axhline(y=ads[0], color=c_color, linestyle='--', label='Control')
+  # ax.axhline(y=ads[0], color=c_color, linestyle='--')
   ax.axhline(y=ads[0], color=c_color, linestyle='--')
 
   ng_groups = groups[1:]
@@ -164,7 +164,7 @@ def in_similarity():
   plt.setp(barlinecols[0], capstyle="round")
       
 
-  ax.legend()
+  ax.legend(frameon=False)
 
   sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   sm.set_array([])
@@ -176,6 +176,7 @@ def in_similarity():
   # xlabels = np.array(xlabels) / 100
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
 
+  plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/avg_activity.jpg', dpi=300, format='jpg')
   plt.close()

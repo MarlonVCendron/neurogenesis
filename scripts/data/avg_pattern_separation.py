@@ -116,7 +116,7 @@ def in_similarity():
   # plt.scatter(groups_indices, sorted_sds, c=sorted_sds, cmap=cmap, label=group)
 
   print(sds)
-  plt.axhline(y=sds[0], color=c_color, linestyle='--', label='Control')
+  plt.axhline(y=sds[0], color=c_color, linestyle='--')
   plt.axhline(y=1, color='gray', linestyle='--')
   ax.set_ylim(0, 6.5)
   
@@ -129,8 +129,6 @@ def in_similarity():
   plt.plot(ng_groups, sds, color='#8bd346', label='Full GC population pattern', alpha=alpha)
   plt.plot(ng_groups, i_sds, color='#16a4d8', label='iGC pattern', alpha=alpha)
   plt.plot(ng_groups, m_sds, color='#9b5fe0', label='mGC pattern', alpha=alpha)
-  
-  plt.legend()
 
   _,_,barlinecols = ax.errorbar(
       ng_groups,
@@ -184,7 +182,7 @@ def in_similarity():
 
   xlabels = range(10, 101, 10)
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
-  # plt.legend()
+  plt.legend(frameon=False)
 
   # plt.show()
   plt.savefig(f'figures/plots/avg_pattern_separation.jpg', dpi=300, format='jpg')

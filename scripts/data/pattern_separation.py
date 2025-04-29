@@ -90,6 +90,7 @@ def in_similarity():
 
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
+
   # ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
   formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
   ax.xaxis.set_major_formatter(formatter)
@@ -135,12 +136,11 @@ def in_similarity():
 
 
   # legend_elements = [
-  #     Line2D([0], [0], color=c_color, label='Control', marker='o'),
+  #     Line2D([0], [0], color=c_color, marker='o'),
   #     Line2D([0], [0], label='Neurogenesis: 10% connectivity', marker='X', color=cmap(0)),
   #     Line2D([0], [0], label='Neurogenesis: 100% connectivity', marker='X', color=cmap(1.0)),
   # ]
   # plt.legend(handles=legend_elements, loc='upper left')
-  plt.legend()
 
   # sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   # sm.set_array([])
@@ -149,8 +149,9 @@ def in_similarity():
   plt.xlabel('Input similarity (%)')
   plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
   plt.axhline(y=1, color='gray', linestyle='--')
-  # plt.legend()
+  plt.legend(frameon=False)
 
+  plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/pattern_separation.jpg', dpi=300, format='jpg')
   plt.close()
