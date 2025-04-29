@@ -40,7 +40,6 @@ class SimWrapper:
     device_module.active_device = self.device
 
     self.device.run(
-        results_directory=results_directory,
         run_args={self.net['pp'].rates: pattern['rates']}
     )
 
