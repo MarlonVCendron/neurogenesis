@@ -19,6 +19,7 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     neuron = spike_mon.source
     rate_mon = next(r for r in rate_monitors if r.source.name == spike_mon.source.name)
     smooth_rates = rate_mon.smooth_rate(window='flat', width=window_width) / Hz
+    # smooth_rates = smooth_rates[-len(rate_mon.t):]
 
     pattern = get_population_pattern(spike_mon)
     # per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)

@@ -1,0 +1,12 @@
+name: neurogenesis
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - scipy
+  - matplotlib
+  # —————— pin GCC 11 toolchain ——————
+  - gcc_impl_linux-64=11.4.0
+  - gcc_linux-64=11.4.0
+  - libgcc-devel_linux-64=11.4.0
+  - libsanitizer=11.4.0
