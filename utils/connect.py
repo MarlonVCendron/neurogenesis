@@ -1,4 +1,5 @@
 from brian2 import *
+from terminology import in_red
 
 from models.general import synapse
 from utils.utils import read_connectivity
@@ -17,11 +18,15 @@ def Connect(source, target, receptor, delay, g_max, E, tau_r, tau_d, condition=N
 
   conn_i, conn_j = read_connectivity(source, target)
   
-  if len(conn_i) > 0 and len(conn_j) > 0:
-    synapses.connect(i=conn_i, j=conn_j)
-  else:
-    # This will randomly connect the synapses, even for the same source and target, but different receptors
-    synapses.connect(p=p, condition=condition)
+  try:
+    if len(conn_i) > 0 and len(conn_j) > 0:
+      synapses.connect(i=conn_i, j=conn_j)
+    else:
+      # This will randomly connect the synapses, even for the same source and target, but different receptors
+      synapses.connect(p=p, condition=condition)
+  except Exception as e:
+    print(in_red('🐙 Error connecting synapses, probably because you changed the connection without changing the connectivity matrix'))
+    print(e)
 
   synapses.g_max = g_max
   synapses.E     = E
