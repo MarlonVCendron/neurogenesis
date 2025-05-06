@@ -26,7 +26,7 @@ def synapse(receptor):
     tau_r : second           # Rise time
     tau_d : second           # Decay time
     w     = 1          : 1   # Synaptic weight
-    beta  = 4 * ms**-1 : Hz  # Synaptic scaling factor
+    beta  = 7 * ms**-1 : Hz  # Synaptic scaling factor
   ''')
 
   on_pre = 'h += w'
