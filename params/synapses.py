@@ -5,7 +5,6 @@ from params.cells import (
     N_mgc_l,
     N_igc_l,
     N_bc_l,
-    N_mc_l,
     N_pca3_l,
     N_ica3_l
 ) 
