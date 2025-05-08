@@ -78,13 +78,13 @@ cell_params = {
         "E_ahp"     : -75.0 * mV,
         "V_th"      : -9.4 * mV,
     },
-    # CA3 - INNACURATE PARAMS
+    # CA3 - INNACURATE PARAMS - TODO: FIX: https://hippocampome.org/php/ephys.php
     "pca3": {
         "name"      : "pca3",
         "N"         : N_pca3,
         "Cm"        : 100.0 * pF,
         "g_L"       : 5.0 * nS,
-        "E_L"       : -75.0 * mV,
+        "E_L"       : -60.5 * mV,
         "g_ahp_max" : 10.0 * nS,
         "tau_ahp"   : 20.0 * ms,
         "E_ahp"     : -80.0 * mV,
