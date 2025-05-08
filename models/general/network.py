@@ -62,7 +62,6 @@ def network():
     net.add(collect())
 
   bc_gaba_mgc = Connect(bc, mgc, **syn_params['bc_gaba_mgc'])
-  bc_gaba_mc  = Connect(bc, mc, **syn_params['bc_gaba_mc'])
 
   mc_ampa_mgc  = Connect(mc, mgc, **syn_params['mc_ampa_mgc'])
   mc_nmda_mgc  = Connect(mc, mgc, **syn_params['mc_nmda_mgc'])
