@@ -2,13 +2,10 @@ from brian2 import *
 
 def aEIF(exponential=True):
   eq_model = Equations(f'''
-    # dVm/dt = (-I_L  - I_exp - I_syn + I_ext - w) / Cm : volt
-    # I_L    = g_L * (Vm - E_L)                         : amp
-
-    dVm/dt = (-I_L  + I_exp - I_syn + I_ext - w) / Cm : volt
+    dVm/dt = (-I_L  + I_exp - I_syn + I_ext - o) / Cm : volt
     I_syn  = I_ampa + I_nmda + I_gaba                 : amp
     I_L    = g_L * (Vm - E_L)                         : amp
-    dw/dt  = (a * (Vm - E_L) - w) / tau_w             : amp
+    do/dt  = (a * (Vm - E_L) - o) / tau_o             : amp
   ''')
 
   if exponential:
@@ -21,10 +18,11 @@ def aEIF(exponential=True):
     g_L    : siemens  # Leak conductance
     E_L    : volt     # Leak reversal potential
     V_th   : volt     # Threshold potential
+    V_reset: volt     # Reset potential
     DeltaT : volt     # Slope factor
     a      : siemens  # Subthreshold adaptation
     b      : amp      # Spike-triggered adaptation
-    tau_w  : second   # Adaptation time constant
+    tau_o  : second   # Adaptation time constant
     I_ext  : amp      # External current
   ''')
 
@@ -50,10 +48,10 @@ def aEIF(exponential=True):
 
   threshold  = 'Vm > V_th'
   reset      = '''
-    Vm = E_L
-    w  = w + b
+    Vm = V_reset
+    o  = o + b
   '''
 
-  refractory = 0 * ms                # A way to have lastspike
+  refractory = 0 * ms  # A way to have lastspike
 
   return (eqs, threshold, reset, refractory)
