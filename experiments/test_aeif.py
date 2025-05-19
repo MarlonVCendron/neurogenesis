@@ -33,7 +33,7 @@ def main():
   neuron.E_L       = -70.6 * mV
   neuron.V_th      = -50.4 * mV
   neuron.DeltaT    = 2 * mV
-  neuron.tau_w     = 144 * ms
+  neuron.tau_o     = 144 * ms
   neuron.a         = 4 * nS
   neuron.b         = 0.0805 * nA
 
