@@ -1,12 +1,14 @@
 \input{config/document}
 
-\newcommand\Curso{Ciência de Dados para Negócios}
-\titulo{Título do Trabalho}
-\autor{Nome do Aluno}
-\orientador{Nome do Orientador}
-\newcommand\examinadorA{Prof. Dr. Nome do Examinador}
-\newcommand\examinadorB{Prof. Dr. Nome do Examinador}
-\newcommand\dataDefesa{01 de janeiro de 2022}
+\newcommand\Universidade{Universidade Federal da Paraíba}
+\newcommand\Departamento{Centro de Ciências Humanas, Letras e Artes}
+\newcommand\Curso{Programa de Pós-Graduação em Neurociência Cognitiva e Comportamento}
+\titulo{Modelo computacional sobre a dinâmica temporal da neurogênese no giro denteado e seu impacto nas funções de memória do CA3}
+\autor{Marlon Valmórbida Cendron}
+\orientador{Flávio Freitas Barbosa}
+\coorientador{Wilfredo Blanco Figuerola}
+\newcommand\mesDefesa{Agosto de 2025}
+\newcommand\dataDefesa{20 de \mesDefesa}
 
 
 \begin{document}
@@ -15,11 +17,11 @@
 	
 \input{config/pretextual}
 
-\begin{agradecimentos}
-Gostaria de agradecer \lipsum[1-4]
-\end{agradecimentos}
+% \begin{agradecimentos}
+% Gostaria de agradecer \lipsum[1-4]
+% \end{agradecimentos}
 
-\input{chapters/abstract}
+\input{capítulos/resumo}
 
 
 \pdfbookmark[0]{\listtablename}{lot}
@@ -36,7 +38,13 @@ Gostaria de agradecer \lipsum[1-4]
 
 \textual
 
-\input{chapters/main}
+\input{capítulos/01_introdução}
+\input{capítulos/02_justificativa}
+\input{capítulos/03_objetivos}
+\input{capítulos/04_hipóteses}
+\input{capítulos/05_materiais_e_métodos}
+\input{capítulos/06_resultados_esperados}
+\input{capítulos/cronograma}
 
 \phantompart
 
@@ -44,6 +52,6 @@ Gostaria de agradecer \lipsum[1-4]
 
 \bibliography{references}
 
-\input{chapters/appendix}
+\input{capítulos/apêndices}
 
 \end{document}
