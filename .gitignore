@@ -2,3 +2,5 @@ __pycache__
 output/*
 res
 figures/rates_experiments/tests*
+
+thesis/project/build/*
