@@ -1,6 +1,5 @@
 from brian2 import *
-from models.general import AdEx, LIF
-from params import cell_params
+from models.general import AdEx, LIF, expIF
 
 
 def create_neuron_group_lif(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, name):
@@ -30,7 +29,7 @@ def create_neuron_group_lif(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, na
 
   return neuron
 
-def create_neuron_group(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset, name):
+def create_neuron_group_adex(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset, name):
   exponential = DeltaT != 0
   adex_eqs, threshold, reset, refractory = AdEx(exponential)
 
@@ -59,3 +58,38 @@ def create_neuron_group(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset, nam
   neuron.Vm = E_L
 
   return neuron
+
+def create_neuron_group_expif(N, Cm, g_L, E_L, V_th, V_reset, DeltaT, name):
+  expif_eqs, threshold, reset, refractory = expIF()
+
+  neuron = NeuronGroup(
+      N          = N,
+      model      = expif_eqs,
+      threshold  = threshold,
+      reset      = reset,
+      refractory = refractory,
+      name       = name,
+      method     = 'rk2',
+  )
+
+  # Params
+  neuron.E_L       = E_L
+  neuron.Cm        = Cm
+  neuron.g_L       = g_L
+  neuron.V_th      = V_th
+  neuron.V_reset   = V_reset
+  neuron.DeltaT    = DeltaT
+
+  # Initialize
+  neuron.Vm = E_L
+
+  return neuron
+
+def create_neuron_group(*args, **kwargs):
+  model = kwargs.pop('model')
+  if model == 'lif':
+    return create_neuron_group_lif(**kwargs)
+  elif model == 'adex':
+    return create_neuron_group_adex(**kwargs)
+  elif model == 'expif':
+    return create_neuron_group_expif(**kwargs)
