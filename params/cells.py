@@ -26,6 +26,7 @@ cell_params = {
     "mgc": {
         "name"      : "mgc",
         "N"         : N_mgc,
+        "model"     : "adex",
         "Cm"        : 6.78 * pF,
         "g_L"       : 0.2639 * nS,
         "E_L"       : -87.0 * mV,
@@ -39,19 +40,21 @@ cell_params = {
     "igc": {
         "name"      : "igc",
         "N"         : N_igc,
+        "model"     : "expif",
         "Cm"        : 20.0 * pF,
         "g_L"       : 0.2159 * nS,
         "E_L"       : -78.0 * mV,
         "V_th"      : -35.9 * mV,
         "DeltaT"    : 2.0 * mV,
-        "a"         : 0.0 * nS,
-        "b"         : 0.06 * nA,
-        "tau_o"     : 101.5 * ms,
+        # "a"         : 0.0 * nS,
+        # "b"         : 0.06 * nA,
+        # "tau_o"     : 101.5 * ms,
         "V_reset"   : -63.0 * mV
     },
     "mc": {
         "name"      : "mc",
         "N"         : N_mc,
+        "model"     : "adex",
         "Cm"        : 252.1 * pF,
         "g_L"       : 4.53 * nS,
         "E_L"       : -64.0 * mV,
@@ -65,6 +68,7 @@ cell_params = {
     "bc": {
         "name"      : "bc",
         "N"         : N_bc,
+        "model"     : "adex",
         "Cm"        : 179.3 * pF,
         "g_L"       : 18.054 * nS,
         "E_L"       : -52.0 * mV,
@@ -78,6 +82,7 @@ cell_params = {
     "hipp": {
         "name"      : "hipp",
         "N"         : N_hipp,
+        "model"     : "adex",
         "Cm"        : 58.4 * pF,
         "g_L"       : 1.93 * nS,
         "E_L"       : -59.0 * mV,
@@ -92,6 +97,7 @@ cell_params = {
     "pca3": {
         "name"      : "pca3",
         "N"         : N_pca3,
+        "model"     : "adex",
         "Cm"        : 100.0 * pF,
         "g_L"       : 0.2639 * nS,
         "E_L"       : -87.0 * mV,
@@ -105,6 +111,7 @@ cell_params = {
     "ica3": {
         "name"      : "ica3",
         "N"         : N_ica3,
+        "model"     : "adex",
         "Cm"        : 100.0 * pF,
         "g_L"       : 0.2639 * nS,
         "E_L"       : -87.0 * mV,
