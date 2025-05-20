@@ -14,59 +14,52 @@ syn_params = {
     "pp_ampa_mgc": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
-        "g_max"    : 0.89 * nS,
+        "g_max"    : 0.8066 * nS,
         "tau_r"    : 0.1 * ms,
         "tau_d"    : 2.5 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "pp_nmda_mgc": {
         "receptor" : "nmda_1",
         "p"        : 0.2,
-        "g_max"    : 0.15 * nS,
+        "g_max"    : 0.8711 * nS,
         "tau_r"    : 0.33 * ms,
         "tau_d"    : 50.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "pp_ampa_igc": {
         "receptor" : "ampa_1",
         "p"        : 0.2 * igc_conn,
-        "g_max"    : 0.89 * nS,
-        "tau_r"    : 0.1 * ms,
-        "tau_d"    : 2.5 * ms,
+        "g_max"    : 0.81 * nS,
+        "tau_r"    : 0.09 * ms,
+        "tau_d"    : 2.45 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "pp_nmda_igc": {
         "receptor" : "nmda_1",
         "p"        : 0.2 * igc_conn,
-        "g_max"    : 0.15 * nS,
-        "tau_r"    : 0.33 * ms,
-        "tau_d"    : 50.0 * ms,
+        "g_max"    : 0.8829 * nS,
+        "tau_r"    : 0.3 * ms,
+        "tau_d"    : 49.5 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "pp_ampa_hipp": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
-        # "g_max"    : 12.0 * nS,
-        "g_max"    : 1.2 * nS,
+        "g_max"    : 0.24 * nS,
         "tau_r"    : 2.0 * ms,
         "tau_d"    : 11.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "pp_nmda_hipp": {
         "receptor" : "nmda_1",
         "p"        : 0.2,
-        "g_max"    : 3.04 * nS,
+        "g_max"    : 0.276 * nS,
         "tau_r"    : 4.8 * ms,
         "tau_d"    : 110.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "pp_ampa_pca3": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
@@ -74,7 +67,6 @@ syn_params = {
         "tau_r"    : 2.0 * ms,
         "tau_d"    : 6.3 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pp_nmda_pca3": {
@@ -84,46 +76,41 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
 
     "mgc_ampa_mc": {
         "receptor" : "ampa_1",
         "p"        : 0.2,
-        "g_max"    : 6.84 * nS,
+        "g_max"    : 0.6 * nS,
         "tau_r"    : 0.5 * ms,
         "tau_d"    : 6.2 * ms,
         "delay"    : 1.5 * ms,
-        "E"        : 0 * mV,
     },
     "mgc_nmda_mc": {
         "receptor" : "nmda_1",
         "p"        : 0.2,
-        "g_max"    : 1.22 * nS,
+        "g_max"    : 0.4725 * nS,
         "tau_r"    : 4.0 * ms,
         "tau_d"    : 100.0 * ms,
         "delay"    : 1.5 * ms,
-        "E"        : 0 * mV,
     },
     "mgc_ampa_bc": {
         "receptor"  : "ampa_2",
         "condition" : lamellar_conn(N_mgc_l, N_bc_l),
-        "g_max"     : 0.38 * nS,
+        "g_max"     : 0.315 * nS,
         "tau_r"     : 2.5 * ms,
         "tau_d"     : 3.5 * ms,
         "delay"     : 0.8 * ms,
-        "E"         : 0 * mV,
     },
     "mgc_nmda_bc": {
         "receptor"  : "nmda_2",
         "condition" : lamellar_conn(N_mgc_l, N_bc_l),
-        "g_max"     : 0.02 * nS,
-        "tau_r"     : 10.0 * ms,
+        "g_max"     : 0.756 * nS,
+        "tau_r"     : 11.0 * ms,
         "tau_d"     : 130.0 * ms,
         "delay"     : 0.8 * ms,
-        "E"         : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "mgc_ampa_pca3": {
         "receptor" : "ampa_2",
         "condition" : lamellar_conn(N_mgc_l, N_pca3_l),
@@ -131,9 +118,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "mgc_nmda_pca3": {
         "receptor" : "nmda_2",
         "condition" : lamellar_conn(N_mgc_l, N_pca3_l),
@@ -141,9 +127,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "mgc_ampa_ica3": {
         "receptor" : "ampa_1",
         "condition" : lamellar_conn(N_mgc_l, N_ica3_l),
@@ -151,9 +136,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "mgc_nmda_ica3": {
         "receptor" : "nmda_1",
         "condition" : lamellar_conn(N_mgc_l, N_ica3_l),
@@ -161,47 +145,41 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
 
     "igc_ampa_mc": {
         "receptor"  : "ampa_2",
         "p"         : 0.2,
-        "g_max"     : 6.84 * nS,
-        "tau_r"     : 0.5 * ms,
+        "g_max"     : 0.612 * nS,
+        "tau_r"     : 0.6 * ms,
         "tau_d"     : 6.2 * ms,
         "delay"     : 1.5 * ms,
-        "E"         : 0 * mV,
     },
     "igc_nmda_mc": {
         "receptor"  : "nmda_2",
         "p"         : 0.2,
-        "g_max"     : 1.22 * nS,
+        "g_max"     : 0.7344 * nS,
         "tau_r"     : 4.0 * ms,
         "tau_d"     : 100.0 * ms,
         "delay"     : 1.5 * ms,
-        "E"         : 0 * mV,
     },
-    # TODO: the paper only describes iGC -> HIPP
-    "igc_ampa_bc": {
+    "igc_ampa_hipp": {
         "receptor"  : "ampa_3",
-        "condition" : lamellar_conn(N_igc_l, N_bc_l),
-        "g_max"     : 0.38 * nS,
-        "tau_r"     : 2.5 * ms,
-        "tau_d"     : 3.5 * ms,
-        "delay"     : 0.8 * ms,
-        "E"         : 0 * mV,
+        "p"         : 0.2, # TODO: Check if this is correct
+        "g_max"     : 0.25 * nS,
+        "tau_r"     : 2.0 * ms,
+        "tau_d"     : 11.0 * ms,
+        "delay"     : 3.0 * ms,
     },
-    "igc_nmda_bc": {
+    "igc_nmda_hipp": {
         "receptor"  : "nmda_3",
-        "condition" : lamellar_conn(N_igc_l, N_bc_l),
-        "g_max"     : 0.02 * nS,
-        "tau_r"     : 10.0 * ms,
-        "tau_d"     : 130.0 * ms,
-        "delay"     : 0.8 * ms,
-        "E"         : 0 * mV,
+        "p"         : 0.2, # TODO: Check if this is correct
+        "g_max"     : 0.2875 * nS,
+        "tau_r"     : 4.8 * ms,
+        "tau_d"     : 110.0 * ms,
+        "delay"     : 3.0 * ms,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "igc_ampa_pca3": {
         "receptor" : "ampa_3",
         "condition" : lamellar_conn(N_igc_l, N_pca3_l),
@@ -209,9 +187,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "igc_nmda_pca3": {
         "receptor" : "nmda_3",
         "condition" : lamellar_conn(N_igc_l, N_pca3_l),
@@ -219,9 +196,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "igc_ampa_ica3": {
         "receptor" : "ampa_2",
         "condition" : lamellar_conn(N_igc_l, N_ica3_l),
@@ -229,9 +205,8 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
-    # INNACURATE PARAMS
+    # TODO: INNACURATE PARAMS
     "igc_nmda_ica3": {
         "receptor" : "nmda_2",
         "condition" : lamellar_conn(N_igc_l, N_ica3_l),
@@ -239,72 +214,64 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
 
     "mc_ampa_mgc": {
         "receptor" : "ampa_2",
         "p"        : 0.2,
-        "g_max"    : 0.05 * nS,
+        "g_max"    : 0.1066 * nS,
         "tau_r"    : 0.1 * ms,
         "tau_d"    : 2.5 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "mc_nmda_mgc": {
         "receptor" : "nmda_2",
         "p"        : 0.2,
-        "g_max"    : 0.01 * nS,
+        "g_max"    : 0.1151 * nS,
         "tau_r"    : 0.33 * ms,
         "tau_d"    : 50.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "mc_ampa_igc": {
         "receptor" : "ampa_2",
         "p"        : 0.2,
-        "g_max"    : 0.05 * nS,
-        "tau_r"    : 0.1 * ms,
-        "tau_d"    : 2.5 * ms,
+        "g_max"    : 0.11 * nS,
+        "tau_r"    : 0.09 * ms,
+        "tau_d"    : 2.45 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "mc_nmda_igc": {
         "receptor" : "nmda_2",
         "p"        : 0.2,
-        "g_max"    : 0.01 * nS,
-        "tau_r"    : 0.33 * ms,
-        "tau_d"    : 50.0 * ms,
+        "g_max"    : 0.1199 * nS,
+        "tau_r"    : 0.3 * ms,
+        "tau_d"    : 49.5 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "mc_ampa_bc": {
         "receptor" : "ampa_4",
         "p"        : 1.0,
-        "g_max"    : 3.23 * nS,
+        "g_max"    : 0.455 * nS,
         "tau_r"    : 2.5 * ms,
-        "tau_d"    : 3.5 * ms,
+        "tau_d"    : 3.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     "mc_nmda_bc": {
         "receptor" : "nmda_4",
         "p"        : 1.0,
-        "g_max"    : 0.19 * nS,
-        "tau_r"    : 10.0 * ms,
+        "g_max"    : 0.5005 * nS,
+        "tau_r"    : 11.0 * ms,
         "tau_d"    : 130.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
 
     "bc_gaba_mgc": {
         "receptor"  : "gaba_1",
         "condition" : lamellar_conn(N_bc_l, N_mgc_l),
-        "g_max"     : 25.0 * nS,
+        "g_max"     : 14.0 * nS,
         "tau_r"     : 0.9 * ms,
         "tau_d"     : 6.8 * ms,
         "delay"     : 0.85 * ms,
-        "E"         : -86.0 * mV,
     },
 
     "hipp_gaba_mgc": {
@@ -314,29 +281,25 @@ syn_params = {
         "tau_r"    : 0.9 * ms,
         "tau_d"    : 6.8 * ms,
         "delay"    : 1.6 * ms,
-        "E"        : -86.0 * mV,
     },
     "hipp_gaba_igc": {
         "receptor" : "gaba_1",
         "p"        : 0.2,
-        "g_max"    : 0.12 * nS,
-        "tau_r"    : 0.9 * ms,
-        "tau_d"    : 6.8 * ms,
-        "delay"    : 1.6 * ms,
-        "E"        : -86.0 * mV,
+        "g_max"    : 0.11 * nS,
+        "tau_r"    : 0.85 * ms,
+        "tau_d"    : 6.75 * ms,
+        "delay"    : 1.5 * ms,
     },
 
 
     # INNACURATE PARAMS
     "pca3_ampa_pca3": {
         "receptor" : "ampa_4",
-        # "p"        : 0.01,
         "p"        : 0.05,
         "g_max"    : 2 * nS,
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pca3_nmda_pca3": {
@@ -346,7 +309,6 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pca3_ampa_ica3": {
@@ -356,7 +318,6 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pca3_nmda_ica3": {
@@ -366,7 +327,6 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pca3_ampa_mc": {
@@ -376,7 +336,6 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
     # INNACURATE PARAMS
     "pca3_nmda_mc": {
@@ -386,7 +345,6 @@ syn_params = {
         "tau_r"    : 6.6 * ms,
         "tau_d"    : 126.0 * ms,
         "delay"    : 3.0 * ms,
-        "E"        : 0 * mV,
     },
 
     # INNACURATE PARAMS
@@ -397,6 +355,5 @@ syn_params = {
         "tau_r"    : 0.5 * ms,
         "tau_d"    : 6.0 * ms,
         "delay"    : 1.6 * ms,
-        "E"        : -86.0 * mV,
     },
 }
