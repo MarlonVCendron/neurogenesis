@@ -2,7 +2,7 @@ from brian2 import *
 from params.general import N_lamellae, has_igc
 from utils.args_config import args
 
-N_pp     = args.n_pp
+N_pp   = args.n_pp
 N_igc  = args.n_igc
 N_mgc  = (args.n_mgc - args.n_igc) if has_igc else args.n_mgc
 N_bc   = args.n_bc
