@@ -3,7 +3,7 @@ from utils.connect import Connect
 from params import syn_params 
 from params.cells import cell_params
 from plotting.voltage import plot_voltage
-from models.general import aEIF
+from models.general import AdEx
 
 seed(1)
 
@@ -15,15 +15,15 @@ def to_100(params):
 def main():
   start_scope()
 
-  aeif_eqs, threshold, reset, refractory = aEIF()
+  adex_eqs, threshold, reset, refractory = AdEx()
 
   neuron = NeuronGroup(
       N          = 1,
-      model      = aeif_eqs,
+      model      = adex_eqs,
       threshold  = threshold,
       reset      = reset,
       refractory = refractory,
-      name       = 'aeif',
+      name       = 'adex',
       method     = 'rk2',
   )
 

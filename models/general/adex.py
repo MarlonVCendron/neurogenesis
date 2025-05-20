@@ -1,6 +1,6 @@
 from brian2 import *
 
-def aEIF(exponential=True):
+def AdEx(exponential=True):
   eq_model = Equations(f'''
     dVm/dt = (-I_L  + I_exp - I_syn + I_ext - o) / Cm : volt
     I_syn  = I_ampa + I_nmda + I_gaba                 : amp

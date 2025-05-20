@@ -1,5 +1,5 @@
 from brian2 import *
-from models.general import aEIF, LIF
+from models.general import AdEx, LIF
 from params import cell_params
 
 
@@ -32,11 +32,11 @@ def create_neuron_group_lif(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, na
 
 def create_neuron_group(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset, name):
   exponential = DeltaT != 0
-  aeif_eqs, threshold, reset, refractory = aEIF(exponential)
+  adex_eqs, threshold, reset, refractory = AdEx(exponential)
 
   neuron = NeuronGroup(
       N          = N,
-      model      = aeif_eqs,
+      model      = adex_eqs,
       threshold  = threshold,
       reset      = reset,
       refractory = refractory,
