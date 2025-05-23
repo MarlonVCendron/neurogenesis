@@ -9,13 +9,16 @@ def expIF():
   ''')
 
   eq_params = Equations('''
-    Cm     : farad    # Membrane capacitance
-    g_L    : siemens  # Leak conductance
-    E_L    : volt     # Leak reversal potential
-    V_th   : volt     # Threshold potential
-    V_reset: volt     # Reset potential
-    DeltaT : volt     # Slope factor
-    I_ext  : amp      # External current
+    Cm      : farad       # Membrane capacitance
+    g_L     : siemens     # Leak conductance
+    E_L     : volt        # Leak reversal potential
+    V_th    : volt        # Threshold potential
+    V_reset : volt        # Reset potential
+    DeltaT  : volt        # Slope factor
+    I_ext   : amp         # External current
+    eta     : mmolar**-1  # Mg concentration sensitivity
+    gamma   : volt**-1    # Mg concentration steepness
+    Mg_conc : mmolar      # Mg concentration
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to

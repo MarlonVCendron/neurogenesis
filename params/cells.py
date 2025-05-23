@@ -36,7 +36,10 @@ cell_params = {
         "b"          : 0.045 * nA,
         "tau_o"      : 45.0 * ms,
         "V_reset"    : -74.0 * mV,
-        "alpha_nmda" : 2 * ms**-1
+        "alpha_nmda" : 2 * ms**-1,
+        "eta"        : 0.2 * mM**-1,
+        "gamma"      : 0.04 * mV**-1,
+        "Mg_conc"    : 2 * mM
     },
     "igc": {
         "name"      : "igc",
@@ -50,7 +53,10 @@ cell_params = {
         # "a"         : 0.0 * nS,
         # "b"         : 0.06 * nA,
         # "tau_o"     : 101.5 * ms,
-        "V_reset"   : -63.0 * mV
+        "V_reset"   : -63.0 * mV,
+        "eta"        : 0.2 * mM**-1,
+        "gamma"      : 0.04 * mV**-1,
+        "Mg_conc"    : 2 * mM
     },
     "mc": {
         "name"      : "mc",

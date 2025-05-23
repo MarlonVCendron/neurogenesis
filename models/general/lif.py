@@ -22,14 +22,17 @@ def LIF():
   # mu_noise    = 0 * pA  : amp     # Noise mean
 
   eq_params = Equations('''
-    Cm        : farad    # Membrane capacitance
-    g_L       : siemens  # Leak conductance
-    E_L       : volt     # Leak reversal potential
-    g_ahp_max : siemens  # Maximum AHP conductance
-    tau_ahp   : second   # AHP time constant
-    E_ahp     : volt     # AHP reversal potential
-    V_th      : volt     # Threshold potential
-    I_ext     : amp      # External current
+    Cm        : farad       # Membrane capacitance
+    g_L       : siemens     # Leak conductance
+    E_L       : volt        # Leak reversal potential
+    g_ahp_max : siemens     # Maximum AHP conductance
+    tau_ahp   : second      # AHP time constant
+    E_ahp     : volt        # AHP reversal potential
+    V_th      : volt        # Threshold potential
+    I_ext     : amp         # External current
+    eta       : mmolar**-1  # Mg concentration sensitivity
+    gamma     : volt**-1    # Mg concentration steepness
+    Mg_conc   : mmolar      # Mg concentration
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to
