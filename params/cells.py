@@ -24,18 +24,19 @@ cell_params = {
     },
     # Dentate gyrus
     "mgc": {
-        "name"      : "mgc",
-        "N"         : N_mgc,
-        "model"     : "adex",
-        "Cm"        : 6.78 * pF,
-        "g_L"       : 0.2639 * nS,
-        "E_L"       : -87.0 * mV,
-        "V_th"      : -56.0 * mV,
-        "DeltaT"    : 0.0 * mV,
-        "a"         : 2.0 * nS,
-        "b"         : 0.045 * nA,
-        "tau_o"     : 45.0 * ms,
-        "V_reset"   : -74.0 * mV
+        "name"       : "mgc",
+        "N"          : N_mgc,
+        "model"      : "adex",
+        "Cm"         : 6.78 * pF,
+        "g_L"        : 0.2639 * nS,
+        "E_L"        : -87.0 * mV,
+        "V_th"       : -56.0 * mV,
+        "DeltaT"     : 0.0 * mV,
+        "a"          : 2.0 * nS,
+        "b"          : 0.045 * nA,
+        "tau_o"      : 45.0 * ms,
+        "V_reset"    : -74.0 * mV,
+        "alpha_nmda" : 2 * ms**-1
     },
     "igc": {
         "name"      : "igc",
