@@ -1,8 +1,25 @@
 from brian2 import *
 from models.general import AdEx, LIF, expIF
+from utils.args_config import args
 
+alpha_ampa = args.ampa * ms**-1
+alpha_nmda = args.nmda * ms**-1
+alpha_gaba = args.gaba * ms**-1
 
-def create_neuron_group_lif(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, name):
+def create_neuron_group_lif(
+  N,
+  Cm,
+  g_L,
+  E_L,
+  g_ahp_max,
+  tau_ahp,
+  E_ahp,
+  V_th,
+  name,
+  alpha_ampa=alpha_ampa,
+  alpha_nmda=alpha_nmda,
+  alpha_gaba=alpha_gaba
+):
   lif_eqs, threshold, reset, refractory = LIF()
 
   neuron = NeuronGroup(
@@ -23,13 +40,31 @@ def create_neuron_group_lif(N, Cm, g_L, E_L, g_ahp_max, tau_ahp, E_ahp, V_th, na
   neuron.tau_ahp   = tau_ahp
   neuron.E_ahp     = E_ahp
   neuron.V_th      = V_th
+  neuron.alpha_ampa = alpha_ampa
+  neuron.alpha_nmda = alpha_nmda
+  neuron.alpha_gaba = alpha_gaba
 
   # Initialize
   neuron.Vm = E_L
 
   return neuron
 
-def create_neuron_group_adex(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset, name):
+def create_neuron_group_adex(
+  N,
+  Cm,
+  g_L,
+  E_L,
+  V_th,
+  DeltaT,
+  a,
+  b,
+  tau_o,
+  V_reset,
+  name,
+  alpha_ampa=alpha_ampa,
+  alpha_nmda=alpha_nmda,
+  alpha_gaba=alpha_gaba
+):
   exponential = DeltaT != 0
   adex_eqs, threshold, reset, refractory = AdEx(exponential)
 
@@ -53,13 +88,28 @@ def create_neuron_group_adex(N, Cm, g_L, E_L, V_th, DeltaT, a, b, tau_o, V_reset
   neuron.a         = a
   neuron.b         = b
   neuron.tau_o     = tau_o
+  neuron.alpha_ampa = alpha_ampa
+  neuron.alpha_nmda = alpha_nmda
+  neuron.alpha_gaba = alpha_gaba
 
   # Initialize
   neuron.Vm = E_L
 
   return neuron
 
-def create_neuron_group_expif(N, Cm, g_L, E_L, V_th, V_reset, DeltaT, name):
+def create_neuron_group_expif(
+  N,
+  Cm,
+  g_L,
+  E_L,
+  V_th,
+  V_reset,
+  DeltaT,
+  name,
+  alpha_ampa=alpha_ampa,
+  alpha_nmda=alpha_nmda,
+  alpha_gaba=alpha_gaba
+):
   expif_eqs, threshold, reset, refractory = expIF()
 
   neuron = NeuronGroup(
@@ -79,6 +129,9 @@ def create_neuron_group_expif(N, Cm, g_L, E_L, V_th, V_reset, DeltaT, name):
   neuron.V_th      = V_th
   neuron.V_reset   = V_reset
   neuron.DeltaT    = DeltaT
+  neuron.alpha_ampa = alpha_ampa
+  neuron.alpha_nmda = alpha_nmda
+  neuron.alpha_gaba = alpha_gaba
 
   # Initialize
   neuron.Vm = E_L

@@ -48,6 +48,9 @@ def LIF():
     I_nmda_4 : amp
     I_gaba_1 : amp
     I_gaba_2 : amp
+    alpha_ampa : second**-1
+    alpha_nmda : second**-1
+    alpha_gaba : second**-1
   ''')
 
   eqs        = eq_model + eq_params + eq_syn

@@ -4,7 +4,7 @@ parser = argparse.ArgumentParser(description="Hippocampal adult neurogenesis mod
 
 parser.add_argument("--trials", type=int, default=1, help="Number of trials")
 
-parser.add_argument("--nmda", type=float, default=1.0, help="Scaling factor for NMDA")
+parser.add_argument("--nmda", type=float, default=0.5, help="Scaling factor for NMDA")
 parser.add_argument("--gaba", type=float, default=1.0, help="Scaling factor for GABA")
 parser.add_argument("--ampa", type=float, default=1.0, help="Scaling factor for AMPA")
 parser.add_argument("--active-p", type=float, default=0.1, help="Percentage of active neurons in a pattern")
