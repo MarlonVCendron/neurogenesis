@@ -14,16 +14,19 @@ def AdEx(exponential=True):
     eq_model += 'I_exp  = 0 * amp : amp'
 
   eq_params = Equations('''
-    Cm     : farad    # Membrane capacitance
-    g_L    : siemens  # Leak conductance
-    E_L    : volt     # Leak reversal potential
-    V_th   : volt     # Threshold potential
-    V_reset: volt     # Reset potential
-    DeltaT : volt     # Slope factor
-    a      : siemens  # Subthreshold adaptation
-    b      : amp      # Spike-triggered adaptation
-    tau_o  : second   # Adaptation time constant
-    I_ext  : amp      # External current
+    Cm      : farad       # Membrane capacitance
+    g_L     : siemens     # Leak conductance
+    E_L     : volt        # Leak reversal potential
+    V_th    : volt        # Threshold potential
+    V_reset : volt        # Reset potential
+    DeltaT  : volt        # Slope factor
+    a       : siemens     # Subthreshold adaptation
+    b       : amp         # Spike-triggered adaptation
+    tau_o   : second      # Adaptation time constant
+    I_ext   : amp         # External current
+    eta     : mmolar**-1  # Mg concentration sensitivity
+    gamma   : volt**-1    # Mg concentration steepness
+    Mg_conc : mmolar      # Mg concentration
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to

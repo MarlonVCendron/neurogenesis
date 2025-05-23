@@ -10,7 +10,7 @@ def synapse(receptor) :
   E_val = REVERSAL_POTENTIAL[receptor] / mV
 
   if receptor == 'nmda':
-    eq_I_synapse = Equations('I_synapse = I_pre_sat * (1.0/(1 + exp(-gamma*Vm)*(1.0/3.57))) : amp')
+    eq_I_synapse = Equations('I_synapse = I_pre_sat / (1 + Mg_conc*eta*exp(-gamma*Vm)) : amp')
   else:
     eq_I_synapse = Equations('I_synapse = I_pre_sat : amp')
   
@@ -29,7 +29,6 @@ def synapse(receptor) :
     tau_r : second                         # Rise time
     tau_d : second                         # Decay time
     w     = 1                : 1           # Synaptic weight
-    gamma = 0.072 * mV**-1   : volt**-1    # Mg Concentration factor
     E     = {E_val} * mV     : volt        # Reversal potential
     alpha = alpha_{receptor} : second**-1  # Scaling factor
   ''')

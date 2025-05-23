@@ -6,6 +6,10 @@ alpha_ampa = args.ampa * ms**-1
 alpha_nmda = args.nmda * ms**-1
 alpha_gaba = args.gaba * ms**-1
 
+eta     = 0.28 * mM**-1
+gamma   = 0.072 * mV**-1
+Mg_conc = 1 * mM
+
 def create_neuron_group_lif(
   N,
   Cm,
@@ -18,7 +22,10 @@ def create_neuron_group_lif(
   name,
   alpha_ampa=alpha_ampa,
   alpha_nmda=alpha_nmda,
-  alpha_gaba=alpha_gaba
+  alpha_gaba=alpha_gaba,
+  eta=eta,
+  gamma=gamma,
+  Mg_conc=Mg_conc
 ):
   lif_eqs, threshold, reset, refractory = LIF()
 
@@ -43,6 +50,9 @@ def create_neuron_group_lif(
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
+  neuron.eta        = eta
+  neuron.gamma      = gamma
+  neuron.Mg_conc    = Mg_conc
 
   # Initialize
   neuron.Vm = E_L
@@ -63,7 +73,10 @@ def create_neuron_group_adex(
   name,
   alpha_ampa=alpha_ampa,
   alpha_nmda=alpha_nmda,
-  alpha_gaba=alpha_gaba
+  alpha_gaba=alpha_gaba,
+  eta=eta,
+  gamma=gamma,
+  Mg_conc=Mg_conc
 ):
   exponential = DeltaT != 0
   adex_eqs, threshold, reset, refractory = AdEx(exponential)
@@ -91,6 +104,9 @@ def create_neuron_group_adex(
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
+  neuron.eta        = eta
+  neuron.gamma      = gamma
+  neuron.Mg_conc    = Mg_conc
 
   # Initialize
   neuron.Vm = E_L
@@ -108,7 +124,10 @@ def create_neuron_group_expif(
   name,
   alpha_ampa=alpha_ampa,
   alpha_nmda=alpha_nmda,
-  alpha_gaba=alpha_gaba
+  alpha_gaba=alpha_gaba,
+  eta=eta,
+  gamma=gamma,
+  Mg_conc=Mg_conc
 ):
   expif_eqs, threshold, reset, refractory = expIF()
 
@@ -132,6 +151,9 @@ def create_neuron_group_expif(
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
+  neuron.eta        = eta
+  neuron.gamma      = gamma
+  neuron.Mg_conc    = Mg_conc
 
   # Initialize
   neuron.Vm = E_L
