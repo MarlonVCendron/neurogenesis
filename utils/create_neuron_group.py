@@ -40,13 +40,13 @@ def create_neuron_group_lif(
   )
 
   # Params
-  neuron.E_L       = E_L
-  neuron.Cm        = Cm
-  neuron.g_L       = g_L
-  neuron.g_ahp_max = g_ahp_max
-  neuron.tau_ahp   = tau_ahp
-  neuron.E_ahp     = E_ahp
-  neuron.V_th      = V_th
+  neuron.E_L        = E_L
+  neuron.Cm         = Cm
+  neuron.g_L        = g_L
+  neuron.g_ahp_max  = g_ahp_max
+  neuron.tau_ahp    = tau_ahp
+  neuron.E_ahp      = E_ahp
+  neuron.V_th       = V_th
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
@@ -92,15 +92,15 @@ def create_neuron_group_adex(
   )
 
   # Params
-  neuron.E_L       = E_L
-  neuron.Cm        = Cm
-  neuron.g_L       = g_L
-  neuron.V_th      = V_th
-  neuron.V_reset   = V_reset
-  neuron.DeltaT    = DeltaT
-  neuron.a         = a
-  neuron.b         = b
-  neuron.tau_o     = tau_o
+  neuron.E_L        = E_L
+  neuron.Cm         = Cm
+  neuron.g_L        = g_L
+  neuron.V_th       = V_th
+  neuron.V_reset    = V_reset
+  neuron.DeltaT     = DeltaT
+  neuron.a          = a
+  neuron.b          = b
+  neuron.tau_o      = tau_o
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
@@ -142,12 +142,12 @@ def create_neuron_group_expif(
   )
 
   # Params
-  neuron.E_L       = E_L
-  neuron.Cm        = Cm
-  neuron.g_L       = g_L
-  neuron.V_th      = V_th
-  neuron.V_reset   = V_reset
-  neuron.DeltaT    = DeltaT
+  neuron.E_L        = E_L
+  neuron.Cm         = Cm
+  neuron.g_L        = g_L
+  neuron.V_th       = V_th
+  neuron.V_reset    = V_reset
+  neuron.DeltaT     = DeltaT
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
