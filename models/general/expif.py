@@ -2,7 +2,7 @@ from brian2 import *
 
 def expIF():
   eq_model = Equations(f'''
-    dVm/dt = (-I_L  + I_exp - I_syn + I_ext) / Cm : volt
+    dVm/dt = (-I_L  + I_exp - I_syn + I_ext) / Cm : volt (unless refractory)
     I_syn  = I_ampa + I_nmda + I_gaba             : amp
     I_exp  = g_L * DeltaT * exp((Vm-V_th)/DeltaT) : amp
     I_L    = g_L * (Vm - E_L)                     : amp
@@ -47,6 +47,4 @@ def expIF():
   threshold  = 'Vm > V_th'
   reset      = 'Vm = V_reset'
 
-  refractory = 0 * ms  # A way to have lastspike
-
-  return (eqs, threshold, reset, refractory)
+  return (eqs, threshold, reset)

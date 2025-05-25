@@ -71,6 +71,7 @@ def create_neuron_group_adex(
   tau_o,
   V_reset,
   name,
+  refractory,
   alpha_ampa=alpha_ampa,
   alpha_nmda=alpha_nmda,
   alpha_gaba=alpha_gaba,
@@ -79,7 +80,7 @@ def create_neuron_group_adex(
   Mg_conc=Mg_conc
 ):
   exponential = DeltaT != 0
-  adex_eqs, threshold, reset, refractory = AdEx(exponential)
+  adex_eqs, threshold, reset = AdEx(exponential)
 
   neuron = NeuronGroup(
       N          = N,
@@ -122,6 +123,7 @@ def create_neuron_group_expif(
   V_reset,
   DeltaT,
   name,
+  refractory,
   alpha_ampa=alpha_ampa,
   alpha_nmda=alpha_nmda,
   alpha_gaba=alpha_gaba,
@@ -129,7 +131,7 @@ def create_neuron_group_expif(
   gamma=gamma,
   Mg_conc=Mg_conc
 ):
-  expif_eqs, threshold, reset, refractory = expIF()
+  expif_eqs, threshold, reset = expIF()
 
   neuron = NeuronGroup(
       N          = N,
