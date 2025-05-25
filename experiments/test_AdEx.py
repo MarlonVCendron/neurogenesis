@@ -36,12 +36,16 @@ def main():
   neuron.tau_o     = 144 * ms
   neuron.a         = 4 * nS
   neuron.b         = 0.0805 * nA
+  neuron.V_reset   = -56.0 * mV
+  neuron.eta       = 0.28 * mM**-1
+  neuron.gamma     = 0.072 * mV**-1
+  neuron.Mg_conc   = 1 * mM
 
   # Initialize
   neuron.Vm = neuron.E_L
 
   spike_monitor = SpikeMonitor(neuron)
-  state_monitor = StateMonitor(neuron, ['Vm', 'I_exp', 'w'], record=True)
+  state_monitor = StateMonitor(neuron, ['Vm', 'I_exp', 'o'], record=True)
 
   net = Network(collect())
   net.add(spike_monitor)
@@ -72,6 +76,9 @@ def main():
 
   neuron.I_ext = 0.75 * nA
   net.run(500 * ms)
+
+  neuron.I_ext = 0.0 * nA
+  net.run(200 * ms)
   
   print(f'Spike count: {spike_monitor.count}')
   
@@ -86,10 +93,10 @@ def main():
   # plt.plot(state_monitor.t / ms, state_monitor.w[0] / nA)
   # plt.show()
 
-  for I in np.arange(0, 1.2, 0.1) * nA:
-    neuron.I_ext = I
-    net.run(1 * second)
-    print(f'I_ext: {I}, spike count: {spike_monitor.count}')
+  # for I in np.arange(0, 1.2, 0.1) * nA:
+  #   neuron.I_ext = I
+  #   net.run(1 * second)
+  #   print(f'I_ext: {I}, spike count: {spike_monitor.count}')
 
 
 
