@@ -1,7 +1,7 @@
 from brian2 import *
 from utils.args_config import args
 
-REVERSAL_POTENTIAL = { 'nmda':  0 * mV, 'ampa': 0 * mV, 'gaba': -75 * mV } # TODO: Check if this is correct
+REVERSAL_POTENTIAL = { 'nmda':  0 * mV, 'ampa': 0 * mV, 'gaba': -86 * mV }
 
 def synapse(receptor) : 
   R        = receptor         # e.g. 'ampa_1'
@@ -16,14 +16,13 @@ def synapse(receptor) :
   
   eq_model = Equations(f'''
     I_pre_sat  = g_syn * (Vm - E)                 : amp
-    g_syn      = g_max * s                        : siemens 
+    g_syn      = g_max * s                        : siemens
     ds/dt      = -s / tau_d + h * alpha * (1 - s) : 1 (clock-driven)
     dh/dt      = -h / tau_r                       : 1 (clock-driven)
 
     I_{R}_post = I_synapse                        : amp (summed)
   ''')
 
-  # TODO: Each cell type has different Mg related parameters
   eq_params = Equations(f'''
     g_max : siemens                        # Synaptic strength
     tau_r : second                         # Rise time
