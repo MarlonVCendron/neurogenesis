@@ -2,10 +2,10 @@ from brian2 import *
 
 def AdEx(exponential=True):
   eq_model = Equations(f'''
-    dVm/dt = (-I_L  + I_exp - I_syn + I_ext - o) / Cm : volt
+    dVm/dt = (-I_L  + I_exp - I_syn + I_ext - o) / Cm : volt (unless refractory)
     I_syn  = I_ampa + I_nmda + I_gaba                 : amp
     I_L    = g_L * (Vm - E_L)                         : amp
-    do/dt  = (a * (Vm - E_L) - o) / tau_o             : amp
+    do/dt  = (a * (Vm - E_L) - o) / tau_o             : amp (unless refractory)
   ''')
 
   if exponential:
@@ -58,6 +58,4 @@ def AdEx(exponential=True):
     o  = o + b
   '''
 
-  refractory = 0 * ms  # A way to have lastspike
-
-  return (eqs, threshold, reset, refractory)
+  return (eqs, threshold, reset)

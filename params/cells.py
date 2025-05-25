@@ -39,24 +39,23 @@ cell_params = {
         "alpha_nmda" : 2 * ms**-1,
         "eta"        : 0.2 * mM**-1,
         "gamma"      : 0.04 * mV**-1,
-        "Mg_conc"    : 2 * mM
+        "Mg_conc"    : 2 * mM,
+        "refractory" : 20 * ms
     },
     "igc": {
-        "name"      : "igc",
-        "N"         : N_igc,
-        "model"     : "expif",
-        "Cm"        : 20.0 * pF,
-        "g_L"       : 0.2159 * nS,
-        "E_L"       : -78.0 * mV,
-        "V_th"      : -35.9 * mV,
-        "DeltaT"    : 2.0 * mV,
-        # "a"         : 0.0 * nS,
-        # "b"         : 0.06 * nA,
-        # "tau_o"     : 101.5 * ms,
-        "V_reset"   : -63.0 * mV,
+        "name"       : "igc",
+        "N"          : N_igc,
+        "model"      : "expif",
+        "Cm"         : 20.0 * pF,
+        "g_L"        : 0.2159 * nS,
+        "E_L"        : -78.0 * mV,
+        "V_th"       : -35.9 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "V_reset"    : -63.0 * mV,
         "eta"        : 0.2 * mM**-1,
         "gamma"      : 0.04 * mV**-1,
-        "Mg_conc"    : 2 * mM
+        "Mg_conc"    : 2 * mM,
+        "refractory" : 20 * ms
     },
     "mc": {
         "name"      : "mc",
@@ -70,35 +69,38 @@ cell_params = {
         "a"         : 1.0 * nS,
         "b"         : 0.0829 * nA,
         "tau_o"     : 180.0 * ms,
-        "V_reset"   : -49.0 * mV
+        "V_reset"   : -49.0 * mV,
+        "refractory" : 2 * ms
     },
     "bc": {
-        "name"      : "bc",
-        "N"         : N_bc,
-        "model"     : "adex",
-        "Cm"        : 179.3 * pF,
-        "g_L"       : 18.054 * nS,
-        "E_L"       : -52.0 * mV,
-        "V_th"      : -39.0 * mV,
-        "DeltaT"    : 2.0 * mV,
-        "a"         : 0.1 * nS,
-        "b"         : 0.0205 * nA,
-        "tau_o"     : 100.0 * ms,
-        "V_reset"   : -45.0 * mV
+        "name"       : "bc",
+        "N"          : N_bc,
+        "model"      : "adex",
+        "Cm"         : 179.3 * pF,
+        "g_L"        : 18.054 * nS,
+        "E_L"        : -52.0 * mV,
+        "V_th"       : -39.0 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "a"          : 0.1 * nS,
+        "b"          : 0.0205 * nA,
+        "tau_o"      : 100.0 * ms,
+        "V_reset"    : -45.0 * mV,
+        "refractory" : 2 * ms
     },
     "hipp": {
-        "name"      : "hipp",
-        "N"         : N_hipp,
-        "model"     : "adex",
-        "Cm"        : 58.4 * pF,
-        "g_L"       : 1.93 * nS,
-        "E_L"       : -59.0 * mV,
-        "V_th"      : -50.0 * mV,
-        "DeltaT"    : 2.0 * mV,
-        "a"         : 0.82 * nS,
-        "b"         : 0.015 * nA,
-        "tau_o"     : 93.0 * ms,
-        "V_reset"   : -56.0 * mV
+        "name"       : "hipp",
+        "N"          : N_hipp,
+        "model"      : "adex",
+        "Cm"         : 58.4 * pF,
+        "g_L"        : 1.93 * nS,
+        "E_L"        : -59.0 * mV,
+        "V_th"       : -50.0 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "a"          : 0.82 * nS,
+        "b"          : 0.015 * nA,
+        "tau_o"      : 93.0 * ms,
+        "V_reset"    : -56.0 * mV,
+        "refractory" : 3 * ms
     },
     # CA3 - INNACURATE PARAMS - TODO: FIX: https://hippocampome.org/php/ephys.php
     "pca3": {
@@ -113,7 +115,8 @@ cell_params = {
         "a"         : 2.0 * nS,
         "b"         : 0.045 * nA,
         "tau_o"     : 45.0 * ms,
-        "V_reset"   : -74.0 * mV
+        "V_reset"   : -74.0 * mV,
+        "refractory" : 20 * ms
     },
     "ica3": {
         "name"      : "ica3",
@@ -127,6 +130,7 @@ cell_params = {
         "a"         : 2.0 * nS,
         "b"         : 0.045 * nA,
         "tau_o"     : 45.0 * ms,
-        "V_reset"   : -74.0 * mV
+        "V_reset"   : -74.0 * mV,
+        "refractory" : 20 * ms
     },
 }
