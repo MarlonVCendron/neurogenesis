@@ -11,20 +11,18 @@ from params.cells import (
   N_mgc_l,
   N_igc_l,
   N_bc_l,
-  N_mc_l,
-  N_hipp_l,
   N_pca3_l,
   N_ica3_l
 ) 
 
 cell_to_nl = {
   "bc": N_bc_l,
-  "mc": N_mc_l,
   "mgc": N_mgc_l,
   "igc": N_igc_l,
-  "hipp": N_hipp_l,
   "pca3": N_pca3_l,
   "ica3": N_ica3_l,
+  "mc": 1,
+  "hipp": 1,
   "pp": 1
 }
 
