@@ -13,7 +13,7 @@ def Connect(source, target, receptor, delay, g_max, tau_r, tau_d, condition=None
       model=eqs,
       on_pre=on_pre,
       delay=delay,
-      method='rk2',
+      method='rk4',
   )
 
   conn_i, conn_j = read_connectivity(source, target)

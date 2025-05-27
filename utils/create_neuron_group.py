@@ -1,5 +1,5 @@
 from brian2 import *
-from models.general import AdEx, LIF, expIF
+from models.general import AdEx, LIF, expIF, Izhikevich
 from utils.args_config import args
 
 alpha_ampa = args.ampa * ms**-1
@@ -36,7 +36,7 @@ def create_neuron_group_lif(
       reset      = reset,
       refractory = refractory,
       name       = name,
-      method     = 'rk2',
+      method     = 'rk4',
   )
 
   # Params
@@ -89,7 +89,7 @@ def create_neuron_group_adex(
       reset      = reset,
       refractory = refractory,
       name       = name,
-      method     = 'rk2',
+      method     = 'rk4',
   )
 
   # Params
@@ -140,7 +140,7 @@ def create_neuron_group_expif(
       reset      = reset,
       refractory = refractory,
       name       = name,
-      method     = 'rk2',
+      method     = 'rk4',
   )
 
   # Params
@@ -162,6 +162,59 @@ def create_neuron_group_expif(
 
   return neuron
 
+def create_neuron_group_izhikevich(
+  N,
+  k,
+  a,
+  b,
+  d,
+  Cm,
+  Vr,
+  V_th,
+  Vpeak,
+  Vmin,
+  name,
+  alpha_ampa=alpha_ampa,
+  alpha_nmda=alpha_nmda,
+  alpha_gaba=alpha_gaba,
+  eta=eta,
+  gamma=gamma,
+  Mg_conc=Mg_conc
+):
+  izhikevich_eqs, threshold, reset, refractory = Izhikevich()
+
+  neuron = NeuronGroup(
+      N          = N,
+      model      = izhikevich_eqs,
+      threshold  = threshold,
+      reset      = reset,
+      refractory = refractory,
+      name       = name,
+      method     = 'rk4',
+  )
+
+  # Params
+  neuron.k          = k
+  neuron.a          = a
+  neuron.b          = b
+  neuron.d          = d
+  neuron.Cm         = Cm
+  neuron.Vr         = Vr
+  neuron.V_th       = V_th
+  neuron.Vpeak      = Vpeak
+  neuron.Vmin     = Vmin
+  neuron.alpha_ampa = alpha_ampa
+  neuron.alpha_nmda = alpha_nmda
+  neuron.alpha_gaba = alpha_gaba
+  neuron.eta        = eta
+  neuron.gamma      = gamma
+  neuron.Mg_conc    = Mg_conc
+
+  # Initialize
+  neuron.Vm = Vr
+
+  return neuron
+
 def create_neuron_group(*args, **kwargs):
   model = kwargs.pop('model')
   if model == 'lif':
@@ -170,3 +223,5 @@ def create_neuron_group(*args, **kwargs):
     return create_neuron_group_adex(**kwargs)
   elif model == 'expif':
     return create_neuron_group_expif(**kwargs)
+  elif model == 'izhikevich':
+    return create_neuron_group_izhikevich(**kwargs)
