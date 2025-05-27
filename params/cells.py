@@ -2,14 +2,20 @@ from brian2 import *
 from params.general import N_lamellae, has_igc
 from utils.args_config import args
 
-N_pp     = args.n_pp
-N_igc_l  = args.n_igc
-N_mgc_l  = (args.n_mgc - N_igc_l) if has_igc else args.n_mgc
-N_bc_l   = args.n_bc
-N_mc_l   = args.n_mc
-N_hipp_l = args.n_hipp
-N_pca3_l = args.n_pca3
-N_ica3_l = args.n_ica3
+N_pp   = args.n_pp
+N_igc  = args.n_igc
+N_mgc  = (args.n_mgc - args.n_igc) if has_igc else args.n_mgc
+N_bc   = args.n_bc
+N_mc   = args.n_mc
+N_hipp = args.n_hipp
+N_pca3 = args.n_pca3
+N_ica3 = args.n_ica3
+
+N_igc_l  = N_igc // N_lamellae
+N_mgc_l  = N_mgc // N_lamellae
+N_bc_l   = N_bc // N_lamellae
+N_pca3_l = N_pca3 // N_lamellae
+N_ica3_l = N_ica3 // N_lamellae
 
 cell_params = {
     "pp": {
@@ -17,82 +23,114 @@ cell_params = {
         "N"         : N_pp
     },
     # Dentate gyrus
-    "bc": {
-        "name"      : "bc",
-        "N"         : N_lamellae * N_bc_l,
-        "Cm"        : 232.6 * pF,
-        "g_L"       : 23.2 * nS,
-        "E_L"       : -62.0 * mV,
-        "g_ahp_max" : 76.9 * nS,
-        "tau_ahp"   : 2.0 * ms,
-        "E_ahp"     : -75.0 * mV,
-        "V_th"      : -52.5 * mV,
-    },
-    "hipp": {
-        "name"      : "hipp",
-        "N"         : N_lamellae * N_hipp_l,
-        "Cm"        : 94.3 * pF,
-        "g_L"       : 2.7 * nS,
-        "E_L"       : -65.0 * mV,
-        "g_ahp_max" : 52.0 * nS,
-        "tau_ahp"   : 5.0 * ms,
-        "E_ahp"     : -75.0 * mV,
-        "V_th"      : -9.4 * mV,
+    "mgc": {
+        "name"       : "mgc",
+        "N"          : N_mgc,
+        "model"      : "adex",
+        "Cm"         : 6.78 * pF,
+        "g_L"        : 0.2639 * nS,
+        "E_L"        : -87.0 * mV,
+        "V_th"       : -56.0 * mV,
+        "DeltaT"     : 0.0 * mV,
+        "a"          : 2.0 * nS,
+        "b"          : 0.045 * nA,
+        "tau_o"      : 45.0 * ms,
+        "V_reset"    : -74.0 * mV,
+        "alpha_nmda" : 2 * ms**-1,
+        "eta"        : 0.2 * mM**-1,
+        "gamma"      : 0.04 * mV**-1,
+        "Mg_conc"    : 2 * mM,
+        "refractory" : 20 * ms
     },
     "igc": {
-        "name"      : "igc",
-        "N"         : N_lamellae * N_igc_l,
-        "Cm"        : 106.2 * pF,
-        "g_L"       : 3.4 * nS,
-        "E_L"       : -72.0 * mV,
-        "g_ahp_max" : 10.4 * nS,
-        "tau_ahp"   : 20.0 * ms,
-        "E_ahp"     : -80.0 * mV,
-        "V_th"      : -51.5 * mV,
+        "name"       : "igc",
+        "N"          : N_igc,
+        "model"      : "expif",
+        "Cm"         : 20.0 * pF,
+        "g_L"        : 0.2159 * nS,
+        "E_L"        : -78.0 * mV,
+        "V_th"       : -35.9 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "V_reset"    : -63.0 * mV,
+        "eta"        : 0.2 * mM**-1,
+        "gamma"      : 0.04 * mV**-1,
+        "Mg_conc"    : 2 * mM,
+        "refractory" : 20 * ms
     },
     "mc": {
         "name"      : "mc",
-        "N"         : N_lamellae * N_mc_l,
-        "Cm"        : 206.0 * pF,
-        "g_L"       : 5.0 * nS,
-        "E_L"       : -62.0 * mV,
-        "g_ahp_max" : 78.0 * nS,
-        "tau_ahp"   : 10.0 * ms,
-        "E_ahp"     : -80.0 * mV,
-        "V_th"      : -32.0 * mV,
+        "N"         : N_mc,
+        "model"     : "adex",
+        "Cm"        : 252.1 * pF,
+        "g_L"       : 4.53 * nS,
+        "E_L"       : -64.0 * mV,
+        "V_th"      : -42.0 * mV,
+        "DeltaT"    : 2.0 * mV,
+        "a"         : 1.0 * nS,
+        "b"         : 0.0829 * nA,
+        "tau_o"     : 180.0 * ms,
+        "V_reset"   : -49.0 * mV,
+        "refractory" : 2 * ms
     },
-    "mgc": {
-        "name"      : "mgc",
-        "N"         : N_lamellae * N_mgc_l,
-        "Cm"        : 106.2 * pF,
-        "g_L"       : 3.4 * nS,
-        "E_L"       : -75.0 * mV,
-        "g_ahp_max" : 10.4 * nS,
-        "tau_ahp"   : 20.0 * ms,
-        "E_ahp"     : -80.0 * mV,
-        "V_th"      : -51.5 * mV,
+    "bc": {
+        "name"       : "bc",
+        "N"          : N_bc,
+        "model"      : "adex",
+        "Cm"         : 179.3 * pF,
+        "g_L"        : 18.054 * nS,
+        "E_L"        : -52.0 * mV,
+        "V_th"       : -39.0 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "a"          : 0.1 * nS,
+        "b"          : 0.0205 * nA,
+        "tau_o"      : 100.0 * ms,
+        "V_reset"    : -45.0 * mV,
+        "refractory" : 2 * ms
     },
-    # CA3 - INNACURATE PARAMS
+    "hipp": {
+        "name"       : "hipp",
+        "N"          : N_hipp,
+        "model"      : "adex",
+        "Cm"         : 58.4 * pF,
+        "g_L"        : 1.93 * nS,
+        "E_L"        : -59.0 * mV,
+        "V_th"       : -50.0 * mV,
+        "DeltaT"     : 2.0 * mV,
+        "a"          : 0.82 * nS,
+        "b"          : 0.015 * nA,
+        "tau_o"      : 93.0 * ms,
+        "V_reset"    : -56.0 * mV,
+        "refractory" : 3 * ms
+    },
+    # CA3 - INNACURATE PARAMS - TODO: FIX: https://hippocampome.org/php/ephys.php
     "pca3": {
         "name"      : "pca3",
-        "N"         : N_lamellae * N_pca3_l,
+        "N"         : N_pca3,
+        "model"     : "adex",
         "Cm"        : 100.0 * pF,
-        "g_L"       : 5.0 * nS,
-        "E_L"       : -75.0 * mV,
-        "g_ahp_max" : 10.0 * nS,
-        "tau_ahp"   : 20.0 * ms,
-        "E_ahp"     : -80.0 * mV,
-        "V_th"      : -50.0 * mV,
+        "g_L"       : 0.2639 * nS,
+        "E_L"       : -87.0 * mV,
+        "V_th"      : -56.0 * mV,
+        "DeltaT"    : 0.0 * mV,
+        "a"         : 2.0 * nS,
+        "b"         : 0.045 * nA,
+        "tau_o"     : 45.0 * ms,
+        "V_reset"   : -74.0 * mV,
+        "refractory" : 20 * ms
     },
     "ica3": {
         "name"      : "ica3",
-        "N"         : N_lamellae * N_ica3_l,
+        "N"         : N_ica3,
+        "model"     : "adex",
         "Cm"        : 100.0 * pF,
-        "g_L"       : 5.0 * nS,
-        "E_L"       : -75.0 * mV,
-        "g_ahp_max" : 10.0 * nS,
-        "tau_ahp"   : 20.0 * ms,
-        "E_ahp"     : -80.0 * mV,
-        "V_th"      : -50.0 * mV,
+        "g_L"       : 0.2639 * nS,
+        "E_L"       : -87.0 * mV,
+        "V_th"      : -56.0 * mV,
+        "DeltaT"    : 0.0 * mV,
+        "a"         : 2.0 * nS,
+        "b"         : 0.045 * nA,
+        "tau_o"     : 45.0 * ms,
+        "V_reset"   : -74.0 * mV,
+        "refractory" : 20 * ms
     },
 }

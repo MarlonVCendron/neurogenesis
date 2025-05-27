@@ -50,10 +50,10 @@ def network():
     mgc_nmda_ica3 = Connect(mgc, ica3, **syn_params['mgc_nmda_ica3'])
     net.add(collect())
 
-  igc_ampa_bc   = Connect(igc, bc, **syn_params['igc_ampa_bc'])
-  igc_nmda_bc   = Connect(igc, bc, **syn_params['igc_nmda_bc'])
   igc_ampa_mc   = Connect(igc, mc, **syn_params['igc_ampa_mc'])
   igc_nmda_mc   = Connect(igc, mc, **syn_params['igc_nmda_mc'])
+  igc_ampa_hipp   = Connect(igc, hipp, **syn_params['igc_ampa_hipp'])
+  igc_nmda_hipp   = Connect(igc, hipp, **syn_params['igc_nmda_hipp'])
   if ca3:
     igc_ampa_pca3 = Connect(igc, pca3, **syn_params['igc_ampa_pca3'])
     igc_nmda_pca3 = Connect(igc, pca3, **syn_params['igc_nmda_pca3'])
@@ -62,7 +62,6 @@ def network():
     net.add(collect())
 
   bc_gaba_mgc = Connect(bc, mgc, **syn_params['bc_gaba_mgc'])
-  bc_gaba_mc  = Connect(bc, mc, **syn_params['bc_gaba_mc'])
 
   mc_ampa_mgc  = Connect(mc, mgc, **syn_params['mc_ampa_mgc'])
   mc_nmda_mgc  = Connect(mc, mgc, **syn_params['mc_nmda_mgc'])
@@ -72,6 +71,7 @@ def network():
   mc_nmda_bc   = Connect(mc, bc, **syn_params['mc_nmda_bc'])
 
   hipp_gaba_mgc = Connect(hipp, mgc, **syn_params['hipp_gaba_mgc'])
+  hipp_gaba_igc = Connect(hipp, igc, **syn_params['hipp_gaba_igc'])
 
   if ca3:
     pca3_ampa_pca3 = Connect(pca3, pca3, **syn_params['pca3_ampa_pca3'])
