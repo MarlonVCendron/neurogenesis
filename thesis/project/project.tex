@@ -1,0 +1,57 @@
+\input{config/document}
+
+\newcommand\Universidade{Universidade Federal da Paraíba}
+\newcommand\Departamento{Centro de Ciências Humanas, Letras e Artes}
+\newcommand\Curso{Programa de Pós-Graduação em Neurociência Cognitiva e Comportamento}
+\titulo{Modelo computacional sobre a dinâmica temporal da neurogênese no giro denteado e seu impacto nas funções de memória do CA3}
+\autor{Marlon Valmórbida Cendron}
+\orientador{Flávio Freitas Barbosa}
+\coorientador{Wilfredo Blanco Figuerola}
+\newcommand\mesDefesa{Agosto de 2025}
+\newcommand\dataDefesa{20 de \mesDefesa}
+
+
+\begin{document}
+
+\pretextual
+	
+\input{config/pretextual}
+
+% \begin{agradecimentos}
+% Gostaria de agradecer \lipsum[1-4]
+% \end{agradecimentos}
+
+\input{capítulos/resumo}
+
+
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+		
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+\textual
+
+\input{capítulos/01_introdução}
+\input{capítulos/02_justificativa}
+\input{capítulos/03_objetivos}
+\input{capítulos/04_hipóteses}
+\input{capítulos/05_materiais_e_métodos}
+\input{capítulos/06_resultados_esperados}
+\input{capítulos/cronograma}
+
+\phantompart
+
+\postextual
+
+\bibliography{references}
+
+\input{capítulos/apêndices}
+
+\end{document}
