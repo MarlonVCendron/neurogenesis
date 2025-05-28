@@ -2,15 +2,15 @@ from brian2 import *
 
 def Izhikevich():
   eq_model = Equations('''
-    dVm/dt = (K * (Vm - Vr) * (Vm - V_th) - U + I) / Cm : volt
-    du/dt  = A * (-u + B * (Vm - Vr))                   : 1
-    I      = I_syn + I_ext                              : amp
+    dVm/dt = (K * (Vm - Vr) * (Vm - Vt) - U + I) / Cm : volt
+    du/dt  = A * (-u + B * (Vm - Vr))                 : 1
+    I      = I_syn + I_ext                            : amp
     
     # Matching units
-    A      = a / ms                                     : hertz
-    B      = b / mV                                     : volt**-1
-    K      = k * nS / mV                                : siemens / volt
-    U      = u * pA                                     : amp
+    A      = a / ms                                   : hertz
+    B      = b / mV                                   : volt**-1
+    K      = k * nS / mV                              : siemens / volt
+    U      = u * pA                                   : amp
   ''')
 
   eq_params = Equations('''
@@ -20,7 +20,7 @@ def Izhikevich():
     b       : 1           # Sensitivity of the recovery variable to the subthreshold fluctuations of Vm
     d       : 1           # After-spike reset of u
     Vr      : volt        # Leak reversal potential
-    V_th    : volt        # Threshold potential
+    Vt      : volt        # Threshold potential
     Vpeak   : volt        # Spike cutoff value
     Vmin    : volt        # Reset potential
 

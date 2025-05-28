@@ -6,7 +6,14 @@ def plot_voltage(monitor, spike_monitor, idx=0):
   import matplotlib.pyplot as plt
 
   neuron = monitor.source
-  threshold = neuron.get_states()['V_th'][idx]
+  states = neuron.get_states()
+  if 'V_th' in states:
+    threshold = states['V_th'][idx]
+  elif 'Vt' in states:
+    threshold = states['Vt'][idx]
+  else:
+    print("Warning: Threshold potential (V_th or Vt) not found in neuron states.")
+    threshold = 0 * mV 
 
   all_spikes = spike_monitor.all_values()
 

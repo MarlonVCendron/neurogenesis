@@ -7,7 +7,7 @@ from utils.create_neuron_group import create_neuron_group
 
 seed(1)
 
-defaultclock.dt = 0.01 * ms
+defaultclock.dt = 0.1 * ms
 
 def to_100(params):
   return {**params, "p": 1.0}
@@ -24,7 +24,7 @@ def main():
   #     d          = 50,
   #     Cm         = 38 * pF,
   #     Vr         = -77.4 * mV,
-  #     V_th       = -44.9 * mV,
+  #     Vt       = -44.9 * mV,
   #     Vpeak      = 15.49 * mV,
   #     Vmin     = -66.46 * mV,
   #     name       = 'izhikevich_neuron',
@@ -40,7 +40,7 @@ def main():
       d     = 50,
       Cm    = 38 * pF,
       Vr    = -77.40291336465064 * mV,
-      V_th  = -44.90054428048817 * mV,
+      Vt  = -44.90054428048817 * mV,
       Vpeak = 15.489726771001997 * mV,
       Vmin  = -66.46563513097735 * mV,
       name  = 'izhikevich_neuron',
