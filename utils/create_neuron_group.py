@@ -170,7 +170,7 @@ def create_neuron_group_izhikevich(
   d,
   Cm,
   Vr,
-  V_th,
+  Vt,
   Vpeak,
   Vmin,
   name,
@@ -200,9 +200,9 @@ def create_neuron_group_izhikevich(
   neuron.d          = d
   neuron.Cm         = Cm
   neuron.Vr         = Vr
-  neuron.V_th       = V_th
+  neuron.Vt         = Vt
   neuron.Vpeak      = Vpeak
-  neuron.Vmin     = Vmin
+  neuron.Vmin       = Vmin
   neuron.alpha_ampa = alpha_ampa
   neuron.alpha_nmda = alpha_nmda
   neuron.alpha_gaba = alpha_gaba
