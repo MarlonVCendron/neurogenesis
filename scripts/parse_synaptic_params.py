@@ -36,6 +36,7 @@ def parse_hippocampome_params(csv_filepath):
 
     output_dict_str = "syn_params = {\n"
     parsed_connections = []
+    post_syn_var_counters = {} # Initialize counter for syn_var
 
     try:
         with open(csv_filepath, mode='r', encoding='utf-8') as csvfile:
@@ -79,6 +80,9 @@ def parse_hippocampome_params(csv_filepath):
                         pre_neuron = neuron_type_mapping[pre_neuron_full]
                         post_neuron = neuron_type_mapping[post_neuron_full]
 
+                    # Increment syn_var for the current post_neuron
+                    current_syn_var = post_syn_var_counters.get(post_neuron, 0) + 1
+                    post_syn_var_counters[post_neuron] = current_syn_var
 
                     key_name = f"{pre_neuron}_{post_neuron}"
                     syn_type_val = syn_type_mapping[pre_neuron]
@@ -94,14 +98,15 @@ def parse_hippocampome_params(csv_filepath):
                     delay = float(row.get("Synaptic Delay", 0))
 
                     connection_details_str = '{\n'
-                    connection_details_str += f'        "syn_type": "{syn_type_val}",\n'
-                    connection_details_str += f'        "p"       : {prob:.4f},\n'
-                    connection_details_str += f'        "g"       : {g:.4f} * nS,\n'
-                    connection_details_str += f'        "tau_r"   : {tau_r:.4f} * ms,\n'
-                    connection_details_str += f'        "tau_d"   : {tau_d:.4f} * ms,\n'
-                    connection_details_str += f'        "tau_f"   : {tau_f:.4f} * ms,\n'
-                    connection_details_str += f'        "U"       : {u_val:.4f},\n'
-                    connection_details_str += f'        "delay"   : {delay:.1f} * ms\n'
+                    connection_details_str += f'        "syn_type" : "{syn_type_val}",\n'
+                    connection_details_str += f'        "syn_var"  : {current_syn_var},\n'
+                    connection_details_str += f'        "p"        : {prob:.4f},\n'
+                    connection_details_str += f'        "g"        : {g:.4f} * nS,\n'
+                    connection_details_str += f'        "tau_r"    : {tau_r:.4f} * ms,\n'
+                    connection_details_str += f'        "tau_d"    : {tau_d:.4f} * ms,\n'
+                    connection_details_str += f'        "tau_f"    : {tau_f:.4f} * ms,\n'
+                    connection_details_str += f'        "U_se"     : {u_val:.4f},\n'
+                    connection_details_str += f'        "delay"    : {delay:.1f} * ms\n'
                     connection_details_str += "    }"
 
                     parsed_connections.append({

@@ -174,12 +174,6 @@ def create_neuron_group_izhikevich(
   Vpeak,
   Vmin,
   name,
-  alpha_ampa=alpha_ampa,
-  alpha_nmda=alpha_nmda,
-  alpha_gaba=alpha_gaba,
-  eta=eta,
-  gamma=gamma,
-  Mg_conc=Mg_conc
 ):
   izhikevich_eqs, threshold, reset, refractory = Izhikevich()
 
@@ -203,12 +197,6 @@ def create_neuron_group_izhikevich(
   neuron.Vt         = Vt
   neuron.Vpeak      = Vpeak
   neuron.Vmin       = Vmin
-  neuron.alpha_ampa = alpha_ampa
-  neuron.alpha_nmda = alpha_nmda
-  neuron.alpha_gaba = alpha_gaba
-  neuron.eta        = eta
-  neuron.gamma      = gamma
-  neuron.Mg_conc    = Mg_conc
 
   # Initialize
   neuron.Vm = Vr
