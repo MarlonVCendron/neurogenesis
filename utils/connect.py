@@ -3,7 +3,7 @@ from terminology import in_red
 
 from models.general import synapse, synapse_tsodyks
 from utils.utils import read_connectivity
-
+from utils.args_config import args
 
 def connect_synapses(synapses, p, condition):
     source = synapses.source
@@ -64,6 +64,7 @@ def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_
     synapses.tau_d = tau_d
     synapses.tau_f = tau_f
     synapses.U_se = U_se
+    synapses.scale = args.tsodyks_scale
 
     return synapses
 
