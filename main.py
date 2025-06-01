@@ -20,7 +20,10 @@ if __name__ == '__main__':
 
   monitor_rate = args.single_run
   report = 'text' if args.single_run else None
-  sim = SimWrapper(report=report, monitor_rate=monitor_rate)
+  monitor_state = {
+    'hipp': ['I_syn_1', 'I_syn_2', 'I_syn_3', 'I_syn_4', 'I_syn_5']
+  }
+  sim = SimWrapper(report=report, monitor_rate=monitor_rate, monitor_state=monitor_state)
 
   patterns    = [pattern for _ in range(trials) for pattern in generate_activity_patterns()]
   if args.single_run:
@@ -32,5 +35,5 @@ if __name__ == '__main__':
   results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
 
   if(monitor_rate):
-    for i, (spikes, rates) in enumerate(results):
+    for i, (spikes, rates, states) in enumerate(results):
       plot_spikes_and_rates(spikes, rates, i, filename=res_filename(i, total_patterns))
