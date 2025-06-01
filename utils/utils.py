@@ -19,6 +19,9 @@ def get_spike_monitors(net):
 def get_rate_monitors(net):
   return get_objects(net, PopulationRateMonitor)
 
+def get_state_monitors(net):
+  return get_objects(net, StateMonitor)
+
 def get_neuron(net, name):
   return next((obj for obj in net.objects if obj.name == name), None)
 
