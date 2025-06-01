@@ -4,7 +4,7 @@ def Izhikevich():
   eq_model = Equations('''
     dVm/dt = (K * (Vm - Vr) * (Vm - Vt) - U + I) / Cm : volt
     du/dt  = A * (-u + B * (Vm - Vr))                 : 1
-    I      = I_syn + I_ext                            : amp
+    I      = - I_syn + I_ext                            : amp
     
     # Matching units
     A      = a / ms                                   : hertz
