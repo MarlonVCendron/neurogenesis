@@ -22,9 +22,11 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     # smooth_rates = smooth_rates[-len(rate_mon.t):]
 
     pattern = get_population_pattern(spike_mon)
-    # per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
-    # print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella)}')
-    print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
+    if neuron.name.endswith('gc'):
+      per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
+      print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella):.2f}, std: {np.std(per_lamella):.2f}')
+    else:
+      print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
