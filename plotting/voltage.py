@@ -1,6 +1,6 @@
 from brian2 import *
 
-def plot_voltage(monitor, spike_monitor, idx=0):
+def plot_voltage(monitor, spike_monitor=None, idx=0):
   import matplotlib
   matplotlib.use('TkAgg')
   import matplotlib.pyplot as plt
@@ -15,11 +15,12 @@ def plot_voltage(monitor, spike_monitor, idx=0):
     print("Warning: Threshold potential (V_th or Vt) not found in neuron states.")
     threshold = 0 * mV 
 
-  all_spikes = spike_monitor.all_values()
 
   plt.plot(monitor.t / ms, monitor.Vm[idx] / mV, color="black")
-  for spike_time in all_spikes['t'][idx] / ms:
-    plt.plot([spike_time, spike_time], [threshold / mV, 20], color="black")
+  if spike_monitor:
+    all_spikes = spike_monitor.all_values()
+    for spike_time in all_spikes['t'][idx] / ms:
+      plt.plot([spike_time, spike_time], [threshold / mV, 20], color="black")
   plt.xticks(rotation=45)
   plt.locator_params(axis="x", nbins=60)
   plt.grid(True, which="both", linestyle="--", alpha=0.2)
