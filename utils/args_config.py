@@ -21,13 +21,13 @@ parser.add_argument("--single-run", action="store_true", help="Whether to run a 
 parser.add_argument("--skip-connectivity-matrices", action="store_true", help="Whether to skip the loading of connectivity matrices")
 parser.add_argument("--generate-graph", action="store_true", help="Whether to generate the graph connectivity matrix")
 
-parser.add_argument("--n-lamellae", type=int, default=100, help="Number of lamellae")
+parser.add_argument("--n-lamellae", type=int, default=20, help="Number of lamellae")
 parser.add_argument("--n-pp", type=int, default=400, help="Number of PP axons")
 parser.add_argument("--n-mgc", type=int, default=2000, help="Number of mGC neurons")
 parser.add_argument("--n-igc", type=int, default=100, help="Number of iGC neurons")
-parser.add_argument("--n-bc", type=int, default=100, help="Number of BC neurons")
+parser.add_argument("--n-bc", type=int, default=120, help="Number of BC neurons")
 parser.add_argument("--n-mc", type=int, default=100, help="Number of MC neurons")
-parser.add_argument("--n-hipp", type=int, default=200, help="Number of HIPP neurons")
+parser.add_argument("--n-hipp", type=int, default=160, help="Number of HIPP neurons")
 parser.add_argument("--n-pca3", type=int, default=600, help="Number of CA3 neurons")
 parser.add_argument("--n-ica3", type=int, default=60, help="Number of ICA3 neurons")
 

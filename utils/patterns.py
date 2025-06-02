@@ -126,4 +126,5 @@ def get_pp_pattern(pattern):
   return np.where(pattern['rates'] > 0, 1, 0)
 
 def get_pattern_per_lamella(pattern):
-  return np.split(pattern, N_lamellae)
+  cells_per_lamella = len(pattern) / N_lamellae
+  return np.split(pattern, cells_per_lamella)
