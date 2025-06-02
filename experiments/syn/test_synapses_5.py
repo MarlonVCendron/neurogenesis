@@ -10,6 +10,7 @@ from models.cells import (
     create_mc,
     create_mgc,
     create_pp,
+    create_hipp,
 )
 
 seed(1)
@@ -17,7 +18,7 @@ seed(1)
 defaultclock.dt = 0.1 * ms
 
 def to_100(params):
-  return {**params, "p": 1.0}
+  return {**params, "p": 1.0, "condition": None}
 
 def main():
   start_scope()
@@ -31,33 +32,37 @@ def main():
 
   # indices = array([0])
   # times = array([25])*ms
-  mc = SpikeGeneratorGroup(1, indices, times)
-  # mc = PoissonGroup(100, rates=2000*Hz)
+  # mc = SpikeGeneratorGroup(1, indices, times)
+  mc = PoissonGroup(10, rates=1000*Hz)
 
   mgc      = create_mgc(N=1)
+  hipp     = create_hipp(N=1)
 
-  pp_mgc  = Connect(pp, mgc, **to_100(syn_params['pp_mgc']))
-  mc_mgc  = Connect(mc, mgc, **to_100(syn_params['mc_mgc']))
+  # pp_mgc  = Connect(pp, mgc, **to_100(syn_params['pp_mgc']))
+  # mc_mgc  = Connect(mc, mgc, **to_100(syn_params['mc_mgc']))
+  mc_hipp = Connect(mc, hipp, **to_100(syn_params['mc_hipp']))
 
-  mon = StateMonitor(mgc, True, record=True)
+  # mon = StateMonitor(mgc, True, record=True)
+  mon = StateMonitor(hipp, True, record=True)
   mon_s = SpikeMonitor(mgc)
   mon_r = PopulationRateMonitor(mgc)
-  mon_syn_pp = StateMonitor(pp_mgc, ['x', 'y', 'z', 'v'], record=True)
+  # mon_syn_pp = StateMonitor(pp_mgc, ['x', 'y', 'z', 'v'], record=True)
 
   net = Network(collect())
 
-  pp_mgc.g = 40 * nS
+  # pp_mgc.g = 40 * nS
 
   print('Running simulation')
   net.run(1000 * ms)
 
-  smooth_rates = mon_r.smooth_rate(window='flat', width=50*ms) / Hz
+  # smooth_rates = mon_r.smooth_rate(window='flat', width=50*ms) / Hz
 
-  spike_count = mon_s.count
-  print(spike_count)
-  print(f'Mean rate: {np.mean(smooth_rates)}')
+  # spike_count = mon_s.count
+  # print(spike_count)
+  # print(f'Mean rate: {np.mean(smooth_rates)}')
 
-  plot_voltage(mon, mon_s)
+  # plot_voltage(mon, mon_s)
+  plot_voltage(mon)
 
   # plt.plot(mon.t / ms, mon.I_syn_1[0] / nA, alpha=0.7)
   # plt.plot(mon.t / ms, mon.I_syn_2[0] / nA, alpha=0.7)

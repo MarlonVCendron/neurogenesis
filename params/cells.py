@@ -2,18 +2,22 @@ from brian2 import *
 from params.general import N_lamellae, has_igc
 from utils.args_config import args
 
-N_pp   = args.n_pp
-N_igc  = args.n_igc
-N_mgc  = (args.n_mgc - args.n_igc) if has_igc else args.n_mgc
-N_bc   = args.n_bc
-N_mc   = args.n_mc
-N_hipp = args.n_hipp
-N_pca3 = args.n_pca3
-N_ica3 = args.n_ica3
+scale = 1
+
+N_pp   = args.n_pp * scale
+N_igc  = args.n_igc * scale
+N_mgc  = ((args.n_mgc - args.n_igc) if has_igc else args.n_mgc) * scale
+N_bc   = args.n_bc * scale
+N_mc   = args.n_mc * scale
+N_hipp = args.n_hipp * scale
+N_pca3 = args.n_pca3 * scale
+N_ica3 = args.n_ica3 * scale
 
 N_igc_l  = N_igc // N_lamellae
 N_mgc_l  = N_mgc // N_lamellae
+N_mc_l   = N_mc // N_lamellae
 N_bc_l   = N_bc // N_lamellae
+N_hipp_l = N_hipp // N_lamellae
 N_pca3_l = N_pca3 // N_lamellae
 N_ica3_l = N_ica3 // N_lamellae
 
@@ -22,7 +26,6 @@ cell_params = {
         "name"      : "pp",
         "N"         : N_pp
     },
-    # Dentate gyrus
     "mgc": {
         "name"       : "mgc",
         "N"          : N_mgc,
@@ -79,19 +82,19 @@ cell_params = {
         "Vpeak"      : 14.08 * mV,
         "Vmin"       : -36.23 * mV,
     },
-    "hipp": {
+    "hipp": { # From Izhikevich Models For Hippocampal Neurons And Its Sub-Region CA3
         "name"       : "hipp",
         "N"          : N_hipp,
         "model"      : "izhikevich",
-        "k"          : 1.28,
-        "a"          : 0.006,
-        "b"          : 57.94,
-        "d"          : -58,
-        "Cm"         : 74 * pF,
-        "Vr"         : -59.01 * mV,
-        "Vt"         : -50.53 * mV,
-        "Vpeak"      : 0.57 * mV,
-        "Vmin"       : -56.98 * mV,
+        "k"          : 0.01,
+        "a"          : 0.004,
+        "b"          : -2,
+        "d"          : 40.52,
+        "Cm"         : 58.7 * pF,
+        "Vr"         : -70 * mV,
+        "Vt"         : -50 * mV,
+        "Vpeak"      : 90 * mV,
+        "Vmin"       : -75 * mV,
     },
     "pca3": {
         "name"      : "pca3",
