@@ -1,6 +1,6 @@
 from brian2 import *
 from utils.connect import Connect
-from params import cell_params, syn_params, ca3
+from params import cell_params, syn_params, ca3, has_igc
 from models.cells import (
     create_mgc,
     create_igc,
@@ -18,7 +18,7 @@ def network():
   
   pp   = create_pp(N=cell_params['pp']['N'])
   mgc  = create_mgc()
-  igc  = create_igc()
+  igc  = create_igc() if has_igc else None
   bc   = create_bc()
   mc   = create_mc()
   hipp = create_hipp()
@@ -29,7 +29,7 @@ def network():
 
   pp_mgc = Connect(pp, mgc, **syn_params['pp_mgc'])
   pp_mc  = Connect(pp, mc, **syn_params['pp_mc'])
-  pp_igc = Connect(pp, igc, **syn_params['pp_igc'])
+  pp_igc = Connect(pp, igc, **syn_params['pp_igc']) if has_igc else None
   pp_bc  = Connect(pp, bc, **syn_params['pp_bc'])
   if ca3:
     pp_pca3 = Connect(pp, pca3, **syn_params['pp_pca3'])
@@ -44,16 +44,18 @@ def network():
     mgc_ica3 = Connect(mgc, ica3, **syn_params['mgc_ica3'])
     net.add(collect())  
 
-  igc_mc   = Connect(igc, mc, **syn_params['igc_mc'])
-  igc_hipp = Connect(igc, hipp, **syn_params['igc_hipp'])
-  igc_bc   = Connect(igc, bc, **syn_params['igc_bc'])
-  if ca3:
-    igc_pca3 = Connect(igc, pca3, **syn_params['igc_pca3'])
-    igc_ica3 = Connect(igc, ica3, **syn_params['igc_ica3'])
+  if has_igc:
+    igc_mc   = Connect(igc, mc, **syn_params['igc_mc'])
+    igc_hipp = Connect(igc, hipp, **syn_params['igc_hipp'])
+    igc_bc   = Connect(igc, bc, **syn_params['igc_bc'])
     net.add(collect())
+    if ca3:
+      igc_pca3 = Connect(igc, pca3, **syn_params['igc_pca3'])
+      igc_ica3 = Connect(igc, ica3, **syn_params['igc_ica3'])
+      net.add(collect())
 
   mc_mgc  = Connect(mc, mgc, **syn_params['mc_mgc'])
-  mc_igc  = Connect(mc, igc, **syn_params['mc_igc'])
+  mc_igc  = Connect(mc, igc, **syn_params['mc_igc']) if has_igc else None
   mc_hipp = Connect(mc, hipp, **syn_params['mc_hipp'])
   mc_bc   = Connect(mc, bc, **syn_params['mc_bc'])
 
