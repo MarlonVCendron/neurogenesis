@@ -1,41 +1,39 @@
 from brian2 import *
 from utils.args_config import args
 
-alpha_nmda = args.nmda or 10  # NMDA scaling factor
-alpha_ampa = args.ampa or 10  # AMPA scaling factor
-alpha_gaba = args.gaba or 10  # GABA scaling factor
+REVERSAL_POTENTIAL = { 'nmda':  0 * mV, 'ampa': 0 * mV, 'gaba': -86 * mV }
 
-def synapse(receptor):
-  R = receptor
+def synapse(receptor) : 
+  R        = receptor         # e.g. 'ampa_1'
+  receptor = R.split('_')[0]  # e.g. 'ampa'
 
+  E_val = REVERSAL_POTENTIAL[receptor] / mV
+
+  if receptor == 'nmda':
+    eq_I_synapse = Equations('I_synapse = I_pre_sat / (1 + Mg_conc*eta*exp(-gamma*Vm)) : amp')
+  else:
+    eq_I_synapse = Equations('I_synapse = I_pre_sat : amp')
+  
   eq_model = Equations(f'''
-    I_synapse = g_syn * (Vm - E)                : amp
-    g_syn     = g_max * g                       : siemens
-    dg/dt     = -g / tau_d + h * (1 - g) * beta : 1 (clock-driven)
-    dh/dt     = -h / tau_r                      : 1 (clock-driven)
+    I_pre_sat  = g_syn * (Vm - E)                 : amp
+    g_syn      = g_max * s                        : siemens
+    ds/dt      = -s / tau_d + h * alpha * (1 - s) : 1 (clock-driven)
+    dh/dt      = -h / tau_r                       : 1 (clock-driven)
 
-    # dg/dt      = -g / tau_r + (h * alpha) / (tau_r * tau_d) : 1 (clock-driven)
-    # dh/dt      = -h / tau_d                                 : 1 (clock-driven)
-
-    I_{R}_post = I_synapse                                  : amp (summed)
+    I_{R}_post = I_synapse                        : amp (summed)
   ''')
 
-  eq_params = Equations('''
-    g_max : siemens          # Synaptic strength
-    E     : volt             # Reversal potential
-    tau_r : second           # Rise time
-    tau_d : second           # Decay time
-    w     = 1          : 1   # Synaptic weight
-    beta  = 4 * ms**-1 : Hz  # Synaptic scaling factor
+  eq_params = Equations(f'''
+    g_max : siemens                        # Synaptic strength
+    tau_r : second                         # Rise time
+    tau_d : second                         # Decay time
+    w     = 1                : 1           # Synaptic weight
+    E     = {E_val} * mV     : volt        # Reversal potential
+    alpha = alpha_{receptor} : second**-1  # Scaling factor
   ''')
 
   on_pre = 'h += w'
 
-  is_nmda   = R.startswith('nmda')
-  is_ampa   = R.startswith('ampa')
-  alpha_val = alpha_nmda if is_nmda else alpha_ampa if is_ampa else alpha_gaba
-  eq_alpha  = Equations(f'alpha = {alpha_val}*ms : second')
-
-  eqs = eq_model + eq_params + eq_alpha
+  eqs = eq_model + eq_params + eq_I_synapse
 
   return (eqs, on_pre)
