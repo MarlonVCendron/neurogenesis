@@ -5,7 +5,7 @@ from utils.args_config import args
 scale = 1
 
 N_pp   = args.n_pp * scale
-N_igc  = args.n_igc * scale
+N_igc  = (args.n_igc if has_igc else 0) * scale
 N_mgc  = ((args.n_mgc - args.n_igc) if has_igc else args.n_mgc) * scale
 N_bc   = args.n_bc * scale
 N_mc   = args.n_mc * scale

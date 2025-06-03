@@ -115,6 +115,9 @@ def pattern_integration_degree(in_1, in_2, out_1, out_2):
 
 # Calculates the pattern of active cells in a population of neurons given a spike monitor
 def get_population_pattern(monitor):
+  if not monitor:
+    return np.zeros(0, dtype=int)
+
   neurons = monitor.source
   pattern = np.zeros(len(neurons), dtype=int)
   for i, t in zip(monitor.i, monitor.t):
