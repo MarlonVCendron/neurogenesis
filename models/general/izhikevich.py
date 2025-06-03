@@ -30,12 +30,13 @@ def Izhikevich():
   # Multiple synapses can't be summed over the same neuron variable, so we need to
   # create a new variable for each synapse
   eq_syn = Equations('''
-    I_syn   = I_syn_1 + I_syn_2 + I_syn_3 + I_syn_4 + I_syn_5 : amp
+    I_syn   = I_syn_1 + I_syn_2 + I_syn_3 + I_syn_4 + I_syn_5 + I_syn_6 : amp
     I_syn_1 : amp
     I_syn_2 : amp
     I_syn_3 : amp
     I_syn_4 : amp
     I_syn_5 : amp
+    I_syn_6 : amp
   ''')
 
   eqs = eq_model + eq_params + eq_syn
