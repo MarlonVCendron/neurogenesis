@@ -18,7 +18,7 @@ syn_params = {
     "pp_igc": {
         "syn_type" : "exc",
         "syn_var"  : 1,
-        "p"        : 0.08,
+        "p"        : 0.08 * igc_conn,
         "g"        : 1.8246 * nS,
         "tau_r"    : 266.2388 * ms,
         "tau_d"    : 5.3332 * ms,
