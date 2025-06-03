@@ -24,7 +24,7 @@ def main():
       reset      = reset,
       refractory = refractory,
       name       = 'adex',
-      method     = 'rk2',
+      method     = 'rk4',
   )
 
   # Params
