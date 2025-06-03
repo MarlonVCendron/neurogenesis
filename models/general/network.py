@@ -63,6 +63,7 @@ def network():
   hipp_bc  = Connect(hipp, bc, **syn_params['hipp_bc'])
 
   bc_mgc  = Connect(bc, mgc, **syn_params['bc_mgc'])
+  bc_igc  = Connect(bc, igc, **syn_params['bc_igc']) if has_igc else None
   bc_hipp = Connect(bc, hipp, **syn_params['bc_hipp'])
 
   if ca3:
