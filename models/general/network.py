@@ -29,7 +29,7 @@ def network():
 
   pp_mgc = Connect(pp, mgc, **syn_params['pp_mgc'])
   pp_mc  = Connect(pp, mc, **syn_params['pp_mc'])
-  # pp_igc = Connect(pp, igc, **syn_params['pp_igc'])
+  pp_igc = Connect(pp, igc, **syn_params['pp_igc'])
   pp_bc  = Connect(pp, bc, **syn_params['pp_bc'])
   if ca3:
     pp_pca3 = Connect(pp, pca3, **syn_params['pp_pca3'])
@@ -44,10 +44,16 @@ def network():
     mgc_ica3 = Connect(mgc, ica3, **syn_params['mgc_ica3'])
     net.add(collect())  
 
-  # TODO: igc
+  igc_mc   = Connect(igc, mc, **syn_params['igc_mc'])
+  igc_hipp = Connect(igc, hipp, **syn_params['igc_hipp'])
+  igc_bc   = Connect(igc, bc, **syn_params['igc_bc'])
+  if ca3:
+    igc_pca3 = Connect(igc, pca3, **syn_params['igc_pca3'])
+    igc_ica3 = Connect(igc, ica3, **syn_params['igc_ica3'])
+    net.add(collect())
 
   mc_mgc  = Connect(mc, mgc, **syn_params['mc_mgc'])
-  # mc_mc   = Connect(mc, mc, **syn_params['mc_mc'])
+  mc_igc  = Connect(mc, igc, **syn_params['mc_igc'])
   mc_hipp = Connect(mc, hipp, **syn_params['mc_hipp'])
   mc_bc   = Connect(mc, bc, **syn_params['mc_bc'])
 
@@ -56,7 +62,6 @@ def network():
 
   bc_mgc  = Connect(bc, mgc, **syn_params['bc_mgc'])
   bc_hipp = Connect(bc, hipp, **syn_params['bc_hipp'])
-  # bc_bc   = Connect(bc, bc, **syn_params['bc_bc'])
 
   if ca3:
     pca3_pca3 = Connect(pca3, pca3, **syn_params['pca3_pca3'])
