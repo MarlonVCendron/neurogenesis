@@ -6,8 +6,18 @@ from params.cells import N_mgc_l, N_igc_l, N_bc_l, N_pca3_l, N_ica3_l, N_mc_l, N
 syn_params = {
     "pp_mgc": {
         "syn_type" : "exc",
-        "syn_var"  : 4,
-        # "p"        : 0.0085,
+        "syn_var"  : 1,
+        "p"        : 0.08,
+        "g"        : 1.8246 * nS,
+        "tau_r"    : 266.2388 * ms,
+        "tau_d"    : 5.3332 * ms,
+        "tau_f"    : 18.7138 * ms,
+        "U_se"     : 0.2697,
+        "delay"    : 1.0 * ms
+    },
+    "pp_igc": {
+        "syn_type" : "exc",
+        "syn_var"  : 1,
         "p"        : 0.08,
         "g"        : 1.8246 * nS,
         "tau_r"    : 266.2388 * ms,
@@ -30,7 +40,7 @@ syn_params = {
     },
     "pp_bc": {
         "syn_type" : "exc",
-        "syn_var"  : 5,
+        "syn_var"  : 1,
         # "p"        : 0.0256,
         "p"        : 0.2,
         "g"        : 1.4058 * nS,
@@ -42,7 +52,7 @@ syn_params = {
     },
     "pp_pca3": {
         "syn_type" : "exc",
-        "syn_var"  : 4,
+        "syn_var"  : 1,
         "p"        : 0.0085,
         "g"        : 1.0650 * nS,
         "tau_r"    : 258.3176 * ms,
@@ -53,7 +63,7 @@ syn_params = {
     },
     "pp_ica3": {
         "syn_type" : "exc",
-        "syn_var"  : 3,
+        "syn_var"  : 1,
         "p"        : 0.0256,
         "g"        : 1.3703 * nS,
         "tau_r"    : 401.1603 * ms,
@@ -78,7 +88,7 @@ syn_params = {
     },
     "mgc_hipp": {
         "syn_type" : "exc",
-        "syn_var"  : 2,
+        "syn_var"  : 1,
         # "p"        : 0.0059,
         "p"        : 0.1,
         "g"        : 1.3047 * nS,
@@ -103,7 +113,7 @@ syn_params = {
     },
     "mgc_pca3": {
         "syn_type" : "exc",
-        "syn_var"  : 3,
+        "syn_var"  : 2,
         "p"        : 0.0001,
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
@@ -124,10 +134,67 @@ syn_params = {
         "delay"    : 1.0 * ms
     },
 
-    "mc_mgc": {
+    "igc_mc": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        # "p"        : 0.0024,
+        "p"        : 0.2,
+        "condition": lamellar_conn(N_igc_l, N_mc_l),
+        "g"        : 1.7130 * nS,
+        "tau_r"    : 428.5826 * ms,
+        "tau_d"    : 5.3469 * ms,
+        "tau_f"    : 73.4791 * ms,
+        "U_se"     : 0.1513,
+        "delay"    : 1.0 * ms
+    },
+    "igc_hipp": {
+        "syn_type" : "exc",
+        "syn_var"  : 2,
+        "p"        : 0.1,
+        "g"        : 1.3047 * nS,
+        "tau_r"    : 462.8138 * ms,
+        "tau_d"    : 5.1814 * ms,
+        "tau_f"    : 48.9863 * ms,
+        "U_se"     : 0.1503,
+        "delay"    : 1.0 * ms
+    },
+    "igc_bc": {
+        "syn_type" : "exc",
+        "syn_var"  : 3,
+        "p"        : 1.0,
+        "condition": lamellar_conn(N_igc_l, N_bc_l),
+        "g"        : 1.4575 * nS,
+        "tau_r"    : 151.2653 * ms,
+        "tau_d"    : 3.5662 * ms,
+        "tau_f"    : 62.2781 * ms,
+        "U_se"     : 0.1969,
+        "delay"    : 1.0 * ms
+    },
+    "igc_pca3": {
+        "syn_type" : "exc",
+        "syn_var"  : 3,
+        "p"        : 0.0001,
+        "g"        : 1.3842 * nS,
+        "tau_r"    : 278.2858 * ms,
+        "tau_d"    : 6.6572 * ms,
+        "tau_f"    : 78.5837 * ms,
+        "U_se"     : 0.1553,
+        "delay"    : 1.0 * ms
+    },
+    "igc_ica3": {
+        "syn_type" : "exc",
+        "syn_var"  : 3,
+        "p"        : 0.0008,
+        "g"        : 1.4746 * nS,
+        "tau_r"    : 470.2613 * ms,
+        "tau_d"    : 4.3500 * ms,
+        "tau_f"    : 51.8433 * ms,
+        "U_se"     : 0.1641,
+        "delay"    : 1.0 * ms
+    },
+
+    "mc_mgc": {
+        "syn_type" : "exc",
+        "syn_var"  : 2,
         "p"        : 0.002,
         "condition": cross_lamellar_conn(N_mc_l, N_mgc_l),
         "g"        : 2.3943 * nS,
@@ -137,19 +204,31 @@ syn_params = {
         "U_se"     : 0.3045,
         "delay"    : 1.0 * ms
     },
-    "mc_mc": {
+    "mc_igc": {
         "syn_type" : "exc",
-        "syn_var"  : 3,
-        # "p"        : 0.0122,
-        "p"        : 0.1,
-        "condition": cross_lamellar_conn(N_mc_l, N_mc_l),
-        "g"        : 2.0675 * nS,
-        "tau_r"    : 249.3294 * ms,
-        "tau_d"    : 4.2571 * ms,
-        "tau_f"    : 71.6418 * ms,
-        "U_se"     : 0.2446,
+        "syn_var"  : 2,
+        "p"        : 0.002,
+        "condition": cross_lamellar_conn(N_mc_l, N_igc_l),
+        "g"        : 2.3943 * nS,
+        "tau_r"    : 166.1625 * ms,
+        "tau_d"    : 5.3570 * ms,
+        "tau_f"    : 20.2241 * ms,
+        "U_se"     : 0.3045,
         "delay"    : 1.0 * ms
     },
+    # "mc_mc": {
+    #     "syn_type" : "exc",
+    #     "syn_var"  : 4,
+    #     # "p"        : 0.0122,
+    #     "p"        : 0.1,
+    #     "condition": cross_lamellar_conn(N_mc_l, N_mc_l),
+    #     "g"        : 2.0675 * nS,
+    #     "tau_r"    : 249.3294 * ms,
+    #     "tau_d"    : 4.2571 * ms,
+    #     "tau_f"    : 71.6418 * ms,
+    #     "U_se"     : 0.2446,
+    #     "delay"    : 1.0 * ms
+    # },
     "mc_hipp": {
         "syn_type" : "exc",
         "syn_var"  : 3,
@@ -179,7 +258,7 @@ syn_params = {
 
     "hipp_mgc": {
         "syn_type" : "inh",
-        "syn_var"  : 2,
+        "syn_var"  : 3,
         # "p"        : 0.0060,
         "p"        : 0.2,
         "g"        : 2.0020 * nS,
@@ -191,7 +270,7 @@ syn_params = {
     },
     "hipp_bc": {
         "syn_type" : "inh",
-        "syn_var"  : 3,
+        "syn_var"  : 5,
         # "p"        : 0.0061,
         "p"        : 0.02,
         "g"        : 1.7092 * nS,
@@ -204,7 +283,7 @@ syn_params = {
 
     "bc_mgc": {
         "syn_type" : "inh",
-        "syn_var"  : 1,
+        "syn_var"  : 4,
         # "p"        : 0.0064,
         "p"        : 1.0,
         "condition": lamellar_conn(N_bc_l, N_mgc_l),
@@ -217,7 +296,7 @@ syn_params = {
     },
     "bc_hipp": {
         "syn_type" : "inh",
-        "syn_var"  : 1,
+        "syn_var"  : 4,
         # "p"        : 0.0044,
         "p"        : 0.02,
         "g"        : 1.4078 * nS,
@@ -227,22 +306,22 @@ syn_params = {
         "U_se"     : 0.2405,
         "delay"    : 1.0 * ms
     },
-    "bc_bc": {
-        "syn_type" : "inh",
-        "syn_var"  : 1,
-        # "p"        : 0.0044,
-        "p"        : 0.2,
-        "g"        : 1.9814 * nS,
-        "tau_r"    : 195.5361 * ms,
-        "tau_d"    : 4.6481 * ms,
-        "tau_f"    : 7.4405 * ms,
-        "U_se"     : 0.3095,
-        "delay"    : 1.0 * ms
-    },
+    # "bc_bc": {
+    #     "syn_type" : "inh",
+    #     "syn_var"  : 6,
+    #     # "p"        : 0.0044,
+    #     "p"        : 0.2,
+    #     "g"        : 1.9814 * nS,
+    #     "tau_r"    : 195.5361 * ms,
+    #     "tau_d"    : 4.6481 * ms,
+    #     "tau_f"    : 7.4405 * ms,
+    #     "U_se"     : 0.3095,
+    #     "delay"    : 1.0 * ms
+    # },
 
     "pca3_pca3": {
         "syn_type" : "exc",
-        "syn_var"  : 2,
+        "syn_var"  : 4,
         "p"        : 0.0103,
         "g"        : 0.6030 * nS,
         "tau_r"    : 278.2583 * ms,
@@ -253,7 +332,7 @@ syn_params = {
     },
     "pca3_ica3": {
         "syn_type" : "exc",
-        "syn_var"  : 1,
+        "syn_var"  : 4,
         "p"        : 0.0088,
         "g"        : 0.9990 * nS,
         "tau_r"    : 464.5913 * ms,
@@ -265,7 +344,7 @@ syn_params = {
 
     "ica3_pca3": {
         "syn_type" : "inh",
-        "syn_var"  : 1,
+        "syn_var"  : 5,
         "p"        : 0.0064,
         "g"        : 1.8082 * nS,
         "tau_r"    : 406.9545 * ms,
