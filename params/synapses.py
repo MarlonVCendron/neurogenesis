@@ -53,7 +53,7 @@ syn_params = {
     "pp_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 1,
-        "p"        : 0.0085,
+        "p"        : 0.05,
         "g"        : 1.0650 * nS,
         "tau_r"    : 258.3176 * ms,
         "tau_d"    : 6.5496 * ms,
@@ -64,12 +64,12 @@ syn_params = {
     "pp_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 1,
-        "p"        : 0.0256,
-        "g"        : 1.3703 * nS,
-        "tau_r"    : 401.1603 * ms,
-        "tau_d"    : 4.0797 * ms,
-        "tau_f"    : 42.9902 * ms,
-        "U_se"     : 0.1946,
+        "p"        : 0.2,
+        "g"        : 1.5561 * nS,
+        "tau_r"    : 457.4676 * ms,
+        "tau_d"    : 3.6021 * ms,
+        "tau_f"    : 35.9037 * ms,
+        "U_se"     : 0.2096,
         "delay"    : 1.0 * ms
     },
 
@@ -114,7 +114,7 @@ syn_params = {
     "mgc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 2,
-        "p"        : 0.0001,
+        "p"        : 0.02,
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
         "tau_d"    : 6.6572 * ms,
@@ -125,12 +125,12 @@ syn_params = {
     "mgc_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 2,
-        "p"        : 0.0008,
-        "g"        : 1.4746 * nS,
-        "tau_r"    : 470.2613 * ms,
-        "tau_d"    : 4.3500 * ms,
-        "tau_f"    : 51.8433 * ms,
-        "U_se"     : 0.1641,
+        "p"        : 0.2,
+        "g"        : 1.6245 * nS,
+        "tau_r"    : 518.9344 * ms,
+        "tau_d"    : 3.9147 * ms,
+        "tau_f"    : 43.2742 * ms,
+        "U_se"     : 0.1756,
         "delay"    : 1.0 * ms
     },
 
@@ -172,7 +172,7 @@ syn_params = {
     "igc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        "p"        : 0.0001,
+        "p"        : 0.02,
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
         "tau_d"    : 6.6572 * ms,
@@ -183,12 +183,12 @@ syn_params = {
     "igc_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        "p"        : 0.0008,
-        "g"        : 1.4746 * nS,
-        "tau_r"    : 470.2613 * ms,
-        "tau_d"    : 4.3500 * ms,
-        "tau_f"    : 51.8433 * ms,
-        "U_se"     : 0.1641,
+        "p"        : 0.2,
+        "g"        : 1.6245 * nS,
+        "tau_r"    : 518.9344 * ms,
+        "tau_d"    : 3.9147 * ms,
+        "tau_f"    : 43.2742 * ms,
+        "U_se"     : 0.1756,
         "delay"    : 1.0 * ms
     },
 
@@ -334,7 +334,7 @@ syn_params = {
     "pca3_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 4,
-        "p"        : 0.0103,
+        "p"        : 0.02,
         "g"        : 0.6030 * nS,
         "tau_r"    : 278.2583 * ms,
         "tau_d"    : 9.5159 * ms,
@@ -345,24 +345,24 @@ syn_params = {
     "pca3_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 4,
-        "p"        : 0.0088,
-        "g"        : 0.9990 * nS,
-        "tau_r"    : 464.5913 * ms,
-        "tau_d"    : 5.4112 * ms,
-        "tau_f"    : 29.0840 * ms,
-        "U_se"     : 0.1671,
+        "p"        : 0.5,
+        "g"        : 1.2474 * nS,
+        "tau_r"    : 525.6045 * ms,
+        "tau_d"    : 4.5253 * ms,
+        "tau_f"    : 23.3210 * ms,
+        "U_se"     : 0.1890,
         "delay"    : 1.0 * ms
     },
 
     "ica3_pca3": {
         "syn_type" : "inh",
         "syn_var"  : 5,
-        "p"        : 0.0064,
-        "g"        : 1.8082 * nS,
-        "tau_r"    : 406.9545 * ms,
-        "tau_d"    : 7.7022 * ms,
-        "tau_f"    : 16.5749 * ms,
-        "U_se"     : 0.2135,
+        "p"        : 0.5,
+        "g"        : 1.4622 * nS,
+        "tau_r"    : 416.2817 * ms,
+        "tau_d"    : 7.7927 * ms,
+        "tau_f"    : 20.6297 * ms,
+        "U_se"     : 0.2029,
         "delay"    : 1.0 * ms
     }
 }

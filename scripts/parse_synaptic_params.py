@@ -19,7 +19,7 @@ def parse_hippocampome_params(csv_filepath):
         "DG HIPP": "hipp",
         "DG Basket": "bc",
         "CA3 Pyramidal": "pca3",
-        "CA3 Axo-Axonic": "ica3",
+        "CA3 Basket": "ica3",
         "MEC LII Stellate": "pp",
     }
 
@@ -145,7 +145,8 @@ def parse_hippocampome_params(csv_filepath):
     return output_dict_str
 
 if __name__ == "__main__":
-    csv_file = join(base_dir, 'params', 'hippocampome', 'DG_CA3_EC_conn_parameters.csv')
+    # csv_file = join(base_dir, 'params', 'hippocampome', 'DG_CA3_EC_conn_parameters.csv')
+    csv_file = join(base_dir, 'params', 'hippocampome', 'DG_CA3_EC_conn_parameters06-04-2025_12_04_30.csv')
 
     class Unit:
         def __init__(self, name):

@@ -6,7 +6,7 @@ from plotting.state_monitors import plot_state_monitors
 from utils.patterns import generate_activity_patterns
 from utils.initialize import initialize
 from sim import SimWrapper
-from params import results_dir, trials, igc_conn
+from params import results_dir, trials, igc_conn, ca3
 from utils.args_config import args
 
 
@@ -15,6 +15,7 @@ def res_filename(i, total):
     trial_index = i // patterns_per_trial
     pattern_index = i % patterns_per_trial
     flag = f"neurogenesis_{igc_conn}" if args.neurogenesis else "control"
+    flag += "_ca3" if ca3 else ""
     return f"{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}"
 
 
