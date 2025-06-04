@@ -30,7 +30,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_05')
+data = load_pattern_data('izhikevich_run_01')
 
 g = list(sorted(list(data.keys())))
 groups = np.concatenate((g[1:], g[0:1]))
@@ -108,8 +108,8 @@ def in_similarity():
   c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ['#3f6719','#9dd963'])
 
-  groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6']
-  # groups_to_skip = []
+  # groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6']
+  groups_to_skip = []
   total_ng = len(groups) - len(groups_to_skip) - 1
   cmap_index = 0
   # values = zip(in_sims, ids, std_errors)

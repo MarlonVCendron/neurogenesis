@@ -110,6 +110,7 @@ cell_params = {
         "Vpeak"     : 35.86 * mV,
         "Vmin"      : -38.87 * mV,
     },
+    # TODO: Should be from basket cck+
     # From Axo-axonic: https://hippocampome.org/php/neuron_page.php?id=2028
     "ica3": {
         "name"      : "ica3",

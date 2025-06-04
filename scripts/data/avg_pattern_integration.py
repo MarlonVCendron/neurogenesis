@@ -27,7 +27,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_05')
+data = load_pattern_data('izhikevich_run_01')
 
 groups = sorted(list(data.keys()))
 

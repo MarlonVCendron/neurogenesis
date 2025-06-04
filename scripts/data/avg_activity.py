@@ -1,5 +1,4 @@
 import numpy as np
-from brokenaxes import brokenaxes
 from matplotlib.ticker import FuncFormatter
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
@@ -34,7 +33,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('run_05')
+data = load_pattern_data('izhikevich_run_01')
 
 groups = sorted(list(data.keys()))
 
