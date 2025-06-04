@@ -2,29 +2,23 @@ from brian2 import *
 
 def Izhikevich():
   eq_model = Equations('''
-    dVm/dt = (K * (Vm - Vr) * (Vm - Vt) - U + I) / Cm : volt
-    du/dt  = A * (-u + B * (Vm - Vr))                 : 1
-    I      = - I_syn + I_ext                            : amp
-    
-    # Matching units
-    A      = a / ms                                   : hertz
-    B      = b / mV                                   : volt**-1
-    K      = k * nS / mV                              : siemens / volt
-    U      = u * pA                                   : amp
+    dVm/dt = (k * (Vm - Vr) * (Vm - Vt) - u + I) / Cm : volt
+    du/dt  = a * (-u + b * (Vm - Vr))                 : amp
+    I      = - I_syn + I_ext                          : amp
   ''')
 
   eq_params = Equations('''
-    Cm      : farad       # Membrane capacitance
-    k       : 1           # Rate constant of the membrane potential
-    a       : 1           # Rate constant of the recovery variable
-    b       : 1           # Sensitivity of the recovery variable to the subthreshold fluctuations of Vm
-    d       : 1           # After-spike reset of u
-    Vr      : volt        # Leak reversal potential
-    Vt      : volt        # Threshold potential
-    Vpeak   : volt        # Spike cutoff value
-    Vmin    : volt        # Reset potential
+    Cm    : farad         # Membrane capacitance
+    k     : siemens/volt  # Rate constant of the membrane potential
+    a     : hertz         # Rate constant of the recovery variable
+    b     : siemens       # Sensitivity of the recovery variable to the subthreshold fluctuations of Vm
+    d     : amp           # After-spike reset of u
+    Vr    : volt          # Leak reversal potential
+    Vt    : volt          # Threshold potential
+    Vpeak : volt          # Spike cutoff value
+    Vmin  : volt          # Reset potential
 
-    I_ext   : amp         # External current
+    I_ext : amp           # External current
   ''')
 
   # Multiple synapses can't be summed over the same neuron variable, so we need to
