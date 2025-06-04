@@ -27,7 +27,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_05')
+data = load_pattern_data('izhikevich_run_01')
 
 groups = sorted(list(data.keys()))
 
@@ -118,7 +118,7 @@ def in_similarity():
   print(sds)
   plt.axhline(y=sds[0], color=c_color, linestyle='--')
   plt.axhline(y=1, color='gray', linestyle='--')
-  ax.set_ylim(0, 6.5)
+  # ax.set_ylim(0, 6.5)
   
   ng_groups = groups[1:]
   sds = sds[1:]
