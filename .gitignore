@@ -3,4 +3,4 @@ output
 res
 figures/rates_experiments/tests*
 
-thesis/project/build/*
+thesis/build
