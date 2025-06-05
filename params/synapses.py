@@ -30,7 +30,7 @@ syn_params = {
         "syn_type" : "exc",
         "syn_var"  : 1,
         # "p"        : 0.0085,
-        "p"        : 0.2,
+        "p"        : 0.2, # Because 20% of mossy cells are MOLDEN
         "g"        : 1.4222 * nS,
         "tau_d"    : 4.6711 * ms,
         "tau_r"    : 319.8348 * ms,
