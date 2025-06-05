@@ -23,7 +23,7 @@ from params import results_dir
 #   print(np.mean(np.sum(sparse_matrix, axis=0)))
 
 
-conn_i, conn_j = read_connectivity("pp", "hipp")
+conn_i, conn_j = read_connectivity("mgc", "mc")
 
 shape = (max(conn_i) + 1, max(conn_j) + 1)
 sparse_matrix = csr_matrix((np.ones(len(conn_i)), (conn_i, conn_j)), shape=shape)
