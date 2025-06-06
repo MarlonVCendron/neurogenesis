@@ -38,13 +38,13 @@ def format_value(value, unit, precision=3):
 
 def main():
     neuron_type_mapping = {
-        "DG mature Granule": "mgc",
-        "DG immature Granule": "igc",
-        "DG Mossy": "mc",
-        "DG HIPP": "hipp",
-        "DG Basket": "bc",
-        "CA3 Pyramidal": "pca3",
-        "CA3 Interneuron": "ica3",
+        "Granular madura": "mgc",
+        "Granular imatura": "igc",
+        "Musgosa": "mc",
+        "HIPP": "hipp",
+        "Em cesto": "bc",
+        "Piramidal do CA3": "pca3",
+        "Inibitória do CA3": "ica3",
     }
 
     # Parameters: (key_in_cells_py, LaTeX_header_name, unit_string_for_header, brian2_unit_for_conversion)
@@ -97,7 +97,7 @@ def main():
     print("\\toprule")
 
     # Parameter names row (LaTeX formatted)
-    print("\\textbf{Neuron} & " + " & ".join([f"\\textbf{{{name}}}" for name in header_latex_names]) + " \\\\")
+    print("\\textbf{Célula} & " + " & ".join([f"\\textbf{{{name}}}" for name in header_latex_names]) + " \\\\")
     # Parameter units row
     print(" & " + " & ".join(header_units) + " \\\\")
     print("\\midrule")
@@ -108,7 +108,7 @@ def main():
 
     print("\\bottomrule")
     print("\\end{tabular}")
-    print("\\caption{Izhikevich Neuron Model Parameters.}") # Added a generic caption
+    print("\\caption{Parâmetros do modelo Izhikevich por tipo de neurônio.}") # Added a generic caption
     print("\\label{tab:izhikevich_neuron_params}") # Added a generic label
     print("\\end{table}")
 
