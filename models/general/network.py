@@ -68,8 +68,8 @@ def network():
 
   if ca3:
     pca3_pca3 = Connect(pca3, pca3, **syn_params['pca3_pca3'])
+    pca3_mc   = Connect(pca3, mc, **syn_params['pca3_mc'])
     pca3_ica3 = Connect(pca3, ica3, **syn_params['pca3_ica3'])
-    # TODO: pca3_mc
 
     ica3_pca3 = Connect(ica3, pca3, **syn_params['ica3_pca3'])
 
