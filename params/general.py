@@ -10,7 +10,7 @@ trials = 1 if args.single_run else args.trials
 active_p = args.active_p
 
 # Whether the network has immature GCs
-has_igc = args.neurogenesis
+has_igc = not args.no_neurogenesis
 
 # Number of lamellae
 N_lamellae = args.n_lamellae
@@ -18,7 +18,7 @@ N_lamellae = args.n_lamellae
 # IGC connectivity fraction
 igc_conn = args.igc_conn if has_igc else 0.0
 
-ca3 = not args.no_ca3
+has_ca3 = not args.no_ca3
 
 # Rate of EC neurons
 pp_rate = 40 * Hz
