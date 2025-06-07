@@ -45,7 +45,7 @@ def legacy(source, target, receptor, delay, g_max, tau_r, tau_d, p=1, condition=
     return synapses
 
 
-def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_se, p=1, condition=None):
+def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_se, w=1, p=1, condition=None):
     (eqs, on_pre) = synapse_tsodyks(syn_type, syn_var)
 
     synapses = Synapses(
@@ -65,6 +65,7 @@ def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_
     synapses.tau_f = tau_f
     synapses.U_se = U_se
     synapses.scale = args.tsodyks_scale
+    synapses.w = w
 
     return synapses
 

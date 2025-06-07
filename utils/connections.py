@@ -6,6 +6,9 @@ def lamellar_conn(N_i, N_j):
 def cross_lamellar_conn(N_i, N_j):
   return f'i // {N_i} != j // {N_j}'
 
+def no_self_conn():
+  return 'i != j'
+
 # def cross_lamellar_conn(N_i, N_j):
 #   return f'(abs((i // {N_i}) - (j // {N_j})) % 20 == 1)'
 
