@@ -130,4 +130,6 @@ def get_pp_pattern(pattern):
 
 def get_pattern_per_lamella(pattern):
   cells_per_lamella = len(pattern) / N_lamellae
+  if(cells_per_lamella == 0):
+    return np.zeros(len(pattern), dtype=int)
   return np.split(pattern, cells_per_lamella)
