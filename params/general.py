@@ -34,3 +34,4 @@ skip_connectivity_matrices = args.skip_connectivity_matrices
 base_dir = './'
 results_dir = join(base_dir, 'res')
 connectivity_dir = join(base_dir, 'connectivity')
+latex_dir = join(base_dir, 'thesis')
