@@ -1,5 +1,5 @@
 from brian2 import *
-from utils.connections import lamellar_conn, cross_lamellar_conn
+from utils.connections import lamellar_conn, cross_lamellar_conn, no_self_conn
 from params.general import igc_conn
 from params.cells import N_mgc_l, N_igc_l, N_bc_l, N_pca3_l, N_ica3_l, N_mc_l, N_hipp_l
 
@@ -53,7 +53,7 @@ syn_params = {
     "pp_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 1,
-        "p"        : 0.05,
+        "p"        : 0.04,
         "g"        : 1.0650 * nS,
         "tau_r"    : 258.3176 * ms,
         "tau_d"    : 6.5496 * ms,
@@ -114,7 +114,7 @@ syn_params = {
     "mgc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 2,
-        "p"        : 0.1,
+        "p"        : 0.05,
         "condition": lamellar_conn(N_mgc_l, N_pca3_l),
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
@@ -126,7 +126,8 @@ syn_params = {
     "mgc_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 2,
-        "p"        : 0.2,
+        "p"        : 1.0,
+        "condition": lamellar_conn(N_mgc_l, N_ica3_l),
         "g"        : 1.6245 * nS,
         "tau_r"    : 518.9344 * ms,
         "tau_d"    : 3.9147 * ms,
@@ -173,7 +174,7 @@ syn_params = {
     "igc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        "p"        : 0.1,
+        "p"        : 0.05,
         "condition": lamellar_conn(N_igc_l, N_pca3_l),
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
@@ -185,7 +186,8 @@ syn_params = {
     "igc_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        "p"        : 0.2,
+        "p"        : 1.0,
+        "condition": lamellar_conn(N_igc_l, N_ica3_l),
         "g"        : 1.6245 * nS,
         "tau_r"    : 518.9344 * ms,
         "tau_d"    : 3.9147 * ms,
@@ -337,6 +339,8 @@ syn_params = {
         "syn_type" : "exc",
         "syn_var"  : 4,
         "p"        : 0.02,
+        "w"        : 0.1,
+        "condition": no_self_conn(),
         "g"        : 0.6030 * nS,
         "tau_r"    : 278.2583 * ms,
         "tau_d"    : 9.5159 * ms,
@@ -359,7 +363,7 @@ syn_params = {
     "pca3_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 4,
-        "p"        : 0.5,
+        "p"        : 0.7,
         "g"        : 1.2474 * nS,
         "tau_r"    : 525.6045 * ms,
         "tau_d"    : 4.5253 * ms,
@@ -371,7 +375,7 @@ syn_params = {
     "ica3_pca3": {
         "syn_type" : "inh",
         "syn_var"  : 5,
-        "p"        : 0.5,
+        "p"        : 0.7,
         "g"        : 1.4622 * nS,
         "tau_r"    : 416.2817 * ms,
         "tau_d"    : 7.7927 * ms,
