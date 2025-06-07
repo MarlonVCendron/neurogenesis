@@ -16,7 +16,7 @@ parser.add_argument("--stim-time", type=float, default=1000, help="Simulation ti
 parser.add_argument("--prefix", type=str, default=".", help="Prefix for the results directory")
 
 parser.add_argument("--neurogenesis", action="store_true", help="Whether to include neurogenesis")
-parser.add_argument("--ca3", action="store_true", help="Whether to include the CA3 in the model")
+parser.add_argument("--no-ca3", action="store_true", help="Whether to exclude the CA3 in the model")
 parser.add_argument("--single-run", action="store_true", help="Whether to run a single pattern only")
 parser.add_argument("--skip-connectivity-matrices", action="store_true", help="Whether to skip the loading of connectivity matrices")
 parser.add_argument("--generate-graph", action="store_true", help="Whether to generate the graph connectivity matrix")
