@@ -2,7 +2,7 @@ from brian2 import *
 from utils.connect import Connect
 from params.cells import cell_params
 from plotting.voltage import plot_voltage
-from params import cell_params, syn_params, ca3
+from params import cell_params, syn_params, has_ca3
 from models.cells import (
     create_mgc,
     create_igc,
