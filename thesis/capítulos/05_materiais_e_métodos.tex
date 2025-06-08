@@ -17,7 +17,37 @@ Runge-Kutta de 4ª ordem com passo de tempo fixo de 0,1ms~\cite{butcherHistory19
 
 \section{Modelo de neurônio}
 
-Os neurônios foram modelados de acordo com o modelo de neurônio de Izhikevich de 9 parâmetros~\cite[cap.~8]{izhikevichDynamical2006}.
+Os neurônios foram modelados de acordo com o modelo de neurônio de Izhikevich de 9
+parâmetros~\cite[cap.~8]{izhikevichDynamical2006} e um único compartimento, sem considerar dendritos ou axônios. Esse modelo foi
+escolhido por ser capaz de capturar o comportamento dinâmico de neurônios em uma ampla variedade de condições com plausibilidade
+biológica, como o modelo de Hodgkin-Huxley~\cite{hodgkinQuantitative1952b}, ao mesmo tempo em que apresenta um modelo matemático
+mais simples e computacionalmente mais eficiente. O modelo de neurônio de Izhikevich é descrito pelas seguintes equações:
+
+% (TODO: E por ser a escolha do Hippocampome.org)
+
+\begin{equation}
+\label{eq_izhikevich_1}
+C_m \frac{dV_m}{dt} = k (V_m - V_r)(V_m - V_t) - u + I
+\end{equation}
+
+\begin{equation}
+\label{eq_izhikevich_2}
+\frac{du}{dt} = a [b(V_m-V_r) - u]
+\end{equation}
+
+Onde $V_m$ é o potencial de membrana, $u$ é a variável de recuperação, $C_m$ é a capacitância da membrana, $V_r$ é o
+potencial de repouso, $V_t$ é o potencial de limiar, 
+
+
+\begin{equation}
+\label{eq_izhikevich_3}
+\text{se } V_m \geq V_{\text{peak}}, \quad
+\begin{cases}
+V_m \gets V_{min} \\
+u \gets u + d
+\end{cases}
+\end{equation}
+
 
 \input{tabelas/izhikevich.tex}
 
