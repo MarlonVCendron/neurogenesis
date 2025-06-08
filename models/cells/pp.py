@@ -3,8 +3,7 @@ import numpy as np
 
 from params import pp_rate
 from utils.patterns import generate_pattern
-
-active_p = 0.1
+from params.general import active_p
 
 # Perforant path
 def create_pp(N, rate=pp_rate, active_p=active_p, name='pp', init_rates=False):
