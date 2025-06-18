@@ -59,13 +59,12 @@ um próximo potencial de ação.
 \section{Modelo de sinapse}
 
 O modelo de sinapse, assim como o de neurônio, foi definido a partir do Hippocampome.org~\cite{wheelerHippocampomeorg2023},
-seguindo a formulação de~\citeonline{sennAlgorithm2001,mongilloSynaptic2008a}. Esse modelo de sinapse possui 5 parâmetros
-% falar quais parametros
-e modela a
+seguindo a formulação de~\citeonline{sennAlgorithm2001,mongilloSynaptic2008a}. Esse modelo modela a
 plasticidade de curto prazo, seja ela depressão de curto prazo, causada pela depleção de neurotransmissores, ou potenciação de
-curto prazo, causada pelo acúmulo de cálcio, ambas na escala dos décimos de segundos.
-
-\cite{moradiNormalized2022} % equaçõers tmb
+curto prazo, causada pelo acúmulo de cálcio, ambas na escala dos décimos de segundos. Cada sinapse possui 5 parâmetros (descritos
+na Tabela~\ref{tab:synapse_params}): a condutância máxima da sinapse no caso de nenhuma depleção de recursos sinápticos $g$, a fração de
+recursos utilizados a cada disparo $U_{se}$, a constante de tempo de decaimento da corrente sináptica $\tau_d$,
+a constante de tempo de facilitação $\tau_f$, e a constante de tempo de recuperação dos recursos $\tau_r$~\cite{moradiNormalized2022}.
 
 O modelo é descrito por três variáveis de estado: a utilização dos recursos sinápticos ($U$), a recuperação desses recursos ($R$),
 inicialmente igual a 1, e a porcentagem de recursos em estado ativo ($A$). A evolução temporal dessas
@@ -86,9 +85,9 @@ variáveis é governada pelo seguinte sistema de equações diferenciais:
     \frac{dA}{dt} = \frac{-A}{\tau_d} + U_{+} R_{-} \delta(\Delta t_i)
 \end{equation}
 
-Onde $\tau_f$ é a constante de tempo de facilitação, $\tau_r$ é a constante de tempo de recuperação dos recursos, e $\tau_d$
-é a constante de tempo de decaimento da corrente sináptica.
-
+Onde $\delta$ é a função delta de Dirac, que resulta em 1 apenas quando $\Delta t_i = t - t_i = 0$, ou seja, apenas no tempo $t$
+correspondente ao tempo do evento sináptico $t_i$. $U_{+}$ corresponde ao valor de $U$ logo após o evento sináptico, enquanto que
+$R_{-}$ corresponde ao valor de $R$ logo antes do mesmo.
 
 \input{tabelas/sinapses.tex}
 
