@@ -6,10 +6,10 @@ def synapse_tsodyks(syn_type, syn_var) :
   eq_reversal = Equations(f'E = {E_val} * mV : volt')
 
   eq_model = Equations(f'''
-    dv/dt = -v / tau_f               : 1 (clock-driven)    # Resource utilization
-    dx/dt = (1 - x) / tau_r          : 1 (clock-driven)    # Resource recovery
-    dI/dt = -I / tau_d               : amp (clock-driven)  # Synaptic current
-    A     = scale * w * g * (Vm - E) : amp
+    dU/dt = -U / tau_f                   : 1 (clock-driven)  # Resource utilization
+    dR/dt = (1 - R - A) / tau_r          : 1 (clock-driven)  # Resource recovery
+    dA/dt = -A / tau_d                   : 1 (clock-driven)  # Resource availability
+    I     = A * scale * w * g * (Vm - E) : amp
 
     I_syn_{syn_var}_post = I : amp (summed)
   ''')
@@ -26,9 +26,9 @@ def synapse_tsodyks(syn_type, syn_var) :
 
   # Order is important here
   on_pre = '''
-    v += U_se * (1 - v)
-    x += -v * x
-    I += v * x * A
+    U += U_se * (1 - U)
+    A += U * R
+    R += -U * R
   '''
 
   eqs = eq_model + eq_params + eq_reversal
