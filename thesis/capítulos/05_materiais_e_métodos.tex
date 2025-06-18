@@ -59,38 +59,36 @@ um próximo potencial de ação.
 \section{Modelo de sinapse}
 
 O modelo de sinapse, assim como o de neurônio, foi definido a partir do Hippocampome.org~\cite{wheelerHippocampomeorg2023},
-seguindo a formulação de Tsodyks-Pawelzik-Markram~\cite{tsodyksNeural1998}. Esse modelo de sinapse possui 5 parâmetros e modela a
-plasticidade de curto prazo, seja ela a potenciação ou depressão de curto prazo.
+seguindo a formulação de~\citeonline{sennAlgorithm2001,mongilloSynaptic2008a}. Esse modelo de sinapse possui 5 parâmetros
+% falar quais parametros
+e modela a
+plasticidade de curto prazo, seja ela depressão de curto prazo, causada pela depleção de neurotransmissores, ou potenciação de
+curto prazo, causada pelo acúmulo de cálcio, ambas na escala dos décimos de segundos.
 
-O modelo é descrito por um sistema de equações diferenciais que governam a dinâmica de três variáveis: a fração de recursos sinápticos no estado recuperado ($x$), no estado ativo ($y$) e uma variável de facilitação ($v$):
+\cite{moradiNormalized2022} % equaçõers tmb
 
-\begin{align}
-    \frac{dx}{dt} &= \frac{1-x-y}{\tau_r} \label{eq:tsodyks_x} \\
-    \frac{dy}{dt} &= -\frac{y}{\tau_d} \label{eq:tsodyks_y} \\
-    \frac{dv}{dt} &= -\frac{v}{\tau_f} \label{eq:tsodyks_v}
-\end{align}
-
-onde $\tau_r$ é a constante de tempo de recuperação, $\tau_d$ é a constante de tempo de inativação (decaimento) e $\tau_f$ é a constante de tempo de facilitação.
-
-Quando um potencial de ação pré-sináptico ocorre, as variáveis são atualizadas sequencialmente da seguinte forma:
-
-\begin{align}
-    v &\to v + U (1-v) \label{eq:tsodyks_v_update} \\
-    y &\to y + v \cdot x \label{eq:tsodyks_y_update} \\
-    x &\to x - v \cdot x \label{eq:tsodyks_x_update}
-\end{align}
-
-% TODO: Arrumar essas equações e o texto
-
-onde $U$ é um parâmetro que representa a fração de recursos que são utilizados a cada evento.
-
-Finalmente, a corrente sináptica ($I_{syn}$) injetada no neurônio pós-sináptico é dada por:
+O modelo é descrito por três variáveis de estado: a utilização dos recursos sinápticos ($U$), a recuperação desses recursos ($R$),
+inicialmente igual a 1, e a porcentagem de recursos em estado ativo ($A$). A evolução temporal dessas
+variáveis é governada pelo seguinte sistema de equações diferenciais:
 
 \begin{equation}
-    I_{syn} = \text{scale} \cdot w \cdot g \cdot y \cdot (V_m - E) \label{eq:tsodyks_I}
+    \label{eq_tsodyks_dU}
+    \frac{dU}{dt} = \frac{-U}{\tau_f} + U_{se}(1-U_{-}) \delta(\Delta t_i)
 \end{equation}
 
-onde $\text{scale}$ é um fator de escala, $w$ é o peso sináptico, $g$ é a condutância sináptica, $y$ é a fração de recursos ativos, $V_m$ é o potencial de membrana do neurônio pós-sináptico e $E$ é o potencial de reversão da sinapse.
+\begin{equation}
+    \label{eq_tsodyks_dR}
+    \frac{dR}{dt} = \frac{1-R-A}{\tau_r} - U_{+} R_{-} \delta(\Delta t_i)
+\end{equation}
+
+\begin{equation}
+    \label{eq_tsodyks_dA}
+    \frac{dA}{dt} = \frac{-A}{\tau_d} + U_{+} R_{-} \delta(\Delta t_i)
+\end{equation}
+
+Onde $\tau_f$ é a constante de tempo de facilitação, $\tau_r$ é a constante de tempo de recuperação dos recursos, e $\tau_d$
+é a constante de tempo de decaimento da corrente sináptica.
+
 
 \input{tabelas/sinapses.tex}
 
