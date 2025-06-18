@@ -67,6 +67,9 @@ def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_
     synapses.scale = args.tsodyks_scale
     synapses.w = w
 
+    # Set the initial state of the synapses
+    synapses.x = 1
+
     return synapses
 
 
