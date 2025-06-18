@@ -68,7 +68,9 @@ def tsodyks(source, target, syn_type, syn_var, delay, g, tau_r, tau_d, tau_f, U_
     synapses.w = w
 
     # Set the initial state of the synapses
-    synapses.x = 1
+    synapses.U = 0
+    synapses.R = 1
+    synapses.A = 0
 
     return synapses
 

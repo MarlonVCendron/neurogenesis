@@ -61,7 +61,7 @@ def main():
   mon = StateMonitor(mgc, True, record=True)
   mon_s = SpikeMonitor(mgc)
   mon_r = PopulationRateMonitor(mgc)
-  mon_syn_pp = StateMonitor(pp_mgc, ['x', 'I', 'v'], record=True)
+  mon_syn_pp = StateMonitor(pp_mgc, ['U', 'R', 'A'], record=True)
 
   net = Network(collect())
 
@@ -93,10 +93,13 @@ def main():
 
 
 
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.x[0])
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.I[0] / nA)
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.v[0])
-  plt.legend(['x', 'I', 'v'])
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.U[0])
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0])
+  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.A[0])
+  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.D[0])
+  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0] + mon_syn_pp.A[0] + mon_syn_pp.D[0])
+  plt.plot(mon.t / ms, mon.I_syn[0] / nA)
+  plt.legend(['U', 'R', 'A', 'I_syn'])
   plt.xticks(rotation=45)
   plt.locator_params(axis="x", nbins=60)
   plt.grid(True, which="both", linestyle="--", alpha=0.2)
