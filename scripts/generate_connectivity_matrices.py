@@ -8,7 +8,7 @@ from utils.utils import get_synapses, get_connectivity_filepath
 from plotting.connectivity_matrices import connectivity_matrices
 from utils.args_config import args
 
-# NOTE: This script should be run with skip_connectivity_matrices = True
+# NOTE: This script should be run with skip_conn = True
 if __name__ == '__main__':
   initialize()
   net = network()

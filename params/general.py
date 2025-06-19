@@ -29,7 +29,7 @@ break_time = args.break_time * ms
 stim_time = args.stim_time * ms
 
 # Whether to skip the loading of connectivity matrices
-skip_connectivity_matrices = args.skip_connectivity_matrices
+skip_connectivity_matrices = args.skip_conn
 
 base_dir = './'
 results_dir = join(base_dir, 'res')

@@ -1,6 +1,6 @@
 from brian2 import *
 from utils.connect import Connect
-from params import cell_params, syn_params, has_ca3, has_igc
+from params import cell_params, syn_params as default_syn_params, has_ca3, has_igc
 from models.cells import (
     create_mgc,
     create_igc,
@@ -13,7 +13,8 @@ from models.cells import (
 )
 
 
-def network():
+def network(syn_params_arg=None):
+  syn_params = syn_params_arg if syn_params_arg else default_syn_params
   net = Network()
   
   pp   = create_pp(N=cell_params['pp']['N'])
