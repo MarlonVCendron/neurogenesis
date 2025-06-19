@@ -3,13 +3,25 @@
 \section{Modelo da rede neural DG-CA3}
 
 
+
+Baseado nos modelos de \cite{kimAdult2024,yangDynamic2025,chavlisDendrites2017} e nos dados fisiológicos
+de~\cite{wheelerHippocampomeorg2023}
+
+A Figura~\ref{fig:arquitetura-rede} mostra a arquitetura da rede DG-CA3, ilustrando os tipos de neurônios presentes e as sinapses
+existentes entre cada um.
+
+A entrada da rede é composta pelas células do córtex entorrinal (EC, \textit{Entorhinal Cortex}),
+com um total de $N_{EC} = 400$ neurônios~\cite{amaralChapter1990,kimAdult2024}.
+
+\cite{myersRole2009, myersPattern2011}
+
 Brian2~\cite{stimbergBrian2019a}
 
 Runge-Kutta de 4ª ordem com passo de tempo fixo de 0,1ms~\cite{butcherHistory1996}.
 
 \begin{figure}
     \centering
-    \caption{Arquitetura da rede}
+    \caption{Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas.}
     \includegraphics[width=0.9\textwidth]{figuras/arquitetura-rede.png}
     \label{fig:arquitetura-rede}
 \end{figure}
@@ -99,7 +111,7 @@ A partir dessas equações, a corrente sináptica é dada por:
 onde $V_m$ é o potencial de membrana do neurônio pós-sináptico, $E$ é o potencial de reversão da sinapse, para sinapses
 inibitórias e excitatórias, respectivamente, $E_{inh} = \SI{-86}{\milli\volt}$ e $E_{exc} = \SI{0}{\milli\volt}$, e $k$
 é uma constante de escala definida como $k = 10$ para todas as sinapses. Essa constante de escala é necessária por conta
-da escala reduzida da rede como um todo, visto que, pelo baixo número de sinapses do modelo comparado ao hipocampo do rato, sem o 
+da escala reduzida da rede, visto que, pelo baixo número de sinapses do modelo comparado ao hipocampo do rato, sem o 
 escalamento a rede toda ficaria silenciosa.
 
 
@@ -156,7 +168,7 @@ A similaridade entre os padrões, $C^{(l)}$, é diretamente o coeficiente de cor
     C^{(l)} = \rho^{(l)}
 \end{equation}
 
-A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), a eficácia da separação de padrões, $S_d$, é calculada como a razão entre elas:
+A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), o grau de separação de padrões, $S_d$, é calculado como a razão entre elas:
 
 \begin{equation}
     \label{eq:sd}
