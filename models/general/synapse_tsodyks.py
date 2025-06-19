@@ -8,7 +8,7 @@ def synapse_tsodyks(syn_type, syn_var) :
   eq_model = Equations(f'''
     dU/dt = -U / tau_f                   : 1 (clock-driven)  # Resource utilization
     dR/dt = (1 - R - A) / tau_r          : 1 (clock-driven)  # Resource recovery
-    dA/dt = -A / tau_d                   : 1 (clock-driven)  # Resource availability
+    dA/dt = -A / tau_d                   : 1 (clock-driven)  # Resource activation
     I     = A * scale * w * g * (Vm - E) : amp
 
     I_syn_{syn_var}_post = I : amp (summed)

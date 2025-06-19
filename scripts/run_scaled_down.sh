@@ -2,10 +2,8 @@
 
 ARGS="\
   --single-run \
-  --ca3 \
-  --neurogenesis \
   --igc-conn=0.5 \
-  --skip-connectivity-matrices \
+  --skip-conn \
   --generate-graph \
   --break-time=1 \
   --stim-time=1 \

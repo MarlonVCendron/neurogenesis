@@ -2,9 +2,9 @@ from brian2 import *
 
 def Izhikevich():
   eq_model = Equations('''
-    dVm/dt = (k * (Vm - Vr) * (Vm - Vt) - u + I) / Cm : volt
-    du/dt  = a * (-u + b * (Vm - Vr))                 : amp
-    I      = - I_syn + I_ext                          : amp
+    dVm/dt  = (k * (Vm - Vr) * (Vm - Vt) - u + I_total) / Cm : volt
+    du/dt   = a * (-u + b * (Vm - Vr))                       : amp
+    I_total = - I_syn + I_ext                                : amp
   ''')
 
   eq_params = Equations('''
