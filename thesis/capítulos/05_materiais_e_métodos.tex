@@ -106,5 +106,65 @@ escalamento a rede toda ficaria silenciosa.
 \input{tabelas/sinapses.tex}
 
 
+\section{Plasticidade de longo prazo}
+
+\section{Neurogênese temporal}
+
+\section{Separação de padrões}
+
+A metodologia para quantificar a separação de padrões foi baseada na que foi utilizada em~\cite{kimEffect2024}.
+Para caracterizar a separação de padrões, é comparada a sobreposição entre os padrões de atividade neural na entrada (células do
+córtex entorrinal) e na saída (células granulares do DG, ou piramidais do CA3) da rede. Um padrão é definido por um
+representação binária de tamanho $N$, onde $N$ é o número total de neurônios de uma população específica, em que neurônios que
+dispararam ao menos uma vez durante o intervalo de tempo da simulação são representados por 1 e os que não dispararam são
+representados por 0. Para um par de padrões $A^{(l)}$ e $B^{(l)}$ (onde $l \in \{in, out\}$ para entrada e saída,
+respectivamente), a distância entre os padrões $D_p^{(l)}$ é definida como:
+
+\begin{equation}
+    \label{eq:dp}
+    D_p^{(l)} = \frac{O^{(l)}}{D_a^{(l)}}
+\end{equation}
+
+Nesta equação, $O^{(l)}$ representa o grau de ortogonalização e $D_a^{(l)}$ o grau médio de ativação dos dois padrões. O grau médio de ativação $D_a^{(l)}$ é a média aritmética dos graus de ativação de cada padrão, $A^{(l)}$ e $B^{(l)}$:
+
+\begin{equation}
+    \label{eq:da}
+    D_a^{(l)} = \frac{D_a^{(A^{(l)})} + D_a^{(B^{(l)})}}{2}
+\end{equation}
+
+O grau de ativação de um padrão individual é a fração de neurônios ativos (representados por 1 em uma codificação binária) no padrão.
+O grau de ortogonalização $O^{(l)}$, que mede a dissimilaridade entre os padrões, é calculado a partir do coeficiente de correlação de Pearson, $\rho^{(l)}$:
+
+\begin{equation}
+    \label{eq:o}
+    O^{(l)} = \frac{1 - \rho^{(l)}}{2}
+\end{equation}
+
+Onde $\rho^{(l)}$ é o coeficiente de correlação de Pearson entre os padrões $A^{(l)}$ e $B^{(l)}$.
+Considerando $\{a_i^{(l)}\}$ e $\{b_i^{(l)}\}$ ($i=1, \dots, N_l$) como as representações binárias do estado da $i$-ésima célula nos padrões $A^{(l)}$ e $B^{(l)}$ ($l \in \{in, out\}$), o coeficiente de correlação de Pearson é dado por:
+
+\begin{equation}
+    \label{eq:pearson}
+    \rho^{(l)} = \frac{\sum_{i=1}^{N_l} \Delta a_i^{(l)} \cdot \Delta b_i^{(l)}}{\sqrt{\sum_{i=1}^{N_l} (\Delta a_i^{(l)})^2} \sqrt{\sum_{i=1}^{N_l} (\Delta b_i^{(l)})^2}}
+\end{equation}
+
+em que $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$ e $\Delta b_i^{(l)} = b_i^{(l)} - \langle b^{(l)} \rangle$. A notação $\langle \dots \rangle$ indica a média populacional sobre todas as células. O valor de $\rho^{(l)}$ varia entre -1 e 1.
+A similaridade entre os padrões, $C^{(l)}$, é diretamente o coeficiente de correlação de Pearson:
+
+\begin{equation}
+    \label{eq:c}
+    C^{(l)} = \rho^{(l)}
+\end{equation}
+
+A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), a eficácia da separação de padrões, $S_d$, é calculada como a razão entre elas:
+
+\begin{equation}
+    \label{eq:sd}
+    S_d = \frac{D_p^{(out)}}{D_p^{(in)}}
+\end{equation}
+
+Um valor de $S_d > 1$ indica que os padrões de saída são mais distintos que os de entrada, caracterizando a separação de padrões. Inversamente, $S_d < 1$ indica uma convergência de padrões, onde os padrões de saída se tornam mais similares entre si.
+
+
 
 
