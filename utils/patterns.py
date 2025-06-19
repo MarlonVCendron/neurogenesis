@@ -1,21 +1,18 @@
 import math
+from brian2 import Hz
 from params.cells import cell_params
-from params import pp_rate, break_time, N_lamellae, active_p
+from params import pp_rate, break_time, N_lamellae, active_p as global_active_p
 import numpy as np
 
-p = active_p
-N = cell_params['pp']['N']
-step = 0.1
-
 # Creates a binary pattern of active neurons
-def generate_pattern(p=p, N=N):
+def generate_pattern(p, N):
   indices = np.random.choice(N, round(N*p), replace=False)
   pattern = np.zeros(N, dtype=int)
   pattern[indices] = 1
   return pattern
 
 # Generates similar patterns
-def generate_similar_patterns(pattern, step=step):
+def generate_similar_patterns(pattern, step):
   N = len(pattern)
   patterns = []
   for overlap_p in np.arange(step, 1.0, step):
@@ -39,20 +36,21 @@ def generate_similar_patterns(pattern, step=step):
   return patterns
 
 # Returns a list of patterns with increasing similarity to the original pattern, which is the last element
-def generate_patterns(p=p, N=N, step=step):
+def generate_patterns(p, N, step):
   pattern = generate_pattern(p, N)
   similar_patterns = generate_similar_patterns(pattern, step)
   similar_patterns.append(pattern)
   return similar_patterns
 
 # Generates activity patterns
-def generate_activity_patterns(rate=pp_rate, step=step):
+def generate_activity_patterns(active_p=global_active_p, pp_hz=pp_rate, step=0.1):
+  N = cell_params['pp']['N']
   return [
     {
-      'rates': pattern * rate,
+      'rates': pattern * pp_hz,
       'similarity': (i+1) * step,
     }
-    for i, pattern in enumerate(generate_patterns(step=step))
+    for i, pattern in enumerate(generate_patterns(p=active_p, N=N, step=step))
   ]
 
 # Percentage of active neurons in a pattern
