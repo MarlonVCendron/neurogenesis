@@ -19,12 +19,12 @@ class SimWrapper:
     def __init__(self, monitor_rate=True, monitor_state=None, report=None):
         self.net = network()
 
-        self.initialize_monitors(monitor_rate, monitor_state)
+        self._initialize_monitors(monitor_rate, monitor_state)
         self.net.add(self.monitors)
 
-        self.activate_monitors(False)
+        self._activate_monitors(False)
         self.net.run(break_time, report=report)
-        self.activate_monitors(True)
+        self._activate_monitors(True)
         self.net.run(stim_time, report=report)
 
         device.build(run=False)
@@ -40,7 +40,7 @@ class SimWrapper:
         if args.generate_graph:
             connectivity_matrices(self.net)
 
-        self.save_results(pattern, results_directory)
+        self._save_results(pattern, results_directory)
 
         return (
             get_spike_monitors(self.net),
@@ -48,7 +48,7 @@ class SimWrapper:
             get_state_monitors(self.net),
         )
 
-    def initialize_monitors(self, monitor_rate, monitor_state):
+    def _initialize_monitors(self, monitor_rate, monitor_state):
         neurons = get_neurons(self.net)
 
         spike_monitors = [SpikeMonitor(neuron) for neuron in neurons]
@@ -71,11 +71,11 @@ class SimWrapper:
 
         self.monitors += state_monitors
 
-    def activate_monitors(self, activate=True):
+    def _activate_monitors(self, activate=True):
         for mon in self.monitors:
             mon.active = activate
 
-    def save_results(self, pattern, results_directory):
+    def _save_results(self, pattern, results_directory):
         mgc_pattern = get_population_pattern(get_neuron_monitor(self.net, "mgc"))
         igc_pattern = get_population_pattern(get_neuron_monitor(self.net, "igc"))
         save_to_file(results_directory, pattern, mgc_pattern, igc_pattern)
