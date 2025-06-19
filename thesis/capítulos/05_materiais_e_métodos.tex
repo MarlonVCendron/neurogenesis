@@ -62,7 +62,7 @@ O modelo de sinapse, assim como o de neurônio, foi definido a partir do Hippoca
 seguindo a formulação de~\citeonline{sennAlgorithm2001,mongilloSynaptic2008a}. Esse modelo modela a
 plasticidade de curto prazo, seja ela depressão de curto prazo, causada pela depleção de neurotransmissores, ou potenciação de
 curto prazo, causada pelo acúmulo de cálcio, ambas na escala dos décimos de segundos. Cada sinapse possui 5 parâmetros (descritos
-na Tabela~\ref{tab:synapse_params}): a condutância máxima da sinapse no caso de nenhuma depleção de recursos sinápticos $g$, a fração de
+na Tabela~\ref{tab:synapse_params}): a condutância máxima da sinapse no caso de nenhuma depleção de recursos sinápticos $g$, a proporção de
 recursos utilizados a cada disparo $U_{se}$, a constante de tempo de decaimento da corrente sináptica $\tau_d$,
 a constante de tempo de facilitação $\tau_f$, e a constante de tempo de recuperação dos recursos $\tau_r$~\cite{moradiNormalized2022}.
 
@@ -85,9 +85,23 @@ variáveis é governada pelo seguinte sistema de equações diferenciais:
     \frac{dA}{dt} = \frac{-A}{\tau_d} + U_{+} R_{-} \delta(\Delta t_i)
 \end{equation}
 
-Onde $\delta$ é a função delta de Dirac, que resulta em 1 apenas quando $\Delta t_i = t - t_i = 0$, ou seja, apenas no tempo $t$
+nde $\delta$ é a função delta de Dirac, que resulta em 1 apenas quando $\Delta t_i = t - t_i = 0$, ou seja, apenas no tempo $t$
 correspondente ao tempo do evento sináptico $t_i$. $U_{+}$ corresponde ao valor de $U$ logo após o evento sináptico, enquanto que
 $R_{-}$ corresponde ao valor de $R$ logo antes do mesmo.
+
+A partir dessas equações, a corrente sináptica é dada por:
+
+\begin{equation}
+    \label{eq_tsodyks_I}
+    I = k \cdot A \cdot g \cdot (V_m - E)
+\end{equation}
+
+onde $V_m$ é o potencial de membrana do neurônio pós-sináptico, $E$ é o potencial de reversão da sinapse, para sinapses
+inibitórias e excitatórias, respectivamente, $E_{inh} = \SI{-86}{\milli\volt}$ e $E_{exc} = \SI{0}{\milli\volt}$, e $k$
+é uma constante de escala definida como $k = 10$ para todas as sinapses. Essa constante de escala é necessária por conta
+da escala reduzida da rede como um todo, visto que, pelo baixo número de sinapses do modelo comparado ao hipocampo do rato, sem o 
+escalamento a rede toda ficaria silenciosa.
+
 
 \input{tabelas/sinapses.tex}
 
