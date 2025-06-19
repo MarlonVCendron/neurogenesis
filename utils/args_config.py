@@ -9,6 +9,7 @@ parser.add_argument("--gaba", type=float, default=1.0, help="Scaling factor for 
 parser.add_argument("--ampa", type=float, default=1.0, help="Scaling factor for AMPA")
 parser.add_argument("--tsodyks-scale", type=float, default=10.0, help="Scaling factor for tsodyks")
 parser.add_argument("--active-p", type=float, default=0.1, help="Percentage of active neurons in a pattern")
+parser.add_argument("--pp-rate", type=float, default=40, help="Rate of firing PP axons")
 parser.add_argument("--igc-conn", type=float, default=1.0, help="IGC connectivity fraction (between 0 and 1)")
 parser.add_argument("--break-time", type=float, default=500, help="Simulation time for the network to settle")
 parser.add_argument("--stim-time", type=float, default=1000, help="Simulation time when activity is recorded")
