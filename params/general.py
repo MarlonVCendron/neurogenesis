@@ -21,7 +21,7 @@ igc_conn = args.igc_conn if has_igc else 0.0
 has_ca3 = not args.no_ca3
 
 # Rate of EC neurons
-pp_rate = 40 * Hz
+pp_rate = args.pp_rate * Hz
 
 # Simulation time for the network to settle
 break_time = args.break_time * ms
