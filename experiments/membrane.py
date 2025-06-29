@@ -14,10 +14,10 @@ ION_CONFIG = {
     # 'K+': {'radius': 0.18, 'color': 'blue', 'charge': 1},
     # 'Cl-': {'radius': 0.16, 'color': 'green', 'charge': -1},
     # 'A-': {'radius': 0.24, 'color': 'purple', 'charge': -10, 'impermeable': True}
-    'Na+': {'radius': 0.15, 'color': 'red', 'charge': 2},
-    'K+': {'radius': 0.18, 'color': 'blue', 'charge': 2},
-    'Cl-': {'radius': 0.16, 'color': 'green', 'charge': -2},
-    'A-': {'radius': 0.24, 'color': 'purple', 'charge': -10, 'impermeable': True}
+    'Na+': {'radius': 0.19, 'color': 'red', 'charge': 2},
+    'K+': {'radius': 0.22, 'color': 'blue', 'charge': 2},
+    'Cl-': {'radius': 0.2, 'color': 'green', 'charge': -2},
+    'A-': {'radius': 0.29, 'color': 'purple', 'charge': -10, 'impermeable': True}
 }
 
 # Create a custom colormap for potential visualization
@@ -463,13 +463,13 @@ class MembraneSimulation:
         self.ax_text.set_xlim(0, 1)
 
         font_props = {'family': 'monospace', 'fontsize': 16, 'va': 'top'}
-        self.potential_artist = self.ax_text.text(0.05, 0.95, "", fontdict=font_props)
-        self.ax_text.text(0.05, 0.75, "--- POTENCIAL DE NERNST ---", fontdict=font_props)
+        self.potential_artist = self.ax_text.text(0.05, 1.0, "", fontdict=font_props)
+        self.ax_text.text(0.05, 0.9, "                   --- POTENCIAL DE NERNST ---", fontdict=font_props)
         
-        y_pos = 0.6
+        y_pos = 0.7
         for ion_type in ['Na+', 'K+', 'Cl-']:
             self.nernst_artists[ion_type] = self.ax_text.text(0.05, y_pos, "", fontdict=font_props)
-            y_pos -= 0.19
+            y_pos -= 0.23
         
         # Return all dynamic artists to be managed by the animation
         all_artists = [self.potential_artist, self.voltage_line, self.extracellular_bg_artist] + \
@@ -648,9 +648,12 @@ def on_start_stop(event):
             print("Simulação pausada.")
 
 def on_reset(event):
-    global sim
+    global sim, check_buttons
     if sim:
         sim.reset()
+        if check_buttons:
+            for i in range(len(check_buttons.labels)):
+                check_buttons.set_active(i, False)
         _update_if_paused()
     
 def add_ion_factory(ion_type, count, side):
@@ -671,8 +674,20 @@ def on_toggle_permeability(label):
     global sim
     if sim:
         ion_type = label.strip()
-        sim.toggle_ion_permeability(ion_type)
-        _update_if_paused()
+        # The .labels attribute holds Text objects, so we get the string from each.
+        labels_text = [l.get_text() for l in check_buttons.labels]
+        try:
+            ion_index = labels_text.index(ion_type)
+            # The on_clicked event fires *after* the button's state has changed.
+            # We get the new state and sync the simulation to it.
+            current_state = check_buttons.get_status()[ion_index]
+            if sim.permeability[ion_type] != current_state:
+                sim.toggle_ion_permeability(ion_type)
+
+            _update_if_paused()
+        except ValueError:
+            # This can happen if the label isn't found, which would be unexpected.
+            print(f"Error: Could not find ion type '{ion_type}' in checkbox labels.")
 
 def on_add_pump(event):
     global sim
@@ -705,7 +720,7 @@ def main():
     global sim, anim, btn_start_stop, check_buttons, fig
     
     fig = plt.figure(figsize=(20, 11))
-    gs = fig.add_gridspec(4, 2, width_ratios=[1.5, 2], height_ratios=[3, 3, 2.5, 1.5])
+    gs = fig.add_gridspec(4, 2, width_ratios=[1.5, 2], height_ratios=[4, 4, 1.5, 1])
     
     # Right side for simulation
     ax_main = fig.add_subplot(gs[:, 1])
@@ -716,7 +731,8 @@ def main():
     ax_text = fig.add_subplot(gs[2, 0])
     # The bottom-left area gs[3, 0] is reserved for buttons
     
-    plt.subplots_adjust(left=0.05, bottom=0.05, right=0.98, top=0.95, wspace=0.2, hspace=0.9)
+    # plt.subplots_adjust(left=0.05, bottom=0.05, right=0.98, top=0.95, wspace=0.2, hspace=0.9)
+    plt.subplots_adjust(left=0.03, bottom=0.01, right=0.99, top=0.96, wspace=0.1, hspace=0.9)
 
     sim = MembraneSimulation(ax_main, ax_voltage, ax_counts, ax_text)
 
