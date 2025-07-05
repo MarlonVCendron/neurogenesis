@@ -114,7 +114,7 @@ syn_params = {
     "mgc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 2,
-        "p"        : 0.05,
+        "p"        : 0.6,
         "condition": lamellar_conn(N_mgc_l, N_pca3_l),
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
@@ -174,7 +174,7 @@ syn_params = {
     "igc_pca3": {
         "syn_type" : "exc",
         "syn_var"  : 3,
-        "p"        : 0.05,
+        "p"        : 0.6,
         "condition": lamellar_conn(N_igc_l, N_pca3_l),
         "g"        : 1.3842 * nS,
         "tau_r"    : 278.2858 * ms,
@@ -363,7 +363,7 @@ syn_params = {
     "pca3_ica3": {
         "syn_type" : "exc",
         "syn_var"  : 4,
-        "p"        : 0.7,
+        "p"        : 1.0,
         "g"        : 1.2474 * nS,
         "tau_r"    : 525.6045 * ms,
         "tau_d"    : 4.5253 * ms,
@@ -375,7 +375,7 @@ syn_params = {
     "ica3_pca3": {
         "syn_type" : "inh",
         "syn_var"  : 5,
-        "p"        : 0.7,
+        "p"        : 1.0,
         "g"        : 1.4622 * nS,
         "tau_r"    : 416.2817 * ms,
         "tau_d"    : 7.7927 * ms,
