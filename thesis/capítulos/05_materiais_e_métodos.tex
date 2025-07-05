@@ -4,20 +4,9 @@
 
 
 
-Baseado nos modelos de \cite{kimAdult2024,yangDynamic2025,chavlisDendrites2017} e nos dados fisiológicos
-de~\cite{wheelerHippocampomeorg2023}
-
-A Figura~\ref{fig:arquitetura-rede} mostra a arquitetura da rede DG-CA3, ilustrando os tipos de neurônios presentes e as sinapses
-existentes entre cada um.
-
-A entrada da rede é composta pelas células do córtex entorrinal (EC, \textit{Entorhinal Cortex}),
-com um total de $N_{EC} = 400$ neurônios~\cite{amaralChapter1990,kimAdult2024}.
-
-\cite{myersRole2009, myersPattern2011}
-
-Brian2~\cite{stimbergBrian2019a}
-
-Runge-Kutta de 4ª ordem com passo de tempo fixo de 0,1ms~\cite{butcherHistory1996}.
+Baseado principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017} e nos dados fisiológicos, de
+modelos neuronais e sinápticos de~\cite{wheelerHippocampomeorg2023}, a arquitetura da rede DG-CA3 foi modelada conforme a
+Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato.
 
 \begin{figure}
     \centering
@@ -26,6 +15,43 @@ Runge-Kutta de 4ª ordem com passo de tempo fixo de 0,1ms~\cite{butcherHistory19
     \label{fig:arquitetura-rede}
 \end{figure}
 
+A entrada da rede é composta pelas células do córtex entorrinal (EC, \textit{Entorhinal Cortex}), com um total de $N_{EC} = 400$
+neurônios~\cite{amaralChapter1990,kimAdult2024}. Em cada simulação, o EC como um todo apresenta um padrão específico, onde cada
+padrão é representado por uma subpopulação de 10\% de neurônios do EC ativa~\cite{mcnaughtonDead1991}. Os neurônios inativos não
+pertencentes ao padrão não disparam durante a simulação, enquanto que os neurônios ativos disparam de acordo com a distribuição de
+Poisson com uma taxa de disparo de $\lambda = \SI{40}{\hertz}$. Os neurônios do EC projetam seus axônios através da via perfurante
+para neurônios com dendritos na camada molecular do DG: células granulares (GC, \textit{Granule Cells}), células musgosas (MC,
+\textit{Mossy Cells})~\cite{scharfmanHilar2013} e células em cesto (BC, \textit{Basket Cells}); bem como para os neurônios do CA3.
+
+As GCs são subdivididas em duas subpopulações: as células granulares maduras (mGC, \textit{mature Granule Cells}) e as células
+granulares imaturas (iGC, \textit{immature Granule Cells}), representando as GCs geradas por neurogênese adulta em sua fase
+eletrofisiológica característica de 3-4 semanas de idade~\cite{aimoneRegulation2014}. No total, a rede é composta por $N_{GC} =
+2000$ GCs ($\frac{1}{500}$ das $10^6$ células granulares do rato)~\cite{westUnbiased1991}, com 5\% delas sendo
+iGCs~\cite{cameronAdult2001}, ou seja $N_{mGC} = 1900$ e $N_{iGC} = 100$. Seguindo a organização lamelar do
+DG~\cite{sloviterUpdating2012}, as GCs são distribuídas em 20 lamelas, com 100 células por lamela. Cada GC conecta-se com as BCs,
+MCs e neurônios do CA3 da mesma lamela, bem como faz conexões excitatórias aleatórias e não lamelares com as células inibitórias
+do hilo associadas à via perfurante (HIPP, \textit{HIlar Perforant Path-associated}).
+
+As BCs ($N_{BC} = 40$) são células inibitórias que garantem a ativação esparsa das GCs através da competição de estilo ``vencedor
+leva tudo'' entre elas~\cite{coultripCortical1992,chavlisDendrites2017,kimAdult2024}, onde apenas as GCs mais ativas de uma lamela
+se mantêm ativas, inibindo as demais. As HIPPs ($N_{HIPP} = 60$) também contribuem para a esparsidade da ativação das GCs, com uma
+inibição mais global, que atua sobre todas as GCs de uma lamela. As MCs ($N_{MC} = 100$) são células excitatórias do hilo que
+recebem excitação das GCs e que se projetam para as GCs, BCs e HIPPs através de conexões interlamelares. Por mais que existam
+essas projeções excitatórias das MCs para as GCs, seu efeito é, em geral, inibitório através do controle das BCs e
+HIPPs~\cite{myersRole2009,scharfmanHilar2013}.
+
+O CA3, diferentemente do DG, não segue uma estrutura lamelar no modelo, já que ele forma uma rede neural muito mais
+integrativa~\cite{pakHippocampal2022, watsonHuman2025}. O modelo do CA3 é composto por 600 neurônios piramidais ($N_{PCA3} = 600$)
+e 60 neurônios inibitórios ($N_{ICA3} = 60$), modelados de acordo com os dados fisiológicos das células em cesto do
+CA3~\cite{wheelerHippocampomeorg2023} de forma a simplificar a variedade de neurônios inibitórios presentes no
+CA3~\cite{kopsickFormation2024}. Ambas as populações neuronais recebem aferências do EC e das GCs, com as ICA3s inibindo as PCA3s.
+As PCA3s excitam as ICA3s e, importantemente, formam uma rede recorrente ao conectarem-se com outras PCA3s, característica
+fundamental para as funções de auto-associação e completamento de padrões do CA3~\cite{kopsickFormation2024,rollsMechanisms2013}.
+As PCA3s também enviam retroprojeções para o DG, conectando-se com as MCs no modelo, processo que contribui para a separação de
+padrões~\cite{myersPattern2011}.
+
+Todas as simulações foram realizadas com o Brian2~\cite{stimbergBrian2019a}, utilizando o método de Runge-Kutta de 4ª ordem com
+passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}.
 
 \section{Modelo de neurônio}
 
@@ -78,8 +104,9 @@ na Tabela~\ref{tab:synapse_params}): a condutância máxima da sinapse no caso d
 recursos utilizados a cada disparo $U_{se}$, a constante de tempo de decaimento da corrente sináptica $\tau_d$,
 a constante de tempo de facilitação $\tau_f$, e a constante de tempo de recuperação dos recursos $\tau_r$~\cite{moradiNormalized2022}.
 
-O modelo é descrito por três variáveis de estado: a utilização dos recursos sinápticos ($U$), a recuperação desses recursos ($R$),
-inicialmente igual a 1, e a porcentagem de recursos em estado ativo ($A$). A evolução temporal dessas
+O modelo é descrito por três variáveis de estado: a utilização dos recursos sinápticos ($U$), a recuperação desses recursos ($R$)
+e a porcentagem de recursos em estado ativo ($A$). Inicialmente, $U_{t_0} = 0$, $R_{t_0} = 1$ e $A_{t_0} = 0$, 
+visto que todos os recursos estão disponíveis para ser utilizados. A evolução temporal dessas
 variáveis é governada pelo seguinte sistema de equações diferenciais:
 
 \begin{equation}
