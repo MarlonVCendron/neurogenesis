@@ -20,17 +20,17 @@ defaultclock.dt = 0.1 * ms
 def to_100(params):
   return {**params, "p": 1.0, "condition": None}
 
-params = {
-    "syn_type" : "exc",
-    "syn_var"  : 1,
-    "p"        : 1,
-    "g"        : 1 * nS,
-    "tau_r"    : 750 * ms,
-    "tau_d"    : 20 * ms,
-    "tau_f"    : 50 * ms,
-    "U_se"     : 0.45,
-    "delay"    : 1.0 * ms
-}
+# params = {
+#     "syn_type" : "exc",
+#     "syn_var"  : 1,
+#     "p"        : 1,
+#     "g"        : 1 * nS,
+#     "tau_r"    : 750 * ms,
+#     "tau_d"    : 20 * ms,
+#     "tau_f"    : 50 * ms,
+#     "U_se"     : 0.45,
+#     "delay"    : 1.0 * ms
+# }
 
 # params = {
 #     "syn_type" : "exc",
@@ -51,24 +51,24 @@ def main():
 
   indices = array([0, 0, 0, 0, 0])
   times = array([15, 90, 150, 200, 230])*ms
-  pp = SpikeGeneratorGroup(1, indices, times)
-  # pp = PoissonGroup(8, rates=40*Hz)
+  # mgc = SpikeGeneratorGroup(1, indices, times)
+  mgc = PoissonGroup(15, rates=20*Hz)
 
-  mgc      = create_mgc(N=1)
+  mc      = create_mc(N=1)
 
-  pp_mgc  = Connect(pp, mgc, **params)
+  mgc_mc  = Connect(mgc, mc, **to_100(syn_params['mgc_mc']))
 
-  mon = StateMonitor(mgc, True, record=True)
-  mon_s = SpikeMonitor(mgc)
-  mon_r = PopulationRateMonitor(mgc)
-  mon_syn_pp = StateMonitor(pp_mgc, ['U', 'R', 'A'], record=True)
+  mon = StateMonitor(mc, True, record=True)
+  mon_s = SpikeMonitor(mc)
+  mon_r = PopulationRateMonitor(mc)
+  mon_syn = StateMonitor(mgc_mc, ['U', 'R', 'A'], record=True)
 
   net = Network(collect())
 
   # pp_mgc.g = 40 * nS
 
   print('Running simulation')
-  net.run(300 * ms)
+  net.run(500 * ms)
 
   # smooth_rates = mon_r.smooth_rate(window='flat', width=50*ms) / Hz
 
@@ -77,7 +77,7 @@ def main():
   # print(f'Mean rate: {np.mean(smooth_rates)}')
 
   # plot_voltage(mon, mon_s)
-  # plot_voltage(mon)
+  plot_voltage(mon)
 
   # plt.plot(mon.t / ms, mon.I_syn_1[0] / nA, alpha=0.7)
   # plt.plot(mon.t / ms, mon.I_syn_2[0] / nA, alpha=0.7)
@@ -93,9 +93,9 @@ def main():
 
 
 
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.U[0])
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0])
-  plt.plot(mon_syn_pp.t / ms, mon_syn_pp.A[0])
+  plt.plot(mon_syn.t / ms, mon_syn.U[0])
+  plt.plot(mon_syn.t / ms, mon_syn.R[0])
+  plt.plot(mon_syn.t / ms, mon_syn.A[0])
   # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.D[0])
   # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0] + mon_syn_pp.A[0] + mon_syn_pp.D[0])
   plt.plot(mon.t / ms, mon.I_syn[0] / nA)
