@@ -93,7 +93,7 @@ def generate_synapse_table():
             if "==" in params['condition']:
                 conn_type = "Lamelar"
             elif "!=" in params['condition'] and "i != j" not in params['condition']:
-                conn_type = "Entre lamelas"
+                conn_type = "Interlamelar"
 
         current_row_values = [pre_display_name, post_display_name, conn_type, prob_val]
 
@@ -131,7 +131,12 @@ def generate_synapse_table():
 
         print("\\bottomrule", file=f)
         print("\\end{tabular}}", file=f)
-        print("\\caption{Parâmetros das sinapses entre as populações neuronais.}\\label{tab:synapse_params}", file=f)
+        # print("\\caption{Parâmetros das sinapses entre as populações neuronais.}", file=f)
+        print('''\\caption{Parâmetros das sinapses entre as populações neuronais. Conexões aleatórias ocorrem entre todas as células
+              de ambas as populações; conexões lamelares ocorrem entre células da mesma lamela; conexões interlamelares ocorrem
+              entre as células de uma lamela com todas as demais. A probabilidade de conexão $P$ diz respeito à porcentagem de
+              conexões entre as populações neuronais de acordo com a condição de conexão.}''', file=f)
+        print("\\label{tab:synapse_params}", file=f)
         print("\\end{table}", file=f)
 
 
