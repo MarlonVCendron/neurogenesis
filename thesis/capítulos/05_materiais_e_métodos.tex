@@ -3,12 +3,13 @@
 \section{Modelo da rede neural DG-CA3}
 
 
+Baseada principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017}, a arquitetura
+da rede DG-CA3 foi modelada conforme a Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato. Os
+neurônios foram modelados de forma simples, com um único compartimento, mas com alta fidelidade biológica, utilizando os modelos
+neuronais e sinápticos, o censo e dados de conectividade do Hippocampome.org, uma base de conhecimento de acesso livre que compila
+diversas fontes de dados sobre a formação hipocampal~\cite{wheelerHippocampomeorg2023}.
 
-Baseado principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017} e nos dados fisiológicos, de
-modelos neuronais e sinápticos de~\cite{wheelerHippocampomeorg2023}, a arquitetura da rede DG-CA3 foi modelada conforme a
-Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato.
-
-\begin{figure}
+\begin{figure}[H]
     \centering
     \caption{Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas.}
     \includegraphics[width=0.9\textwidth]{figuras/arquitetura-rede.png}
@@ -32,6 +33,12 @@ DG~\cite{sloviterUpdating2012}, as GCs são distribuídas em 20 lamelas, com 100
 MCs e neurônios do CA3 da mesma lamela, bem como faz conexões excitatórias aleatórias e não lamelares com as células inibitórias
 do hilo associadas à via perfurante (HIPP, \textit{HIlar Perforant Path-associated}).
 
+As iGCs, diferentemente das mGCs, não recebem inibição das HIPPs e possuem características eletrofisiológicas distintas, o que as
+torna mais excitáveis que as mGCs. O Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as
+características das iGCs. Portanto, os parâmetros utilizados para as iGCs foram ajustados a partir dos dados de disparos
+de~\citeonline{espositoNeuronal2005} utilizando o método de~\citeonline{nelderSimplex1965}
+(Tabela~\ref{tab:izhikevich_neuron_params}).
+
 As BCs ($N_{BC} = 40$) são células inibitórias que garantem a ativação esparsa das GCs através da competição de estilo ``vencedor
 leva tudo'' entre elas~\cite{coultripCortical1992,chavlisDendrites2017,kimAdult2024}, onde apenas as GCs mais ativas de uma lamela
 se mantêm ativas, inibindo as demais. As HIPPs ($N_{HIPP} = 60$) também contribuem para a esparsidade da ativação das GCs, com uma
@@ -39,6 +46,12 @@ inibição mais global, que atua sobre todas as GCs de uma lamela. As MCs ($N_{M
 recebem excitação das GCs e que se projetam para as GCs, BCs e HIPPs através de conexões interlamelares. Por mais que existam
 essas projeções excitatórias das MCs para as GCs, seu efeito é, em geral, inibitório através do controle das BCs e
 HIPPs~\cite{myersRole2009,scharfmanHilar2013}.
+
+Os parâmetros das HIPPs presentes no Hippocampome.org~\cite{wheelerHippocampomeorg2023} modelam a característica de ``rajada de
+disparos de rebote'' (tradução livre do inglês ``\textit{rebound burst firing}''), em que o neurônio apresenta uma rajada de
+disparos após o final de um período de hiperpolarização. Esse modelo é incompatível com a rede, pois grandes hiperpolarizações
+levam a rajadas de disparos infinitas. Portanto, os parâmetros utilizados para as HIPPs foram retirados
+de~\citeonline{modakIzhikevich2018}.
 
 O CA3, diferentemente do DG, não segue uma estrutura lamelar no modelo, já que ele forma uma rede neural muito mais
 integrativa~\cite{pakHippocampal2022, watsonHuman2025}. O modelo do CA3 é composto por 600 neurônios piramidais ($N_{PCA3} = 600$)
@@ -51,7 +64,8 @@ As PCA3s também enviam retroprojeções para o DG, conectando-se com as MCs no 
 padrões~\cite{myersPattern2011}.
 
 Todas as simulações foram realizadas com o Brian2~\cite{stimbergBrian2019a}, utilizando o método de Runge-Kutta de 4ª ordem com
-passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}.
+passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}. Os parâmetros dos neurônios e suas sinapses podem ser
+encontrados nas Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}, respectivamente.
 
 \section{Modelo de neurônio}
 
@@ -146,6 +160,32 @@ escalamento a rede toda ficaria silenciosa.
 
 
 \section{Plasticidade de longo prazo}
+
+A plasticidade de longo prazo será implementada exclusivamente nas sinapses recorrentes entre as células piramidais do CA3 (PCA3),
+permitindo que a rede aprenda e armazene padrões de memória. O modelo de plasticidade será baseado no trabalho
+de~\citeonline{kopsickFormation2024}, que utiliza uma regra de plasticidade dependente do tempo de disparo (STDP,
+\textit{Spike-Timing-Dependent Plasticity}).
+
+Especificamente, será empregada uma regra STDP simétrica e hebbiana, que promove o fortalecimento de sinapses entre neurônios que
+disparam de forma temporalmente próxima, independentemente da ordem de disparo. Esta regra é descrita pela seguinte equação: 
+
+\begin{equation}
+    \label{eq:stdp}
+    \Delta w = A e^{-|\Delta t|/\tau}
+\end{equation}
+
+Onde $\Delta w$ é a mudança no peso sináptico, $A$ é um parâmetro que determina a magnitude máxima da mudança no peso, $\tau$ é a
+constante de tempo de decaimento da plasticidade e $\Delta t$ é a diferença temporal entre os disparos do neurônio pré e
+pós-sináptico. Seguindo o modelo de~\cite{kopsickFormation2024}, a constante de tempo $\tau$ será definida como
+\SI{20}{\milli\second}. O parâmetro $A$ será ajustado para modular a taxa de aprendizado da rede.
+
+\begin{figure}
+    \centering
+    \caption{Regra STDP simétrica e hebbiana com $A = 70$.}
+    \includegraphics[width=0.5\textwidth]{figuras/symmetric_stdp}
+    \label{fig:symmetric_stdp}
+\end{figure}
+
 
 \section{Neurogênese temporal}
 
