@@ -34,10 +34,11 @@ MCs e neurônios do CA3 da mesma lamela, bem como faz conexões excitatórias al
 do hilo associadas à via perfurante (HIPP, \textit{HIlar Perforant Path-associated}).
 
 As iGCs, diferentemente das mGCs, não recebem inibição das HIPPs e possuem características eletrofisiológicas distintas, o que as
-torna mais excitáveis que as mGCs. O Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as
-características das iGCs. Portanto, os parâmetros utilizados para as iGCs foram ajustados a partir dos dados de disparos
-de~\citeonline{espositoNeuronal2005} utilizando o método de~\citeonline{nelderSimplex1965}
-(Tabela~\ref{tab:izhikevich_neuron_params}).
+torna mais excitáveis que as mGCs. Além do mais, para simular a ainda não completa integração no circuito, as iGCs recebem
+aferências do EC apenas em uma fração $x_{EC:iGC}$ da probabilidade de conexão entre o EC e as mGCs. O
+Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as características das iGCs. Portanto, os parâmetros utilizados
+para as iGCs foram ajustados a partir dos dados de disparos de~\citeonline{espositoNeuronal2005} utilizando o método
+de~\citeonline{nelderSimplex1965} (Tabela~\ref{tab:izhikevich_neuron_params}).
 
 As BCs ($N_{BC} = 40$) são células inibitórias que garantem a ativação esparsa das GCs através da competição de estilo ``vencedor
 leva tudo'' entre elas~\cite{coultripCortical1992,chavlisDendrites2017,kimAdult2024}, onde apenas as GCs mais ativas de uma lamela
@@ -59,7 +60,7 @@ e 60 neurônios inibitórios ($N_{ICA3} = 60$), modelados de acordo com os dados
 CA3~\cite{wheelerHippocampomeorg2023} de forma a simplificar a variedade de neurônios inibitórios presentes no
 CA3~\cite{kopsickFormation2024}. Ambas as populações neuronais recebem aferências do EC e das GCs, com as ICA3s inibindo as PCA3s.
 As PCA3s excitam as ICA3s e, importantemente, formam uma rede recorrente ao conectarem-se com outras PCA3s, característica
-fundamental para as funções de auto-associação e completamento de padrões do CA3~\cite{kopsickFormation2024,rollsMechanisms2013}.
+fundamental para as funções de auto-associação e completamento de padrões do CA3~\cite{kopsickFormation2024, rollsMechanisms2013}.
 As PCA3s também enviam retroprojeções para o DG, conectando-se com as MCs no modelo, processo que contribui para a separação de
 padrões~\cite{myersPattern2011}.
 
@@ -166,6 +167,13 @@ permitindo que a rede aprenda e armazene padrões de memória. O modelo de plast
 de~\citeonline{kopsickFormation2024}, que utiliza uma regra de plasticidade dependente do tempo de disparo (STDP,
 \textit{Spike-Timing-Dependent Plasticity}).
 
+\begin{figure}[H]
+    \centering
+    \caption{Regra STDP simétrica e hebbiana com $A = 70$.}
+    \includegraphics[width=0.5\textwidth]{figuras/symmetric_stdp}
+    \label{fig:symmetric_stdp}
+\end{figure}
+
 Especificamente, será empregada uma regra STDP simétrica e hebbiana, que promove o fortalecimento de sinapses entre neurônios que
 disparam de forma temporalmente próxima, independentemente da ordem de disparo. Esta regra é descrita pela seguinte equação: 
 
@@ -179,15 +187,31 @@ constante de tempo de decaimento da plasticidade e $\Delta t$ é a diferença te
 pós-sináptico. Seguindo o modelo de~\cite{kopsickFormation2024}, a constante de tempo $\tau$ será definida como
 \SI{20}{\milli\second}. O parâmetro $A$ será ajustado para modular a taxa de aprendizado da rede.
 
-\begin{figure}
-    \centering
-    \caption{Regra STDP simétrica e hebbiana com $A = 70$.}
-    \includegraphics[width=0.5\textwidth]{figuras/symmetric_stdp}
-    \label{fig:symmetric_stdp}
-\end{figure}
-
-
 \section{Neurogênese temporal}
+
+Para investigar o impacto funcional da integração contínua de novos neurônios, será implementado um modelo de neurogênese
+temporal. Este processo é fundamental para a manutenção de funções hipocampais como a aprendizagem e a memória ao longo do
+tempo~\cite{aimoneRegulation2014, berdugo-vegaSharpening2023}. A simulação será dividida em duas fases principais. Na primeira
+fase, a rede operará com sua configuração inicial, com $N_{mGC} = 1900$ e $N_{iGC} = 100$. Durante esta fase, a rede será exposta
+a um conjunto de $N$ padrões de entrada, que serão aprendidos e armazenados nas sinapses recorrentes do CA3 através do mecanismo
+de STDP.
+
+Após a fase inicial de aprendizagem, as iGCs passarão por um processo de maturação simulada, transformando-se em mGCs. Esta
+transição reflete as mudanças biológicas que ocorrem à medida que os novos neurônios se integram totalmente ao circuito do DG,
+passando de um estado hiperexcitável para um estado maduro mais estável~\cite{abbottAdult2020}. A maturação será implementada
+através da atualização dos seus parâmetros eletrofisiológicos e sinápticos para os valores correspondentes aos das mGCs
+(Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}). As conexões eferentes existentes, formadas durante a fase
+imatura, serão preservadas. Adicionalmente, as células recém-maturadas passarão a receber conexões inibitórias das células HIPP e
+terão sua conectividade aferente do EC aumentada para o mesmo nível das mGCs, completando sua integração funcional no
+circuito~\cite{lunaAdultborn2019}.
+
+Na segunda fase da simulação, após a maturação das primeiras iGCs, serão adicionadas mais 100 novas iGCs, simulando a contínua
+integração de novos neurônios pela neurogênese adulta. Esse processo será repetido 3 vezes, tornando possível avaliar o desempenho
+da rede gradativamente, com a maturação das iGCs. Serão implementados dois modelos de controle: um em que serão adicionadas sempre
+mGCs na rede, sem as iGCs, e outro em que ao serem adicionadas as iGCs, haverá morte neuronal de número equivalente das mGCs. A
+intenção desses modelos de controle é tornar possível avaliar apenas o papel da neurogênese adulta e das células imaturas geradas
+por ela, comparando com os efeitos dos modelos de controle que também possuem aumento gradual de neurônios.
+
 
 \section{Separação de padrões}
 
@@ -244,6 +268,6 @@ A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{
 
 Um valor de $S_d > 1$ indica que os padrões de saída são mais distintos que os de entrada, caracterizando a separação de padrões. Inversamente, $S_d < 1$ indica uma convergência de padrões, onde os padrões de saída se tornam mais similares entre si.
 
-
+\section{Auto-associação e completamento de padrões}
 
 
