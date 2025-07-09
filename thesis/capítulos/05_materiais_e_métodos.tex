@@ -66,7 +66,9 @@ padrões~\cite{myersPattern2011}.
 
 Todas as simulações foram realizadas com o Brian2~\cite{stimbergBrian2019a}, utilizando o método de Runge-Kutta de 4ª ordem com
 passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}. Os parâmetros dos neurônios e suas sinapses podem ser
-encontrados nas Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}, respectivamente.
+encontrados nas Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}, respectivamente. A duração de uma única
+simulação para um padrão de entrada é de \SI{0.5}{\second} para que a rede alcance um estado de equilíbrio, com a fase de
+gravação de padrões ocorrendo em seguida por \SI{1}{\second}.
 
 \section{Modelo de neurônio}
 
@@ -187,6 +189,9 @@ constante de tempo de decaimento da plasticidade e $\Delta t$ é a diferença te
 pós-sináptico. Seguindo o modelo de~\cite{kopsickFormation2024}, a constante de tempo $\tau$ será definida como
 \SI{20}{\milli\second}. O parâmetro $A$ será ajustado para modular a taxa de aprendizado da rede.
 
+Para evitar a saturação das sinapses, será empregada uma regra de renormalização dos pesos sinápticos
+(Seção~\ref{sec:protocolo_treinamento_teste}) e um peso sináptico máximo de $w_{max}$ a ser definido experimentalmente.
+
 \section{Neurogênese temporal}
 
 Para investigar o impacto funcional da integração contínua de novos neurônios, será implementado um modelo de neurogênese
@@ -251,13 +256,9 @@ Considerando $\{a_i^{(l)}\}$ e $\{b_i^{(l)}\}$ ($i=1, \dots, N_l$) como as repre
     \rho^{(l)} = \frac{\sum_{i=1}^{N_l} \Delta a_i^{(l)} \cdot \Delta b_i^{(l)}}{\sqrt{\sum_{i=1}^{N_l} (\Delta a_i^{(l)})^2} \sqrt{\sum_{i=1}^{N_l} (\Delta b_i^{(l)})^2}}
 \end{equation}
 
-em que $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$ e $\Delta b_i^{(l)} = b_i^{(l)} - \langle b^{(l)} \rangle$. A notação $\langle \dots \rangle$ indica a média populacional sobre todas as células. O valor de $\rho^{(l)}$ varia entre -1 e 1.
-A similaridade entre os padrões, $C^{(l)}$, é diretamente o coeficiente de correlação de Pearson:
-
-\begin{equation}
-    \label{eq:c}
-    C^{(l)} = \rho^{(l)}
-\end{equation}
+em que $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$ e $\Delta b_i^{(l)} = b_i^{(l)} - \langle b^{(l)} \rangle$. A
+notação $\langle \dots \rangle$ indica a média populacional sobre todas as células. O valor de $\rho^{(l)}$ varia entre -1 e 1,
+potanto, $O^{(l)}$ varia entre 0 e 1 (Equação~\ref{eq:o}).
 
 A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), o grau de separação de padrões, $S_d$, é calculado como a razão entre elas:
 
@@ -270,4 +271,50 @@ Um valor de $S_d > 1$ indica que os padrões de saída são mais distintos que o
 
 \section{Auto-associação e completamento de padrões}
 
+\subsection{Protocolo de treinamento e teste}\label{sec:protocolo_treinamento_teste}
 
+O protocolo de treinamento e teste da rede para avaliar o armazenamento e a recuperação de padrões será baseado no método descrito
+por~\cite{kopsickFormation2024}.
+
+Na fase de treinamento, a rede será exposta a um conjunto de padrões de entrada distintos. Cada padrão consiste na ativação de uma
+subpopulação específica de neurônios piramidais do CA3 através da injeção de corrente. Essa ativação induz um trem de disparos em
+uma janela de tempo de \SI{20}{\milli\second}, correspondente a um ciclo gama. Os diferentes padrões serão apresentados em
+sequência, separados por janelas de \SI{200}{\milli\second}, simulando um código neural teta-gama. Durante toda a fase de
+treinamento, a plasticidade sináptica (STDP) estará habilitada, permitindo o fortalecimento das conexões entre os neurônios
+codificantes do mesmo padrão, formando uma assembleia neuronal. Após um determinado número de apresentações de padrões a ser
+definido experimentalmente, os pesos sinápticos entre os neurônios piramidais serão renormalizados, um processo que simula a
+homeostase sináptica que ocorre durante o sono de ondas lentas, para evitar a saturação das sinapses e estabilizar os padrões
+aprendidos~\cite{gonzalez-ruedaActivityDependent2018, kopsickFormation2024}.
+
+Na fase de teste, a plasticidade sináptica será desabilitada para avaliar a capacidade da rede de recuperar os padrões memorizados
+sem que hajam modificações nas conexões. Serão apresentadas versões degradadas dos padrões originais, onde apenas uma fração dos
+neurônios da assembleia correspondente é ativada. A resposta da rede será então analisada para verificar se a atividade das
+conexões recorrentes é capaz de reconstruir o padrão completo, através do completamento de padrões.
+
+\subsection{Quantificação}
+
+A força da auto-associação, ou seja, a formação das assembleias, será medida através de duas características das sinapses entre os
+neurônios piramidais. A primeira é a razão sinal-ruído (SNR) da auto-associação, definida como a média dos pesos sinápticos entre
+neurônios da mesma assembleia dividida pela média dos pesos sinápticos entre neurônios de assembleias distintas. Um SNR elevado
+indica uma forte distinção entre as conexões intra e inter-assembleias. A segunda métrica é a porcentagem de sinapses dentro de
+uma assembleia que atingiram o peso máximo, o que serve como um indicador de saturação sináptica.
+
+O completamento de padrões será avaliado através de uma métrica de precisão de reconstrução de padrão, baseada
+em~\cite{kopsickFormation2024}. Esta métrica utiliza o coeficiente de correlação de Pearson (Equação~\ref{eq:pearson}) entre os
+padrões de entrada ou saída durante a fase de treinamento e de teste. 
+
+Primeiramente, calcula-se a correlação do padrão de entrada, $\rho^{(in)}$, que é a correlação entre o padrão completo do EC
+apresentado durante a fase de treinamento e o padrão degradado, ou incompleto, apresentado durante a fase de teste. Em seguida,
+calcula-se a correlação do padrão de saída, $\rho^{(out)}$, que corresponde à correlação entre a atividade neural das PCA3s em
+resposta ao padrão de treinamento completo, durante a codificação da assembleia, e a atividade em resposta ao padrão de teste
+degradado.
+
+A precisão de reconstrução do padrão, $R_p$, é então calculada como:
+
+\begin{equation}
+    \label{eq:rp}
+    R_p = \frac{\rho^{(out)} - \rho^{(in)}}{1 - \rho^{(in)}}
+\end{equation}
+
+Um valor de $R_p > 0$ indica que ocorreu o completamento do padrão, ou seja, a representação na saída tornou-se mais similar ao
+padrão original do que a entrada degradada. Um valor de $R_p = 1$ representa uma reconstrução perfeita.
