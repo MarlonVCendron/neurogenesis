@@ -74,11 +74,11 @@ gravação de padrões ocorrendo em seguida por \SI{1}{\second}.
 
 Os neurônios foram modelados de acordo com o modelo de neurônio de Izhikevich de 9
 parâmetros~\cite[cap.~8]{izhikevichDynamical2006} e um único compartimento, sem considerar dendritos ou axônios. Esse modelo foi
-escolhido por ser capaz de capturar o comportamento dinâmico de neurônios em uma ampla variedade de condições com plausibilidade
-biológica, como o modelo de Hodgkin-Huxley~\cite{hodgkinQuantitative1952b}, ao mesmo tempo em que apresenta um modelo matemático
-mais simples e computacionalmente mais eficiente. O modelo de neurônio de Izhikevich é descrito pelas seguintes equações:
+escolhido neste trabalho e por~\citeonline{wheelerHippocampomeorg2023} por ser capaz de capturar o comportamento dinâmico de
+neurônios em uma ampla variedade de condições com plausibilidade biológica, como o modelo de
+Hodgkin-Huxley~\cite{hodgkinQuantitative1952b}, ao mesmo tempo em que apresenta um modelo matemático mais simples e
+computacionalmente mais eficiente. O modelo de neurônio de Izhikevich é descrito pelas seguintes equações:
 
-% (TODO: E por ser a escolha do Hippocampome.org)
 
 \begin{equation}
 \label{eq_izhikevich_1}
@@ -173,13 +173,6 @@ permitindo que a rede aprenda e armazene padrões de memória. O modelo de plast
 de~\citeonline{kopsickFormation2024}, que utiliza uma regra de plasticidade dependente do tempo de disparo (STDP,
 \textit{Spike-Timing-Dependent Plasticity}).
 
-\begin{figure}[H]
-    \centering
-    \caption{Regra STDP simétrica e hebbiana com $A = 70$.}
-    \includegraphics[width=0.5\textwidth]{figuras/symmetric_stdp}
-    \label{fig:symmetric_stdp}
-\end{figure}
-
 Especificamente, será empregada uma regra STDP simétrica e hebbiana, que promove o fortalecimento de sinapses entre neurônios que
 disparam de forma temporalmente próxima, independentemente da ordem de disparo. Esta regra é descrita pela seguinte equação: 
 
@@ -192,6 +185,13 @@ Onde $\Delta w$ é a mudança no peso sináptico, $A$ é um parâmetro que deter
 constante de tempo de decaimento da plasticidade e $\Delta t$ é a diferença temporal entre os disparos do neurônio pré e
 pós-sináptico. Seguindo o modelo de~\cite{kopsickFormation2024}, a constante de tempo $\tau$ será definida como
 \SI{20}{\milli\second}. O parâmetro $A$ será ajustado para modular a taxa de aprendizado da rede.
+
+\begin{figure}[H]
+    \centering
+    \caption{Regra STDP simétrica e hebbiana com $A = 70$.}
+    \includegraphics[width=0.5\textwidth]{figuras/symmetric_stdp}
+    \label{fig:symmetric_stdp}
+\end{figure}
 
 Para evitar a saturação das sinapses, será empregada uma regra de renormalização dos pesos sinápticos
 (Seção~\ref{sec:protocolo_treinamento_teste}) e um peso sináptico máximo de $w_{max}$ a ser definido experimentalmente.
