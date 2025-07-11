@@ -1,16 +1,48 @@
 \chapter{Cronograma}
 
+\definecolor{v}{HTML}{A4C6A4}
+\definecolor{x}{HTML}{808080}
+\definecolor{b}{HTML}{FFFFFF}
+
+\newcommand{\rowlabel}[1]{\parbox[c][3.2cm][c]{4.5cm}{\centering\textbf{#1}}}
+\newcommand{\firstcolcell}[1]{\parbox[c][1.6cm][c]{4.5cm}{\raggedright #1}}
+
 \begin{table}[H]
     \centering
-    \caption{Cronograma}
-    \begin{tabular}{c|c}
+    \caption{Cronograma de atividades}
+    \begin{tabularx}{\textwidth}{|p{4.5cm}|*{8}{>{\centering\arraybackslash}X|}}
         \hline
-         \textbf{Variável} & \textbf{Estatísticas}  \\ \hline
-         A & V1\\
-         B & V2\\
-         C & V3\\
-         D & V4\\ \hline
-    \end{tabular}
-    \label{tab:my_tab}
+        \multirow{2}{*}{} & \multicolumn{8}{c|}{\textbf{Trimestre}} \\
+        \cline{2-9}
+        & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} \\
+        \hline
+        \firstcolcell{Revisão de literatura}
+        & \cellcolor{v} & \cellcolor{v} & \cellcolor{v} & \cellcolor{v} & \cellcolor{x} & \cellcolor{x} & \cellcolor{x} & \cellcolor{b} \\
+        \hline
+        \firstcolcell{Implementação do modelo do DG}
+        & \cellcolor{v} & \cellcolor{v} & \cellcolor{v} & \cellcolor{v} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} \\
+        \hline
+        \firstcolcell{Implementação do modelo do CA3}
+        & \cellcolor{b} & \cellcolor{v} & \cellcolor{v} & \cellcolor{v} & \cellcolor{x} & \cellcolor{x} & \cellcolor{b} & \cellcolor{b} \\
+        \hline
+        \firstcolcell{Escrita da dissertação}
+        & \cellcolor{b} & \cellcolor{b} & \cellcolor{v} & \cellcolor{v} & \cellcolor{x} & \cellcolor{x} & \cellcolor{x} & \cellcolor{x} \\
+        \hline
+        \firstcolcell{Análise da separação de padrões}
+        & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{v} & \cellcolor{b} & \cellcolor{b} & \cellcolor{x} & \cellcolor{b} \\
+        \hline
+        \firstcolcell{Implementação da maturação temporal}
+        & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{x} & \cellcolor{x} & \cellcolor{x} & \cellcolor{b} \\
+        \hline
+        \firstcolcell{Análise da auto-associação e completamento de padrões}
+        & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{b} & \cellcolor{x} & \cellcolor{x} \\
+        \hline
+    \end{tabularx}
+    \label{tab:cronograma}
+    \vspace{1em}
+    \par
+    \noindent \colorbox{v}{\phantom{XX}} \hspace{1ex} Feito
+    \hspace{2em}
+    \colorbox{x}{\phantom{XX}} \hspace{1ex} A fazer
 \end{table}
 
