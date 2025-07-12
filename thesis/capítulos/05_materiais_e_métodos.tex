@@ -2,17 +2,17 @@
 
 \section{Modelo da rede neural DG-CA3}
 
-
 Baseada principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017}, a arquitetura
-da rede DG-CA3 foi modelada conforme a Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato. Os
-neurônios foram modelados de forma simples, com um único compartimento, mas com alta fidelidade biológica, utilizando os modelos
-neuronais e sinápticos, o censo e dados de conectividade do Hippocampome.org, uma base de conhecimento de acesso livre que compila
-diversas fontes de dados sobre a formação hipocampal~\cite{wheelerHippocampomeorg2023}.
+da rede DG-CA3 foi modelada conforme a Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato, com o
+número de neurônios por população descritos na Tabela~\ref{tab:neuron_counts}. Os neurônios foram modelados de forma simples, com
+um único compartimento, mas com alta fidelidade biológica, utilizando os modelos neuronais e sinápticos e dados de contagem e
+conectividade do Hippocampome.org, base de conhecimento de acesso livre que compila diversas fontes de dados sobre a formação
+hipocampal~\cite{wheelerHippocampomeorg2023}.
 
 \begin{figure}[H]
     \centering
     \caption{Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas.}
-    \includegraphics[width=0.9\textwidth]{figuras/arquitetura-rede.png}
+    \includegraphics[width=0.87\textwidth]{figuras/arquitetura-rede.png}
     \label{fig:arquitetura-rede}
 \end{figure}
 
@@ -69,6 +69,8 @@ passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}. Os par
 encontrados nas Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}, respectivamente. A duração de uma única
 simulação para um padrão de entrada é de \SI{0.5}{\second} para que a rede alcance um estado de equilíbrio, com a fase de
 gravação de padrões ocorrendo em seguida por \SI{1}{\second}.
+
+\input{tabelas/neuron_counts.tex}
 
 \section{Modelo de neurônio}
 

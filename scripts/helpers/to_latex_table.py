@@ -211,7 +211,46 @@ def generate_neuron_table():
         print("\\caption{Parâmetros do modelo Izhikevich por tipo de neurônio.}\\label{tab:izhikevich_neuron_params}", file=f)
         print("\\end{table}", file=f)
 
+def generate_neuron_counts_table():
+    table_rows_data = []
+
+    for neuron_display_name, cell_data_key in neuron_type_mapping.items():
+        if cell_data_key in cell_params:
+            count = cell_params[cell_data_key].get('N', '-')
+            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figuras/neurônios/{cell_data_key}.png}}}}}}$"
+            neuron_name_with_img = f"{image_tex} {neuron_display_name}"
+            table_rows_data.append([neuron_name_with_img, str(count)])
+        else:
+            print(f"Warning: Cell key '{cell_data_key}' (for '{neuron_display_name}') not found in cell_params for counts table.", file=sys.stderr)
+
+    output_path = join(latex_dir, 'tabelas/neuron_counts.tex')
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, 'w') as f:
+        print("% Neuron Counts Table", file=f)
+        print("% Required packages: \\usepackage{amsmath}, \\usepackage{graphicx}", file=f)
+        print("\\begin{table}[h!]", file=f)
+        print("\\centering", file=f)
+        print("\\renewcommand{\\arraystretch}{1.4}", file=f)
+        # 'l' for neuron name column, 'c' for count
+        print("\\begin{tabular}{lc}", file=f)
+        print("\\toprule", file=f)
+
+        # Header row
+        print("\\textbf{Célula} & \\textbf{N} \\\\", file=f)
+        print("\\midrule", file=f)
+
+        # Data rows
+        for row_data in table_rows_data:
+            print(" & ".join(row_data) + " \\\\", file=f)
+
+        print("\\bottomrule", file=f)
+        print("\\end{tabular}", file=f)
+        print("\\caption{Quantidade de neurônios por população (N).}\\label{tab:neuron_counts}", file=f)
+        print("\\end{table}", file=f)
+
+
 if __name__ == "__main__":
     generate_neuron_table()
     generate_synapse_table()
+    generate_neuron_counts_table()
     print('feito')
