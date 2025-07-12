@@ -48,12 +48,55 @@ semanas ocorre um período crítico em que as iGCs, já parcialmente integradas 
 plasticidade sináptica quando comparadas às mGCs~\cite{zhaoDistinct2006,denoth-lippunerFormation2021, aimoneRegulation2014},
 oferecendo uma janela crítica para a plasticidade e a codificação de memória~\cite{berdugo-vegaSharpening2023}.
 
+De forma geral, a neurogênese adulta está implicada em todas as fases da memória, incluindo codificação, consolidação, recordação
+e até mesmo o esquecimento~\cite{chavanMemory2025}. As iGCs desempenham um papel crucial na detecção de novidades e na separação
+de padrões, o que permite a discriminação entre memórias semelhantes. Além disso, evidências recentes sugerem um papel
+especializado para esses neurônios na consolidação da memória durante o sono REM~\cite{chavanMemory2025} e também no processo de
+consolidação que generaliza as memórias, sendo essenciais nas mudanças estruturais de circuitos no CA3 através da ativação
+promíscua de assembleias neuronais por sua alta excitabilidade~\cite{koSystems2025}.
+
+Apesar de diversos estudos demonstrarem o papel da neurogênese adulta em diferentes funções do hipocampo~\cite{chavanMemory2025,
+berdugo-vegaSharpening2023}, os mecanismos computacionais em nível de circuito, pelos quais as iGCs desempenham essas funções,
+permanecem pouco compreendidos.
+
+Essa questão central se desdobra em duas principais linhas teóricas sobre a função das iGCs~\cite{berdugo-vegaSharpening2023}. A
+primeira hipótese é que as iGCs se integram diretamente aos engramas de memória a longo prazo. Nesse cenário, elas atuariam na
+codificação de novas informações, na integração de padrões ou na prevenção de interferência catastrófica com memórias já
+estabelecidas pelas mGCs. A segunda hipótese, que tem sido explorada mais recentemente, propõe que as iGCs funcionam como
+elementos moduladores temporários do circuito. Nesse papel, elas poderiam tanto regular a atividade do DG, aumentando a
+esparsidade da ativação ao inibir as mGCs, quanto modular a atividade do CA3~\cite{aimoneComputational2016,
+berdugo-vegaSharpening2023}, ao invés de serem diretamente recrutadas na codificação das memórias.
+
 Dada a dificuldade de experimentação no DG e a complexidade da informação processada no hipocampo, modelos computacionais têm sido
-inestimáveis para compreender o papel da neurogênese, que ainda não é bem entendida~\cite{aimoneComputational2016}. Modelos
-computacionais variam em escala, realismo biológico, circuitos modelados e diversos outros fatores; portanto há uma gama de
-diferentes resultados acerca da função da neurogênese, mas as principais teorias postulam que as iGCs estão envolvidas ou
-diretamente com a codificação de memórias, ou como moduladoras do sistema~\cite{aimoneComputational2016,
-berdugo-vegaSharpening2023}.
+inestimáveis para compreender o papel da neurogênese~\cite{aimoneComputational2016}. Modelos computacionais variam em escala,
+realismo biológico, circuitos modelados e diversos outros fatores; portanto há uma gama de diferentes resultados acerca da função
+e dos mecanismos da neurogênese~\cite{aimoneComputational2016, berdugo-vegaSharpening2023}.
 
+Em um modelo de condutância com alto grau de realismo biológico do DG~\cite{kimEffect2024}, a grande população de mGCs desempenhou
+uma ótima separação de padrões, enquanto a minoria das iGCs serviu como integradora de padrões. A presença das iGCs deteriorou a
+capacidade de separação de padrões do DG em comparação com um DG composto apenas por mGCs, porém os autores postulam que essa
+codificação mista de integração e separação de padrões poderia aumentar a capacidade de armazenamento e recuperação de memórias,
+hipótese esta que não puderam testar pois somente o DG foi modelado, e não outras áreas como CA1 e CA3. Curiosamente, esses
+resultados vão contra estudos experimentais que demonstram que um aumento na neurogênese aumenta a separação de
+padrões~\cite{sahayIncreasing2011}, o que pode ser um indicativo de que os modelos computacionais do hipocampo ainda não conseguem
+capturar por completo as computações desempenhadas pelo mesmo.
 
-% TODO: parágrafos
+O modelo de~\citeonline{aimoneComputational2009} foi feito em um nível de realismo biológico intermediário sem usar um modelo de
+condutância, o que permitiu investigar as iGCs durante toda a sua maturação através do tempo. Ao modelar o tempo de maturação
+dessa população de iGCs, o modelo mostrou que elas codificaram preferencialmente informações recebidas de quando eram jovens,
+portanto apresentando o papel de integradoras temporais. Esse modelo foi corroborado por estudos
+experimentais~\cite{berdugo-vegaSharpening2023}, mas não analisou as implicações para outras áreas como CA1 e CA3, modelando
+apenas o DG.
+
+No trabalho de~\citeonline{kassabPattern2018a}, os autores criaram um modelo do circuito DG-CA3 com uma nova proposta de diferentes
+circuitos paralelos no hipocampo com funções distintas. Não foi o objetivo deste trabalho estudar ou modelar a neurogênese, mas os
+autores sugerem a possibilidade de que ela possa ser a responsável por um dos circuitos postulados no estudo.
+
+Este projeto de mestrado propõe o desenvolvimento de um modelo computacional do circuito DG-CA3 para investigar a função da
+neurogênese adulta. Diferentemente de muitos trabalhos que se concentram apenas no DG ou em populações estáticas de células
+imaturas, este estudo adotará uma abordagem mais holística e, portanto, inovadora. O modelo simulará a maturação temporal das
+células iGCs em mGCs, permitindo uma análise dinâmica de como a contínua integração de novos neurônios afeta o circuito ao longo
+do tempo. O objetivo principal é analisar os impactos da neurogênese não apenas na separação de padrões do DG, mas também nas
+funções de auto-associação e completamento de padrões da área CA3. Serão investigados os efeitos de diferentes níveis de
+integração das iGCs, sua maior excitabilidade e como as retroprojeções do CA3 para o DG influenciam a dinâmica da rede. Com isso,
+busca-se entender como as iGCs, durante sua fase imatura e após a maturação, modulam a formação e a reativação de memórias no CA3.
