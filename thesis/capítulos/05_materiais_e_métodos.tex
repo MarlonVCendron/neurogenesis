@@ -33,12 +33,13 @@ DG~\cite{sloviterUpdating2012}, as GCs são distribuídas em 20 lamelas, com 100
 MCs e neurônios do CA3 da mesma lamela, bem como faz conexões excitatórias aleatórias e não lamelares com as células inibitórias
 do hilo associadas à via perfurante (HIPP, \textit{HIlar Perforant Path-associated}).
 
-As iGCs, diferentemente das mGCs, não recebem inibição das HIPPs e possuem características eletrofisiológicas distintas, o que as
-torna mais excitáveis que as mGCs. Além do mais, para simular a ainda não completa integração no circuito, as iGCs recebem
-aferências do EC apenas em uma fração $x_{EC:iGC}$ da probabilidade de conexão entre o EC e as mGCs. O
-Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as características das iGCs. Portanto, os parâmetros utilizados
-para as iGCs foram ajustados a partir dos dados de disparos de~\citeonline{espositoNeuronal2005} utilizando o método
-de~\citeonline{nelderSimplex1965} (Tabela~\ref{tab:izhikevich_neuron_params}).
+% TODO: Recebem
+As iGCs, diferentemente das mGCs, possuem características eletrofisiológicas distintas que as tornam mais excitáveis que as mGCs.
+Além do mais, para simular a ainda não completa integração no circuito, as iGCs recebem aferências do EC apenas em uma fração
+$x_{EC:iGC}$ da probabilidade de conexão entre o EC e as mGCs. O Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as
+características das iGCs. Portanto, os parâmetros utilizados para as iGCs foram ajustados a partir dos dados de disparos
+de~\citeonline{espositoNeuronal2005} utilizando o método de~\citeonline{nelderSimplex1965}
+(Tabela~\ref{tab:izhikevich_neuron_params}).
 
 As BCs ($N_{BC} = 40$) são células inibitórias que garantem a ativação esparsa das GCs através da competição de estilo ``vencedor
 leva tudo'' entre elas~\cite{coultripCortical1992,chavlisDendrites2017,kimAdult2024}, onde apenas as GCs mais ativas de uma lamela
@@ -212,9 +213,8 @@ transição reflete as mudanças biológicas que ocorrem à medida que os novos 
 passando de um estado hiperexcitável para um estado maduro mais estável~\cite{abbottAdult2020}. A maturação será implementada
 através da atualização dos seus parâmetros eletrofisiológicos e sinápticos para os valores correspondentes aos das mGCs
 (Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}). As conexões eferentes existentes, formadas durante a fase
-imatura, serão preservadas. Adicionalmente, as células recém-maturadas passarão a receber conexões inibitórias das células HIPP e
-terão sua conectividade aferente do EC aumentada para o mesmo nível das mGCs, completando sua integração funcional no
-circuito~\cite{lunaAdultborn2019}.
+imatura, serão preservadas. Adicionalmente, as células recém-maturadas passarão a ter sua conectividade aferente do EC aumentada
+para o mesmo nível das mGCs, completando sua integração funcional no circuito~\cite{lunaAdultborn2019}.
 
 Na segunda fase da simulação, após a maturação das primeiras iGCs, serão adicionadas mais 100 novas iGCs, simulando a contínua
 integração de novos neurônios pela neurogênese adulta. Esse processo será repetido 3 vezes, tornando possível avaliar o desempenho

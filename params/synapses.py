@@ -272,6 +272,18 @@ syn_params = {
         "U_se"     : 0.2781,
         "delay"    : 1.0 * ms
     },
+    "hipp_igc": {
+        "syn_type" : "inh",
+        "syn_var"  : 3,
+        # "p"        : 0.0060,
+        "p"        : 0.2,
+        "g"        : 2.0020 * nS,
+        "tau_r"    : 559.1428 * ms,
+        "tau_d"    : 8.9349 * ms,
+        "tau_f"    : 8.3959 * ms,
+        "U_se"     : 0.2781,
+        "delay"    : 1.0 * ms
+    },
     "hipp_bc": {
         "syn_type" : "inh",
         "syn_var"  : 5,
@@ -300,7 +312,7 @@ syn_params = {
     },
     "bc_igc": {
         "syn_type" : "inh",
-        "syn_var"  : 3,
+        "syn_var"  : 4,
         "p"        : 1.0,
         "condition": lamellar_conn(N_bc_l, N_igc_l),
         "g"        : 2.4509 * nS,
