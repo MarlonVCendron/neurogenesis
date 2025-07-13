@@ -202,12 +202,23 @@ def in_similarity():
   ax2.plot((-d, +d), (1 - d, 1 + d), **kwargs)
   ax2.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
 
+  # for i, group in enumerate(ng_groups):
+  #   t_stat, p_value = ttest_ind(
+  #       group_ads['control'],
+  #       group_ads[group],
+  #       equal_var=False  # Welch's t-test (doesn't assume equal variance)
+  #   )
+
+  #   if p_value < 0.001:
+  #     y_value = ads[i+1] + std_errors[i+1]
+  #     ax.text(i, y_value + 0.002, '*', ha='center', va='bottom', color='black', fontsize=20, fontweight='bold')
+
   ax.legend(frameon=False)
 
   sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   sm.set_array([])
 
-  fig.ylabel('Average population activation degree $\\mathcal{A}_D$ (%)')
+  fig.supylabel('Average population activation degree $\\mathcal{A}_D$ (%)')
   plt.xlabel('Neurogenesis models with X% connectivity fraction')
 
   xlabels = range(10, 101, 10)
@@ -218,21 +229,6 @@ def in_similarity():
   # plt.show()
   plt.savefig(f'figures/plots/avg_activity.jpg', dpi=300, format='jpg')
   plt.close()
-
-  # print(f'full: min: {np.min(ads[1:])}, max: {np.max(ads[1:])}')
-  # print(f'iGCs: min: {np.min(iads[1:])}, max: {np.max(iads[1:])}')
-  # print(f'mGCs: min: {np.min(mads[1:])}, max: {np.max(mads[1:])}')
-
-  # for group in groups:
-  #   if (group == 'control'):
-  #     continue
-
-  #   t_stat, p_value = ttest_ind(
-  #       group_ads['control'],
-  #       group_ads[group],
-  #       equal_var=False  # Welch's t-test (doesn't assume equal variance)
-  #   )
-  #   print(f"t-statistic for {group}: {t_stat}, p-value: {p_value} {'**' if p_value < 0.05 else ''}")
 
 
 in_similarity()
