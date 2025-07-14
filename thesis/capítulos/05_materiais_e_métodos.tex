@@ -3,17 +3,28 @@
 \section{Modelo da rede neural DG-CA3}
 
 Baseada principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017}, a arquitetura
-da rede DG-CA3 foi modelada conforme a Figura~\ref{fig:arquitetura-rede} em escala $\frac{1}{500}$ do hipocampo do rato, com o
-número de neurônios por população descritos na Tabela~\ref{tab:neuron_counts}. Os neurônios foram modelados de forma simples, com
-um único compartimento, mas com alta fidelidade biológica, utilizando os modelos neuronais e sinápticos e dados de contagem e
-conectividade do Hippocampome.org, base de conhecimento de acesso livre que compila diversas fontes de dados sobre a formação
-hipocampal~\cite{wheelerHippocampomeorg2023}.
+da rede DG-CA3 foi modelada conforme as Figuras~\ref{fig:arquitetura-rede} e~\ref{fig:graph} em escala $\frac{1}{500}$ do
+hipocampo do rato, com o número de neurônios por população descritos na Tabela~\ref{tab:neuron_counts}. Os neurônios foram
+modelados de forma simples, com um único compartimento, mas com alta fidelidade biológica, utilizando os modelos neuronais e
+sinápticos e dados de contagem e conectividade do Hippocampome.org, base de conhecimento de acesso livre que compila diversas
+fontes de dados sobre a formação hipocampal~\cite{wheelerHippocampomeorg2023}.
 
 \begin{figure}[H]
     \centering
     \caption{Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas.}
     \includegraphics[width=0.87\textwidth]{figuras/arquitetura-rede.png}
     \label{fig:arquitetura-rede}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Grafo em anel da rede DG-CA3. Cada nó representa um neurônio do modelo, com o mesmo esquema de cores da
+    Figura~\ref{fig:arquitetura-rede} para cada neurônio. Cada aresta representa uma sinapse, representada pela cor do neurônio
+    pré-sináptico. O EC é representado pelo círculo mais externo em preto, é possível ver a organização lamelar do DG com as mGCs
+    e iGCs (vermelho e rosa, respectivamente) e as PCA3s no centro em turquesa. No total, o grafo possui 3.260 nós e 266.596
+    arestas.}
+    \includegraphics[width=\textwidth]{figuras/network_color_edges}
+    \label{fig:graph}
 \end{figure}
 
 A entrada da rede é composta pelas células do córtex entorrinal (EC, \textit{Entorhinal Cortex}), com um total de $N_{EC} = 400$
@@ -226,13 +237,42 @@ por ela, comparando com os efeitos dos modelos de controle que também possuem a
 
 \section{Separação de padrões}
 
-A metodologia para quantificar a separação de padrões foi baseada na que foi utilizada em~\cite{kimEffect2024}.
+A metodologia para quantificar a separação de padrões foi baseada na utilizada por~\citeonline{kimEffect2024}. Para analisar a
+separação de padrões em diferentes níveis de similaridade de padrões de entrada e o impacto da neurogênese adulta, foram testadas
+11 versões diferentes do modelo: um controle sem neurogênese adulta ($N_{mGC} = 2000$) e outros 10 com neurogênese em diferentes
+níveis de conectividade ($N_{mGC} = 1900$ e $N_{iGC} = 100$), conforme ilustra a Figura~\ref{fig:diagrama_entrada_saida}. O nível
+de conectividade é dado em porcentagem, onde 100\% corresponde às iGCs possuindo a mesma probabilidade de conexão EC-GC que as
+mGCs; a intenção é simular a não total integração das iGCs no circuito, com seus dendritos ainda não tão desenvolvidos. Para cada
+modelo, são gerados 20 conjuntos de 10 padrões de entrada. Cada conjunto de padrões de entrada consiste de um padrão aleatório
+original, gerado aleatoriamente, e 9 padrões similares a ele, de 90\% de similaridade a 10\%. Um padrão de entrada consiste em um
+vetor binário de tamanho $N_{EC} = 400$, representando o estado de ativação de cada neurônio do EC, em que neurônios ativos
+disparam de acordo com a distribuição de Poisson com uma frequência de \SI{40}{\hertz}. Todo padrão de entrada possui apenas 10\%
+de neurônios ativos. Para gerar padrões com diferentes níveis de similaridade, uma fração aleatória de $X\%$ dos neurônios ativos
+é mantida ativa, enquanto que os demais $(100 - X)\%$ são desativados e uma mesma quantia de neurônios inicialmente inativos, é
+ativada, para manter o nível de atividade do padrão de 10\% (40 neurônios ativos).
+
+Cada padrão é simulado por \SI{1500}{\milli\second} no tempo da simulação, sendo que os primeiros \SI{500}{\milli\second} são
+ignorados enquanto a rede se estabiliza. O padrão de saída de uma população de neurônios, seja ela a população de mGCs, iGCs ou
+PCA3s, consiste em um vetor binário com valor 1 para o índice do neurônio que disparou ao menos uma vez durante o intervalo de
+\SI{1000}{\milli\second}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Diagrama do protocolo de geração e recordação dos padrões de entrada e saída. Cada um dos 11 modelos passa por 20
+    conjuntos de 10 padrões de entrada, totalizando 200 simulações de \SI{1500}{\milli\second} cada. Os primeiros
+    \SI{500}{\milli\second} são ignorados enquanto a rede se estabiliza. O padrão de saída, aqui ilustrado para a população de
+    mGCs, consiste em um vetor binário com valor 1 para o índice do neurônio que disparou ao menos uma vez durante o intervalo de
+    \SI{1000}{\milli\second}.}
+    \includegraphics[width=\textwidth]{figuras/diagrama_entrada_saida}
+    \label{fig:diagrama_entrada_saida}
+\end{figure}
+
 Para caracterizar a separação de padrões, é comparada a sobreposição entre os padrões de atividade neural na entrada (células do
-córtex entorrinal) e na saída (células granulares do DG, ou piramidais do CA3) da rede. Um padrão é definido por um
-representação binária de tamanho $N$, onde $N$ é o número total de neurônios de uma população específica, em que neurônios que
-dispararam ao menos uma vez durante o intervalo de tempo da simulação são representados por 1 e os que não dispararam são
-representados por 0. Para um par de padrões $A^{(l)}$ e $B^{(l)}$ (onde $l \in \{in, out\}$ para entrada e saída,
-respectivamente), a distância entre os padrões $D_p^{(l)}$ é definida como:
+córtex entorrinal) e na saída (células granulares do DG, ou piramidais do CA3) da rede. Um padrão é definido por um representação
+binária de tamanho $N$, onde $N$ é o número total de neurônios de uma população específica, em que neurônios que dispararam ao
+menos uma vez durante o intervalo de tempo da simulação são representados por 1 e os que não dispararam são representados por 0.
+Para um par de padrões $A^{(l)}$ e $B^{(l)}$ (onde $l \in \{in, out\}$ para entrada e saída, respectivamente), a distância entre
+os padrões $D_p^{(l)}$ é definida como:
 
 \begin{equation}
     \label{eq:dp}
