@@ -15,10 +15,10 @@ else
 fi
 
 echo "Running: control"
-python -m main --trials $trials --prefix $prefix
+python -m main --trials $trials --prefix $prefix --no-neurogenesis
 
 for igc_conn in $(seq 0.1 0.1 1.0); do
   echo "Running: neurogenesis --igc-conn $igc_conn"
-  python -m main --trials $trials --neurogenesis --igc-conn=$igc_conn --prefix $prefix
+  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix
 done
 

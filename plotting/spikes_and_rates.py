@@ -39,6 +39,9 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     ax1.set_xlim(break_time / ms, (break_time + stim_time) / ms)
     ax1.set_ylim(0, len(neuron))
 
+    ax1.spines['top'].set_visible(False)
+    ax1.spines['right'].set_visible(False)
+
     ax2 = ax1.twinx()
     ax2.plot(rate_mon.t / ms, smooth_rates, '-r')
     ax2.set_ylabel('Firing rate (Hz)')
