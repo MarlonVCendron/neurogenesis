@@ -14,6 +14,7 @@ from scipy.interpolate import make_interp_spline
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
+from utils.plot_styles import cell_colors
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -33,7 +34,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('run_projeto_banca')
+data = load_pattern_data('run_projeto_banca_final')
 
 groups = sorted(list(data.keys()))
 
@@ -108,7 +109,6 @@ def in_similarity():
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
 
-  c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
 
   # ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -126,20 +126,20 @@ def in_similarity():
   std_errors_m = [std_errors_m[group] for group in groups]
 
   # ax.axhline(y=ads[0], color=c_color, linestyle='--')
-  ax.axhline(y=ads[0], color=c_color, linestyle='--')
+  ax.axhline(y=ads[0], color=cell_colors['control'], linestyle='--')
 
   ng_groups = groups[1:]
   
   alpha = 0.8
-  ax.plot(ng_groups, ads[1:], color='#8bd346', label='Full GC population pattern', marker='', alpha=alpha)
-  ax.plot(ng_groups, iads[1:], color='#16a4d8', label='iGC pattern', marker='', alpha=alpha)
-  ax.plot(ng_groups, mads[1:], color='#9b5fe0', label='mGC pattern', marker='', alpha=alpha)
+  ax.plot(ng_groups, ads[1:], color=cell_colors['gc'], label='Full GC population pattern', marker='', alpha=alpha)
+  ax.plot(ng_groups, iads[1:], color=cell_colors['igc'], label='iGC pattern', marker='', alpha=alpha)
+  ax.plot(ng_groups, mads[1:], color=cell_colors['mgc'], label='mGC pattern', marker='', alpha=alpha)
 
   _,_,barlinecols = ax.errorbar(
       ng_groups,
       ads[1:],
       yerr=std_errors[1:],
-      ecolor='#8bd346',
+      ecolor=cell_colors['gc'],
       linestyle='None'
   )
   plt.setp(barlinecols[0], capstyle="round")
@@ -148,7 +148,7 @@ def in_similarity():
       ng_groups,
       iads[1:],
       yerr=std_errors_i[1:],
-      ecolor='#16a4d8',
+      ecolor=cell_colors['igc'],
       linestyle='None'
   )
   plt.setp(barlinecols[0], capstyle="round")
@@ -157,7 +157,7 @@ def in_similarity():
       ng_groups,
       mads[1:],
       yerr=std_errors_m[1:],
-      ecolor='#9b5fe0',
+      ecolor=cell_colors['mgc'],
       linestyle='None'
   )
   plt.setp(barlinecols[0], capstyle="round")
@@ -168,8 +168,8 @@ def in_similarity():
   sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   sm.set_array([])
 
-  plt.ylabel('Average population activation degree $\\mathcal{A}_D$ (%)')
-  plt.xlabel('Neurogenesis models with X% connectivity fraction')
+  plt.ylabel('Ativação média da população (%)')
+  plt.xlabel('Modelos de neurogênese com X% de conectividade')
 
   xlabels = range(10, 101, 10)
   # xlabels = np.array(xlabels) / 100

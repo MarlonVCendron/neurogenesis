@@ -5,15 +5,12 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 from scipy.stats import sem
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.collections import LineCollection
-from matplotlib.lines import Line2D
-from scipy.stats import ttest_ind
-from scipy.interpolate import make_interp_spline
 
 
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
+from utils.plot_styles import cell_colors, dense_dots
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -27,13 +24,13 @@ plt.rcParams.update({
     # "ytick.labelsize": 16,
     # "legend.fontsize": 20,
 
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
     
   })
 
-data = load_pattern_data('run_projeto_banca')
+data = load_pattern_data('run_projeto_banca_final')
 
 groups = sorted(list(data.keys()))
 
@@ -112,7 +109,6 @@ def in_similarity():
 
   # fig, ax = plt.subplots()
 
-  c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
 
   # ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -131,76 +127,64 @@ def in_similarity():
   std_errors_m = [std_errors_m[group] for group in groups]
 
   for axis in [ax, ax2]:
-    axis.axhline(y=ads[0], color=c_color, linestyle='--')
+    axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Controle')
 
   ng_groups = groups[1:]
   
   alpha = 0.8
 
+  ads_data = np.array(ads[1:])
+  iads_data = np.array(iads[1:])
+  mads_data = np.array(mads[1:])
+  std_errors_data = np.array(std_errors[1:])
+  std_errors_i_data = np.array(std_errors_i[1:])
+  std_errors_m_data = np.array(std_errors_m[1:])
+
   for axis in [ax, ax2]:
-    axis.plot(ng_groups, ads[1:], color='#8bd346', label='Padrão população GC', marker='', alpha=alpha)
-    axis.plot(ng_groups, iads[1:], color='#16a4d8', label='Padrão iGC', marker='', alpha=alpha)
-    axis.plot(ng_groups, mads[1:], color='#9b5fe0', label='Padrão mGC', marker='', alpha=alpha)
+    axis.plot(ng_groups, ads_data, color=cell_colors['gc'], label='Total GC', marker='', alpha=alpha)
+    axis.plot(ng_groups, iads_data, color=cell_colors['igc'], label='iGC', marker='', alpha=alpha, linestyle=dense_dots)
+    axis.plot(ng_groups, mads_data, color=cell_colors['mgc'], label='mGC', marker='', alpha=alpha, linestyle=dense_dots)
 
-    _,_,barlinecols = axis.errorbar(
-        ng_groups,
-        ads[1:],
-        yerr=std_errors[1:],
-        ecolor='#8bd346',
-        linestyle='None'
-    )
-    plt.setp(barlinecols[0], capstyle="round")
-
-    _,_,barlinecols = axis.errorbar(
-        ng_groups,
-        iads[1:],
-        yerr=std_errors_i[1:],
-        ecolor='#16a4d8',
-        linestyle='None'
-    )
-    plt.setp(barlinecols[0], capstyle="round")
-    
-    _,_,barlinecols = axis.errorbar(
-        ng_groups,
-        mads[1:],
-        yerr=std_errors_m[1:],
-        ecolor='#9b5fe0',
-        linestyle='None'
-    )
-    plt.setp(barlinecols[0], capstyle="round")
+    axis.fill_between(ng_groups, ads_data - std_errors_data, ads_data + std_errors_data, color=cell_colors['gc'], alpha=0.2)
+    axis.fill_between(ng_groups, iads_data - std_errors_i_data, iads_data + std_errors_i_data, color=cell_colors['igc'], alpha=0.2)
+    axis.fill_between(ng_groups, mads_data - std_errors_m_data, mads_data + std_errors_m_data, color=cell_colors['mgc'], alpha=0.2)
       
-  all_ys = np.concatenate([ads[1:], iads[1:], mads[1:]])
+  all_ys = np.concatenate([ads_data, iads_data, mads_data])
   y_with_error_min = np.concatenate([
-      np.array(ads[1:]) - np.array(std_errors[1:]),
-      np.array(iads[1:]) - np.array(std_errors_i[1:]),
-      np.array(mads[1:]) - np.array(std_errors_m[1:])
+      ads_data - std_errors_data,
+      iads_data - std_errors_i_data,
+      mads_data - std_errors_m_data
   ])
   y_with_error_max = np.concatenate([
-      np.array(ads[1:]) + np.array(std_errors[1:]),
-      np.array(iads[1:]) + np.array(std_errors_i[1:]),
-      np.array(mads[1:]) + np.array(std_errors_m[1:])
+      ads_data + std_errors_data,
+      iads_data + std_errors_i_data,
+      mads_data + std_errors_m_data
   ])
   
   min_val = np.min(y_with_error_min)
   max_val = np.max(y_with_error_max)
 
   ax.set_ylim(.17, max_val * 1.05)
-  ax2.set_ylim(min_val * .95, .17)
+  ax2.set_ylim(min_val * .95, .16)
 
   ax.spines['bottom'].set_visible(False)
+  ax.spines['right'].set_visible(False)
+  ax.spines['top'].set_visible(False)
   ax2.spines['top'].set_visible(False)
-  ax.xaxis.tick_top()
-  ax.tick_params(labeltop=False)
+  ax2.spines['right'].set_visible(False)
+  # ax.xaxis.tick_top()
+  # ax.tick_params(labeltop=False)
+  ax.xaxis.set_visible(False)
   ax2.xaxis.tick_bottom()
 
   d = .015
   kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
   ax.plot((-d, +d), (-d, +d), **kwargs)
-  ax.plot((1 - d, 1 + d), (-d, +d), **kwargs)
+  # ax.plot((1 - d, 1 + d), (-d, +d), **kwargs)
 
   kwargs.update(transform=ax2.transAxes)
   ax2.plot((-d, +d), (1 - d, 1 + d), **kwargs)
-  ax2.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
+  # ax2.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
 
   # for i, group in enumerate(ng_groups):
   #   t_stat, p_value = ttest_ind(
@@ -218,8 +202,8 @@ def in_similarity():
   sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   sm.set_array([])
 
-  fig.supylabel('Average population activation degree $\\mathcal{A}_D$ (%)')
-  plt.xlabel('Neurogenesis models with X% connectivity fraction')
+  fig.supylabel('Ativação média da população (%)', fontsize=18)
+  plt.xlabel('Modelos de neurogênese com X% de conectividade')
 
   xlabels = range(10, 101, 10)
   # xlabels = np.array(xlabels) / 100
