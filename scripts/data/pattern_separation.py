@@ -31,7 +31,7 @@ plt.rcParams.update({
 
 data = load_pattern_data('run_projeto_banca')
 
-g = list(sorted(list(data.keys())))
+g = list(sorted(list(data.keys())))[:9]
 groups = np.concatenate((g[1:], g[0:1]))
 
 def in_similarity():
@@ -109,7 +109,7 @@ def in_similarity():
     group = groups[i]
     if group in groups_to_skip:
       continue
-    if group == 'control':
+    if 'control' in group:
       color = c_color
       alpha = 0.9
     else:
@@ -120,7 +120,7 @@ def in_similarity():
       cmap_index += 1
       alpha = 0.8
 
-    label = 'Control' if group == 'control' else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
+    label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
     plt.plot(in_sim, sd, color=color, alpha=alpha, label=label)
 
     plotline, caps, barlinecols = ax.errorbar(

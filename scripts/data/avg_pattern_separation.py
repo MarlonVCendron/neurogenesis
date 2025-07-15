@@ -29,7 +29,7 @@ plt.rcParams.update({
 
 data = load_pattern_data('run_projeto_banca')
 
-groups = sorted(list(data.keys()))
+groups = sorted(list(data.keys()))[:9]
 
 def in_similarity():
   sds = {}
