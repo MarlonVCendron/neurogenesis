@@ -88,7 +88,7 @@ def in_similarity():
     sems_i[group] = std_error_i
     sems_m[group] = std_error_m
   
-  fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
+  fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
   # fig, ax = plt.subplots()
 
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
@@ -125,40 +125,21 @@ def in_similarity():
   i_sds = i_sds[1:]
   m_sds = m_sds[1:]
 
+  sems = sems[1:]
+  sems_i = sems_i[1:]
+  sems_m = sems_m[1:]
+
   alpha = 0.8
-  plt.plot(ng_groups, sds, color=cell_colors['gc'], label='Full GC population pattern', alpha=alpha)
-  plt.plot(ng_groups, i_sds, color=cell_colors['igc'], label='iGC pattern', alpha=alpha, linestyle=dense_dots)
-  plt.plot(ng_groups, m_sds, color=cell_colors['mgc'], label='mGC pattern', alpha=alpha, linestyle=dense_dots)
+  plt.plot(ng_groups, sds, color=cell_colors['gc'], label='Total GC', alpha=alpha)
+  plt.plot(ng_groups, i_sds, color=cell_colors['igc'], label='iGC', alpha=alpha, linestyle=dense_dots)
+  plt.plot(ng_groups, m_sds, color=cell_colors['mgc'], label='mGC', alpha=alpha, linestyle=dense_dots)
 
-  _,_,barlinecols = ax.errorbar(
-      ng_groups,
-      sds,
-      yerr=sems[1:],
-      ecolor=cell_colors['gc'],
-      alpha=alpha,
-      linestyle='None'
-  )
-  plt.setp(barlinecols[0], capstyle="round")
+  sds, i_sds, m_sds = np.array(sds), np.array(i_sds), np.array(m_sds)
+  sems, sems_i, sems_m = np.array(sems), np.array(sems_i), np.array(sems_m)
 
-  _,_,barlinecols = ax.errorbar(
-      ng_groups,
-      i_sds,
-      yerr=sems_i[1:],
-      ecolor=cell_colors['igc'],
-      alpha=alpha,
-      linestyle='None'
-  )
-  plt.setp(barlinecols[0], capstyle="round")
-
-  _,_,barlinecols = ax.errorbar(
-      ng_groups,
-      m_sds,
-      yerr=sems_m[1:],
-      ecolor=cell_colors['mgc'],
-      alpha=alpha,
-      linestyle='None'
-  )
-  plt.setp(barlinecols[0], capstyle="round")
+  plt.fill_between(ng_groups, sds - sems, sds + sems, color=cell_colors['gc'], alpha=0.2)
+  plt.fill_between(ng_groups, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
+  plt.fill_between(ng_groups, m_sds - sems_m, m_sds + sems_m, color=cell_colors['mgc'], alpha=0.2)
 
   # ax.boxplot(
   #     sorted_boxplot_data,
@@ -175,17 +156,22 @@ def in_similarity():
   # sm.set_array([])
   # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
 
+  ax.spines['right'].set_visible(False)
+  ax.spines['top'].set_visible(False)
+
   # plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group and population')
-  plt.xlabel('Neurogenesis models with X% connectivity fraction')
-  plt.ylabel('')
+  plt.xlabel('Modelos de neurogênese com X% de conectividade')
+  plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
   # plt.axhline(y=1, color='gray', linestyle='--')
 
-  xlabels = range(10, 101, 10)
-  plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
-  plt.legend(frameon=False)
+  xlabels = range(20, 101, 20)
+  plt.xticks(ticks=range(1, 10, 2), labels=xlabels)
+  plt.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
 
   # plt.show()
-  plt.savefig(f'figures/plots/avg_pattern_separation.jpg', dpi=300, format='jpg')
+  plt.tight_layout()
+  plt.savefig(f'figures/plots/avg_pattern_separation.jpg', dpi=300, format='jpg', bbox_inches='tight')
+  plt.savefig(f'figures/plots/avg_pattern_separation.pdf', format='pdf', bbox_inches='tight')
   plt.close()
 
 

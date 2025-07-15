@@ -169,7 +169,7 @@ def in_similarity():
   plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/pattern_separation.jpg', dpi=300, format='jpg')
-  plt.savefig(f'figures/plots/pattern_separation.svg', format='svg')
+  plt.savefig(f'figures/plots/pattern_separation.pdf', format='pdf')
   plt.close()
 
   # # Statistical analysis

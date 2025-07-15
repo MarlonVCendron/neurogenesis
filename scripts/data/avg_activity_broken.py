@@ -126,6 +126,7 @@ def in_similarity():
 
   for axis in [ax, ax2]:
     axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Controle')
+  print(ads[0])
 
   ng_groups = groups[1:]
   
@@ -207,7 +208,7 @@ def in_similarity():
   plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/avg_activity.jpg', dpi=300, format='jpg')
-  plt.savefig(f'figures/plots/avg_activity.svg', format='svg')
+  plt.savefig(f'figures/plots/avg_activity.pdf', format='pdf')
   plt.close()
 
 
