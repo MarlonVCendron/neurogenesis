@@ -33,7 +33,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('izhikevich_run_01')
+data = load_pattern_data('run_projeto_banca')
 
 groups = sorted(list(data.keys()))
 
