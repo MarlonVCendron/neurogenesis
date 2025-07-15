@@ -126,7 +126,6 @@ def in_similarity():
 
   for axis in [ax, ax2]:
     axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Controle')
-  print(ads[0])
 
   ng_groups = groups[1:]
   

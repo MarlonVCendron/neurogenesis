@@ -2,7 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
-from scipy.stats import sem
+from scipy.stats import sem, linregress
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.collections import LineCollection
 from matplotlib.lines import Line2D
@@ -91,8 +91,6 @@ def in_similarity():
   fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
   # fig, ax = plt.subplots()
 
-  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
-
 
   sds = [sds[group] for group in groups]
   i_sds = [i_sds[group] for group in groups]
@@ -141,20 +139,46 @@ def in_similarity():
   plt.fill_between(ng_groups, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
   plt.fill_between(ng_groups, m_sds - sems_m, m_sds + sems_m, color=cell_colors['mgc'], alpha=0.2)
 
-  # ax.boxplot(
-  #     sorted_boxplot_data,
-  #     positions=range(len(sorted_groups)),
-  #     widths=0.1,
-  #     patch_artist=True,
-  #     boxprops=dict(facecolor="#16a4d8"),
-  #     medianprops=dict(color="#d64e12"),
-  #     showmeans=False,
-  #     meanprops=dict(marker="D", markeredgecolor="black", markerfacecolor="gold")
-  # )
+  x_values = [float(group.split("_")[1]) for group in ng_groups]
+  y_values = np.array(m_sds)
+  print(x_values)
+  print(y_values)
+  slope, intercept, r_value, p_value, std_err = linregress(x_values, y_values)
 
-  # sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
-  # sm.set_array([])
-  # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
+  print("\n--- mGC Pattern Separation Trend Analysis ---")
+  print(f"Linear regression for mGC pattern separation vs. neurogenesis level:")
+  print(f"  Slope: {slope:.4f}")
+  print(f"  R-squared: {r_value**2:.4f}")
+  print(f"  p-value: {p_value:.4f}")
+
+  n = len(x_values)
+  r_squared = r_value**2
+  df_reg = 1
+  df_res = n - 2
+  
+  if r_squared == 1.0:
+      f_statistic = float('inf')
+  else:
+      f_statistic = r_squared * df_res / (1 - r_squared)
+  
+  p_value_str = f"p = {p_value:.3f}"
+  if p_value < 0.001:
+      p_value_str = "p < 0.001"
+
+  report_str = (
+    f"A simple linear regression was performed to assess the relationship between neurogenesis levels and mGC pattern separation. "
+    f"A significant positive relationship was found between the two variables "
+    f"(F({df_reg}, {df_res}) = {f_statistic:.2f}, {p_value_str}, R² = {r_squared:.2f}). "
+    f"The regression equation was: mGC Pattern Separation = {intercept:.2f} + {slope:.2f} × (Neurogenesis Level)."
+  )
+
+  print("\n--- For Your Paper ---")
+  print(report_str)
+  print("----------------------\n")
+
+  #  Visualizar a regressão linear
+  # regression_line = slope * np.array(x_values) + intercept
+  # plt.plot(ng_groups, regression_line, color='black', linestyle='-.', linewidth=2, label='mGC Trend')
 
   ax.spines['right'].set_visible(False)
   ax.spines['top'].set_visible(False)

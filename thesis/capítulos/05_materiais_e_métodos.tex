@@ -71,7 +71,7 @@ e 60 neurônios inibitórios ($N_{ICA3} = 60$), modelados de acordo com os dados
 CA3~\cite{wheelerHippocampomeorg2023} de forma a simplificar a variedade de neurônios inibitórios presentes no
 CA3~\cite{kopsickFormation2024}. Ambas as populações neuronais recebem aferências do EC e das GCs, com as ICA3s inibindo as PCA3s.
 As PCA3s excitam as ICA3s e, importantemente, formam uma rede recorrente ao conectarem-se com outras PCA3s, característica
-fundamental para as funções de auto-associação e completamento de padrões do CA3~\cite{kopsickFormation2024, rollsMechanisms2013}.
+fundamental para as funções de autoassociação e completamento de padrões do CA3~\cite{kopsickFormation2024, rollsMechanisms2013}.
 As PCA3s também enviam retroprojeções para o DG, conectando-se com as MCs no modelo, processo que contribui para a separação de
 padrões~\cite{myersPattern2011}.
 
@@ -315,7 +315,7 @@ A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{
 
 Um valor de $S_d > 1$ indica que os padrões de saída são mais distintos que os de entrada, caracterizando a separação de padrões. Inversamente, $S_d < 1$ indica uma convergência de padrões, onde os padrões de saída se tornam mais similares entre si.
 
-\section{Auto-associação e completamento de padrões}
+\section{Autoassociação e completamento de padrões}
 
 \subsection{Protocolo de treinamento e teste}\label{sec:protocolo_treinamento_teste}
 
@@ -339,8 +339,8 @@ conexões recorrentes é capaz de reconstruir o padrão completo, através do co
 
 \subsection{Quantificação}
 
-A força da auto-associação, ou seja, a formação das assembleias, será medida através de duas características das sinapses entre os
-neurônios piramidais. A primeira é a razão sinal-ruído (SNR) da auto-associação, definida como a média dos pesos sinápticos entre
+A força da autoassociação, ou seja, a formação das assembleias, será medida através de duas características das sinapses entre os
+neurônios piramidais. A primeira é a razão sinal-ruído (SNR) da autoassociação, definida como a média dos pesos sinápticos entre
 neurônios da mesma assembleia dividida pela média dos pesos sinápticos entre neurônios de assembleias distintas. Um SNR elevado
 indica uma forte distinção entre as conexões intra e inter-assembleias. A segunda métrica é a porcentagem de sinapses dentro de
 uma assembleia que atingiu o peso máximo, o que serve como um indicador de saturação sináptica.
