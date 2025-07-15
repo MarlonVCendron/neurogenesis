@@ -159,6 +159,8 @@ def in_similarity():
   # sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   # sm.set_array([])
   # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
+  ax.spines['right'].set_visible(False)
+  ax.spines['top'].set_visible(False)
 
   plt.xlabel('Similaridade de entrada (%)')
   plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')

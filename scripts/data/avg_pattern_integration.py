@@ -9,25 +9,26 @@ from matplotlib.lines import Line2D
 
 from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
+from utils.plot_styles import cell_colors, dense_dots
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     # "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
+    # "font.size": 16,
+    # "axes.titlesize": 23,
+    # "axes.labelsize": 22,
+    # "xtick.labelsize": 16,
+    # "ytick.labelsize": 16,
+    # "legend.fontsize": 20,
 
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_projeto_banca')
+data = load_pattern_data('run_projeto_banca_final')
 
 groups = sorted(list(data.keys()))
 
@@ -109,7 +110,6 @@ def in_similarity():
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
 
-  c_color = "#d64e12"
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
 
 
@@ -122,7 +122,7 @@ def in_similarity():
   sems_m = [sems_m[group] for group in groups]
   
   print(i_ids)
-  plt.axhline(y=ids[0], color=c_color, linestyle='--')
+  plt.axhline(y=ids[0], color=cell_colors['control'], linestyle='--')
 
   ng_groups = groups[1:]
   ids = ids[1:]
@@ -130,15 +130,15 @@ def in_similarity():
   m_ids = m_ids[1:]
   
   alpha = 0.8
-  plt.plot(ng_groups, ids, color='#8bd346', label='Full GC population pattern', alpha=alpha)
-  plt.plot(ng_groups, i_ids, color='#16a4d8', label='iGC pattern', alpha=alpha)
-  plt.plot(ng_groups, m_ids, color='#9b5fe0', label='mGC pattern', alpha=alpha)
+  plt.plot(ng_groups, ids, color=cell_colors['gc'], label='Full GC population pattern', alpha=alpha)
+  plt.plot(ng_groups, i_ids, color=cell_colors['igc'], label='iGC pattern', alpha=alpha, linestyle=dense_dots)
+  plt.plot(ng_groups, m_ids, color=cell_colors['mgc'], label='mGC pattern', alpha=alpha, linestyle=dense_dots)
 
   _,_,barlinecols = ax.errorbar(
       ng_groups,
       ids,
       yerr=sems[1:],
-      ecolor='#8bd346',
+      ecolor=cell_colors['gc'],
       alpha=alpha,
       linestyle='None'
   )
@@ -148,7 +148,7 @@ def in_similarity():
       ng_groups,
       i_ids,
       yerr=sems_i[1:],
-      ecolor='#16a4d8',
+      ecolor=cell_colors['igc'],
       alpha=alpha,
       linestyle='None'
   )
@@ -158,7 +158,7 @@ def in_similarity():
       ng_groups,
       m_ids,
       yerr=sems_m[1:],
-      ecolor='#9b5fe0',
+      ecolor=cell_colors['mgc'],
       alpha=alpha,
       linestyle='None'
   )

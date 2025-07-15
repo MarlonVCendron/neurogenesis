@@ -11,6 +11,7 @@ from utils.patterns import pattern_separation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
 from scipy.stats import mannwhitneyu
 import itertools
+from utils.plot_styles import cell_colors
 
 
 plt.style.use('seaborn-v0_8-poster')
@@ -18,19 +19,19 @@ plt.rcParams.update({
     # "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
+    # "font.size": 16,
+    # "axes.titlesize": 23,
+    # "axes.labelsize": 22,
+    # "xtick.labelsize": 16,
+    # "ytick.labelsize": 16,
+    # "legend.fontsize": 20,
 
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_projeto_banca')
+data = load_pattern_data('run_projeto_banca_final')
 
 g = list(sorted(list(data.keys())))
 groups = np.concatenate((g[1:], g[0:1]))
@@ -105,20 +106,20 @@ def in_similarity():
   # ax.set_ylim(0, max(max(y) for y in ids)+0.1)
   ax.set_ylim(0, 5.5)
 
-  c_color = "#d64e12"
-  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ['#3f6719','#9dd963'])
+  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
 
-  # groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6']
-  groups_to_skip = []
+  groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6']
+  # groups_to_skip = []
   total_ng = len(groups) - len(groups_to_skip) - 1
   cmap_index = 0
   # values = zip(in_sims, ids, std_errors)
   for i, (in_sim, id, std_error) in enumerate(zip(in_sims, ids, std_errors)):
     group = groups[i]
     if group in groups_to_skip:
-      continue
+      alpha = 0.1
+      # continue
     if 'control' in group:
-      color = c_color
+      color = cell_colors['control']
       alpha = 0.9
     else:
       # ng_index = float(group.split('_')[1])
@@ -129,6 +130,7 @@ def in_similarity():
       alpha = 0.8
 
     label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
+    label = label if not group in groups_to_skip else None
     plt.plot(in_sim, id, color=color, alpha=alpha, label=label)
 
     plotline, caps, barlinecols = ax.errorbar(
