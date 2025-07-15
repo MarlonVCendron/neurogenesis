@@ -44,7 +44,6 @@ DG~\cite{sloviterUpdating2012}, as GCs são distribuídas em 20 lamelas, com 100
 MCs e neurônios do CA3 da mesma lamela, bem como faz conexões excitatórias aleatórias e não lamelares com as células inibitórias
 do hilo associadas à via perfurante (HIPP, \textit{HIlar Perforant Path-associated}).
 
-% TODO: Recebem
 As iGCs, diferentemente das mGCs, possuem características eletrofisiológicas distintas que as tornam mais excitáveis que as mGCs.
 Além do mais, para simular a ainda não completa integração no circuito, as iGCs recebem aferências do EC apenas em uma fração
 $x_{EC:iGC}$ da probabilidade de conexão entre o EC e as mGCs. O Hippocampome.org~\cite{wheelerHippocampomeorg2023} não fornece as
@@ -79,8 +78,9 @@ padrões~\cite{myersPattern2011}.
 Todas as simulações foram realizadas com o Brian2~\cite{stimbergBrian2019a}, utilizando o método de Runge-Kutta de 4ª ordem com
 passo de tempo fixo de \SI{0.1}{\milli\second}~\cite{butcherHistory1996}. Os parâmetros dos neurônios e suas sinapses podem ser
 encontrados nas Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}, respectivamente. A duração de uma única
-simulação para um padrão de entrada é de \SI{0.5}{\second} para que a rede alcance um estado de equilíbrio, com a fase de
-gravação de padrões ocorrendo em seguida por \SI{1}{\second}.
+simulação para um padrão de entrada é de \SI{500}{\milli\second} para que a rede alcance um estado de equilíbrio, com a fase de
+gravação de padrões ocorrendo em seguida por \SI{1000}{\milli\second}. As conexões sinápticas são mantidas fixas entre todas as
+simulações.
 
 \input{tabelas/neuron_counts.tex}
 
