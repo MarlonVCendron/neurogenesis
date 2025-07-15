@@ -10,6 +10,7 @@ from utils.patterns import pattern_separation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
 from scipy.stats import mannwhitneyu
 import itertools
+from utils.plot_styles import cell_colors
 
 
 plt.style.use('seaborn-v0_8-poster')
@@ -17,22 +18,24 @@ plt.rcParams.update({
     # "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
+    # "font.size": 16,
+    # "axes.titlesize": 23,
+    # "axes.labelsize": 22,
+    # "xtick.labelsize": 16,
+    # "ytick.labelsize": 16,
+    # "legend.fontsize": 20,
 
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_projeto_banca')
+data = load_pattern_data('run_projeto_banca_final')
 
-g = list(sorted(list(data.keys())))[:9]
-groups = np.concatenate((g[1:], g[0:1]))
+g = list(sorted(list(data.keys())))
+groups = g
+# groups = np.concatenate((g[1:], g[0:1]))
+# print(groups)
 
 def in_similarity():
   group_stats = {}
@@ -88,7 +91,7 @@ def in_similarity():
     sds.append(sorted_average_sd)
     std_errors.append(sorted_std_error)
 
-  fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
+  fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
   # fig, ax = plt.subplots()
 
   # ax.xaxis.set_major_formatter(PercentFormatter(xmax=1))
@@ -97,20 +100,23 @@ def in_similarity():
   # ax.set_ylim(0, max(max(y) for y in sds)+0.1)
   ax.set_ylim(0, 6.5)
 
-  c_color = "#d64e12"
-  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ['#3f6719','#9dd963'])
+  plt.axhline(y=1, color='gray', linestyle='--')
 
-  # groups_to_skip = ['neurogenesis_0.1', 'neurogenesis_0.2', 'neurogenesis_0.3', 'neurogenesis_0.4', 'neurogenesis_0.6', 'neurogenesis_0.7', 'neurogenesis_0.8']
-  groups_to_skip = []
-  total_ng = len(groups) - len(groups_to_skip) - 1
+  cmap = LinearSegmentedColormap.from_list('neuro_cmap', [cell_colors['igc'], cell_colors['mgc']])
+
+  groups_to_skip = ['neurogenesis_0.1_ca3', 'neurogenesis_0.3_ca3', 'neurogenesis_0.4_ca3', 'neurogenesis_0.5_ca3', 'neurogenesis_0.6_ca3', 'neurogenesis_0.7_ca3', 'neurogenesis_0.8_ca3', 'neurogenesis_0.9_ca3']
+  # groups_to_skip = []
+  # total_ng = len(groups) - len(groups_to_skip) - 1
+  total_ng = len(groups)
   cmap_index = 0
   # values = zip(in_sims, sds, std_errors)
   for i, (in_sim, sd, std_error) in enumerate(zip(in_sims, sds, std_errors)):
     group = groups[i]
-    if group in groups_to_skip:
-      continue
+    # if group in groups_to_skip:
+    #   alpha = 0.1
+      # continue
     if 'control' in group:
-      color = c_color
+      color = cell_colors['control']
       alpha = 0.9
     else:
       # ng_index = float(group.split('_')[1])
@@ -119,18 +125,25 @@ def in_similarity():
       color = cmap(i)
       cmap_index += 1
       alpha = 0.8
+      if group in groups_to_skip:
+        alpha = 0.05
 
-    label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
+    label = 'Controle' if 'control' in group else f'Neurogênese: {int(float(group.split("_")[1])*100)}% de conectividade'
+    label = label if not group in groups_to_skip else None
     plt.plot(in_sim, sd, color=color, alpha=alpha, label=label)
 
-    plotline, caps, barlinecols = ax.errorbar(
-        in_sim,
-        sd,
-        yerr=std_error,
-        ecolor=color,
-        linestyle='None',
-    )
-    plt.setp(barlinecols[0], capstyle="round")
+    sd_arr = np.array(sd)
+    std_error_arr = np.array(std_error)
+    ax.fill_between(in_sim, sd_arr - std_error_arr, sd_arr + std_error_arr, color=color, alpha=0.2)
+
+    # plotline, caps, barlinecols = ax.errorbar(
+    #     in_sim,
+    #     sd,
+    #     yerr=std_error,
+    #     ecolor=color,
+    #     linestyle='None',
+    # )
+    # plt.setp(barlinecols[0], capstyle="round")
     # for capline in lines[1]:
     #   capline.set_capstyle('round')
 
@@ -147,14 +160,14 @@ def in_similarity():
   # sm.set_array([])
   # cbar = plt.colorbar(sm, ax=plt.gca(), pad=0.1)
 
-  plt.xlabel('Input similarity (%)')
-  plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
-  plt.axhline(y=1, color='gray', linestyle='--')
+  plt.xlabel('Similaridade de entrada (%)')
+  plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
   plt.legend(frameon=False)
 
   plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/pattern_separation.jpg', dpi=300, format='jpg')
+  plt.savefig(f'figures/plots/pattern_separation.svg', format='svg')
   plt.close()
 
   # # Statistical analysis

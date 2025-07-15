@@ -109,8 +109,6 @@ def in_similarity():
 
   # fig, ax = plt.subplots()
 
-  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
-
   # ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
   formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
   for axis in [ax, ax2]:
@@ -199,9 +197,6 @@ def in_similarity():
 
   ax.legend(frameon=False)
 
-  sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
-  sm.set_array([])
-
   fig.supylabel('Ativação média da população (%)', fontsize=18)
   plt.xlabel('Modelos de neurogênese com X% de conectividade')
 
@@ -212,6 +207,7 @@ def in_similarity():
   plt.tight_layout()
   # plt.show()
   plt.savefig(f'figures/plots/avg_activity.jpg', dpi=300, format='jpg')
+  plt.savefig(f'figures/plots/avg_activity.svg', format='svg')
   plt.close()
 
 
