@@ -258,11 +258,19 @@ PCA3s, consiste em um vetor binário com valor 1 para o índice do neurônio que
 
 \begin{figure}[H]
     \centering
-    \caption{Diagrama do protocolo de geração e recordação dos padrões de entrada e saída. Cada um dos 11 modelos passa por 20
-    conjuntos de 10 padrões de entrada, totalizando 200 simulações de \SI{1500}{\milli\second} cada. Os primeiros
-    \SI{500}{\milli\second} são ignorados enquanto a rede se estabiliza. O padrão de saída, aqui ilustrado para a população de
-    mGCs, consiste em um vetor binário com valor 1 para o índice do neurônio que disparou ao menos uma vez durante o intervalo de
-    \SI{1000}{\milli\second}.}
+    \caption{Diagrama do protocolo de geração e recordação dos padrões de entrada e saída.
+    \textbf{A.} Os padrões de entrada são gerados em conjuntos de 10 padrões de tamanho $N_{EC} = 400$, o primeiro é gerado
+    aleatoriamente e os demais são gerados a partir dele com diferentes níveis de similaridade ao ativar e desativar neurônios
+    aleatoriamente.
+    \textbf{B.} 11 modelos são simulados: um sem neurogênese e 10 com neurogênese em diferentes níveis de conectividade, do 100\%
+    até 10\% de conectividade.
+    \textbf{C.} Traço de disparo dos neurônios do EC durante uma simulação; cada padrão gerado corresponde à ativação dos neurônios
+    do EC, com neurônios ativos disparando à uma frequência de \SI{40}{\hertz}; Cada um dos 11 modelos passa por 20 conjuntos de
+    10 padrões de entrada, totalizando 200 simulações de \SI{1500}{\milli\second} cada.
+    \textbf{D.} Traço de disparo das mGCs durante uma simulação; os primeiros \SI{500}{\milli\second} são ignorados enquanto a rede
+    se estabiliza, o resto corresponde ao padrão de saída.
+    \textbf{E.} O padrão de saída, aqui ilustrado para a população de mGCs, consiste em um vetor binário com valor 1 para o índice
+    do neurônio que disparou ao menos uma vez durante o intervalo de \SI{1000}{\milli\second}.}
     \includegraphics[width=\textwidth]{figuras/diagrama_entrada_saida}
     \label{fig:diagrama_entrada_saida}
 \end{figure}
