@@ -12,29 +12,31 @@ Simplista e tradicionalmente, a estrutura do hipocampo tem sido descrita como se
 tri-sináptico: onde a informação flui em um único sentido do EC ao DG, ao CA3 e ao CA1. O EC serve como principal entrada para o
 giro denteado (DG, \textit{Dentate Gyrus}), através da via perfurante (PP, \textit{Perforant Path}), cujos neurônios se conectam
 principalmente com as células granulares (GC, \textit{Granule Cell}), as principais células excitatórias do DG, numa razão de
-$1:10$; importantemente, o EC também envia aferências para CA3 e CA1, o que vai contra a noção simplista do circuito
+$1:10$; vale ressaltar que o EC também envia aferências para CA3 e CA1, o que vai contra a noção simplista do circuito
 tri-sináptico~\cite{basuCorticohippocampal2015}. Justamente por essa conectividade divergente do EC para o DG, acredita-se que o
 DG seja responsável por uma função computacional chamada separação de padrões, através de sua atividade esparsa e da frequência de
 disparos das GCs~\cite{hainmuellerDentate2020, kesnerMnemonic2006, yassaPattern2011}. A separação de padrões desambigua
-informações similares, permitindo identificar e diferenciar experiências distintas mas extremamente similares, o que é fundamental
-para evitar a interferência catastrófica entre memórias armazenadas no CA3~\cite{rollsMechanisms2013}. Para ilustrar essa
-computação, pode-se considerar o seguinte exemplo excessivamente simplificado: experiências de um mesmo lugar, com as mesmas
-pessoas e objetos presentes e em uma rotina similar são provavelmente codificadas no EC de forma muito similar, mas devido à
-separação de padrões desempenhada pelo DG, pequenos detalhes como uma conversa específica ou uma notícia na televisão podem ser
-suficientes para elicitar um padrão de atividade neural no DG muito distinto ao de experiências passadas, permitindo a codificação
-de uma nova memória~\cite{eichenbaumHippocampus2004}.
+informações similares, permitindo identificar e diferenciar experiências distintas, mas extremamente similares, o que é fundamental
+para evitar a interferência catastrófica entre memórias armazenadas no CA3~\cite{rollsMechanisms2013}.
+
+Para ilustrar essa computação, pode-se considerar o seguinte exemplo excessivamente simplificado: experiências de um mesmo lugar,
+com as mesmas pessoas e objetos presentes e em uma rotina similar são provavelmente codificadas no EC de forma muito similar, mas
+devido à separação de padrões desempenhada pelo DG, pequenos detalhes como uma conversa específica ou uma notícia na televisão
+podem ser suficientes para elicitar um padrão de atividade neural no DG muito distinto ao de experiências passadas, permitindo a
+codificação de uma nova memória~\cite{eichenbaumHippocampus2004}.
 
 Em contrapartida à projeção divergente do EC para o DG, a projeção do DG para o CA3 é altamente convergente. A região CA3 é
 caracterizada por uma rede de conexões recorrentes, onde suas células piramidais (PCA3s) excitam tanto interneurônios quanto
 outras PCA3s. Essa arquitetura forma uma rede auto-associativa que permite o armazenamento de padrões como assembleias neuronais:
 grupos de neurônios que representam um mesmo padrão ao dispararem juntos, formados a partir da plasticidade neural dependente do
-tempo de disparo (STDP) que potencializa as conexões de neurônios que disparam juntos~\cite{kopsickFormation2024}. Uma vez que uma
-assembleia é formada pelo fortalecimento das sinapses entre suas células, ela pode ser reativada posteriormente por um sinal de
-entrada parcial do padrão inicial, visto que ao ativar uma subpopulação de células da assembleia, as demais também serão ativadas
-por conta da associação formada pela potenciação sináptica. Esse processo é conhecido como completamento de padrões, e modelos
-computacionais recentes demonstram que essa arquitetura permite a recuperação robusta de memórias mesmo a partir de pistas
-degradadas~\cite{kopsickFormation2024, leduigouRecurrent2014}. Através dos colaterais de Schaffer, o CA3 projeta-se ao CA1, que
-atua como uma interface entre o hipocampo e o neocórtex, onde memórias são consolidadas e recordadas~\cite{bartschCA12011}.
+tempo de disparo (STDP, \textit{Spike-Timing-Dependent Plasticity}) que potencializa as conexões de neurônios que disparam
+juntos~\cite{kopsickFormation2024}. Uma vez que uma assembleia é formada pelo fortalecimento das sinapses entre suas células, ela
+pode ser reativada posteriormente por um sinal de entrada parcial do padrão inicial, visto que ao ativar uma subpopulação de
+células da assembleia, as demais também serão ativadas por conta da associação formada pela potenciação sináptica. Esse processo é
+conhecido como completamento de padrões, e modelos computacionais recentes demonstram que essa arquitetura permite a recuperação
+robusta de memórias mesmo a partir de pistas degradadas~\cite{kopsickFormation2024, leduigouRecurrent2014}. Através dos colaterais
+de Schaffer, o CA3 projeta-se ao CA1, que atua como uma interface entre o hipocampo e o neocórtex, onde memórias são consolidadas
+e recordadas~\cite{bartschCA12011}.
 
 Além do seu papel fundamental na separação de padrões, o DG é uma das únicas áreas do encéfalo de mamíferos que apresenta
 neurogênese adulta, a formação de novos neurônios a partir de células-tronco após o desenvolvimento, gerando células granulares
@@ -62,12 +64,13 @@ berdugo-vegaSharpening2023}, os mecanismos computacionais em nível de circuito,
 permanecem pouco compreendidos.
 
 Essa questão central se desdobra em duas principais linhas teóricas sobre a função das iGCs~\cite{berdugo-vegaSharpening2023}. A
-primeira hipótese é que as iGCs se integram diretamente aos engramas de memória a longo prazo. Nesse cenário, elas atuariam na
+primeira hipótese é que as iGCs participam diretamente da codificação das memórias, se integrando diretamente aos engramas de
+memória a longo prazo, cumprindo um papel similar às mGCs, mas com suas peculiaridades. Nesse cenário, elas atuariam na
 codificação de novas informações, na integração de padrões ou na prevenção de interferência catastrófica com memórias já
 estabelecidas pelas mGCs. A segunda hipótese, que tem sido explorada mais recentemente, propõe que as iGCs funcionam como
 elementos moduladores temporários do circuito. Nesse papel, elas poderiam tanto regular a atividade do DG, aumentando a
 esparsidade da ativação ao inibir as mGCs, quanto modular a atividade do CA3~\cite{aimoneComputational2016,
-berdugo-vegaSharpening2023}, ao invés de serem diretamente recrutadas na codificação das memórias.
+berdugo-vegaSharpening2023}, ao invés de serem diretamente recrutadas na codificação das memórias, como as mGCs.
 
 Dada a dificuldade de experimentação no DG e a complexidade da informação processada no hipocampo, modelos computacionais têm sido
 inestimáveis para compreender o papel da neurogênese~\cite{aimoneComputational2016}. Modelos computacionais variam em escala,
@@ -78,7 +81,7 @@ Em um modelo de condutância do DG~\cite{kimEffect2024}, a grande população de
 enquanto a minoria das iGCs serviu como integradora de padrões. A presença das iGCs deteriorou a capacidade de separação de
 padrões do DG em comparação com um DG composto apenas por mGCs, porém os autores postulam que essa codificação mista de integração
 e separação de padrões poderia aumentar a capacidade de armazenamento e recuperação de memórias, hipótese esta que não puderam
-testar pois somente o DG foi modelado, e não outras áreas como CA1 e CA3. Curiosamente, esses resultados vão contra estudos
+testar, pois somente o DG foi modelado, e não outras áreas como CA1 e CA3. Curiosamente, esses resultados vão contra estudos
 experimentais que demonstram que um aumento na neurogênese aumenta a separação de padrões~\cite{sahayIncreasing2011}, o que pode
 ser um indicativo de que os modelos computacionais do hipocampo ainda não conseguem capturar por completo as computações
 desempenhadas pelo mesmo.
@@ -91,16 +94,14 @@ da atividade e o aumento da plasticidade sináptica, afetam dinamicamente a sepa
 presença de iGCs aumenta a adaptabilidade da rede do DG a diferentes frequências de entrada, melhorando a robustez da separação de
 padrões.
 
-O modelo de~\citeonline{aimoneComputational2009} foi feito em um nível de realismo biológico intermediário sem usar um modelo de
-condutância, o que permitiu investigar as iGCs durante toda a sua maturação através do tempo. Ao modelar o tempo de maturação
-dessa população de iGCs, o modelo mostrou que elas codificaram preferencialmente informações recebidas de quando eram jovens,
-portanto apresentando o papel de integradoras temporais. Esse modelo foi corroborado por estudos
+O modelo de~\citeonline{aimoneComputational2009} foi feito em um nível de realismo biológico intermediário\footnote{Esse modelo é
+considerado de nível de realismo biológico intermediário, pois não modela a dinâmica elétrica dos neurônios individuais atráves de
+modelos de condutância, como neste projeto, mas sim um modelo digitalizado de taxa de disparo com um intervalo de tempo de
+\SI{25}{\milli\second}.}, o que permitiu investigar as iGCs durante toda a sua maturação através do tempo. Ao modelar o tempo de
+maturação dessa população de iGCs, o modelo mostrou que elas codificaram preferencialmente informações recebidas de quando eram
+jovens, portanto apresentando o papel de integradoras temporais. Esse modelo foi corroborado por estudos
 experimentais~\cite{berdugo-vegaSharpening2023}, mas não analisou as implicações para outras áreas como CA1 e CA3, modelando
 apenas o DG.
-
-No trabalho de~\citeonline{kassabPattern2018a}, os autores criaram um modelo do circuito DG-CA3 com uma nova proposta de
-diferentes circuitos paralelos no hipocampo com funções distintas. Não foi o objetivo deste trabalho estudar ou modelar a
-neurogênese, mas os autores sugerem a possibilidade de que ela possa ser a responsável por um dos circuitos postulados no estudo.
 
 Este projeto de mestrado propõe o desenvolvimento de um modelo computacional do circuito DG-CA3 para investigar a função da
 neurogênese adulta. Diferentemente de muitos trabalhos que se concentram apenas no DG ou em populações estáticas de células
