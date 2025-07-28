@@ -9,10 +9,17 @@ modelados de forma simples, com um único compartimento, mas com alta fidelidade
 sinápticos e dados de contagem e conectividade do Hippocampome.org, base de conhecimento de acesso livre que compila diversas
 fontes de dados sobre a formação hipocampal~\cite{wheelerHippocampomeorg2023}.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
-    \caption{Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas.}
-    \includegraphics[width=0.87\textwidth]{figuras/arquitetura-rede.png}
+    \caption{ Arquitetura da rede DG-CA3. Sinapses inibitórias são representadas por círculos e excitatórias por flechas. A
+        entrada da rede é composta pelas células do córtex entorrinal (EC, \textit{Entorhinal Cortex}). O giro dentado (DG,
+        \textit{Dentate Gyrus}) possui na camada molecular a via perfurante (PP, \textit{Perforant Path}) e os dendritos de suas
+        células; a camada granular é composta pelas células granulares jovens e maduras (iGCs e mGCs, respectivamente,
+        \textit{immature and mature Granule Cells}) e pelas células em cesto (BC, \textit{Basket Cells}); o hilo é composto pelas
+        células musgosas (MC, \textit{Mossy Cells}) e pelas células inibitórias do hilo associadas à PP (HIPP, \textit{HIlar
+        Perforant Path-associated}). O CA3 é composto pelas células piramidais (PCA3, \textit{Pyramidal Cells of the CA3}) e pelas
+        células inibitórias (ICA3, \textit{Interneurons of the CA3}).}
+    \includegraphics[width=\textwidth]{figuras/arquitetura-rede.png}
     \label{fig:arquitetura-rede}
 \end{figure}
 
@@ -128,7 +135,7 @@ um próximo potencial de ação.
 \section{Modelo de sinapse}
 
 O modelo de sinapse, assim como o de neurônio, foi definido a partir do Hippocampome.org~\cite{wheelerHippocampomeorg2023},
-seguindo a formulação de~\citeonline{sennAlgorithm2001,mongilloSynaptic2008a}. Esse modelo modela a plasticidade de curto prazo,
+seguindo a formulação de~\citeonline{sennAlgorithm2001}\cite{mongilloSynaptic2008a}. Esse modelo modela a plasticidade de curto prazo,
 seja ela depressão de curto prazo, causada pela depleção de neurotransmissores, ou potenciação de curto prazo, causada pelo
 acúmulo de cálcio, ambas na escala dos décimos de segundos. Cada sinapse possui 5 parâmetros (descritos na
 Tabela~\ref{tab:synapse_params}): a condutância máxima da sinapse no caso de nenhuma depleção de recursos sinápticos $g$, a
@@ -159,7 +166,7 @@ variáveis é governada pelo seguinte sistema de equações diferenciais:
     \frac{dA}{dt} = \frac{-A}{\tau_d} + U_{+} R_{-} \delta(\Delta t_i)
 \end{equation}
 
-nde $\delta$ é a função delta de Dirac, que resulta em 1 apenas quando $\Delta t_i = t - t_i = 0$, ou seja, apenas no tempo $t$
+onde $\delta$ é a função delta de Dirac, que resulta em 1 apenas quando $\Delta t_i = t - t_i = 0$, ou seja, apenas no tempo $t$
 correspondente ao tempo do evento sináptico $t_i$. $U_{+}$ corresponde ao valor de $U$ logo após o evento sináptico, enquanto que
 $R_{-}$ corresponde ao valor de $R$ logo antes do mesmo.
 
@@ -171,10 +178,11 @@ A partir dessas equações, a corrente sináptica é dada por:
 \end{equation}
 
 onde $V_m$ é o potencial de membrana do neurônio pós-sináptico, $E$ é o potencial de reversão da sinapse, para sinapses
-inibitórias e excitatórias, respectivamente, $E_{inh} = \SI{-86}{\milli\volt}$ e $E_{exc} = \SI{0}{\milli\volt}$, e $k$
-é uma constante de escala definida como $k = 10$ para todas as sinapses. Essa constante de escala é necessária por conta
-da escala reduzida da rede, visto que, pelo baixo número de sinapses do modelo comparado ao hipocampo do rato, sem o 
-escalamento a rede toda ficaria silenciosa.
+inibitórias e excitatórias, respectivamente, $E_{inh} = \SI{-86}{\milli\volt}$ e $E_{exc} = \SI{0}{\milli\volt}$, e $k$ é uma
+constante de escala definida como $k = 10$ para todas as sinapses. Essa constante de escala é necessária por conta da escala
+reduzida da rede, visto que, pelo baixo número de sinapses do modelo comparado ao hipocampo do rato, sem o escalamento a rede toda
+ficaria silenciosa. Todas as correntes sinápticas $I$ de um neurônio são somadas e afetam o potencial de membrana $V_m$ de acordo
+com a Equação~\ref{eq_izhikevich_1}.
 
 
 \input{tabelas/sinapses.tex}
