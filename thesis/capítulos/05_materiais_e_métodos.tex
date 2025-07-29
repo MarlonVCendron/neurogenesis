@@ -2,7 +2,7 @@
 
 \section{Modelo da rede neural DG-CA3}
 
-Baseada principalmente nos modelos de~\cite{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017}, a arquitetura
+Baseada principalmente nos modelos de~\citeonline{kopsickFormation2024,kimAdult2024,yangDynamic2025,chavlisDendrites2017}, a arquitetura
 da rede DG-CA3 foi modelada conforme as Figuras~\ref{fig:arquitetura-rede} e~\ref{fig:graph} em escala $\frac{1}{500}$ do
 hipocampo do rato, com o número de neurônios por população descritos na Tabela~\ref{tab:neuron_counts}. Os neurônios foram
 modelados de forma simples, com um único compartimento, mas com alta fidelidade biológica, utilizando os modelos neuronais e
@@ -200,9 +200,9 @@ com a Equação~\ref{eq_izhikevich_1}.
 \section{Plasticidade de longo prazo}
 
 A plasticidade de longo prazo será implementada exclusivamente nas sinapses recorrentes entre as células piramidais do CA3 (PCA3),
-permitindo que a rede aprenda e armazene padrões de memória. O modelo de plasticidade será baseado no trabalho
-de~\citeonline{kopsickFormation2024}, que utiliza uma regra de plasticidade dependente do tempo de disparo (STDP,
-\textit{Spike-Timing-Dependent Plasticity}).
+dado o seu papel fundamental na formação de assembleias neuronais e para garantir a eficiência computacional do modelo. O modelo
+de plasticidade será baseado no trabalho de~\citeonline{kopsickFormation2024}, que utiliza uma regra de plasticidade dependente do
+tempo de disparo (STDP, \textit{Spike-Timing-Dependent Plasticity}).
 
 Especificamente, será empregada uma regra STDP simétrica e hebbiana, que promove o fortalecimento de sinapses entre neurônios que
 disparam de forma temporalmente próxima, independentemente da ordem de disparo. Esta regra é descrita pela seguinte equação: 
@@ -234,22 +234,24 @@ temporal. Este processo é fundamental para a manutenção de funções hipocamp
 tempo~\cite{aimoneRegulation2014, berdugo-vegaSharpening2023}. A simulação será dividida em duas fases principais. Na primeira
 fase, a rede operará com sua configuração inicial, com $N_{mGC} = 1900$ e $N_{iGC} = 100$. Durante esta fase, a rede será exposta
 a um conjunto de $N$ padrões de entrada, que serão aprendidos e armazenados nas sinapses recorrentes do CA3 através do mecanismo
-de STDP.
+de STDP. O número de padrões de entrada $N$ será variado experimentalmente, para verificar quantos padrões o modelo consegue
+armazenar sem um grande déficit no completamento de padrões (ver Seção~\ref{sec:quantificacao}).
 
-Após a fase inicial de aprendizagem, as iGCs passarão por um processo de maturação simulada, transformando-se em mGCs. Esta
-transição reflete as mudanças biológicas que ocorrem à medida que os novos neurônios se integram totalmente ao circuito do DG,
-passando de um estado hiperexcitável para um estado maduro mais estável~\cite{abbottAdult2020}. A maturação será implementada
-através da atualização dos seus parâmetros eletrofisiológicos e sinápticos para os valores correspondentes aos das mGCs
-(Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}). As conexões eferentes existentes, formadas durante a fase
-imatura, serão preservadas. Adicionalmente, as células recém-maturadas passarão a ter sua conectividade aferente do EC aumentada
-para o mesmo nível das mGCs, completando sua integração funcional no circuito.
+Após a fase inicial de aprendizagem, as iGCs passarão por um processo de maturação simulada discreta, transformando-se em mGCs de
+uma vez. Esta transição reflete as mudanças biológicas que ocorrem à medida que os novos neurônios se integram totalmente ao
+circuito do DG, passando de um estado hiperexcitável para um estado maduro mais estável~\cite{abbottAdult2020}. A maturação será
+implementada através da atualização dos seus parâmetros eletrofisiológicos e sinápticos para os valores correspondentes aos das
+mGCs (Tabelas~\ref{tab:izhikevich_neuron_params} e~\ref{tab:synapse_params}). As conexões eferentes existentes, formadas durante a
+fase imatura, serão preservadas. Adicionalmente, as células recém-maturadas passarão a ter sua conectividade aferente do EC
+aumentada para o mesmo nível das mGCs, completando sua integração funcional no circuito.
 
 Na segunda fase da simulação, após a maturação das primeiras iGCs, serão adicionadas mais 100 novas iGCs, simulando a contínua
-integração de novos neurônios pela neurogênese adulta. Esse processo será repetido 3 vezes, tornando possível avaliar o desempenho
-da rede gradativamente, com a maturação das iGCs. Serão implementados dois modelos de controle: um em que serão adicionadas sempre
-mGCs na rede, sem as iGCs, e outro em que ao serem adicionadas as iGCs, haverá morte neuronal de número equivalente das mGCs. A
-intenção desses modelos de controle é tornar possível avaliar apenas o papel da neurogênese adulta e das células imaturas geradas
-por ela, comparando com os efeitos dos modelos de controle que também possuem aumento gradual de neurônios.
+integração de novos neurônios pela neurogênese adulta, e outra leva de $N$ padrões serão apresentados à rede. Esse processo será
+repetido 3 vezes, tornando possível avaliar o desempenho da rede gradativamente, com a maturação das iGCs. Serão implementados
+dois modelos de controle: um em que serão adicionadas sempre mGCs na rede, sem as iGCs, e outro em que ao serem adicionadas as
+iGCs, haverá morte neuronal de número equivalente das mGCs. A intenção desses modelos de controle é tornar possível avaliar apenas
+o papel da neurogênese adulta e das células imaturas geradas por ela, comparando com os efeitos dos modelos de controle que também
+possuem aumento gradual de neurônios.
 
 
 \section{Separação de padrões}\label{sec:separacao_padroes}
@@ -295,9 +297,9 @@ PCA3s, consiste em um vetor binário com valor 1 para o índice do neurônio que
 Para caracterizar a separação de padrões, é comparada a sobreposição entre os padrões de atividade neural na entrada (células do
 córtex entorrinal) e na saída (células granulares do DG, ou piramidais do CA3) da rede. Um padrão é definido por um representação
 binária de tamanho $N$, onde $N$ é o número total de neurônios de uma população específica, em que neurônios que dispararam ao
-menos uma vez durante o intervalo de tempo da simulação são representados por 1 e os que não dispararam são representados por 0.
-Para um par de padrões $A^{(l)}$ e $B^{(l)}$ (onde $l \in \{in, out\}$ para entrada e saída, respectivamente), a distância entre
-os padrões $D_p^{(l)}$ é definida como:
+menos uma vez durante o intervalo de tempo da simulação (\SI{1000}{\milli\second}) são representados por 1 e os que não dispararam
+são representados por 0. Para um par de padrões $A^{(l)}$ e $B^{(l)}$ (onde $l \in \{in, out\}$ para entrada e saída,
+respectivamente), a distância entre os padrões $D_p^{(l)}$ é definida como:
 
 \begin{equation}
     \label{eq:dp}
@@ -331,21 +333,22 @@ em que $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$ e $\Delta b_i^{(
 notação $\langle \dots \rangle$ indica a média populacional sobre todas as células. O valor de $\rho^{(l)}$ varia entre -1 e 1,
 portanto, $O^{(l)}$ varia entre 0 e 1 (Equação~\ref{eq:o}).
 
-A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), o grau de separação de padrões, $S_d$, é calculado como a razão entre elas:
+A partir das distâncias dos padrões de entrada ($D_p^{(in)}$) e saída ($D_p^{(out)}$), o grau de separação de padrões, $\mathcal{S}_D$, é calculado como a razão entre elas:
 
 \begin{equation}
     \label{eq:sd}
     S_d = \frac{D_p^{(out)}}{D_p^{(in)}}
 \end{equation}
 
-Um valor de $S_d > 1$ indica que os padrões de saída são mais distintos que os de entrada, caracterizando a separação de padrões. Inversamente, $S_d < 1$ indica uma convergência de padrões, onde os padrões de saída se tornam mais similares entre si.
+Um valor de $\mathcal{S}_D > 1$ indica que os padrões de saída são mais distintos que os de entrada, caracterizando a separação de padrões. Inversamente, $\mathcal{S}_D < 1$ indica uma convergência de padrões, onde os padrões de saída se tornam mais similares entre si.
 
 \section{Autoassociação e completamento de padrões}
 
 \subsection{Protocolo de treinamento e teste}\label{sec:protocolo_treinamento_teste}
 
 O protocolo de treinamento e teste da rede para avaliar o armazenamento e a recuperação de padrões será baseado no método descrito
-por~\cite{kopsickFormation2024}.
+por~\citeonline{kopsickFormation2024}, que implementou um modelo em escala real do CA3 usando também os dados do Hippocampome.org,
+e desenvolveu um protocolo de treinamento biologicamente plausível.
 
 Na fase de treinamento, a rede será exposta a um conjunto de padrões de entrada distintos. Cada padrão consiste na ativação de uma
 subpopulação específica de neurônios piramidais do CA3 através da injeção de corrente. Essa ativação induz um trem de disparos em
@@ -355,14 +358,18 @@ treinamento, a plasticidade sináptica (STDP) estará habilitada, permitindo o f
 codificantes do mesmo padrão, formando uma assembleia neuronal. Após um determinado número de apresentações de padrões a ser
 definido experimentalmente, os pesos sinápticos entre os neurônios piramidais serão renormalizados, um processo que simula a
 homeostase sináptica que ocorre durante o sono de ondas lentas, para evitar a saturação das sinapses e estabilizar os padrões
-aprendidos~\cite{gonzalez-ruedaActivityDependent2018, kopsickFormation2024}.
+aprendidos~\cite{gonzalez-ruedaActivityDependent2018, kopsickFormation2024}. Essa renormalização consiste na divisão de cada peso
+sináptico entre as células piramidais por um mesmo fator, de modo que o peso médio entre todas as sinapses retorne ao valor
+inicial do peso médio. Este procedimento preserva a distribuição relativa dos pesos, mantendo assim as associações aprendidas, sem
+que as sinapses saturem.
 
 Na fase de teste, a plasticidade sináptica será desabilitada para avaliar a capacidade da rede de recuperar os padrões memorizados
 sem que haja modificações nas conexões. Serão apresentadas versões degradadas dos padrões originais, onde apenas uma fração dos
-neurônios da assembleia correspondente é ativada. A resposta da rede será então analisada para verificar se a atividade das
-conexões recorrentes é capaz de reconstruir o padrão completo, através do completamento de padrões.
+neurônios da assembleia correspondente é ativada. A resposta da rede será então analisada conforme descrito na
+Seção~\ref{sec:quantificacao} para verificar se a atividade das conexões recorrentes é capaz de reconstruir o padrão completo,
+através do completamento de padrões.
 
-\subsection{Quantificação}
+\subsection{Quantificação}\label{sec:quantificacao}
 
 A força da autoassociação, ou seja, a formação das assembleias, será medida através de duas características das sinapses entre os
 neurônios piramidais. A primeira é a razão sinal-ruído (SNR) da autoassociação, definida como a média dos pesos sinápticos entre

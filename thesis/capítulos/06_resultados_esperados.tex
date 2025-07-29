@@ -8,8 +8,9 @@ nesta seção.
 
 A Figura~\ref{fig:avg_activity} apresenta a ativação média das populações de GCs para o modelo de controle (sem neurogênese) e
 para os modelos com neurogênese em diferentes níveis de conectividade das iGCs com o CE. No modelo de controle, onde todas as GCs
-são maduras, a ativação média da população foi de 12.46\%, um nível de ativação esparsa, mas não tão baixo quanto o observado no
-DG. Em simulações futuras, será analisado o impacto de um aumento de sinapses inibitórias no circuito.
+são maduras, a ativação média da população, definida pela porcentagem de células que dispararam ao menos uma vez durante o
+intervalo de \SI{1000}{\milli\second} da simulação, foi de 12.46\%, um nível de ativação esparsa, mas não tão baixo quanto o
+observado no DG. Em simulações futuras, será analisado o impacto de um aumento de sinapses inibitórias no circuito.
 
 A introdução de iGCs no circuito altera significativamente essa dinâmica. Conforme a conectividade das iGCs aumenta, a sua taxa de
 ativação cresce acentuadamente, o que é consistente com sua maior excitabilidade intrínseca. No cenário de 100\% de conectividade,
@@ -24,7 +25,7 @@ Contudo, a supressão observada nas mGCs não é tão acentuada quanto a reporta
 indicar novamente que a força da inibição no modelo atual seja insuficiente. Uma hipótese para essa discrepância é a ausência de
 uma via inibitória direta das iGCs para as mGCs, um mecanismo descrito por~\citeonline{lunaAdultborn2019} que não foi
 implementado. A inclusão dessa conexão direta é uma via promissora para futuras investigações, podendo conferir maior realismo
-biológico ao modelo.
+biológico ao modelo e também será explorada no projeto.
 
 \begin{figure}[H]
     \centering
@@ -38,14 +39,14 @@ A Figura~\ref{fig:pattern_separation} aprofunda a análise ao detalhar o grau de
 da similaridade dos padrões de entrada. Um valor de $\mathcal{S}_D > 1$ significa que a representação de saída no DG é mais
 distinta do que a representação de entrada no CE. De forma geral, observa-se que todos os modelos, incluindo o de controle,
 alcançam uma separação de padrões mais elevada para entradas altamente similares. Isso ocorre porque, matematicamente, pequenas
-diferenças na codificação de saída são amplificadas quando a sobreposição na entrada é muito grande. No entanto, o desempenho do
-modelo de controle com entradas de baixa similaridade foi subótimo, não conseguindo separar os padrões de forma eficaz, o que pode
-ser novamente atribuído à esparsidade insuficiente da rede, como discutido anteriormente. A introdução da neurogênese exacerba
-essa limitação: à medida que a conectividade das iGCs aumenta, a capacidade de separação de padrões da rede diminui
-progressivamente. O modelo com 100\% de conectividade das iGCs apresenta o pior desempenho em todas as condições de similaridade.
-O mecanismo subjacente a essa deterioração é a ativação promíscua das iGCs, que, devido à sua alta excitabilidade, tendem a formar
-um mesmo subconjunto de neurônios ativos em resposta a padrões de entrada distintos, reduzindo a dissimilaridade das
-representações na saída e, consequentemente, o grau de separação de padrões.
+diferenças na codificação de saída são amplificadas quando a sobreposição na entrada é muito grande. O desempenho do modelo de
+controle com entradas de baixa similaridade foi subótimo, não conseguindo separar os padrões de forma eficaz, o que pode ser
+novamente atribuído à esparsidade insuficiente da rede, como discutido anteriormente. A introdução da neurogênese exacerba essa
+limitação: à medida que a conectividade das iGCs aumenta, a capacidade de separação de padrões da rede diminui progressivamente. O
+modelo com 100\% de conectividade das iGCs apresenta o pior desempenho em todas as condições de similaridade. O mecanismo
+subjacente a essa deterioração é a ativação promíscua das iGCs, que, devido à sua alta excitabilidade, tendem a formar um mesmo
+subconjunto de neurônios ativos em resposta a padrões de entrada distintos, reduzindo a dissimilaridade das representações na
+saída e, consequentemente, o grau de separação de padrões.
 
 \begin{figure}
     \centering
