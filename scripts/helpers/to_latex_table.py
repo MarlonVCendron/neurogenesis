@@ -6,17 +6,7 @@ from params.synapses import syn_params
 from params.general import latex_dir
 from brian2 import nS, mV, ms, pA, pF
 from os.path import join
-
-neuron_type_mapping = {
-    "Córtex Entorrinal": "pp",
-    "Granular madura": "mgc",
-    "Granular imatura": "igc",
-    "Musgosa": "mc",
-    "HIPP": "hipp",
-    "Em cesto": "bc",
-    "Piramidal do CA3": "pca3",
-    "Inibitória do CA3": "ica3",
-}
+from scripts.helpers.neuron_type_mapping import neuron_type_mapping
 
 def format_value(value, unit, precision=3):
     """Formats a Brian2 Quantity or a number to a string with specified precision,

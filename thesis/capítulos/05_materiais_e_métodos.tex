@@ -98,7 +98,8 @@ parâmetros~\cite[cap.~8]{izhikevichDynamical2006} e um único compartimento, se
 escolhido neste trabalho e por~\citeonline{wheelerHippocampomeorg2023} por ser capaz de capturar o comportamento dinâmico de
 neurônios em uma ampla variedade de condições com plausibilidade biológica, como o modelo de
 Hodgkin-Huxley~\cite{hodgkinQuantitative1952b}, ao mesmo tempo em que apresenta um modelo matemático mais simples e
-computacionalmente mais eficiente. O modelo de neurônio de Izhikevich é descrito pelas seguintes equações:
+computacionalmente mais eficiente. Os traços de disparo dos neurônios podem ser vistos na Figura~\ref{fig:spike_traces}. O modelo
+de neurônio de Izhikevich é descrito pelas seguintes equações:
 
 
 \begin{equation}
@@ -129,6 +130,14 @@ u \gets u + d
 Quando o potencial de membrana atinge o valor de pico $V_{\text{peak}}$, um potencial de ação é gerado e o potencial de membrana é
 redefinido para o potencial pós-disparo $V_{min}$ e a variável de recuperação $u$ é incrementada em $d$, dificultando a geração de
 um próximo potencial de ação.
+
+
+\begin{figure}[H]
+    \centering
+    \caption{Traços de disparo dos neurônios sob corrente constante conforme indicado pelo título de cada subfigura.}
+    \includegraphics[width=0.9\textwidth]{figuras/spike_traces}
+    \label{fig:spike_traces}
+\end{figure}
 
 \input{tabelas/izhikevich.tex}
 
