@@ -198,7 +198,7 @@ def in_similarity():
   ax.legend(frameon=False)
 
   fig.supylabel('Ativação média da população (%)', fontsize=18)
-  plt.xlabel('Modelos de neurogênese com X% de conectividade')
+  plt.xlabel('Conectividade (%)')
 
   xlabels = range(10, 101, 10)
   # xlabels = np.array(xlabels) / 100

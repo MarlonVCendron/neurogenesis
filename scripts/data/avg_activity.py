@@ -169,7 +169,7 @@ def in_similarity():
   sm.set_array([])
 
   plt.ylabel('Ativação média da população (%)')
-  plt.xlabel('Modelos de neurogênese com X% de conectividade')
+  plt.xlabel('Conectividade (%)')
 
   xlabels = range(10, 101, 10)
   # xlabels = np.array(xlabels) / 100

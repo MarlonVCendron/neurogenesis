@@ -119,6 +119,7 @@ def in_similarity():
   # ax.set_ylim(0, 6.5)
   
   ng_groups = groups[1:]
+  x_values = [float(group.split("_")[1]) * 100 for group in ng_groups]
   sds = sds[1:]
   i_sds = i_sds[1:]
   m_sds = m_sds[1:]
@@ -128,18 +129,17 @@ def in_similarity():
   sems_m = sems_m[1:]
 
   alpha = 0.8
-  plt.plot(ng_groups, sds, color=cell_colors['gc'], label='Total GC', alpha=alpha)
-  plt.plot(ng_groups, i_sds, color=cell_colors['igc'], label='iGC', alpha=alpha, linestyle=dense_dots)
-  plt.plot(ng_groups, m_sds, color=cell_colors['mgc'], label='mGC', alpha=alpha, linestyle=dense_dots)
+  plt.plot(x_values, sds, color=cell_colors['gc'], label='Total GC', alpha=alpha)
+  plt.plot(x_values, i_sds, color=cell_colors['igc'], label='iGC', alpha=alpha, linestyle=dense_dots)
+  plt.plot(x_values, m_sds, color=cell_colors['mgc'], label='mGC', alpha=alpha, linestyle=dense_dots)
 
   sds, i_sds, m_sds = np.array(sds), np.array(i_sds), np.array(m_sds)
   sems, sems_i, sems_m = np.array(sems), np.array(sems_i), np.array(sems_m)
 
-  plt.fill_between(ng_groups, sds - sems, sds + sems, color=cell_colors['gc'], alpha=0.2)
-  plt.fill_between(ng_groups, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
-  plt.fill_between(ng_groups, m_sds - sems_m, m_sds + sems_m, color=cell_colors['mgc'], alpha=0.2)
+  plt.fill_between(x_values, sds - sems, sds + sems, color=cell_colors['gc'], alpha=0.2)
+  plt.fill_between(x_values, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
+  plt.fill_between(x_values, m_sds - sems_m, m_sds + sems_m, color=cell_colors['mgc'], alpha=0.2)
 
-  x_values = [float(group.split("_")[1]) for group in ng_groups]
   y_values = np.array(m_sds)
   print(x_values)
   print(y_values)
@@ -184,12 +184,11 @@ def in_similarity():
   ax.spines['top'].set_visible(False)
 
   # plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group and population')
-  plt.xlabel('Modelos de neurogênese com X% de conectividade')
+  plt.xlabel('Conectividade (%)')
   plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
   # plt.axhline(y=1, color='gray', linestyle='--')
 
-  xlabels = range(20, 101, 20)
-  plt.xticks(ticks=range(1, 10, 2), labels=xlabels)
+  plt.xticks(ticks=range(10, 101, 10))
   plt.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
 
   # plt.show()

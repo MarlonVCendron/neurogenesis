@@ -162,6 +162,8 @@ def in_similarity():
   ax.spines['right'].set_visible(False)
   ax.spines['top'].set_visible(False)
 
+  plt.xticks(ticks=np.arange(0.1, 1.1, 0.1))
+
   plt.xlabel('Similaridade de entrada (%)')
   plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
   plt.legend(frameon=False)
