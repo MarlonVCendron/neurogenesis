@@ -1,8 +1,10 @@
 import math
-from brian2 import Hz
+from brian2 import Hz, second
 from params.cells import cell_params
-from params import pp_rate, break_time, N_lamellae, active_p as global_active_p
+from params import pp_rate, break_time, stim_time, N_lamellae, active_p as global_active_p
 import numpy as np
+
+ACTIVE_MIN_FRACTION = 0.25
 
 # Creates a binary pattern of active neurons
 def generate_pattern(p, N):
@@ -110,6 +112,40 @@ def pattern_integration_degree(in_1, in_2, out_1, out_2):
     return 0
 
   return out_correlation / in_correlation 
+
+# Returns the mean rate of active cells in a population of neurons (Hz), or 0.0 if none active.
+def get_active_cell_mean_rate(monitor, active_min_fraction=ACTIVE_MIN_FRACTION):
+  active_mask = get_active_cells(monitor, active_min_fraction)
+  spike_counts = get_population_spike_counts(monitor)
+  n_active = int(active_mask.sum())
+  if n_active == 0:
+    return 0.0
+  total_spikes = spike_counts[active_mask].sum()
+  mean_rate_hz = total_spikes / (n_active * (stim_time / second))
+  return mean_rate_hz
+
+# Active = cells that fired at least a fraction of the median count among firing cells.
+def get_active_cells(monitor, active_min_fraction=ACTIVE_MIN_FRACTION):
+  spike_counts = get_population_spike_counts(monitor)
+  nonzero = spike_counts[spike_counts > 0]
+  if len(nonzero) == 0:
+    return np.zeros(len(spike_counts), dtype=bool)
+  median_count = float(np.median(nonzero))
+  threshold = max(1, median_count * active_min_fraction)
+  active_mask = spike_counts >= threshold
+  return active_mask
+
+# Returns spike counts per cell during
+def get_population_spike_counts(monitor):
+  if not monitor:
+    return np.zeros(0, dtype=int)
+
+  neurons = monitor.source
+  counts = np.zeros(len(neurons), dtype=int)
+  for i, t in zip(monitor.i, monitor.t):
+    if t > break_time:
+      counts[i] += 1
+  return counts
 
 # Calculates the pattern of active cells in a population of neurons given a spike monitor
 def get_population_pattern(monitor):

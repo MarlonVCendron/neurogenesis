@@ -3,7 +3,12 @@ import numpy as np
 from utils.args_config import args
 
 from params import break_time, stim_time
-from utils.patterns import get_population_pattern, get_pattern_per_lamella
+from utils.patterns import (
+  get_population_pattern,
+  get_pattern_per_lamella,
+  get_active_cell_mean_rate,
+  get_active_cells,
+)
 from utils.utils import neuron_ordering
 
 def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=False, window_width=20*ms, filename='?'):
@@ -16,17 +21,23 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
   plt.figure(figsize=(10, len(spike_monitors) * 3))
 
   for idx, spike_mon in enumerate(spike_monitors):
+    n_active, mean_rate_hz = 0, None
     neuron = spike_mon.source
     rate_mon = next(r for r in rate_monitors if r.source.name == spike_mon.source.name)
     smooth_rates = rate_mon.smooth_rate(window='flat', width=window_width) / Hz
     # smooth_rates = smooth_rates[-len(rate_mon.t):]
 
     pattern = get_population_pattern(spike_mon)
-    if neuron.name.endswith('gc'):
-      per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
-      print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella):.2f}, std: {np.std(per_lamella):.2f}')
-    else:
-      print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
+    # if neuron.name.endswith('gc'):
+    #   per_lamella = np.sum(get_pattern_per_lamella(pattern), axis=0)
+    #   print(f'Number of {neuron.name} that fired: {np.sum(pattern)}. P.L.: μ: {np.mean(per_lamella):.2f}, std: {np.std(per_lamella):.2f}')
+    # else:
+    #   print(f'Number of {neuron.name} that fired: {np.sum(pattern)}')
+
+    active_mask = get_active_cells(spike_mon)
+    mean_rate_hz = get_active_cell_mean_rate(spike_mon)
+
+    print(f'{neuron.name} - count: {np.sum(pattern)}, active: {active_mask.sum()}, mean rate: {mean_rate_hz:.2f} Hz')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
@@ -45,7 +56,13 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     ax2 = ax1.twinx()
     ax2.plot(rate_mon.t / ms, smooth_rates, '-r')
     ax2.set_ylabel('Firing rate (Hz)')
-    ax2.set_ylim(0, max(smooth_rates) + 1) 
+    ax2.set_ylim(0, max(smooth_rates) + 1)
+
+    if rate_monitors and mean_rate_hz is not None:
+      ax1.text(
+        0.98, 0.98, f'Active-cell avg: {mean_rate_hz:.2f} Hz (n={n_active})',
+        transform=ax1.transAxes, fontsize=9, ha='right', va='top',
+      )
   if save:
     plt.savefig(f'figures/spikes_and_rates/{filename}.png')
     plt.close()
