@@ -36,8 +36,10 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
 
     active_mask = get_active_cells(spike_mon)
     mean_rate_hz = get_active_cell_mean_rate(spike_mon)
+    n_active = active_mask.sum()
+    percentage_active = n_active / len(neuron) * 100
 
-    print(f'{neuron.name} - count: {np.sum(pattern)}, active: {active_mask.sum()}, mean rate: {mean_rate_hz:.2f} Hz')
+    print(f'{neuron.name} - count: {np.sum(pattern)}, active: {n_active} ({percentage_active:.2f}%), mean rate: {mean_rate_hz:.2f} Hz')
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
@@ -60,7 +62,7 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
 
     if rate_monitors and mean_rate_hz is not None:
       ax1.text(
-        0.98, 0.98, f'Active-cell avg: {mean_rate_hz:.2f} Hz (n={n_active})',
+        0.98, 0.98, f'{mean_rate_hz:.2f} Hz (n_active={n_active})',
         transform=ax1.transAxes, fontsize=9, ha='right', va='top',
       )
   if save:
