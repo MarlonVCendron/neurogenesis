@@ -19,7 +19,7 @@ def connect_synapses(synapses, p, condition):
             # This will randomly connect the synapses, even for the same source and target, but different receptors
             synapses.connect(p=p, condition=condition)
     except Exception as e:
-        message = "🐙 Error connecting synapses, probably because you changed the connection without changing the connectivity matrix"
+        message = "🐙 Error connecting synapses, probably because you changed the connection without changing the connectivity matrix (hint: use --skip-conn)"
         print(in_red(message))
         print(e)
 
