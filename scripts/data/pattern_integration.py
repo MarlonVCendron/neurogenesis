@@ -31,7 +31,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_projeto_banca_final')
+data = load_pattern_data('teste_2026')
 
 g = list(sorted(list(data.keys())))
 groups = np.concatenate((g[1:], g[0:1]))

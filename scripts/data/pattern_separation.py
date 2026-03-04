@@ -30,7 +30,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('run_projeto_banca_final')
+data = load_pattern_data('teste_2026')
 
 g = list(sorted(list(data.keys())))
 groups = g
@@ -56,6 +56,10 @@ def in_similarity():
         sim = pattern['in_similarity']
         inp = pattern['pp_pattern']
         out = pattern['gc_pattern']
+
+        if np.array(original_out).shape != np.array(out).shape:
+          continue
+
         s_d = pattern_separation_degree(original_inp, inp, original_out, out)
 
         if sim not in in_sim_dict:
