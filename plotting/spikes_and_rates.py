@@ -20,6 +20,8 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
 
   plt.figure(figsize=(10, len(spike_monitors) * 3))
 
+  gc_active = 0
+  gc_total = 0
   for idx, spike_mon in enumerate(spike_monitors):
     n_active, mean_rate_hz = 0, None
     neuron = spike_mon.source
@@ -40,6 +42,10 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
     percentage_active = n_active / len(neuron) * 100
 
     print(f'{neuron.name} - count: {np.sum(pattern)}, active: {n_active} ({percentage_active:.2f}%), mean rate: {mean_rate_hz:.2f} Hz')
+
+    if (neuron.name in ['igc', 'mgc']):
+      gc_active += n_active
+      gc_total += len(neuron)
 
     ax1 = plt.subplot(len(spike_monitors), 1, idx + 1)
 
@@ -65,6 +71,10 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
         0.98, 0.98, f'{mean_rate_hz:.2f} Hz (n_active={n_active})',
         transform=ax1.transAxes, fontsize=9, ha='right', va='top',
       )
+
+  percentage_gc = (gc_active/gc_total) * 100
+  print(f'Total GC: active: {gc_active} ({percentage_gc:.2f}%)')
+
   if save:
     plt.savefig(f'figures/spikes_and_rates/{filename}.png')
     plt.close()
