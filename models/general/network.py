@@ -59,7 +59,7 @@ def network(syn_params_arg=None):
   mc_igc  = Connect(mc, igc, **syn_params['mc_igc']) if has_igc else None
   mc_hipp = Connect(mc, hipp, **syn_params['mc_hipp'])
   mc_bc   = Connect(mc, bc, **syn_params['mc_bc'])
-  # mc_mc   = Connect(mc, mc, **syn_params['mc_mc'])
+  mc_mc   = Connect(mc, mc, **syn_params['mc_mc'])
 
   hipp_mgc = Connect(hipp, mgc, **syn_params['hipp_mgc'])
   hipp_igc = Connect(hipp, igc, **syn_params['hipp_igc']) if has_igc else None
