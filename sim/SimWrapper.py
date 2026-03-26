@@ -9,6 +9,7 @@ from utils.utils import (
 )
 from utils.save_to_file import save_to_file
 from utils.patterns import get_population_pattern
+from utils.firing_rate import get_population_firing_rates
 from params import break_time, stim_time
 from models.general.network import network
 from plotting.connectivity_matrices import connectivity_matrices
@@ -76,7 +77,14 @@ class SimWrapper:
             mon.active = activate
 
     def _save_results(self, pattern, results_directory):
-        mgc_pattern = get_population_pattern(get_neuron_monitor(self.net, "mgc"))
-        igc_pattern = get_population_pattern(get_neuron_monitor(self.net, "igc"))
-        pca3_pattern = get_population_pattern(get_neuron_monitor(self.net, "pca3"))
-        save_to_file(results_directory, pattern, mgc_pattern, igc_pattern, pca3_pattern)
+        save_to_file(
+            results_directory=results_directory,
+            pattern=pattern,
+            mgc_pattern=get_population_pattern(get_neuron_monitor(self.net, "mgc"))
+            igc_pattern=get_population_pattern(get_neuron_monitor(self.net, "igc"))
+            pca3_pattern=get_population_pattern(get_neuron_monitor(self.net, "pca3"))
+            mgc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "mgc"))
+            igc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "igc"))
+            pca3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "pca3"))
+            ica3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "ica3"))
+        )
