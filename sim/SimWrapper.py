@@ -78,4 +78,5 @@ class SimWrapper:
     def _save_results(self, pattern, results_directory):
         mgc_pattern = get_population_pattern(get_neuron_monitor(self.net, "mgc"))
         igc_pattern = get_population_pattern(get_neuron_monitor(self.net, "igc"))
-        save_to_file(results_directory, pattern, mgc_pattern, igc_pattern)
+        pca3_pattern = get_population_pattern(get_neuron_monitor(self.net, "pca3"))
+        save_to_file(results_directory, pattern, mgc_pattern, igc_pattern, pca3_pattern)
