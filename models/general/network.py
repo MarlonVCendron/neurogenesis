@@ -46,6 +46,7 @@ def network(syn_params_arg=None):
     net.add(collect())  
 
   if has_igc:
+    igc_mgc  = Connect(igc, mgc, **syn_params['igc_mgc'])
     igc_mc   = Connect(igc, mc, **syn_params['igc_mc'])
     igc_hipp = Connect(igc, hipp, **syn_params['igc_hipp'])
     igc_bc   = Connect(igc, bc, **syn_params['igc_bc'])
