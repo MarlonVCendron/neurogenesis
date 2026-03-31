@@ -26,6 +26,11 @@ def load_pattern_data(run):
         pp_pattern = np.array(h5file['pp_pattern'])
         mgc_pattern = np.array(h5file['mgc_pattern'])
         igc_pattern = np.array(h5file['igc_pattern']) if has_neurogenesis else np.array([])
+        pca3_pattern = np.array(h5file['pca3_pattern'])
+        mgc_rates = np.array(h5file['mgc_rates'])
+        igc_rates = np.array(h5file['igc_rates']) if has_neurogenesis else np.array([])
+        pca3_rates = np.array(h5file['pca3_rates'])
+        ica3_rates = np.array(h5file['ica3_rates'])
         in_similarity = np.array(h5file['in_similarity']).item()
 
         if group not in data:
@@ -39,8 +44,13 @@ def load_pattern_data(run):
             'pp_pattern': pp_pattern,
             'mgc_pattern': mgc_pattern,
             'igc_pattern': igc_pattern,
+            'pca3_pattern': pca3_pattern,
+            'mgc_rates': mgc_rates,
+            'igc_rates': igc_rates,
+            'pca3_rates': pca3_rates,
+            'ica3_rates': ica3_rates,
             'in_similarity': in_similarity,
-            'gc_pattern': np.concatenate((mgc_pattern, igc_pattern)) 
+            'gc_pattern': np.concatenate((mgc_pattern, igc_pattern))
         }
 
         if (in_similarity == 1.0):

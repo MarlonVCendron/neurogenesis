@@ -80,11 +80,11 @@ class SimWrapper:
         save_to_file(
             results_directory=results_directory,
             pattern=pattern,
-            mgc_pattern=get_population_pattern(get_neuron_monitor(self.net, "mgc"))
-            igc_pattern=get_population_pattern(get_neuron_monitor(self.net, "igc"))
-            pca3_pattern=get_population_pattern(get_neuron_monitor(self.net, "pca3"))
-            mgc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "mgc"))
-            igc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "igc"))
-            pca3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "pca3"))
-            ica3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "ica3"))
+            mgc_pattern=get_population_pattern(get_neuron_monitor(self.net, "mgc")),
+            igc_pattern=get_population_pattern(get_neuron_monitor(self.net, "igc")),
+            pca3_pattern=get_population_pattern(get_neuron_monitor(self.net, "pca3")),
+            mgc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "mgc")),
+            igc_rates=get_population_firing_rates(get_neuron_monitor(self.net, "igc")),
+            pca3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "pca3")),
+            ica3_rates=get_population_firing_rates(get_neuron_monitor(self.net, "ica3")),
         )
