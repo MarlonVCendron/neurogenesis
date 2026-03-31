@@ -4,7 +4,7 @@ import h5py
 
 from utils.patterns import get_pp_pattern
 
-def save_to_file(results_directory, pattern, mgc_pattern, igc_pattern, pca3_pattern, mgc_rates, igc_rates, pca3_rates, ica3_rates):
+def save_to_file(results_directory, pattern, mgc_pattern, igc_pattern, pca3_pattern, rates, spike_counts):
   in_similarity = pattern['similarity']
   pp_pattern = get_pp_pattern(pattern)
 
@@ -15,9 +15,12 @@ def save_to_file(results_directory, pattern, mgc_pattern, igc_pattern, pca3_patt
     f.create_dataset('mgc_pattern', data=mgc_pattern)
     f.create_dataset('igc_pattern', data=igc_pattern)
     f.create_dataset('pca3_pattern', data=pca3_pattern)
-    f.create_dataset('mgc_rates', data=mgc_rates)
-    f.create_dataset('igc_rates', data=igc_rates)
-    f.create_dataset('pca3_rates', data=pca3_rates)
-    f.create_dataset('ica3_rates', data=ica3_rates)
     f.create_dataset('in_similarity', data=in_similarity)
-  
+
+    rates_grp = f.create_group('rates')
+    for cell_type, data in rates.items():
+      rates_grp.create_dataset(cell_type, data=data)
+
+    counts_grp = f.create_group('spike_counts')
+    for cell_type, data in spike_counts.items():
+      counts_grp.create_dataset(cell_type, data=data)

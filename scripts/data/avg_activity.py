@@ -34,7 +34,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('teste_2026')
+data = load_pattern_data('teste_março')
 
 groups = sorted(list(data.keys()))
 
@@ -44,29 +44,35 @@ def in_similarity():
   ads = {}
   iads = {}
   mads = {}
+  cads = {}
   std_errors = {}
   std_errors_i = {}
   std_errors_m = {}
+  std_errors_c = {}
 
   group_ads = {}
   group_iads = {}
   group_mads = {}
+  group_cads = {}
 
   for group in groups:
     trial_means_list = []
     in_sim_dict = {}
     i_in_sim_dict = {}
     m_in_sim_dict = {}
+    c_in_sim_dict = {}
     for trial in data[group]:
       for pattern in trial['patterns'][:-1]:
         sim = pattern['in_similarity']
         out = pattern['gc_pattern']
         iout = pattern['igc_pattern']
         mout = pattern['mgc_pattern']
+        # cout = pattern['pca3_pattern']
 
         ad = activation_degree(out)
         iad = activation_degree(iout)
         mad = activation_degree(mout)
+        # cad = activation_degree(cout)
 
         if sim not in in_sim_dict:
           in_sim_dict[sim] = []
@@ -80,31 +86,43 @@ def in_similarity():
           m_in_sim_dict[sim] = []
         m_in_sim_dict[sim].append(mad)
 
+        # if sim not in c_in_sim_dict:
+        #   c_in_sim_dict[sim] = []
+        # c_in_sim_dict[sim].append(cad)
+
         if group not in group_ads:
           group_ads[group] = []
         if group not in group_iads:
           group_iads[group] = []
         if group not in group_mads:
           group_mads[group] = []
+        # if group not in group_cads:
+        #   group_cads[group] = []
+
         group_ads[group].append(ad)
         group_iads[group].append(iad)
         group_mads[group].append(mad)
+        # group_cads[group].append(cad)
 
     mean_ad = np.mean([np.mean(ads) for ads in in_sim_dict.values()])
     mean_iad = np.mean([np.mean(ads) for ads in i_in_sim_dict.values()])
     mean_mad = np.mean([np.mean(ads) for ads in m_in_sim_dict.values()])
+    # mean_cad = np.mean([np.mean(ads) for ads in c_in_sim_dict.values()])
 
     std_error_ad = sem([np.mean(ads) for ads in in_sim_dict.values()])
     std_error_iad = sem([np.mean(ads) for ads in i_in_sim_dict.values()])
     std_error_mad = sem([np.mean(ads) for ads in m_in_sim_dict.values()])
+    # std_error_cad = sem([np.mean(ads) for ads in c_in_sim_dict.values()])
 
     ads[group] = mean_ad
     iads[group] = mean_iad
     mads[group] = mean_mad
+    # cads[group] = mean_cad
 
     std_errors[group] = std_error_ad
     std_errors_i[group] = std_error_iad
     std_errors_m[group] = std_error_mad
+    # std_errors_c[group] = std_error_cad
 
   fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
   # fig, ax = plt.subplots()
@@ -120,10 +138,12 @@ def in_similarity():
   ads = [ads[group] for group in groups]
   iads = [iads[group] for group in groups]
   mads = [mads[group] for group in groups]
+  # cads = [cads[group] for group in groups]
 
   std_errors = np.array([std_errors[group] for group in groups])
   std_errors_i = [std_errors_i[group] for group in groups]
   std_errors_m = [std_errors_m[group] for group in groups]
+  # std_errors_c = [std_errors_c[group] for group in groups]
 
   # ax.axhline(y=ads[0], color=c_color, linestyle='--')
   ax.axhline(y=ads[0], color=cell_colors['control'], linestyle='--')
@@ -132,8 +152,9 @@ def in_similarity():
   
   alpha = 0.8
   ax.plot(ng_groups, ads[1:], color=cell_colors['gc'], label='Full GC population pattern', marker='', alpha=alpha)
-  ax.plot(ng_groups, iads[1:], color=cell_colors['igc'], label='iGC pattern', marker='', alpha=alpha)
+  # ax.plot(ng_groups, iads[1:], color=cell_colors['igc'], label='iGC pattern', marker='', alpha=alpha)
   ax.plot(ng_groups, mads[1:], color=cell_colors['mgc'], label='mGC pattern', marker='', alpha=alpha)
+  # ax.plot(ng_groups, cads[1:], color=cell_colors['pca3'], label='pCA3 pattern', marker='', alpha=alpha)
 
   _,_,barlinecols = ax.errorbar(
       ng_groups,
@@ -144,14 +165,14 @@ def in_similarity():
   )
   plt.setp(barlinecols[0], capstyle="round")
 
-  _,_,barlinecols = ax.errorbar(
-      ng_groups,
-      iads[1:],
-      yerr=std_errors_i[1:],
-      ecolor=cell_colors['igc'],
-      linestyle='None'
-  )
-  plt.setp(barlinecols[0], capstyle="round")
+  # _,_,barlinecols = ax.errorbar(
+  #     ng_groups,
+  #     iads[1:],
+  #     yerr=std_errors_i[1:],
+  #     ecolor=cell_colors['igc'],
+  #     linestyle='None'
+  # )
+  # plt.setp(barlinecols[0], capstyle="round")
   
   _,_,barlinecols = ax.errorbar(
       ng_groups,
@@ -161,6 +182,16 @@ def in_similarity():
       linestyle='None'
   )
   plt.setp(barlinecols[0], capstyle="round")
+
+  # _,_,barlinecols = ax.errorbar(
+  #     ng_groups,
+  #     cads[1:],
+  #     yerr=std_errors_c[1:],
+  #     ecolor=cell_colors['pca3'],
+  #     linestyle='None'
+  # )
+  # plt.setp(barlinecols[0], capstyle="round")
+   
       
 
   ax.legend(frameon=False)
@@ -171,7 +202,8 @@ def in_similarity():
   plt.ylabel('Ativação média da população (%)')
   plt.xlabel('Conectividade (%)')
 
-  xlabels = range(10, 101, 10)
+  # xlabels = range(10, 101, 10)
+  xlabels = range(10, 31, 10)
   # xlabels = np.array(xlabels) / 100
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
 

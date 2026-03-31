@@ -1,10 +1,9 @@
 import numpy as np
-from utils.patterns import get_population_spike_counts
 
 
-def gini_index(monitor):
+def gini_index(spike_counts):
     """Population sparsity via Gini index."""
-    x = np.sort(get_population_spike_counts(monitor)).astype(float)
+    x = np.sort(np.asarray(spike_counts, dtype=float))
     N = len(x)
     total = x.sum()
 
@@ -15,9 +14,9 @@ def gini_index(monitor):
     return float(np.sum((2 * i - N - 1) * x) / (N * total))
 
 
-def hoyer(monitor):
+def hoyer(spike_counts):
     """Population sparsity via Hoyer method."""
-    x = get_population_spike_counts(monitor).astype(float)
+    x = np.asarray(spike_counts, dtype=float)
     N = len(x)
 
     sum_squares = np.sum(x ** 2)
