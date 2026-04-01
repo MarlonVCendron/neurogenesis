@@ -30,7 +30,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('run_projeto_banca_final')
+data = load_pattern_data('teste_março')
 
 groups = sorted(list(data.keys()))
 
@@ -162,8 +162,8 @@ def in_similarity():
   min_val = np.min(y_with_error_min)
   max_val = np.max(y_with_error_max)
 
-  ax.set_ylim(.17, max_val * 1.05)
-  ax2.set_ylim(min_val * .95, .16)
+  ax.set_ylim(.20, max_val * 1.05)
+  ax2.set_ylim(min_val * .95, .09)
 
   ax.spines['bottom'].set_visible(False)
   ax.spines['right'].set_visible(False)

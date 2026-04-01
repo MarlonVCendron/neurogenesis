@@ -11,13 +11,7 @@ plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -80,10 +74,10 @@ def plot_sparsity():
     fig, axes = plt.subplots(1, 2, figsize=(20, 10), dpi=300)
 
     population_specs = [
-        ('gc',   cell_colors['gc'],   'Full GC (mGC+iGC)'),
-        ('mgc',  cell_colors['mgc'],  'mGC'),
-        ('igc',  cell_colors['igc'],  'iGC'),
-        ('pca3', cell_colors['pca3'], 'pCA3'),
+        ('gc',   cell_colors['gc'],   'Full GC (mGC+iGC)', '-'),
+        ('mgc',  cell_colors['mgc'],  'mGC',               '--'),
+        ('igc',  cell_colors['igc'],  'iGC',               '--'),
+        ('pca3', cell_colors['pca3'], 'pCA3',              '-'),
     ]
 
     for ax, (fn_means, fn_errs, title, ylabel) in zip(axes, [
@@ -93,7 +87,7 @@ def plot_sparsity():
         ax.set_title(title)
         ax.yaxis.set_major_locator(MaxNLocator(nbins=10))
 
-        for ct, color, label in population_specs:
+        for ct, color, label, ls in population_specs:
             ctrl_val = fn_means[ct][0]
             ng_vals = np.array(fn_means[ct][ng_idx])
             ng_err  = np.array(fn_errs[ct][ng_idx])
@@ -106,13 +100,8 @@ def plot_sparsity():
             if ct == 'gc' and not np.isnan(ctrl_val):
                 ax.axhline(y=ctrl_val, color=cell_colors['control'], linestyle='--', label='Control (GC)')
 
-            ax.plot(range(len(ng_groups)), ng_vals, color=color, label=label, marker='')
-
-            _, _, barlinecols = ax.errorbar(
-                range(len(ng_groups)), ng_vals, yerr=ng_err,
-                ecolor=color, linestyle='None',
-            )
-            plt.setp(barlinecols[0], capstyle='round')
+            ax.plot(range(len(ng_groups)), ng_vals, color=color, label=label, marker='', linestyle=ls)
+            ax.fill_between(range(len(ng_groups)), ng_vals - ng_err, ng_vals + ng_err, color=color, alpha=0.2)
 
         xlabels = range(10, 10 * len(ng_groups) + 1, 10)
         ax.set_xticks(range(len(ng_groups)))
@@ -120,9 +109,11 @@ def plot_sparsity():
         ax.set_xlabel('Conectividade (%)')
         ax.set_ylabel(ylabel)
         ax.legend(frameon=False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
 
     plt.tight_layout()
-    plt.savefig('figures/plots/sparsity.jpg', dpi=300, format='jpg')
+    plt.savefig('figures/plots/sparsity.jpg', dpi=300, format='jpg', bbox_inches='tight')
     plt.close()
 
 

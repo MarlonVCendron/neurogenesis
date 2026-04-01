@@ -202,8 +202,8 @@ def in_similarity():
   plt.ylabel('Ativação média da população (%)')
   plt.xlabel('Conectividade (%)')
 
-  # xlabels = range(10, 101, 10)
-  xlabels = range(10, 31, 10)
+  xlabels = range(10, 101, 10)
+  # xlabels = range(10, 31, 10)
   # xlabels = np.array(xlabels) / 100
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
 

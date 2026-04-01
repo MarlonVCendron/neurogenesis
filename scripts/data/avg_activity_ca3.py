@@ -2,15 +2,8 @@ import numpy as np
 from matplotlib.ticker import FuncFormatter
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 from scipy.stats import sem
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.collections import LineCollection
-from matplotlib.lines import Line2D
-from scipy.stats import ttest_ind
-from scipy.interpolate import make_interp_spline
-
-
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
@@ -21,18 +14,11 @@ plt.rcParams.update({
     # "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
 
-    "lines.linewidth": 5,
+    "lines.linewidth": 6,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
-    
-  })
+})
 
 data = load_pattern_data('teste_março')
 
@@ -71,56 +57,39 @@ def avg_activity_ca3():
 
     std_errors_c[group] = std_error_cad
 
-  fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
-  # fig, ax = plt.subplots()
+  fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
 
-  cmap = LinearSegmentedColormap.from_list('neuro_cmap', ["#16a4d8", '#8bd346'])
-
-  # ax.yaxis.set_major_formatter(PercentFormatter(xmax=1))
   ax.yaxis.set_major_locator(MaxNLocator(nbins=15))
   formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
   ax.yaxis.set_major_formatter(formatter)
 
-
   cads = [cads[group] for group in groups]
-
   std_errors_c = [std_errors_c[group] for group in groups]
 
-  # ax.axhline(y=ads[0], color=c_color, linestyle='--')
-  # ax.axhline(y=ads[0], color=cell_colors['control'], linestyle='--')
-
   ng_groups = groups[0:]
-  
-  alpha = 0.8
-  ax.plot(ng_groups, cads[0:], color=cell_colors['pca3'], label='pCA3 pattern', marker='', alpha=alpha)
 
-  _,_,barlinecols = ax.errorbar(
-      ng_groups,
-      cads[0:],
-      yerr=std_errors_c[0:],
-      ecolor=cell_colors['pca3'],
-      linestyle='None'
-  )
-  plt.setp(barlinecols[0], capstyle="round")
-   
-      
+  alpha = 0.8
+  cads_arr = np.array(cads[0:])
+  sems_arr = np.array(std_errors_c[0:])
+  x_idx = range(len(ng_groups))
+
+  ax.plot(x_idx, cads_arr, color=cell_colors['pca3'], label='pCA3 pattern', marker='', alpha=alpha)
+  ax.fill_between(x_idx, cads_arr - sems_arr, cads_arr + sems_arr, color=cell_colors['pca3'], alpha=0.2)
+
+  ax.spines['right'].set_visible(False)
+  ax.spines['top'].set_visible(False)
 
   ax.legend(frameon=False)
-
-  sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
-  sm.set_array([])
 
   plt.ylabel('Ativação média da população (%)')
   plt.xlabel('Conectividade (%)')
 
-  # xlabels = range(10, 101, 10)
-  xlabels = range(10, 31, 10)
-  # xlabels = np.array(xlabels) / 100
+  xlabels = range(10, 101, 10)
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
 
   plt.tight_layout()
   # plt.show()
-  plt.savefig(f'figures/plots/avg_activity_ca3.jpg', dpi=300, format='jpg')
+  plt.savefig(f'figures/plots/avg_activity_ca3.jpg', dpi=300, format='jpg', bbox_inches='tight')
   plt.close()
 
 
