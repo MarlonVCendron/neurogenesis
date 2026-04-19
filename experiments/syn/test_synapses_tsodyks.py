@@ -54,7 +54,8 @@ def main():
   # mgc = SpikeGeneratorGroup(1, indices, times)
   mgc = PoissonGroup(15, rates=20*Hz)
 
-  mc      = create_mc(N=1)
+  N = 10
+  mc      = create_mc(N=N)
 
   mgc_mc  = Connect(mgc, mc, **to_100(syn_params['mgc_mc']))
 
@@ -68,7 +69,13 @@ def main():
   # pp_mgc.g = 40 * nS
 
   print('Running simulation')
-  net.run(500 * ms)
+  # net.run(500 * ms)
+  net.run(200 * ms)
+
+  net['mc'].I_ext[2:] = 5 *nA
+
+  net.run(300 * ms)
+
 
   # smooth_rates = mon_r.smooth_rate(window='flat', width=50*ms) / Hz
 
@@ -77,7 +84,8 @@ def main():
   # print(f'Mean rate: {np.mean(smooth_rates)}')
 
   # plot_voltage(mon, mon_s)
-  plot_voltage(mon)
+  for i in range(N):
+      plot_voltage(mon, idx=i)
 
   # plt.plot(mon.t / ms, mon.I_syn_1[0] / nA, alpha=0.7)
   # plt.plot(mon.t / ms, mon.I_syn_2[0] / nA, alpha=0.7)
@@ -93,17 +101,17 @@ def main():
 
 
 
-  plt.plot(mon_syn.t / ms, mon_syn.U[0])
-  plt.plot(mon_syn.t / ms, mon_syn.R[0])
-  plt.plot(mon_syn.t / ms, mon_syn.A[0])
-  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.D[0])
-  # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0] + mon_syn_pp.A[0] + mon_syn_pp.D[0])
-  plt.plot(mon.t / ms, mon.I_syn[0] / nA)
-  plt.legend(['U', 'R', 'A', 'I_syn'])
-  plt.xticks(rotation=45)
-  plt.locator_params(axis="x", nbins=60)
-  plt.grid(True, which="both", linestyle="--", alpha=0.2)
-  plt.show()
+  # plt.plot(mon_syn.t / ms, mon_syn.U[0])
+  # plt.plot(mon_syn.t / ms, mon_syn.R[0])
+  # plt.plot(mon_syn.t / ms, mon_syn.A[0])
+  # # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.D[0])
+  # # plt.plot(mon_syn_pp.t / ms, mon_syn_pp.R[0] + mon_syn_pp.A[0] + mon_syn_pp.D[0])
+  # plt.plot(mon.t / ms, mon.I_syn[0] / nA)
+  # plt.legend(['U', 'R', 'A', 'I_syn'])
+  # plt.xticks(rotation=45)
+  # plt.locator_params(axis="x", nbins=60)
+  # plt.grid(True, which="both", linestyle="--", alpha=0.2)
+  # plt.show()
 
 
 if __name__ == '__main__':

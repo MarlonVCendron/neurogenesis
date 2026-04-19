@@ -1,4 +1,17 @@
 from brian2 import *
+from brian2.codegen.codeobject import CodeObject
+from brian2.core.functions import DEFAULT_FUNCTIONS
+
+def _patched_codeobject_getstate(self):
+    state = self.__dict__.copy()
+    state["owner"] = self.owner.__repr__.__self__
+    state["variables"] = self.variables.copy()
+    for k, v in state["variables"].items():
+        if isinstance(v, Function) and k in DEFAULT_FUNCTIONS and v is DEFAULT_FUNCTIONS[k]:
+            state["variables"][k] = k
+    return state
+
+CodeObject.__getstate__ = _patched_codeobject_getstate
 
 from utils.utils import (
     get_spike_monitors,
@@ -18,7 +31,8 @@ from utils.args_config import args
 
 
 class SimWrapper:
-    def __init__(self, monitor_rate=True, monitor_state=None, report=None):
+    def __init__(self, monitor_rate=True, monitor_state=None, report=None, optogenetics=None):
+        self.optogenetics = optogenetics
         self.net = network()
 
         self._initialize_monitors(monitor_rate, monitor_state)
@@ -27,7 +41,7 @@ class SimWrapper:
         self._activate_monitors(False)
         self.net.run(break_time, report=report)
         self._activate_monitors(True)
-        self.net.run(stim_time, report=report)
+        self._run_stim_phase(report)
 
         device.build(run=False)
         self.device = get_device()
@@ -37,7 +51,9 @@ class SimWrapper:
 
         device_module.active_device = self.device
 
-        self.device.run(run_args={self.net["pp"].rates: pattern["rates"]})
+        self.device.run(run_args={
+            self.net["pp"].rates: pattern["rates"],
+        })
 
         if args.generate_graph:
             connectivity_matrices(self.net)
@@ -88,3 +104,20 @@ class SimWrapper:
             rates={ct: get_population_firing_rates(mon) for ct, mon in monitors.items()},
             spike_counts={ct: get_population_spike_counts(mon) for ct, mon in monitors.items()},
         )
+
+    def _run_stim_phase(self, report):
+        if not self.optogenetics:
+            self.net.run(stim_time, report=report)
+            return
+
+        opto = self.optogenetics
+        population = self.net[opto["cell_type"]]
+        onset = opto["onset_time"]
+        duration = opto["duration"]
+        amount = min(opto["amount_affected"], population.N)
+
+        self.net.run(onset, report=report)
+        population.I_ext[:amount] = opto["current_injected"]
+        self.net.run(duration, report=report)
+        population.I_ext[:amount] = 0 * amp
+        self.net.run(stim_time - onset - duration, report=report)

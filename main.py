@@ -1,5 +1,6 @@
 import tqdm_pathos
 from os.path import join
+from brian2 import nA, ms
 
 from plotting.spikes_and_rates import plot_spikes_and_rates
 from plotting.state_monitors import plot_state_monitors
@@ -18,6 +19,18 @@ def res_filename(i, total):
     flag += "_ca3" if has_ca3 else ""
     return f"{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}"
 
+def optogenetics():
+    if not args.optogenetics:
+        return
+    return {
+        "cell_type": 'igc',
+        "amount_affected": 50,
+        "current_injected": 0.5 * nA,
+        # "current_injected": 0 * nA,
+        "onset_time": 500 * ms,
+        "duration": 5 * ms,
+    }
+
 
 if __name__ == "__main__":
     initialize()
@@ -26,7 +39,7 @@ if __name__ == "__main__":
     report = "text" if args.single_run else None
     # monitor_state = {"hipp": ["I_syn_1", "I_syn_2", "I_syn_3", "I_syn_4", "I_syn_5", "I", "U", "Vm"]}
     monitor_state = None
-    sim = SimWrapper(report=report, monitor_rate=monitor_rate, monitor_state=monitor_state)
+    sim = SimWrapper(report=report, monitor_rate=monitor_rate, monitor_state=monitor_state, optogenetics=optogenetics())
 
     patterns = [pattern for _ in range(trials) for pattern in generate_activity_patterns()]
     if args.single_run:

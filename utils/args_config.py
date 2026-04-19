@@ -21,6 +21,7 @@ parser.add_argument("--no-ca3", action="store_true", help="Whether to exclude th
 parser.add_argument("--single-run", action="store_true", help="Whether to run a single pattern only")
 parser.add_argument("--skip-conn", action="store_true", help="Whether to skip the loading of connectivity matrices")
 parser.add_argument("--generate-graph", action="store_true", help="Whether to generate the graph connectivity matrix")
+parser.add_argument("--optogenetics", action="store_true", help="Whether to run \"optogenetics\" simulation")
 
 parser.add_argument("--n-lamellae", type=int, default=20, help="Number of lamellae")
 parser.add_argument("--n-pp", type=int, default=400, help="Number of PP axons")
