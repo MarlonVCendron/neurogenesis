@@ -35,7 +35,7 @@ def optogenetics():
 if __name__ == "__main__":
     initialize()
 
-    monitor_rate = args.single_run
+    monitor_rate = args.single_run or not args.skip_rates
     report = "text" if args.single_run else None
     # monitor_state = {"hipp": ["I_syn_1", "I_syn_2", "I_syn_3", "I_syn_4", "I_syn_5", "I", "U", "Vm"]}
     monitor_state = None
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     results = tqdm_pathos.starmap(sim.do_run, zip(patterns, result_dirs))
 
-    if monitor_rate:
+    if args.single_run:
         for i, (spikes, rates, states) in enumerate(results):
             plot_state_monitors(states, filename=res_filename(i, total_patterns))
             plot_spikes_and_rates(spikes, rates, i, filename=res_filename(i, total_patterns))

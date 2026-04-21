@@ -28,6 +28,9 @@ def get_neuron(net, name):
 def get_neuron_monitor(net, name):
   return next((obj for obj in net.objects if isinstance(obj, SpikeMonitor) and obj.source.name == name), None)
 
+def get_rate_monitor(net, name):
+  return next((obj for obj in net.objects if isinstance(obj, PopulationRateMonitor) and obj.source.name == name), None)
+
 def get_synapses(net):
   return get_objects(net, Synapses)
 

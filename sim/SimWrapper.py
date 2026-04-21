@@ -16,6 +16,7 @@ CodeObject.__getstate__ = _patched_codeobject_getstate
 from utils.utils import (
     get_spike_monitors,
     get_neuron_monitor,
+    get_rate_monitor,
     get_neurons,
     get_rate_monitors,
     get_state_monitors,
@@ -94,15 +95,16 @@ class SimWrapper:
             mon.active = activate
 
     def _save_results(self, pattern, results_directory):
-        monitors = {ct: get_neuron_monitor(self.net, ct) for ct in neuron_ordering}
+        spike_monitors = {ct: get_neuron_monitor(self.net, ct) for ct in neuron_ordering}
+        rate_monitors = {ct: get_rate_monitor(self.net, ct) for ct in neuron_ordering}
         save_to_file(
             results_directory=results_directory,
             pattern=pattern,
-            mgc_pattern=get_population_pattern(monitors["mgc"]),
-            igc_pattern=get_population_pattern(monitors["igc"]),
-            pca3_pattern=get_population_pattern(monitors["pca3"]),
-            rates={ct: get_population_firing_rates(mon) for ct, mon in monitors.items()},
-            spike_counts={ct: get_population_spike_counts(mon) for ct, mon in monitors.items()},
+            mgc_pattern=get_population_pattern(spike_monitors["mgc"]),
+            igc_pattern=get_population_pattern(spike_monitors["igc"]),
+            pca3_pattern=get_population_pattern(spike_monitors["pca3"]),
+            rates={ct: get_population_firing_rates(rm) for ct, rm in rate_monitors.items()},
+            spike_counts={ct: get_population_spike_counts(mon) for ct, mon in spike_monitors.items()},
         )
 
     def _run_stim_phase(self, report):

@@ -20,7 +20,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('rate2')
+data = load_pattern_data('rate5')
 groups = sorted(list(data.keys()))
 
 

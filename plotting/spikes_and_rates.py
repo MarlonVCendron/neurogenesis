@@ -76,7 +76,10 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
   print(f'Total GC: active: {gc_active} ({percentage_gc:.2f}%)')
 
   if save:
-    plt.savefig(f'figures/spikes_and_rates/{filename}.png')
+    import os
+    path = f'figures/spikes_and_rates/{filename}.png'
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    plt.savefig(path)
     plt.close()
   else:
     plt.show()
