@@ -1,11 +1,9 @@
 import numpy as np
-from brian2 import Hz, ms
-from params import break_time
+from brian2 import second
+from params import break_time, stim_time
+from utils.patterns import get_population_spike_counts
 
-SMOOTH_WIDTH = 50 * ms
-
-def get_population_firing_rates(rate_monitor):
-    if rate_monitor is None:
+def get_population_firing_rates(spike_monitor, t_start=break_time, t_end=None):
+    if spike_monitor is None:
         return np.zeros(0)
-    mask = rate_monitor.t > break_time
-    return rate_monitor.smooth_rate(window='flat', width=SMOOTH_WIDTH)[mask] / Hz
+    return get_population_spike_counts(spike_monitor, t_start=t_start, t_end=t_end) / (stim_time / second)

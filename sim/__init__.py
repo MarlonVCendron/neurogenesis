@@ -1,1 +1,2 @@
 from sim.SimWrapper import SimWrapper
+from sim.SequenceSimWrapper import SequenceSimWrapper

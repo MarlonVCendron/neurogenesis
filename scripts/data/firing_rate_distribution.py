@@ -20,7 +20,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('rate5')
+data = load_pattern_data('rate8')
 groups = sorted(list(data.keys()))
 
 
@@ -96,8 +96,10 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False):
         ax.set_xscale('log')
         ax.set_xlabel('Firing rate (Hz)')
         ax.set_xlim(0.1, 10)
-        ax.set_xticks([0.01, 0.1, 1, 10, 100])                                     
-        ax.set_xticklabels(['0.01', '0.1', '1', '10', '100'])
+        # ax.set_xticks([0.01, 0.1, 1, 10, 100])                                     
+        # ax.set_xticklabels(['0.01', '0.1', '1', '10', '100'])
+        ax.set_xticks([0.1, 1, 10, 100])                                     
+        ax.set_xticklabels(['0.1', '1', '10', '100'])
         ax.set_ylim(0, 1.1)
         ax.legend(frameon=False)
         ax.spines['top'].set_visible(False)

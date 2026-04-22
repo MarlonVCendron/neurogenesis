@@ -135,27 +135,27 @@ def get_active_cells(monitor, active_min_fraction=ACTIVE_MIN_FRACTION):
   active_mask = spike_counts >= threshold
   return active_mask
 
-# Returns spike counts per cell during
-def get_population_spike_counts(monitor):
+# Returns spike counts per cell in [t_start, t_end). Defaults to the full stim window.
+def get_population_spike_counts(monitor, t_start=break_time, t_end=None):
   if not monitor:
     return np.zeros(0, dtype=int)
 
   neurons = monitor.source
   counts = np.zeros(len(neurons), dtype=int)
   for i, t in zip(monitor.i, monitor.t):
-    if t > break_time:
+    if t > t_start and (t_end is None or t <= t_end):
       counts[i] += 1
   return counts
 
 # Calculates the pattern of active cells in a population of neurons given a spike monitor
-def get_population_pattern(monitor):
+def get_population_pattern(monitor, t_start=break_time, t_end=None):
   if not monitor:
     return np.zeros(0, dtype=int)
 
   neurons = monitor.source
   pattern = np.zeros(len(neurons), dtype=int)
   for i, t in zip(monitor.i, monitor.t):
-    if t > break_time:
+    if t > t_start and (t_end is None or t <= t_end):
       pattern[i] = 1
   return pattern
 

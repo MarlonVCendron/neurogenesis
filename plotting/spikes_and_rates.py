@@ -11,11 +11,14 @@ from utils.patterns import (
 )
 from utils.utils import neuron_ordering
 
-def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=False, window_width=20*ms, filename='?'):
+def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=False, window_width=20*ms, filename='?', t_end=None):
   import matplotlib
   matplotlib.use('TkAgg')
   import matplotlib.pyplot as plt
-  
+
+  if t_end is None:
+    t_end = break_time + stim_time
+
   spike_monitors = sorted(spike_monitors, key=lambda sm: neuron_ordering.index(sm.source.name))
 
   plt.figure(figsize=(10, len(spike_monitors) * 3))
@@ -55,7 +58,7 @@ def plot_spikes_and_rates(spike_monitors, rate_monitors, num=0, save=True, bar=F
       ax1.plot(spike_mon.t / ms, spike_mon.i, 'ok', markersize=1)
     ax1.set_xlabel('Time (ms)')
     ax1.set_ylabel(f'{neuron.name} index')
-    ax1.set_xlim(break_time / ms, (break_time + stim_time) / ms)
+    ax1.set_xlim(break_time / ms, t_end / ms)
     ax1.set_ylim(0, len(neuron))
 
     ax1.spines['top'].set_visible(False)

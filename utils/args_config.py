@@ -4,7 +4,7 @@ parser = argparse.ArgumentParser(description="Hippocampal adult neurogenesis mod
 
 parser.add_argument("--trials", type=int, default=1, help="Number of trials")
 
-parser.add_argument("--nmda", type=float, default=0.5, help="Scaling factor for NMDA")
+parser.add_argument("--nmda", type=float, default=1.0, help="Scaling factor for NMDA")
 parser.add_argument("--gaba", type=float, default=1.0, help="Scaling factor for GABA")
 parser.add_argument("--ampa", type=float, default=1.0, help="Scaling factor for AMPA")
 parser.add_argument("--tsodyks-scale", type=float, default=10.0, help="Scaling factor for tsodyks")
@@ -23,6 +23,8 @@ parser.add_argument("--skip-conn", action="store_true", help="Whether to skip th
 parser.add_argument("--skip-rates", action="store_true", help="Whether to skip storing firing rates")
 parser.add_argument("--generate-graph", action="store_true", help="Whether to generate the graph connectivity matrix")
 parser.add_argument("--optogenetics", action="store_true", help="Whether to run \"optogenetics\" simulation")
+parser.add_argument("--pattern-sequence-mode", action="store_true", help="Run all patterns as a single sequential simulation instead of independent parallel runs")
+parser.add_argument("--transition-time", type=float, default=0, help="Duration (ms) of linear rate ramp between patterns in sequence mode")
 
 parser.add_argument("--n-lamellae", type=int, default=20, help="Number of lamellae")
 parser.add_argument("--n-pp", type=int, default=400, help="Number of PP axons")
