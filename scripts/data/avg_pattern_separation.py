@@ -184,8 +184,8 @@ def in_similarity():
   ax.spines['top'].set_visible(False)
 
   # plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group and population')
-  plt.xlabel('Conectividade (%)')
-  plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
+  plt.xlabel('Connectivity (%)')
+  plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
   # plt.axhline(y=1, color='gray', linestyle='--')
 
   plt.xticks(ticks=range(10, 101, 10))

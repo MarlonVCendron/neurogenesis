@@ -92,7 +92,7 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False):
         # group format: 'neurogenesis_0.2' or 'neurogenesis_0.2_ca3' etc.
         parts = group.split('_')
         connectivity = next(p for p in parts if p.replace('.', '', 1).isdigit())
-        ax.set_title(f'Conectividade {float(connectivity)*100:.0f}%')
+        # ax.set_title(f'Conectividade {float(connectivity)*100:.0f}%')
         ax.set_xscale('log')
         ax.set_xlabel('Firing rate (Hz)')
         ax.set_xlim(0.1, 10)
