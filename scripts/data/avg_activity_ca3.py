@@ -60,8 +60,9 @@ def avg_activity_ca3():
   fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
 
   ax.yaxis.set_major_locator(MaxNLocator(nbins=15))
-  formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
+  formatter = FuncFormatter(lambda y, _: f'{y*100.0:.1f}')
   ax.yaxis.set_major_formatter(formatter)
+  print(cads)
 
   cads = [cads[group] for group in groups]
   std_errors_c = [std_errors_c[group] for group in groups]
@@ -79,10 +80,15 @@ def avg_activity_ca3():
   ax.spines['right'].set_visible(False)
   ax.spines['top'].set_visible(False)
 
+  max_val = np.max(cads_arr)
+  min_val = np.min(cads_arr)
+  pad = 0.25
+  ax.set_ylim((1-pad) * min_val, (1+pad) * max_val)
+
   ax.legend(frameon=False)
 
-  plt.ylabel('Ativação média da população (%)')
-  plt.xlabel('Conectividade (%)')
+  plt.ylabel('Mean population activation (%)')
+  plt.xlabel('Connectivity (%)')
 
   xlabels = range(10, 101, 10)
   plt.xticks(ticks=range(len(xlabels)), labels=xlabels)

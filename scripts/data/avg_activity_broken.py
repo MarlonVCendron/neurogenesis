@@ -125,7 +125,7 @@ def in_similarity():
   std_errors_m = [std_errors_m[group] for group in groups]
 
   for axis in [ax, ax2]:
-    axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Controle')
+    axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Control')
 
   ng_groups = groups[1:]
   
@@ -197,8 +197,8 @@ def in_similarity():
 
   ax.legend(frameon=False)
 
-  fig.supylabel('Ativação média da população (%)', fontsize=18)
-  plt.xlabel('Conectividade (%)')
+  fig.supylabel('Mean population activation (%)', fontsize=18)
+  plt.xlabel('Connectivity (%)')
 
   xlabels = range(10, 101, 10)
   # xlabels = np.array(xlabels) / 100

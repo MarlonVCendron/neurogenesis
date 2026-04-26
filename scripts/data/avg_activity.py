@@ -199,8 +199,8 @@ def in_similarity():
   sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0.1, vmax=1.0))
   sm.set_array([])
 
-  plt.ylabel('Ativação média da população (%)')
-  plt.xlabel('Conectividade (%)')
+  plt.ylabel('Mean population activation (%)')
+  plt.xlabel('Connectivity (%)')
 
   xlabels = range(10, 101, 10)
   # xlabels = range(10, 31, 10)

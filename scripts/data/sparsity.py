@@ -106,7 +106,7 @@ def plot_sparsity():
         xlabels = range(10, 10 * len(ng_groups) + 1, 10)
         ax.set_xticks(range(len(ng_groups)))
         ax.set_xticklabels(xlabels)
-        ax.set_xlabel('Conectividade (%)')
+        ax.set_xlabel('Connectivity (%)')
         ax.set_ylabel(ylabel)
         ax.legend(frameon=False)
         ax.spines['right'].set_visible(False)

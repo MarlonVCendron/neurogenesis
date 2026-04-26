@@ -84,8 +84,8 @@ def plot():
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('Conectividade (%)')
-    ax.set_ylabel('Separação de padrões — distância Hamming ($d_H$)')
+    ax.set_xlabel('Connectivity (%)')
+    ax.set_ylabel('Pattern separation: Hamming distance ($d_H$)')
     ax.set_xticks(range(10, 101, 10))
     ax.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
     plt.tight_layout()

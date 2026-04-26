@@ -133,8 +133,8 @@ def plot():
         ax.fill_between(x, r2[p] - sem[p], r2[p] + sem[p], color=pred_colors[p], alpha=0.15)
     ax.fill_between(x, r2['full'] - sem['full'], r2['full'] + sem['full'],
                     color=pred_colors['full'], alpha=0.15)
-    ax.set_xlabel('Conectividade (%)')
-    ax.set_ylabel('R² (var. pCA3 explicada)')
+    ax.set_xlabel('Connectivity (%)')
+    ax.set_ylabel('R² (explained pCA3 var.)')
     ax.set_xticks(range(10, 101, 10))
     ax.set_ylim(0, 1)
     ax.spines['right'].set_visible(False)
@@ -146,10 +146,10 @@ def plot():
     stack_data   = [np.clip(uniq[p], 0, None) for p in PREDICTORS]
     stack_data.append(np.clip(shared, 0, None))
     stack_colors = [pred_colors[p] for p in PREDICTORS] + [SHARED_COLOR]
-    stack_labels = [f'Exclusivo {p.upper()}' for p in PREDICTORS] + ['Compartilhado']
+    stack_labels = [f'Unique {p.upper()}' for p in PREDICTORS] + ['Shared']
     ax.stackplot(x, *stack_data, labels=stack_labels, colors=stack_colors, alpha=0.8)
-    ax.set_xlabel('Conectividade (%)')
-    ax.set_ylabel('R² particionado')
+    ax.set_xlabel('Connectivity (%)')
+    ax.set_ylabel('Partitioned R²')
     ax.set_xticks(range(10, 101, 10))
     ax.set_ylim(0, 1)
     ax.spines['right'].set_visible(False)

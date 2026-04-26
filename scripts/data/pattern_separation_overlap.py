@@ -73,7 +73,7 @@ def plot():
     sems, sems_i, sems_m = np.array(sems), np.array(sems_i), np.array(sems_m)
 
     fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
-    ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='controle')
+    ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
     ax.axhline(y=0, color='gray', linestyle='--')
 
     alpha = 0.8
@@ -89,8 +89,8 @@ def plot():
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('Conectividade (%)')
-    ax.set_ylabel('Poder de separação de padrões (SP, %)')
+    ax.set_xlabel('Connectivity (%)')
+    ax.set_ylabel('Pattern separation: power (SP, %)')
     ax.set_xticks(range(10, 101, 10))
     ax.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
     plt.tight_layout()

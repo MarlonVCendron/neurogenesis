@@ -132,7 +132,7 @@ def in_similarity():
       if group in groups_to_skip:
         alpha = 0.05
 
-    label = 'Controle' if 'control' in group else f'Neurogênese: {int(float(group.split("_")[1])*100)}% de conectividade'
+    label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
     label = label if not group in groups_to_skip else None
     plt.plot(in_sim, sd, color=color, alpha=alpha, label=label)
 
@@ -168,8 +168,8 @@ def in_similarity():
 
   plt.xticks(ticks=np.arange(0.1, 1.1, 0.1))
 
-  plt.xlabel('Similaridade de entrada (%)')
-  plt.ylabel('Grau de separação de padrões ($\\mathcal{S}_D$)')
+  plt.xlabel('Input similarity (%)')
+  plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
   plt.legend(frameon=False)
 
   plt.tight_layout()
