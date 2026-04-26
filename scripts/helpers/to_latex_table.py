@@ -35,18 +35,7 @@ def format_value(value, unit, precision=3):
         return formatted_str
 
 def generate_synapse_table():
-    neuron_name_map = {
-        "pp": "Córtex Entorrinal",
-        "mgc": "Granular madura",
-        "igc": "Granular imatura",
-        "mc": "Musgosa",
-        "hipp": "HIPP",
-        "bc": "Em cesto",
-        "pca3": "Piramidal do CA3",
-        "ica3": "Inibitória do CA3",
-    }
-
-    neurons_with_images = set(neuron_type_mapping.values())
+    neurons_with_images = set(neuron_type_mapping.keys())
 
     # Parameters: (key_in_synapses_py, LaTeX_header_name, unit_string_for_header, brian2_unit_for_conversion)
     parameters_info = [
@@ -65,25 +54,25 @@ def generate_synapse_table():
     for synapse_key, params in syn_params.items():
         pre_name, post_name = synapse_key.split('_')
         
-        pre_display_name = neuron_name_map.get(pre_name, pre_name)
+        pre_display_name = neuron_type_mapping.get(pre_name, pre_name)
         if pre_name in neurons_with_images:
-            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figuras/neurônios/{pre_name}.png}}}}}}$"
+            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{pre_name}.png}}}}}}$"
             pre_display_name = f"{image_tex} {pre_display_name}"
 
-        post_display_name = neuron_name_map.get(post_name, post_name)
+        post_display_name = neuron_type_mapping.get(post_name, post_name)
         if post_name in neurons_with_images:
-            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figuras/neurônios/{post_name}.png}}}}}}$"
+            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{post_name}.png}}}}}}$"
             post_display_name = f"{image_tex} {post_display_name}"
 
         prob = params.get('p', 0) * 100
         prob_val = f"{prob:.0f}" if prob == int(prob) else f"{prob:.1f}"
 
-        conn_type = "Aleatória"
+        conn_type = "Random"
         if 'condition' in params:
             if "==" in params['condition']:
-                conn_type = "Lamelar"
+                conn_type = "Lamellar"
             elif "!=" in params['condition'] and "i != j" not in params['condition']:
-                conn_type = "Interlamelar"
+                conn_type = "Cross-lamellar"
 
         current_row_values = [pre_display_name, post_display_name, conn_type, prob_val]
 
@@ -110,7 +99,7 @@ def generate_synapse_table():
         print("\\toprule", file=f)
 
         # Header row
-        print("\\multirow{2}{*}{\\textbf{Pré-sináptico}} & \\multirow{2}{*}{\\textbf{Pós-sináptico}} & \\multirow{2}{*}{\\textbf{Conexão}} & $P$ & " +
+        print("\\multirow{2}{*}{\\textbf{Presynaptic}} & \\multirow{2}{*}{\\textbf{Postsynaptic}} & \\multirow{2}{*}{\\textbf{Connection}} & $P$ & " +
               " & ".join([f"\\textbf{{{name}}}" for name in header_latex_names]) + " \\\\", file=f)
         print(" & & & (\\%) & " + " & ".join([info[2] for info in parameters_info]) + " \\\\", file=f)
         print("\\midrule", file=f)
@@ -122,10 +111,11 @@ def generate_synapse_table():
         print("\\bottomrule", file=f)
         print("\\end{tabular}}", file=f)
         # print("\\caption{Parâmetros das sinapses entre as populações neuronais.}", file=f)
-        print('''\\caption{Parâmetros das sinapses entre as populações neuronais. Conexões aleatórias ocorrem entre todas as células
-              de ambas as populações; conexões lamelares ocorrem entre células da mesma lamela; conexões interlamelares ocorrem
-              entre as células de uma lamela com todas as demais. A probabilidade de conexão $P$ diz respeito à porcentagem de
-              conexões entre as populações neuronais de acordo com a condição de conexão.}''', file=f)
+        print('''\\caption{Parameters of the synapses between neuronal populations. Random connections occur
+                    between all cells of both populations; lamellar connections occur between cells of
+                    the same lamella; cross-lamellar connections occur between cells of one lamella and  
+                    all others. The connection probability $P$ refers to the percentage of connections
+                    between neuronal populations according to the connection condition.}''', file=f)
         print("\\label{tab:synapse_params}", file=f)
         print("\\end{table}", file=f)
 
@@ -150,8 +140,8 @@ def generate_neuron_table():
     param_brian2_units = [info[3] for info in parameters_info]
 
     table_rows_data = []
-    for neuron_display_name, cell_data_key in neuron_type_mapping.items():
-        image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figuras/neurônios/{cell_data_key}.png}}}}}}$"
+    for cell_data_key, neuron_display_name in neuron_type_mapping.items():
+        image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{cell_data_key}.png}}}}}}$"
         cell_name_with_img = f"{image_tex} {neuron_display_name}"
 
         if cell_data_key in cell_params:
@@ -187,7 +177,7 @@ def generate_neuron_table():
         print("\\toprule", file=f)
 
         # Parameter names row (LaTeX formatted)
-        print("\\multirow{2}{*}{\\textbf{Célula}} & " + " & ".join([f"\\textbf{{{name}}}" for name in header_latex_names]) + " \\\\", file=f)
+        print("\\multirow{2}{*}{\\textbf{Cell}} & " + " & ".join([f"\\textbf{{{name}}}" for name in header_latex_names]) + " \\\\", file=f)
         # Parameter units row
         print(" & " + " & ".join(header_units) + " \\\\", file=f)
         print("\\midrule", file=f)
@@ -198,16 +188,16 @@ def generate_neuron_table():
 
         print("\\bottomrule", file=f)
         print("\\end{tabular}}", file=f)
-        print("\\caption{Parâmetros do modelo Izhikevich por tipo de neurônio.}\\label{tab:izhikevich_neuron_params}", file=f)
+        print("\\caption{Izhikevich model parameters per cell type.}\\label{tab:izhikevich_neuron_params}", file=f)
         print("\\end{table}", file=f)
 
 def generate_neuron_counts_table():
     table_rows_data = []
 
-    for neuron_display_name, cell_data_key in neuron_type_mapping.items():
+    for cell_data_key, neuron_display_name in neuron_type_mapping.items():
         if cell_data_key in cell_params:
             count = cell_params[cell_data_key].get('N', '-')
-            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figuras/neurônios/{cell_data_key}.png}}}}}}$"
+            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{cell_data_key}.png}}}}}}$"
             neuron_name_with_img = f"{image_tex} {neuron_display_name}"
             table_rows_data.append([neuron_name_with_img, str(count)])
         else:
@@ -226,7 +216,7 @@ def generate_neuron_counts_table():
         print("\\toprule", file=f)
 
         # Header row
-        print("\\textbf{Célula} & \\textbf{N} \\\\", file=f)
+        print("\\textbf{Cell} & \\textbf{N} \\\\", file=f)
         print("\\midrule", file=f)
 
         # Data rows
@@ -235,7 +225,7 @@ def generate_neuron_counts_table():
 
         print("\\bottomrule", file=f)
         print("\\end{tabular}", file=f)
-        print("\\caption{Quantidade de neurônios por população (N).}\\label{tab:neuron_counts}", file=f)
+        print("\\caption{Neuronal population size (N).}\\label{tab:neuron_counts}", file=f)
         print("\\end{table}", file=f)
 
 
@@ -243,4 +233,4 @@ if __name__ == "__main__":
     generate_neuron_table()
     generate_synapse_table()
     generate_neuron_counts_table()
-    print('feito')
+    print('✅ feito')

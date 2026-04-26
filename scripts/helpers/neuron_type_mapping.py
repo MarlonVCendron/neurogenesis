@@ -1,10 +1,10 @@
 neuron_type_mapping = {
-    "Córtex Entorrinal": "pp",
-    "Granular madura": "mgc",
-    "Granular imatura": "igc",
-    "Musgosa": "mc",
-    "HIPP": "hipp",
-    "Em cesto": "bc",
-    "Piramidal do CA3": "pca3",
-    "Inibitória do CA3": "ica3",
+    "pp": "Entorhinal cortex",
+    "mgc": "Mature granule",
+    "igc": "Immature granule",
+    "mc": "Mossy",
+    "hipp": "HIPP",
+    "bc": "Basket",
+    "pca3": "CA3 Pyramidal",
+    "ica3": "CA3 Inhibitory",
 }

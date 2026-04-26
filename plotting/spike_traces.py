@@ -34,7 +34,7 @@ neuron_currents = {
     'mc': 200 * pA,
     'hipp': 100 * pA,
     'pca3': 500 * pA,
-    'ica3': 400 * pA,
+    'ica3': 200 * pA,
 }
 
 def main():
@@ -70,9 +70,6 @@ def main():
   fig = plt.figure(figsize=(12, 8))
   gs_main = fig.add_gridspec(2, 4, wspace=0.1, hspace=0.1)
   
-  # Invert the neuron_type_mapping
-  name_to_display = {v: k for k, v in neuron_type_mapping.items()}
-
   all_vms = np.hstack([sm.Vm[0]/mV for sm in state_monitors])
   vm_min, vm_max = np.min(all_vms), np.max(all_vms)
   v_range = vm_max - vm_min
@@ -97,11 +94,11 @@ def main():
     ax_v.plot(state_monitor.t / ms, state_monitor.Vm[0] / mV, color="black")
     
     current_val_pA = neuron_currents[neuron.name] / pA
-    display_name = name_to_display.get(neuron.name, neuron.name)
+    display_name = neuron_type_mapping.get(neuron.name, neuron.name)
     text = f'{display_name} ({current_val_pA:.0f} pA)'
     
     try:
-        img_path = f"thesis/figuras/neurônios/{neuron.name}.png"
+        img_path = f"thesis/figures/neurons/{neuron.name}.png"
         img = plt.imread(img_path)
         imagebox = OffsetImage(img, zoom=0.04, interpolation='bicubic')
         ab = AnnotationBbox(imagebox, (0.1, 1.025), xycoords='axes fraction', frameon=False, box_alignment=(0.5, 0.5))
@@ -137,8 +134,8 @@ def main():
   plt.tight_layout()
   plt.subplots_adjust(wspace=0.1, hspace=0.2)
   
-  plt.savefig('figures/spike_traces.png', bbox_inches='tight', pad_inches=0.05)
-  plt.savefig('figures/spike_traces.pdf', bbox_inches='tight', pad_inches=0.05)
+#   plt.savefig('thesis/figures/spike_traces.png', bbox_inches='tight', pad_inches=0.05)
+  plt.savefig('thesis/figures/spike_traces.pdf', bbox_inches='tight', pad_inches=0.05)
 #   plt.show()
 
 
