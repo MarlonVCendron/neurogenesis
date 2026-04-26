@@ -1,0 +1,96 @@
+\chapter{Results}
+
+\section{Pattern separation}
+
+
+Some initial results from the protocol described in Section~\ref{sec:separacao_padroes} have already been obtained and will be
+discussed in this section.
+
+Figure~\ref{fig:avg_activity} presents the mean activation of GC populations for the control model (without neurogenesis) and
+for models with neurogenesis at different iGC-to-EC connectivity levels. In the control model, where all GCs are mature, the
+mean population activation, defined as the percentage of cells that spiked at least once during the \SI{1000}{\milli\second}
+simulation interval, was 12.46\%, a level of sparse activity, though not as low as that typically observed in the DG. In
+future simulations, the impact of increasing inhibitory synapses in the circuit will be analyzed.
+
+The introduction of iGCs into the circuit significantly alters this dynamics. As iGC connectivity increases, their activation
+rate rises sharply, consistent with their greater intrinsic excitability. At 100\% connectivity, virtually the entire iGC
+population becomes active in response to an input pattern. This increase in iGC activity raises the overall GC population
+activation.
+
+In contrast, a progressive decrease in mature Granule Cell (mGC) activity is observed as iGC connectivity increases. This
+result suggests the existence of an inhibitory competition mechanism, whereby iGCs, once strongly activated, indirectly suppress
+mGC activity through shared interneurons.
+
+However, the suppression observed in mGCs is not as pronounced as that reported in other models~\cite{kimEffect2024}, which may
+again indicate that the inhibitory strength in the current model is insufficient. One hypothesis for this discrepancy is the
+absence of a direct inhibitory pathway from iGCs to mGCs, a mechanism described by~\citeonline{lunaAdultborn2019} that was not
+implemented. The inclusion of this direct connection is a promising avenue for future investigation, as it could confer greater
+biological plausibility to the model and will also be explored in the project.
+
+\begin{figure}[H]
+    \centering
+    \caption{Mean population activation (\%) per model. The vertical axis contains a break and two different scales for better
+    visualization. Error is represented by the shaded area.}
+    \includegraphics[width=0.7\textwidth]{figuras/plots/avg_activity}
+    \label{fig:avg_activity}
+\end{figure}
+
+
+Figure~\ref{fig:pattern_separation} deepens the analysis by detailing the degree of pattern separation ($\mathcal{S}_D$) as a
+function of input pattern similarity. A value of $\mathcal{S}_D > 1$ means that the output representation in the DG is more
+distinct than the input representation in the EC. In general, all models, including the control, achieve higher pattern
+separation for highly similar inputs. This occurs because, mathematically, small differences in output encoding are amplified
+when input overlap is very large. The control model's performance with low-similarity inputs was suboptimal, failing to
+separate patterns effectively, which can again be attributed to insufficient network sparsity, as discussed earlier. The
+introduction of neurogenesis exacerbates this limitation: as iGC connectivity increases, the network's pattern separation
+capacity progressively decreases. The model with 100\% iGC connectivity exhibits the worst performance under all similarity
+conditions. The underlying mechanism of this deterioration is the non-selective activation of iGCs, which, due to their high
+excitability, tend to form the same subset of active neurons in response to distinct input patterns, reducing the dissimilarity
+of output representations and, consequently, the degree of pattern separation.
+
+\begin{figure}
+    \centering
+    \caption{Degree of pattern separation ($\mathcal{S}_D$) per model and input similarity level. The dashed line represents
+    a separation degree of 1; values above this indicate that pattern separation occurred, while values below indicate that it
+    did not. Error is represented by the shaded area.}
+    \includegraphics[width=0.7\textwidth]{figuras/plots/pattern_separation}
+    \label{fig:pattern_separation}
+\end{figure}
+
+To dissect the individual contributions of each neuronal population, Figure~\ref{fig:avg_pattern_separation} presents the mean
+$\mathcal{S}_D$, aggregated across all similarity levels. This analysis confirms the previously observed trend, showing that
+the overall GC pattern separation capacity decreases with increasing iGC connectivity. Analysis of the subpopulations reveals a
+clear functional dichotomy: iGCs, in isolation, never achieve $\mathcal{S}_D > 1$, indicating that, rather than separating,
+they integrate input patterns, making them more similar. In contrast, mGCs demonstrate a robust pattern separation capacity
+across all models.
+
+mGC performance improves slightly with increasing iGC connectivity and activity, likely a byproduct of increased global
+inhibition in the network, which, though insufficient, may be rendering mGC activity marginally more sparse. A simple linear
+regression model was used to evaluate the relationship between iGC connectivity level and mGC degree of pattern separation. The
+model found a significant, though weak, relationship between connectivity level and degree of pattern separation
+($F(1, 8) = 7.83, p = 0.023, R^2 = 0.49, \mathcal{S}^{mGC}_D = 1.76 + 0.13 \times \text{Connectivity}$).
+
+These findings corroborate the theory proposed by~\citeonline{kimEffect2024}, which suggests a role for mGCs as pattern
+separators and for iGCs as integrators. It remains to be investigated, in future experiments, what the impact of this mixed
+coding and the strengthening of separation in mGCs has on CA3 memory functions.
+
+\begin{figure}
+    \centering
+    \caption{Mean degree of pattern separation ($\mathcal{S}_D$) per model and population. The black dashed line represents
+    the $\mathcal{S}_D$ of the control, while the gray one represents a separation degree of 1. Error is represented by the
+    shaded area; in this case, the error is large given that $\mathcal{S}_D$ varies substantially across different similarity
+    levels in Figure~\ref{fig:pattern_separation}.}
+    \includegraphics[width=0.7\textwidth]{figuras/plots/avg_pattern_separation}
+    \label{fig:avg_pattern_separation}
+\end{figure}
+
+
+\section{Expected results}
+
+It is expected that the presence of iGCs will impair pattern completion in CA3, due to increased activation of neural
+assemblies unrelated to the input pattern, an effect consistent with experimental results suggesting non-selective assembly
+activation by iGCs due to their high excitability~\cite{koSystems2025}. Additionally, in the temporal maturation simulation,
+iGCs are expected to encode patterns over time, integrating information presented while they were young, corroborating their
+role as temporal integrators, as proposed by~\cite{aimoneComputational2009}. It is therefore theorized that mGCs would play a
+predominant role in the separation of specific, distinct patterns, while iGCs, over the course of their maturation, would
+specialize in the separation of patterns close in time, specifically, those they encoded during their immature phase.
