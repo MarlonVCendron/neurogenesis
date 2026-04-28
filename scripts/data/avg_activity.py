@@ -34,7 +34,7 @@ plt.rcParams.update({
     
   })
 
-data = load_pattern_data('teste_março')
+data = load_pattern_data('april_2026')
 
 groups = sorted(list(data.keys()))
 

@@ -30,7 +30,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-data = load_pattern_data('teste_março')
+data = load_pattern_data('april_2026')
 
 g = list(sorted(list(data.keys())))
 groups = g
@@ -51,6 +51,7 @@ def in_similarity():
       original_pattern = trial['original_pattern']
       original_inp = original_pattern['pp_pattern']
       original_out = original_pattern['gc_pattern']
+      # original_out = original_pattern['mgc_pattern']
 
       for pattern in trial['patterns'][:-1]:
         sim = pattern['in_similarity']
