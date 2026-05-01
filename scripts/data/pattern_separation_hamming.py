@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 from scipy.stats import sem, linregress
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots, alpha
+from utils.plot_styles import cell_colors, dense_dots, alpha, linewidth, igc_connectivity_label
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -51,9 +51,7 @@ def collect(group):
 
     mean = lambda d: np.mean([np.mean(v) for v in d.values()])
     se   = lambda d: sem([np.mean(v) for v in d.values()])
-    return (mean(sds), mean(i_sds), mean(m_sds),
-            se(sds),   se(i_sds),   se(m_sds))
-
+    return (mean(sds), mean(i_sds), mean(m_sds), se(sds),   se(i_sds),   se(m_sds))
 
 def plot():
     results = {g: collect(g) for g in groups}
@@ -83,8 +81,8 @@ def plot():
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('Connectivity (%)')
-    ax.set_ylabel('Pattern separation: Hamming distance ($d_H$)')
+    ax.set_xlabel(igc_connectivity_label)
+    ax.set_ylabel('Hamming distance ($d_H$)')
     ax.set_xticks(range(10, 101, 10))
     ax.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
     plt.tight_layout()

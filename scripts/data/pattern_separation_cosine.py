@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 from scipy.stats import sem, linregress
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots, alpha
+from utils.plot_styles import cell_colors, dense_dots, alpha, linewidth, igc_connectivity_label
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -92,8 +92,8 @@ def plot():
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('Connectivity (%)')
-    ax.set_ylabel('Pattern separation: cosine distance ($d_{cos}$)')
+    ax.set_xlabel(igc_connectivity_label)
+    ax.set_ylabel('Cosine distance ($d_{cos}$)')
     ax.set_xticks(range(10, 101, 10))
     ax.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
     plt.tight_layout()

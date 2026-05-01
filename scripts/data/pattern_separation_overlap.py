@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 from scipy.stats import sem, linregress
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots, alpha
+from utils.plot_styles import cell_colors, dense_dots, alpha, igc_connectivity_label, linewidth
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -33,7 +33,6 @@ def separation_power(in_1, in_2, out_1, out_2):
     oi_in  = jaccard(in_1, in_2)
     oi_out = jaccard(out_1, out_2)
     if oi_in == 0:
-        # Inputs already non-overlapping; no room to improve
         return 0.0
     return (oi_in - oi_out) / oi_in * 100.0
 
@@ -76,11 +75,11 @@ def plot():
     ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
     ax.axhline(y=0, color='gray', linestyle='--')
 
-    ax.plot(x, sds,   color=cell_colors['gc'],  label='All GC', alpha=alpha)
-    ax.plot(x, i_sds, color=cell_colors['igc'], label='iGC',      alpha=alpha, linestyle=dense_dots)
+    # ax.plot(x, sds,   color=cell_colors['gc'],  label='All GC', alpha=alpha)
+    # ax.plot(x, i_sds, color=cell_colors['igc'], label='iGC',      alpha=alpha, linestyle=dense_dots)
     ax.plot(x, m_sds, color=cell_colors['mgc'], label='mGC',      alpha=alpha, linestyle=dense_dots)
-    ax.fill_between(x, sds   - sems,   sds   + sems,   color=cell_colors['gc'],  alpha=0.2)
-    ax.fill_between(x, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
+    # ax.fill_between(x, sds   - sems,   sds   + sems,   color=cell_colors['gc'],  alpha=0.2)
+    # ax.fill_between(x, i_sds - sems_i, i_sds + sems_i, color=cell_colors['igc'], alpha=0.2)
     ax.fill_between(x, m_sds - sems_m, m_sds + sems_m, color=cell_colors['mgc'], alpha=0.2)
 
     slope, intercept, r, p, _ = linregress(x, m_sds)
@@ -88,8 +87,8 @@ def plot():
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('Connectivity (%)')
-    ax.set_ylabel('Pattern separation: power (SP, %)')
+    ax.set_xlabel(igc_connectivity_label)
+    ax.set_ylabel('jaccard (SP, %)')
     ax.set_xticks(range(10, 101, 10))
     ax.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
     plt.tight_layout()
