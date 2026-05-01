@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import sem, linregress
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots
+from utils.plot_styles import cell_colors, dense_dots, alpha
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -76,8 +76,7 @@ def plot():
     ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
     ax.axhline(y=0, color='gray', linestyle='--')
 
-    alpha = 0.8
-    ax.plot(x, sds,   color=cell_colors['gc'],  label='Total GC', alpha=alpha)
+    ax.plot(x, sds,   color=cell_colors['gc'],  label='All GC', alpha=alpha)
     ax.plot(x, i_sds, color=cell_colors['igc'], label='iGC',      alpha=alpha, linestyle=dense_dots)
     ax.plot(x, m_sds, color=cell_colors['mgc'], label='mGC',      alpha=alpha, linestyle=dense_dots)
     ax.fill_between(x, sds   - sems,   sds   + sems,   color=cell_colors['gc'],  alpha=0.2)

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, alpha
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -123,7 +123,6 @@ def plot():
     }
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 6), dpi=300)
-    alpha = 0.85
 
     # Left: R² lines
     ax = axes[0]

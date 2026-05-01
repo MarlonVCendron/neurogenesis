@@ -7,7 +7,7 @@ from matplotlib.colors import LinearSegmentedColormap
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, alpha, linewidth, igc_connectivity_label
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -15,7 +15,7 @@ plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
 
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -57,24 +57,26 @@ def avg_activity_ca3():
 
     std_errors_c[group] = std_error_cad
 
-  fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
+  fig, ax = plt.subplots(figsize=(6, 4), dpi=300)
 
-  ax.yaxis.set_major_locator(MaxNLocator(nbins=15))
-  formatter = FuncFormatter(lambda y, _: f'{y*100.0:.1f}')
+  from matplotlib.ticker import MultipleLocator
+  ax.yaxis.set_major_locator(MultipleLocator(0.03))
+  formatter = FuncFormatter(lambda y, _: f'{round(y*100)}')
   ax.yaxis.set_major_formatter(formatter)
   print(cads)
 
   cads = [cads[group] for group in groups]
   std_errors_c = [std_errors_c[group] for group in groups]
 
-  ng_groups = groups[0:]
+  ng_groups = groups[1:]
 
-  alpha = 0.8
-  cads_arr = np.array(cads[0:])
-  sems_arr = np.array(std_errors_c[0:])
+  cads_arr = np.array(cads[1:])
+  sems_arr = np.array(std_errors_c[1:])
   x_idx = range(len(ng_groups))
 
-  ax.plot(x_idx, cads_arr, color=cell_colors['pca3'], label='pCA3 pattern', marker='', alpha=alpha)
+  ax.axhline(y=cads[0], color=cell_colors['control'], linestyle='--', label='Control')
+
+  ax.plot(x_idx, cads_arr, color=cell_colors['pca3'], label='pCA3', marker='', alpha=alpha)
   ax.fill_between(x_idx, cads_arr - sems_arr, cads_arr + sems_arr, color=cell_colors['pca3'], alpha=0.2)
 
   ax.spines['right'].set_visible(False)
@@ -82,16 +84,16 @@ def avg_activity_ca3():
 
   max_val = np.max(cads_arr)
   min_val = np.min(cads_arr)
-  pad = 0.25
+  pad = 0.2
   ax.set_ylim((1-pad) * min_val, (1+pad) * max_val)
 
   ax.legend(frameon=False)
 
   plt.ylabel('Mean population activation (%)')
-  plt.xlabel('Connectivity (%)')
+  plt.xlabel(igc_connectivity_label)
 
   xlabels = range(10, 101, 10)
-  plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
+  plt.xticks(ticks=range(len(xlabels)), labels=[10, '', '', 40, '', '', 70, '', '', 100])
 
   plt.tight_layout()
   # plt.show()

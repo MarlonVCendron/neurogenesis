@@ -10,7 +10,7 @@ from utils.patterns import pattern_separation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
 from scipy.stats import mannwhitneyu
 import itertools
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, linewidth
 
 
 plt.style.use('seaborn-v0_8-poster')
@@ -25,7 +25,7 @@ plt.rcParams.update({
     # "ytick.labelsize": 16,
     # "legend.fontsize": 20,
 
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -50,13 +50,13 @@ def in_similarity():
 
       original_pattern = trial['original_pattern']
       original_inp = original_pattern['pp_pattern']
-      original_out = original_pattern['gc_pattern']
-      # original_out = original_pattern['mgc_pattern']
+      # original_out = original_pattern['gc_pattern']
+      original_out = original_pattern['mgc_pattern']
 
       for pattern in trial['patterns'][:-1]:
         sim = pattern['in_similarity']
         inp = pattern['pp_pattern']
-        out = pattern['gc_pattern']
+        out = pattern['mgc_pattern']
 
         if np.array(original_out).shape != np.array(out).shape:
           continue
@@ -103,13 +103,13 @@ def in_similarity():
   formatter = FuncFormatter(lambda y, _: f'{y*100:.0f}')
   ax.xaxis.set_major_formatter(formatter)
   # ax.set_ylim(0, max(max(y) for y in sds)+0.1)
-  ax.set_ylim(0, 6.5)
+  # ax.set_ylim(0, 6.5)
 
   plt.axhline(y=1, color='gray', linestyle='--')
 
   cmap = LinearSegmentedColormap.from_list('neuro_cmap', [cell_colors['igc'], cell_colors['mgc']])
 
-  groups_to_skip = ['neurogenesis_0.1_ca3', 'neurogenesis_0.3_ca3', 'neurogenesis_0.4_ca3', 'neurogenesis_0.5_ca3', 'neurogenesis_0.6_ca3', 'neurogenesis_0.7_ca3', 'neurogenesis_0.8_ca3', 'neurogenesis_0.9_ca3']
+  groups_to_skip = ['neurogenesis_0.1_ca3', 'neurogenesis_0.3_ca3', 'neurogenesis_0.4_ca3', 'neurogenesis_0.6_ca3', 'neurogenesis_0.7_ca3', 'neurogenesis_0.8_ca3', 'neurogenesis_0.9_ca3']
   # groups_to_skip = []
   # total_ng = len(groups) - len(groups_to_skip) - 1
   total_ng = len(groups)
@@ -122,6 +122,7 @@ def in_similarity():
       # continue
     if 'control' in group:
       color = cell_colors['control']
+      linestyle='--'
       alpha = 0.9
     else:
       # ng_index = float(group.split('_')[1])
@@ -129,17 +130,19 @@ def in_similarity():
       i = cmap_index / (total_ng-1)
       color = cmap(i)
       cmap_index += 1
-      alpha = 0.8
+      alpha = 0.9
+      linestyle='-'
       if group in groups_to_skip:
-        alpha = 0.05
+        # alpha = 0.1
+        alpha = 0
 
-    label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
+    label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% excitability'
     label = label if not group in groups_to_skip else None
-    plt.plot(in_sim, sd, color=color, alpha=alpha, label=label)
+    plt.plot(in_sim, sd, color=color, alpha=alpha, label=label, linestyle=linestyle)
 
     sd_arr = np.array(sd)
     std_error_arr = np.array(std_error)
-    ax.fill_between(in_sim, sd_arr - std_error_arr, sd_arr + std_error_arr, color=color, alpha=0.2)
+    ax.fill_between(in_sim, sd_arr - std_error_arr, sd_arr + std_error_arr, color=color, alpha=alpha*0.2)
 
     # plotline, caps, barlinecols = ax.errorbar(
     #     in_sim,
@@ -167,7 +170,7 @@ def in_similarity():
   ax.spines['right'].set_visible(False)
   ax.spines['top'].set_visible(False)
 
-  plt.xticks(ticks=np.arange(0.1, 1.1, 0.1))
+  plt.xticks(ticks=np.arange(0.1, 1, 0.1))
 
   plt.xlabel('Input similarity (%)')
   plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')

@@ -10,7 +10,7 @@ from matplotlib.colors import LinearSegmentedColormap
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots
+from utils.plot_styles import cell_colors, dense_dots, alpha,igc_connectivity_label, linewidth
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -24,7 +24,7 @@ plt.rcParams.update({
     # "ytick.labelsize": 16,
     # "legend.fontsize": 20,
 
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
     
@@ -128,8 +128,7 @@ def in_similarity():
     axis.axhline(y=ads[0], color=cell_colors['control'], linestyle='--', label='Control')
 
   ng_groups = groups[1:]
-  
-  alpha = 0.8
+  ng_x = np.array([float(g.split('_')[1]) for g in ng_groups])
 
   ads_data = np.array(ads[1:])
   iads_data = np.array(iads[1:])
@@ -139,13 +138,13 @@ def in_similarity():
   std_errors_m_data = np.array(std_errors_m[1:])
 
   for axis in [ax, ax2]:
-    axis.plot(ng_groups, ads_data, color=cell_colors['gc'], label='Total GC', marker='', alpha=alpha)
-    axis.plot(ng_groups, iads_data, color=cell_colors['igc'], label='iGC', marker='', alpha=alpha, linestyle=dense_dots)
-    axis.plot(ng_groups, mads_data, color=cell_colors['mgc'], label='mGC', marker='', alpha=alpha, linestyle=dense_dots)
+    axis.plot(ng_x, ads_data, color=cell_colors['gc'], label='All GC', marker='', alpha=alpha)
+    axis.plot(ng_x, iads_data, color=cell_colors['igc'], label='iGC', marker='', alpha=alpha, linestyle=dense_dots)
+    axis.plot(ng_x, mads_data, color=cell_colors['mgc'], label='mGC', marker='', alpha=alpha, linestyle=dense_dots)
 
-    axis.fill_between(ng_groups, ads_data - std_errors_data, ads_data + std_errors_data, color=cell_colors['gc'], alpha=0.2)
-    axis.fill_between(ng_groups, iads_data - std_errors_i_data, iads_data + std_errors_i_data, color=cell_colors['igc'], alpha=0.2)
-    axis.fill_between(ng_groups, mads_data - std_errors_m_data, mads_data + std_errors_m_data, color=cell_colors['mgc'], alpha=0.2)
+    axis.fill_between(ng_x, ads_data - std_errors_data, ads_data + std_errors_data, color=cell_colors['gc'], alpha=0.2)
+    axis.fill_between(ng_x, iads_data - std_errors_i_data, iads_data + std_errors_i_data, color=cell_colors['igc'], alpha=0.2)
+    axis.fill_between(ng_x, mads_data - std_errors_m_data, mads_data + std_errors_m_data, color=cell_colors['mgc'], alpha=0.2)
       
   all_ys = np.concatenate([ads_data, iads_data, mads_data])
   y_with_error_min = np.concatenate([
@@ -198,11 +197,10 @@ def in_similarity():
   ax.legend(frameon=False)
 
   fig.supylabel('Mean population activation (%)', fontsize=18)
-  plt.xlabel('Connectivity (%)')
+  plt.xlabel(igc_connectivity_label)
 
-  xlabels = range(10, 101, 10)
-  # xlabels = np.array(xlabels) / 100
-  plt.xticks(ticks=range(len(xlabels)), labels=xlabels)
+  xticks = np.arange(0.1,1.1,0.1)
+  plt.xticks(ticks=xticks, labels=[10, '', '', 40, '', '', 70, '', '', 100])
 
   plt.tight_layout()
   # plt.show()

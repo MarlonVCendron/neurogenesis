@@ -69,6 +69,8 @@ def average_activation_degree(a, b):
 def correlation_degree(a, b):
   correlation_matrix = np.corrcoef(a, b)
   pearson_correlation = correlation_matrix[0, 1]
+  if math.isnan(pearson_correlation):
+    return 1.0 if np.array_equal(a, b) else 0.0
   return pearson_correlation
 
 # Orthogonalization degree between two patterns (How dissimilar they are)

@@ -120,14 +120,14 @@ def in_similarity():
       # continue
     if 'control' in group:
       color = cell_colors['control']
-      alpha = 0.9
+      alpha = 0.95
     else:
       # ng_index = float(group.split('_')[1])
       # color = cmap((ng_index - 0.1) / 0.9)
       i = cmap_index / (total_ng-1)
       color = cmap(i)
       cmap_index += 1
-      alpha = 0.8
+      alpha = 0.9
 
     label = 'Control' if 'control' in group else f'Neurogenesis: {int(float(group.split("_")[1])*100)}% connectivity'
     label = label if not group in groups_to_skip else None

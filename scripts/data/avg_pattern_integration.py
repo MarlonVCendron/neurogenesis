@@ -4,12 +4,10 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 from scipy.stats import sem
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.collections import LineCollection
-from matplotlib.lines import Line2D
 
 from utils.patterns import pattern_separation_degree, activation_degree, correlation_degree, pattern_integration_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots
+from utils.plot_styles import cell_colors, dense_dots, alpha
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -129,7 +127,6 @@ def in_similarity():
   i_ids = i_ids[1:]
   m_ids = m_ids[1:]
   
-  alpha = 0.8
   plt.plot(ng_groups, ids, color=cell_colors['gc'], label='Full GC population pattern', alpha=alpha)
   plt.plot(ng_groups, i_ids, color=cell_colors['igc'], label='iGC pattern', alpha=alpha, linestyle=dense_dots)
   plt.plot(ng_groups, m_ids, color=cell_colors['mgc'], label='mGC pattern', alpha=alpha, linestyle=dense_dots)

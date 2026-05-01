@@ -9,7 +9,7 @@ from matplotlib.lines import Line2D
 
 from utils.patterns import pattern_separation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots
+from utils.plot_styles import cell_colors, dense_dots, alpha, linewidth, igc_connectivity_label
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -23,7 +23,7 @@ plt.rcParams.update({
     # "ytick.labelsize": 16,
     # "legend.fontsize": 20,
 
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -114,7 +114,7 @@ def in_similarity():
   # plt.scatter(groups_indices, sorted_sds, c=sorted_sds, cmap=cmap, label=group)
 
   print(sds)
-  plt.axhline(y=sds[0], color=cell_colors['control'], linestyle='--')
+  plt.axhline(y=sds[0], color=cell_colors['control'], linestyle='--', label='Control')
   plt.axhline(y=1, color='gray', linestyle='--')
   # ax.set_ylim(0, 6.5)
   
@@ -128,8 +128,7 @@ def in_similarity():
   sems_i = sems_i[1:]
   sems_m = sems_m[1:]
 
-  alpha = 0.8
-  plt.plot(x_values, sds, color=cell_colors['gc'], label='Total GC', alpha=alpha)
+  plt.plot(x_values, sds, color=cell_colors['gc'], label='All GC', alpha=alpha)
   plt.plot(x_values, i_sds, color=cell_colors['igc'], label='iGC', alpha=alpha, linestyle=dense_dots)
   plt.plot(x_values, m_sds, color=cell_colors['mgc'], label='mGC', alpha=alpha, linestyle=dense_dots)
 
@@ -165,18 +164,16 @@ def in_similarity():
   if p_value < 0.001:
       p_value_str = "p < 0.001"
 
-  report_str = (
-    f"A simple linear regression was performed to assess the relationship between neurogenesis levels and mGC pattern separation. "
-    f"A significant positive relationship was found between the two variables "
-    f"(F({df_reg}, {df_res}) = {f_statistic:.2f}, {p_value_str}, R² = {r_squared:.2f}). "
-    f"The regression equation was: mGC Pattern Separation = {intercept:.2f} + {slope:.2f} × (Neurogenesis Level)."
-  )
+  # report_str = (
+  #   f"A simple linear regression was performed to assess the relationship between neurogenesis levels and mGC pattern separation. "
+  #   f"A significant positive relationship was found between the two variables "
+  #   f"(F({df_reg}, {df_res}) = {f_statistic:.2f}, {p_value_str}, R² = {r_squared:.2f}). "
+  #   f"The regression equation was: mGC Pattern Separation = {intercept:.2f} + {slope:.2f} × (Neurogenesis Level)."
+  # )
 
-  print("\n--- For Your Paper ---")
-  print(report_str)
-  print("----------------------\n")
+  # print(report_str)
 
-  #  Visualizar a regressão linear
+  # Visualizar a regressão linear (Precisa melhorar )
   # regression_line = slope * np.array(x_values) + intercept
   # plt.plot(ng_groups, regression_line, color='black', linestyle='-.', linewidth=2, label='mGC Trend')
 
@@ -184,12 +181,12 @@ def in_similarity():
   ax.spines['top'].set_visible(False)
 
   # plt.title('Average pattern separation degree ($\\mathcal{S}_D$) by group and population')
-  plt.xlabel('Connectivity (%)')
+  plt.xlabel(igc_connectivity_label)
   plt.ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
   # plt.axhline(y=1, color='gray', linestyle='--')
 
-  plt.xticks(ticks=range(10, 101, 10))
-  plt.legend(loc='upper left', bbox_to_anchor=(0, 1.15), frameon=False)
+  plt.xticks(ticks=range(10, 101, 10), labels=[10, '', '', 40, '', '', 70, '', '', 100])
+  plt.legend(loc='upper left', bbox_to_anchor=(0, 1), frameon=False)
 
   # plt.show()
   plt.tight_layout()

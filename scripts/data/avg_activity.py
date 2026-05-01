@@ -2,19 +2,12 @@ import numpy as np
 from matplotlib.ticker import FuncFormatter
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 from scipy.stats import sem
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.collections import LineCollection
-from matplotlib.lines import Line2D
-from scipy.stats import ttest_ind
-from scipy.interpolate import make_interp_spline
-
-
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, alpha
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -150,7 +143,6 @@ def in_similarity():
 
   ng_groups = groups[1:]
   
-  alpha = 0.8
   ax.plot(ng_groups, ads[1:], color=cell_colors['gc'], label='Full GC population pattern', marker='', alpha=alpha)
   # ax.plot(ng_groups, iads[1:], color=cell_colors['igc'], label='iGC pattern', marker='', alpha=alpha)
   ax.plot(ng_groups, mads[1:], color=cell_colors['mgc'], label='mGC pattern', marker='', alpha=alpha)
