@@ -24,9 +24,9 @@ data = load_pattern_data('rate8')
 groups = sorted(list(data.keys()))
 
 
-def collect_rates(group, exclude_single_spike=False):
-    """Return concatenated firing rates (>0) for mgc and igc across all trials/patterns."""
-    mgc_rates, igc_rates = [], []
+def collect_rates(group, exclude_single_spike=False, include_pca3=False):
+    """Return concatenated firing rates (>0) for mgc and igc (and optionally pca3) across all trials/patterns."""
+    mgc_rates, igc_rates, pca3_rates = [], [], []
     for trial in data[group]:
         for pattern in trial['patterns']:
             rates = pattern.get('rates', {})
@@ -34,12 +34,20 @@ def collect_rates(group, exclude_single_spike=False):
             igc_r = rates.get('igc', np.array([]))
             mgc_rates.append(mgc_r[mgc_r > 0])
             igc_rates.append(igc_r[igc_r > 0])
+            if include_pca3:
+                pca3_r = rates.get('pca3', np.array([]))
+                pca3_rates.append(pca3_r[pca3_r > 0])
     mgc = np.concatenate(mgc_rates)
     igc = np.concatenate(igc_rates)
     if exclude_single_spike:
         # cells that fired exactly once all share the same rate (1/duration = min rate)
         if len(mgc): mgc = mgc[mgc > mgc.min()]
         if len(igc): igc = igc[igc > igc.min()]
+    if include_pca3:
+        pca3 = np.concatenate(pca3_rates) if pca3_rates else np.array([])
+        if exclude_single_spike and len(pca3):
+            pca3 = pca3[pca3 > pca3.min()]
+        return mgc, igc, pca3
     return mgc, igc
 
 
@@ -71,7 +79,7 @@ def plot_kde(ax, rates, color, label, bw=0.25, show_mean=True):
     return mean_rate
 
 
-def firing_rate_distribution(show_mean=True, exclude_single_spike=False):
+def firing_rate_distribution(show_mean=True, exclude_single_spike=False, include_pca3=False):
     ng_groups = [g for g in groups if 'neurogenesis' in g]
 
     ncols = len(ng_groups)
@@ -80,14 +88,22 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False):
         axes = [axes]
 
     for ax, group in zip(axes, ng_groups):
-        mgc_rates, igc_rates = collect_rates(group, exclude_single_spike=exclude_single_spike)
+        rates = collect_rates(group, exclude_single_spike=exclude_single_spike, include_pca3=include_pca3)
+        if include_pca3:
+            mgc_rates, igc_rates, pca3_rates = rates
+        else:
+            mgc_rates, igc_rates = rates
 
         mgc_mean = plot_kde(ax, mgc_rates, color=cell_colors['mgc'], label='mGC', bw=0.5, show_mean=show_mean)
         igc_mean = plot_kde(ax, igc_rates, color=cell_colors['igc'], label='iGC', bw=0.5, show_mean=show_mean)
+        if include_pca3:
+            pca3_mean = plot_kde(ax, pca3_rates, color=cell_colors['pca3'], label='pCA3', bw=0.5, show_mean=show_mean)
 
         print(f'{group} summary:')
         print(f'mgc mean: {mgc_mean:.4f} Hz, mode: {mode(mgc_rates).mode} ({mode(mgc_rates).count}), median: {np.median(mgc_rates):.4f} Hz, std: {np.std(mgc_rates):.4f}')
         print(f'igc mean: {igc_mean:.4f} Hz, mode: {mode(igc_rates).mode} ({mode(igc_rates).count}), median: {np.median(igc_rates):.4f} Hz, std: {np.std(igc_rates):.4f}')
+        if include_pca3 and pca3_mean is not None:
+            print(f'pca3 mean: {pca3_mean:.4f} Hz, mode: {mode(pca3_rates).mode} ({mode(pca3_rates).count}), median: {np.median(pca3_rates):.4f} Hz, std: {np.std(pca3_rates):.4f}')
 
         # group format: 'neurogenesis_0.2' or 'neurogenesis_0.2_ca3' etc.
         parts = group.split('_')
@@ -112,4 +128,4 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False):
     plt.close()
 
 
-firing_rate_distribution(show_mean=True, exclude_single_spike=False)
+firing_rate_distribution(show_mean=True, exclude_single_spike=False, include_pca3=False)
