@@ -23,6 +23,7 @@ from params.cells import (
   N_mc,
 ) 
 from params.general import N_lamellae
+from utils.plot_styles import cell_colors
 
 cell_to_nl = {
   "bc": N_bc_l,
@@ -35,6 +36,7 @@ cell_to_nl = {
   "pp": 1
 }
 
+# For the plugin, no longer used
 cell_polygon = {
     "pp": 4,
     "mgc": 0,
@@ -46,6 +48,17 @@ cell_polygon = {
     "ica3": 0,
 }
 
+cell_shape = {
+    "pp": 'square',
+    "mgc": 'disc',
+    "igc": 'disc',
+    "bc": 'triangle',
+    "mc": 'diamond',
+    "hipp": 'disc',
+    "pca3": 'triangle',
+    "ica3": 'disc',
+}
+
 CELL_TOTALS = {
     "pp": N_pp, "mgc": N_mgc, "igc": N_igc, "bc": N_bc,
     "hipp": N_hipp, "mc": N_mc, "pca3": N_pca3, "ica3": N_ica3,
@@ -53,13 +66,13 @@ CELL_TOTALS = {
 
 LAYOUT_CONFIG = {
     'ica3': {'layers': 1, 'spacing_before': 30},
-    'pca3': {'layers': 5, 'spacing_before': 10},
-    'hipp': {'layers': 1, 'spacing_before': 20},
-    'mc':   {'layers': 1, 'spacing_before': 5},
-    'bc':   {'layers': 1, 'spacing_before': 5},
-    'igc':  {'layers': 1, 'spacing_before': 20},
-    'mgc':  {'layers': 6, 'spacing_before': 10},
-    'pp':   {'layers': 1, 'spacing_before': 30},
+    'pca3': {'layers': 5, 'spacing_before': 5},
+    'hipp': {'layers': 1, 'spacing_before': 10},
+    'mc':   {'layers': 1, 'spacing_before': 2},
+    'bc':   {'layers': 1, 'spacing_before': 2},
+    'igc':  {'layers': 1, 'spacing_before': 10},
+    'mgc':  {'layers': 6, 'spacing_before': 5},
+    'pp':   {'layers': 1, 'spacing_before': 15},
 }
 
 CELL_ORDER = ['ica3', 'pca3', 'hipp', 'mc', 'bc', 'igc', 'mgc', 'pp']
@@ -87,10 +100,17 @@ def calculate_radii():
 CELL_RADII = calculate_radii()
 
 
+EDGE_SAMPLE_FRACTION = 0.02
+
 def export_to_gexf():
   h5_file_path = join(results_dir, "connectivity_matrices.h5")
 
   G = nx.DiGraph()
+
+  for cell_type, total in CELL_TOTALS.items():
+      for i in range(total):
+          G.add_node(f"{cell_type}_{i}", **get_neuron_attributes(cell_type, i))
+
   with h5py.File(h5_file_path, 'r') as f:
     for group_name in f.keys():
       source_name, target_name = group_name.split("->")
@@ -98,39 +118,22 @@ def export_to_gexf():
       row = group["row"][:]
       col = group["col"][:]
       data = group["data"][:]
-      for r, c, w in zip(row, col, data):
-        source_node = f"{source_name}_{r}"
-        target_node = f"{target_name}_{c}"
-
-        if source_node not in G:
-            attr_source = get_neuron_attributes(source_name, r)
-            G.add_node(source_node, **attr_source)
-        if target_node not in G:
-            attr_target = get_neuron_attributes(target_name, c)
-            G.add_node(target_node, **attr_target)
-
-        # weight = w
-        # if (source_name, target_name) in {
-        #     ("pp", "mgc"),
-        #     ("pp", "igc"),
-        #     ("mgc", "pca3"),
-        #     ("igc", "ica3"),
-        #     ("pca3", "pca3"),
-        #     ("ica3", "pca3"),
-        #     ("pca3", "ica3"),
-        # }:
-        #     weight = 10
-        # G.add_edge(source_node, target_node, weight=weight)
-
-        G.add_edge(source_node, target_node)
+      mask = np.random.rand(len(row)) < EDGE_SAMPLE_FRACTION
+      for r, c in zip(row[mask], col[mask]):
+        G.add_edge(f"{source_name}_{r}", f"{target_name}_{c}")
 
 
   gephi_filename = join(results_dir, "network.gexf")
   nx.write_gexf(G, gephi_filename)
   print(f"Exported to {gephi_filename}")
 
+  G_graphml = nx.DiGraph()
+  for node, data in G.nodes(data=True):
+      G_graphml.add_node(node, **{k: v for k, v in data.items() if k != "viz"})
+  G_graphml.add_edges_from(G.edges())
+
   cytoscape_filename = join(results_dir, "network_cytoscape.xml")
-  nx.write_graphml(G, cytoscape_filename)
+  nx.write_graphml(G_graphml, cytoscape_filename)
   print(f"Exported to {cytoscape_filename}")
 
   try:
@@ -212,9 +215,12 @@ def get_neuron_attributes(cell, index):
         "cell": cell,
         "index": index,
         "lamella": lamella,
-        "x": x,
-        "y": y,
         "Polygon": cell_polygon[cell],
+        "viz": {
+            "color": {"r": int(cell_colors[cell][1:3], 16), "g": int(cell_colors[cell][3:5], 16), "b": int(cell_colors[cell][5:7], 16), "a": 1.0},
+            "position": {"x": float(x), "y": float(y), "z": 0.0},
+            "shape": cell_shape[cell]
+        },
     }
 
 
