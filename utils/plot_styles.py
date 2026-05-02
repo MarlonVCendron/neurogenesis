@@ -1,13 +1,13 @@
 cell_colors = {
   "pp": '#4a555e',
-  "mgc": '#e81313',
-  "igc": '#ff80df',
-  "mc": '#efdf48',
-  "hipp": '#9391ff',
-  "bc": '#8bd346',
-  "pca3": '#008573',
-  "ica3": '#60dbe8',
-  "gc": '#E87413',
+  "mgc": '#d73037',
+  "igc": "#ff73b4",
+  "mc": '#61cd00',
+  "hipp": '#ff7b21',
+  "bc": '#ffbe0b',
+  "pca3": '#2F2FE4',
+  "ica3": '#00e1ff',
+  "gc": '#c801ff',
   "control": '#120406'
 }
 
