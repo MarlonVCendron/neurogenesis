@@ -65,8 +65,8 @@ CELL_TOTALS = {
 }
 
 LAYOUT_CONFIG = {
-    'ica3': {'layers': 1, 'spacing_before': 30},
-    'pca3': {'layers': 5, 'spacing_before': 5},
+    'ica3': {'layers': 1, 'spacing_before': 40},
+    'pca3': {'layers': 7, 'spacing_before': 5},
     'hipp': {'layers': 1, 'spacing_before': 10},
     'mc':   {'layers': 1, 'spacing_before': 2},
     'bc':   {'layers': 1, 'spacing_before': 2},
@@ -101,6 +101,9 @@ CELL_RADII = calculate_radii()
 
 
 EDGE_SAMPLE_FRACTION = 0.02
+# Maximum angular separation between source and target (as fraction of full circle).
+# Edges spanning more than this are skipped to avoid cross-center clutter.
+EDGE_MAX_ANGLE_FRACTION = 0.15  # ~3 lamellae out of 20
 
 def export_to_gexf():
   h5_file_path = join(results_dir, "connectivity_matrices.h5")
@@ -111,6 +114,12 @@ def export_to_gexf():
       for i in range(total):
           G.add_node(f"{cell_type}_{i}", **get_neuron_attributes(cell_type, i))
 
+  node_angle = {
+      node: np.arctan2(data["viz"]["position"]["y"], data["viz"]["position"]["x"])
+      for node, data in G.nodes(data=True)
+  }
+  max_diff = EDGE_MAX_ANGLE_FRACTION * 2 * pi
+
   with h5py.File(h5_file_path, 'r') as f:
     for group_name in f.keys():
       source_name, target_name = group_name.split("->")
@@ -120,7 +129,12 @@ def export_to_gexf():
       data = group["data"][:]
       mask = np.random.rand(len(row)) < EDGE_SAMPLE_FRACTION
       for r, c in zip(row[mask], col[mask]):
-        G.add_edge(f"{source_name}_{r}", f"{target_name}_{c}")
+        src, tgt = f"{source_name}_{r}", f"{target_name}_{c}"
+        diff = abs(node_angle[src] - node_angle[tgt]) % (2 * pi)
+        if diff > pi:
+            diff = 2 * pi - diff
+        if diff <= max_diff:
+            G.add_edge(src, tgt)
 
 
   gephi_filename = join(results_dir, "network.gexf")
