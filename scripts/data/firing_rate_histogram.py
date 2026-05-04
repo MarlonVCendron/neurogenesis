@@ -50,7 +50,7 @@ def collect_all_rates(group, exclude_single_spike=False):
     return result
 
 
-def firing_rate_histogram(group, exclude_single_spike=False, n_bins=10, x_min=0.5, x_max=50):
+def firing_rate_histogram(group, exclude_single_spike=False, n_bins=15, x_min=0.1, x_max=100):
     rates_dict = collect_all_rates(group, exclude_single_spike=exclude_single_spike)
 
     active = [(ct, label) for ct, label in CELL_TYPES if len(rates_dict[ct]) > 0]
@@ -75,17 +75,18 @@ def firing_rate_histogram(group, exclude_single_spike=False, n_bins=10, x_min=0.
 
         for spine in ('top', 'right', 'left'):
             ax.spines[spine].set_visible(False)
-        ax.spines['bottom'].set_linewidth(1.2)
+        ax.spines['bottom'].set_linewidth(1.5)
         ax.spines['bottom'].set_color('black')
 
         ax.set_yticks([])
+        ax.tick_params(axis='x', which='both', length=0)
 
-        ax.set_ylabel(label, color=color, fontsize=18, fontweight='bold', rotation=0, labelpad=50, va='center')
+        ax.text(0.02, 0.85, label, transform=ax.transAxes, color=color, fontsize=18, fontweight='bold', va='top', ha='left')
 
         print(f'{group} | {label}: mean={mean_r:.4f} Hz, median={np.median(r):.4f} Hz, n={len(r)}')
 
     axes[-1].set_xlabel('Firing Rate (Hz)')
-    axes[-1].set_xticks([0.5, 1, 10, 50])
+    axes[-1].set_xticks([0.1, 1, 10, 100])
     axes[-1].set_xticklabels(['0.1', '1', '10', '100'])
 
     plt.tight_layout(h_pad=0)
