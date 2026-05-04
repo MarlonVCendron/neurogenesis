@@ -1,17 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
+from matplotlib.ticker import MaxNLocator, FuncFormatter
 from scipy.stats import sem
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, linewidth, igc_connectivity_label
 from utils.sparsity import gini_index, hoyer
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman"],
-    "lines.linewidth": 6,
+    "lines.linewidth": linewidth,
     'lines.solid_joinstyle': 'round',
     'lines.solid_capstyle': 'round',
 })
@@ -64,57 +64,64 @@ def collect_sparsity(fn):
     return means, errors
 
 
-def plot_sparsity():
-    gini_means, gini_errs = collect_sparsity(gini_index)
-    hoyer_means, hoyer_errs = collect_sparsity(hoyer)
+panel_specs = [
+    ('gc',   cell_colors['gc'],   'All GC', '-'),
+    ('mgc',  cell_colors['mgc'],  'mGC',    '-'),
+    ('igc',  cell_colors['igc'],  'iGC',    '-'),
+    ('pca3', cell_colors['pca3'], 'pCA3',   '-'),
+]
 
-    ng_groups = groups[1:]
+
+def _draw_panel(ax, ct, color, label, fn_means, fn_errs, ng_groups):
     ng_idx = slice(1, None)
+    ctrl_val = fn_means[ct][0]
+    ng_vals = np.array(fn_means[ct][ng_idx])
+    ng_err  = np.array(fn_errs[ct][ng_idx])
 
-    fig, axes = plt.subplots(1, 2, figsize=(20, 10), dpi=300)
+    ctrl_line = None
+    if not np.isnan(ctrl_val):
+        ctrl_line, = ax.plot([], [], color=cell_colors['control'], linestyle='--')
+        ax.axhline(y=ctrl_val, color=cell_colors['control'], linestyle='--')
 
-    population_specs = [
-        ('gc',   cell_colors['gc'],   'Full GC (mGC+iGC)', '-'),
-        ('mgc',  cell_colors['mgc'],  'mGC',               '--'),
-        ('igc',  cell_colors['igc'],  'iGC',               '--'),
-        ('pca3', cell_colors['pca3'], 'pCA3',              '-'),
-    ]
+    ax.plot(range(len(ng_groups)), ng_vals, color=color, linestyle='-')
+    ax.fill_between(range(len(ng_groups)), ng_vals - ng_err, ng_vals + ng_err,
+                    color=color, alpha=0.2)
 
-    for ax, (fn_means, fn_errs, title, ylabel) in zip(axes, [
-        (gini_means, gini_errs, 'Gini Index', 'Gini Sparsity'),
-        (hoyer_means, hoyer_errs, 'Hoyer Measure', 'Hoyer Sparsity'),
-    ]):
-        ax.set_title(title)
-        ax.yaxis.set_major_locator(MaxNLocator(nbins=10))
+    ax.set_xticks(range(len(ng_groups)))
+    ax.set_xticklabels([10, '', '', 40, '', '', 70, '', '', 100])
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{x:.2f}'.lstrip('0')))
+    
+    label_x = 0.9 if label == 'iGC' else 0.03 
+    ax.text(label_x, 0.97, label, transform=ax.transAxes, ha='left', va='top', color=color, fontweight='bold', fontsize=16)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
 
-        for ct, color, label, ls in population_specs:
-            ctrl_val = fn_means[ct][0]
-            ng_vals = np.array(fn_means[ct][ng_idx])
-            ng_err  = np.array(fn_errs[ct][ng_idx])
+    return ctrl_line
 
-            # Skip if no data at all for this cell type
-            if np.all(np.isnan(ng_vals)):
-                continue
 
-            # Control dashed line only for gc (full population baseline)
-            if ct == 'gc' and not np.isnan(ctrl_val):
-                ax.axhline(y=ctrl_val, color=cell_colors['control'], linestyle='--', label='Control (GC)')
+def plot_measure(fn, ylabel, outfile):
+    means, errs = collect_sparsity(fn)
+    ng_groups = groups[1:]
 
-            ax.plot(range(len(ng_groups)), ng_vals, color=color, label=label, marker='', linestyle=ls)
-            ax.fill_between(range(len(ng_groups)), ng_vals - ng_err, ng_vals + ng_err, color=color, alpha=0.2)
+    fig, axes = plt.subplots(1, 4, figsize=(16, 4), dpi=300)
 
-        xlabels = range(10, 10 * len(ng_groups) + 1, 10)
-        ax.set_xticks(range(len(ng_groups)))
-        ax.set_xticklabels(xlabels)
-        ax.set_xlabel('Connectivity (%)')
-        ax.set_ylabel(ylabel)
-        ax.legend(frameon=False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
+    ctrl_line = None
+    for ax, (ct, color, label, _) in zip(axes, panel_specs):
+        line = _draw_panel(ax, ct, color, label, means, errs, ng_groups)
+        if line is not None:
+            ctrl_line = line
 
-    plt.tight_layout()
-    plt.savefig('figures/plots/sparsity.jpg', dpi=300, format='jpg', bbox_inches='tight')
+    fig.text(0.5, 0.01, igc_connectivity_label, ha='center', va='bottom', fontsize=18)
+    axes[0].set_ylabel(ylabel)
+
+    if ctrl_line is not None:
+        fig.legend([ctrl_line], ['Control'], loc='lower left', frameon=False, bbox_to_anchor=(0.1, -0.05))
+
+    plt.tight_layout(rect=[0, 0.06, 1, 1])
+    plt.savefig(outfile, dpi=300, format='jpg', bbox_inches='tight')
     plt.close()
 
 
-plot_sparsity()
+plot_measure(gini_index, 'Gini Sparsity',  'figures/plots/sparsity_gini.jpg')
+plot_measure(hoyer,      'Hoyer Sparsity', 'figures/plots/sparsity_hoyer.jpg')
