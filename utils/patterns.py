@@ -1,5 +1,5 @@
 import math
-from brian2 import Hz, second
+from brian2 import Hz, second, ms
 from params.cells import cell_params
 from params import pp_rate, break_time, stim_time, N_lamellae, active_p as global_active_p
 import numpy as np
@@ -160,6 +160,16 @@ def get_population_pattern(monitor, t_start=break_time, t_end=None):
     if t > t_start and (t_end is None or t <= t_end):
       pattern[i] = 1
   return pattern
+
+def get_spike_times(monitor, t_start=break_time, t_end=None):
+  if not monitor:
+    return {'times_ms': np.array([], dtype=np.float64), 'indices': np.array([], dtype=np.int32)}
+  times   = np.array(monitor.t)          # seconds
+  indices = np.array(monitor.i, dtype=np.int32)
+  mask = times > float(t_start)
+  if t_end is not None:
+    mask &= times <= float(t_end)
+  return {'times_ms': times[mask] * 1000.0, 'indices': indices[mask]}
 
 def get_pp_pattern(pattern):
   return np.where(pattern['rates'] > 0, 1, 0)

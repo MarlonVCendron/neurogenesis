@@ -10,7 +10,7 @@ from utils.utils import (
     neuron_ordering,
 )
 from utils.save_to_file import save_to_file
-from utils.patterns import get_population_pattern, get_population_spike_counts
+from utils.patterns import get_population_pattern, get_population_spike_counts, get_spike_times
 from utils.firing_rate import get_population_firing_rates
 from params import break_time, stim_time
 from models.general.network import network
@@ -96,8 +96,9 @@ class SequenceSimWrapper:
             mgc_pattern=get_population_pattern(spike_monitors['mgc'], t_start=t_start, t_end=t_end),
             igc_pattern=get_population_pattern(spike_monitors['igc'], t_start=t_start, t_end=t_end),
             pca3_pattern=get_population_pattern(spike_monitors['pca3'], t_start=t_start, t_end=t_end),
-            rates={ ct: get_population_firing_rates(mon, t_start=t_start, t_end=t_end) for ct, mon in spike_monitors.items() },
-            spike_counts={ ct: get_population_spike_counts(mon, t_start=t_start, t_end=t_end) for ct, mon in spike_monitors.items() },
+            rates={ct: get_population_firing_rates(mon, t_start=t_start, t_end=t_end) for ct, mon in spike_monitors.items()},
+            spike_counts={ct: get_population_spike_counts(mon, t_start=t_start, t_end=t_end) for ct, mon in spike_monitors.items()},
+            spike_times={ct: get_spike_times(mon, t_start=t_start, t_end=t_end) for ct, mon in spike_monitors.items()},
         )
 
     def _run_stim_phase(self):
