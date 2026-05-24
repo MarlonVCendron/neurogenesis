@@ -20,16 +20,24 @@ def res_filename(i, total):
     return f"{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}"
 
 def optogenetics():
-    if not args.optogenetics:
-        return
-    return {
-        "cell_type": 'igc',
-        "amount_affected": 50,
-        "current_injected": 0.5 * nA,
-        # "current_injected": 0 * nA,
-        "onset_time": 500 * ms,
-        "duration": 5 * ms,
-    }
+    if args.optogenetics_neg:
+        return {
+            "cell_type": 'igc',
+            "amount_affected": 50,
+            # "current_injected": -0.05 * nA,
+            # "current_injected": 0 * nA,
+            "current_injected": -0.5 * nA,
+            "onset_time": (args.stim_time / 2) * ms,
+            "duration": 30 * ms,
+        }
+    if args.optogenetics:
+        return {
+            "cell_type": 'igc',
+            "amount_affected": 50,
+            "current_injected": 0.5 * nA,
+            "onset_time": (args.stim_time / 2) * ms,
+            "duration": 5 * ms,
+        }
 
 
 if __name__ == "__main__":

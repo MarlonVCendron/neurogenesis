@@ -23,6 +23,7 @@ parser.add_argument("--skip-conn", action="store_true", help="Whether to skip th
 parser.add_argument("--skip-rates", action="store_true", help="Whether to skip storing firing rates")
 parser.add_argument("--generate-graph", action="store_true", help="Whether to generate the graph connectivity matrix")
 parser.add_argument("--optogenetics", action="store_true", help="Whether to run \"optogenetics\" simulation")
+parser.add_argument("--optogenetics-neg", action="store_true", help="Whether to run negative \"optogenetics\" simulation")
 parser.add_argument("--pattern-sequence-mode", action="store_true", help="Run all patterns as a single sequential simulation instead of independent parallel runs")
 parser.add_argument("--transition-time", type=float, default=0, help="Duration (ms) of linear rate ramp between patterns in sequence mode")
 

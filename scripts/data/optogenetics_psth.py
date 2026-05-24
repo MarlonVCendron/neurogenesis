@@ -1,4 +1,5 @@
 import os
+import math
 import sys
 import numpy as np
 import matplotlib
@@ -7,16 +8,20 @@ import matplotlib.pyplot as plt
 from glob import glob
 import h5py
 
-RUN_NAME        = 'optogenetics'
+NEG = True
 
-ONSET_TIME_MS   = 500.0
-DURATION_MS     = 5.0
-BREAK_TIME_MS   = 300.0
+RUN_NAME = 'all_optogenetics_neg' if NEG else 'all_optogenetics_good'
 
-PRE_MS          = 60.0
-POST_MS         = 60.0
+ONSET_TIME_MS = 100.0 if NEG else 200.0
+DURATION_MS   = 30.0 if NEG else 5.0
+BREAK_TIME_MS = 300.0
+
+PRE_MS        = 25 if NEG else 60
+POST_MS       = 95 if NEG else 60
 
 BIN_SIZE_MS     = 2.0
+
+GROUPS = [round(g * 0.1, 1) for g in range(1, 11)]  # 0.1 … 1.0
 
 CELL_TYPES = [
     ('igc',  'iGC'),
@@ -28,7 +33,9 @@ CELL_TYPES = [
     ('mc',   'MC'),
 ]
 
-OUTPUT_PATH = 'figures/plots/optogenetics_psth.jpg'
+OUTPUT_PATH = f'figures/plots/optogenetics_psth_{RUN_NAME}.jpg'
+
+opto_color = 'orange' if NEG else 'cyan'
 
 from utils.plot_styles import cell_colors
 
@@ -44,6 +51,7 @@ plt.rcParams.update({
 def load_data(run_name):
     base  = f'res/{run_name}'
     files = sorted(glob(f'{base}/**/*.h5', recursive=True))
+    # files = sorted(glob(f'{base}/neurogenesis_0.1_ca3_trial_*/*.h5', recursive=True))
     if not files:
         sys.exit(f'No .h5 files found under {base}/')
 
@@ -100,8 +108,8 @@ def draw_stimulus_indicator(ax, ymax, ymin):
 
     xs = [-PRE_MS, 0,      0,    DURATION_MS, DURATION_MS, POST_MS]
     ys = [y_flat,  y_flat, ymax,  ymax,         y_flat,      y_flat]
-    ax.plot(xs, ys, color='cyan', lw=1.2, solid_joinstyle='miter', solid_capstyle='butt', clip_on=False, zorder=5)
-    ax.axvspan(0, DURATION_MS, color='cyan', alpha=0.15, zorder=0)
+    ax.plot(xs, ys, color=opto_color, lw=1.2, solid_joinstyle='miter', solid_capstyle='butt', clip_on=False, zorder=5)
+    ax.axvspan(0, DURATION_MS, color=opto_color, alpha=0.15, zorder=0)
     return abs(y_flat)
 
 
@@ -137,7 +145,8 @@ def main():
         zmax = max(float(zscore.max()) * 1.15, 1.0)
         zmin = float(zscore.min()) 
         indicator_h = draw_stimulus_indicator(ax, zmax, zmin)
-        ax.set_ylim(-indicator_h, zmax)
+        if not math.isnan(indicator_h) and not math.isnan(zmax):
+            ax.set_ylim(-indicator_h, zmax)
 
         ax.yaxis.set_major_locator(plt.MaxNLocator(nbins=2, min_n_ticks=3, steps=[1, 2, 5, 10], integer=True))
 

@@ -6,15 +6,19 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from glob import glob
 import h5py
+from utils.plot_styles import cell_colors
+from utils.args_config import args
 
-RUN_NAME      = 'optogenetics'
+NEG = True
 
-ONSET_TIME_MS = 500.0
-DURATION_MS   = 5.0
+RUN_NAME = 'all_optogenetics_neg' if NEG else 'all_optogenetics_good'
+
+ONSET_TIME_MS = 100.0 if NEG else 200.0
+DURATION_MS   = 30.0 if NEG else 5.0
 BREAK_TIME_MS = 300.0
 
-PRE_MS        = 60.0
-POST_MS       = 60.0
+PRE_MS        = 25 if NEG else 60
+POST_MS       = 95 if NEG else 60
 
 CELL_TYPES = [
     ('igc',  'iGC'),
@@ -28,7 +32,7 @@ CELL_TYPES = [
 
 OUTPUT_PATH = 'figures/plots/optogenetics_spikes.jpg'
 
-from utils.plot_styles import cell_colors
+opto_color = 'orange' if NEG else 'cyan'
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({
@@ -40,11 +44,14 @@ plt.rcParams.update({
 def load_data(run_name):
     base  = f'res/{run_name}'
     files = sorted(glob(f'{base}/**/*.h5', recursive=True))
+    # files = sorted(glob(f'{base}/neurogenesis_0.5_ca3_trial_0_pattern_0/*.h5', recursive=True))
+    # files = sorted(glob(f'{base}/neurogenesis_0.4_ca3_trial_0_pattern_0/*.h5', recursive=True))
+    # files = sorted(glob(f'{base}/neurogenesis_0.1_ca3_trial_*/*.h5', recursive=True))
     if not files:
         sys.exit(f'No .h5 files found under {base}/')
 
     spike_times = {}
-    n_neurons   = {}
+    n_neurons   = {'bc': args.n_bc, 'hipp': args.n_hipp, 'ica3': args.n_ica3, 'igc': args.n_igc, 'mc': args.n_mc, 'mgc': args.n_mgc - args.n_igc, 'pca3': args.n_pca3, 'pp': args.n_pp}
 
     for fpath in files:
         with h5py.File(fpath, 'r') as f:
@@ -58,7 +65,8 @@ def load_data(run_name):
                 i = np.array(f['spike_times'][ct]['indices'],  dtype=np.int32)
                 spike_times.setdefault(ct, []).append((t, i))
                 if ct not in n_neurons and 'rates' in f and ct in f['rates']:
-                    n_neurons[ct] = len(f['rates'][ct])
+                    if len(f['rates'][ct]):
+                        n_neurons[ct] = len(f['rates'][ct])
 
     return spike_times, n_neurons
 
@@ -99,12 +107,12 @@ def main():
 
         ax.plot(rel_t, idx, 'ok', markersize=1)
 
-        ax.axvspan(0, DURATION_MS, color='cyan', alpha=0.15, zorder=0)
-        ax.axvline(0, color='cyan', linewidth=0.8, zorder=1)
-        ax.axvline(DURATION_MS, color='cyan', linewidth=0.8, zorder=1)
-        ax.plot([0, DURATION_MS], [n_neur, n_neur], color='cyan', linewidth=0.8, zorder=1, clip_on=False)
-        ax.plot([-PRE_MS, 0], [0, 0], color='cyan', linewidth=0.8, zorder=2, clip_on=False)
-        ax.plot([DURATION_MS, POST_MS], [0, 0], color='cyan', linewidth=0.8, zorder=2, clip_on=False)
+        ax.axvspan(0, DURATION_MS, color=opto_color, alpha=0.15, zorder=0)
+        ax.axvline(0, color=opto_color, linewidth=0.8, zorder=1)
+        ax.axvline(DURATION_MS, color=opto_color, linewidth=0.8, zorder=1)
+        ax.plot([0, DURATION_MS], [n_neur, n_neur], color=opto_color, linewidth=0.8, zorder=1, clip_on=False)
+        ax.plot([-PRE_MS, 0], [0, 0], color=opto_color, linewidth=0.8, zorder=2, clip_on=False)
+        ax.plot([DURATION_MS, POST_MS], [0, 0], color=opto_color, linewidth=0.8, zorder=2, clip_on=False)
 
         ax.set_ylim(0, n_neur)
         ax.set_yticks([0, n_neur])
