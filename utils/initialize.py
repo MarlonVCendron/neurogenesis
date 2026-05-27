@@ -8,6 +8,10 @@ def initialize():
     # prefs.devices.cpp_standalone.openmp_threads = 16
     # set_device('cuda_standalone', build_on_run=False)
   defaultclock.dt = 0.1 * ms
-  seed(256)
-  np.random.seed(256)
+  if args.random:
+    seed()
+    np.random.seed()
+  else:
+    seed(256)
+    np.random.seed(256)
 

@@ -28,11 +28,11 @@ prefix_neg="${prefix}_negative"
 
 for igc_conn in $seq; do
   echo "Running: $prefix_pos --igc-conn $igc_conn"
-  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_pos --optogenetics --stim-time 600
+  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_pos --optogenetics --stim-time 600 --random
 done
 
 for igc_conn in $seq; do
   echo "Running: $prefix_neg --igc-conn $igc_conn"
-  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_neg --optogenetics-neg --stim-time 600
+  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_neg --optogenetics-neg --stim-time 600 --random
 done
 

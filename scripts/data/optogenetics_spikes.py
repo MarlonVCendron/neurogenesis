@@ -19,8 +19,8 @@ ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
 BREAK_TIME_MS = 300.0
 
-PRE_MS        = 25 if NEG else 60
-POST_MS       = 95 if NEG else 60
+PRE_MS  = 25 if NEG else 60
+POST_MS = 95 if NEG else 60
 
 CELL_TYPES = [
     ('igc',  'iGC'),

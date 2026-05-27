@@ -20,6 +20,10 @@ def res_filename(i, total):
     return f"{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}"
 
 def optogenetics():
+    onset_time = args.stim_time - 200
+    if onset_time < args.break_time:
+        exit('Stim time too small')
+
     if args.optogenetics_neg:
         return {
             "cell_type": 'igc',
@@ -27,7 +31,7 @@ def optogenetics():
             # "current_injected": -0.05 * nA,
             # "current_injected": 0 * nA,
             "current_injected": -0.5 * nA,
-            "onset_time": (args.stim_time / 2) * ms,
+            "onset_time": onset_time * ms,
             "duration": 30 * ms,
         }
     if args.optogenetics:
@@ -35,7 +39,7 @@ def optogenetics():
             "cell_type": 'igc',
             "amount_affected": 50,
             "current_injected": 0.5 * nA,
-            "onset_time": (args.stim_time / 2) * ms,
+            "onset_time": onset_time * ms,
             "duration": 5 * ms,
         }
 

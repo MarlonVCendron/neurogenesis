@@ -25,6 +25,7 @@ parser.add_argument("--generate-graph", action="store_true", help="Whether to ge
 parser.add_argument("--optogenetics", action="store_true", help="Whether to run \"optogenetics\" simulation")
 parser.add_argument("--optogenetics-neg", action="store_true", help="Whether to run negative \"optogenetics\" simulation")
 parser.add_argument("--pattern-sequence-mode", action="store_true", help="Run all patterns as a single sequential simulation instead of independent parallel runs")
+parser.add_argument("--random", action="store_true", help="Use a random seed instead of a fixed one")
 parser.add_argument("--transition-time", type=float, default=0, help="Duration (ms) of linear rate ramp between patterns in sequence mode")
 
 parser.add_argument("--n-lamellae", type=int, default=20, help="Number of lamellae")

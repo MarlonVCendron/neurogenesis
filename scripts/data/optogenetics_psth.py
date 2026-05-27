@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 from glob import glob
 import h5py
 
-NEG = True
+NEG = False
 
-RUN_NAME = 'all_optogenetics_neg' if NEG else 'all_optogenetics_good'
+RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 
-ONSET_TIME_MS = 100.0 if NEG else 200.0
+ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
 BREAK_TIME_MS = 300.0
 
@@ -60,17 +60,14 @@ def load_data(run_name):
 
     for fpath in files:
         with h5py.File(fpath, 'r') as f:
-            if 'spike_times' not in f:
-                sys.exit(
-                    f'File {fpath} has no spike_times group.\n'
-                    'Re-run the simulation with --optogenetics using the updated code.'
-                )
-            for ct in f['spike_times'].keys():
-                t = np.array(f['spike_times'][ct]['times_ms'], dtype=np.float64)
-                i = np.array(f['spike_times'][ct]['indices'],  dtype=np.int32)
-                spike_times.setdefault(ct, []).append((t, i))
-                if ct not in n_neurons and 'rates' in f and ct in f['rates']:
-                    n_neurons[ct] = len(f['rates'][ct])
+            for neuron in f['spike_times'].keys():
+                times = np.array(f['spike_times'][neuron]['times_ms'], dtype=np.float64)
+                indices = np.array(f['spike_times'][neuron]['indices'],  dtype=np.int32)
+                spike_times.setdefault(neuron, []).append((times, indices))
+                # if neuron not in n_neurons and 'rates' in f and neuron in f['rates']:
+                if neuron not in n_neurons:
+                    n_neurons[neuron] = len(f['rates'][neuron])
+                n_neurons[neuron] = max(len(f['rates'][neuron]), n_neurons[neuron])
 
     return spike_times, n_neurons
 
@@ -79,28 +76,29 @@ def compute_psth_zscore(trials, n_neurons, onset_abs):
     plot_start = onset_abs - PRE_MS
     plot_end   = onset_abs + POST_MS
 
-    bins     = np.arange(plot_start, plot_end + BIN_SIZE_MS, BIN_SIZE_MS)
-    bl_bins  = np.arange(BREAK_TIME_MS, plot_start + BIN_SIZE_MS, BIN_SIZE_MS)
+    bins = np.arange(plot_start, plot_end + BIN_SIZE_MS, BIN_SIZE_MS)
+    before_bins = np.arange(BREAK_TIME_MS, plot_start + BIN_SIZE_MS, BIN_SIZE_MS)
 
     bin_centers = (bins[:-1] + bins[1:]) / 2.0 - onset_abs
 
     psth_counts = np.zeros(len(bins) - 1)
-    bl_counts   = np.zeros(max(len(bl_bins) - 1, 1))
-    n_trials    = len(trials)
+    before_counts = np.zeros(max(len(before_bins) - 1, 1))
+    n_trials = len(trials)
 
     for times, _ in trials:
         psth_counts += np.histogram(times, bins=bins)[0]
-        if len(bl_bins) > 1:
-            bl_counts += np.histogram(times, bins=bl_bins)[0]
+        if len(before_bins) > 1:
+            before_counts += np.histogram(times, bins=before_bins)[0]
 
-    scale      = n_neurons * n_trials * (BIN_SIZE_MS / 1000.0)
-    psth_rate  = psth_counts / scale
-    bl_rate    = bl_counts   / scale
+    scale = n_neurons * n_trials * (BIN_SIZE_MS / 1000.0)
+    psth_rate = psth_counts / scale
+    before_rate = before_counts / scale
 
-    bl_mean = np.mean(bl_rate)
-    bl_std  = np.std(bl_rate) if np.std(bl_rate) > 1e-10 else 1.0
+    bl_mean = np.mean(before_rate)
+    bl_std = np.std(before_rate) if np.std(before_rate) > 1e-10 else 1.0
 
     return bin_centers, (psth_rate - bl_mean) / bl_std
+    # return bin_centers, psth_counts
 
 
 def draw_stimulus_indicator(ax, ymax, ymin):
@@ -118,7 +116,7 @@ def main():
 
     spike_times, n_neurons = load_data(RUN_NAME)
 
-    active = [(ct, lbl) for ct, lbl in CELL_TYPES if ct in spike_times]
+    active = [(neuron, label) for neuron, label in CELL_TYPES if neuron in spike_times]
 
     n_panels = len(active)
     fig, axes = plt.subplots(
@@ -130,16 +128,13 @@ def main():
     if n_panels == 1:
         axes = [axes]
 
-    for ax, (ct, label) in zip(axes, active):
-        color  = cell_colors.get(ct, '#333333')
-        n_neur = n_neurons.get(ct, 1)
+    for ax, (neuron, label) in zip(axes, active):
+        color  = cell_colors.get(neuron, '#333333')
+        n_neur = n_neurons.get(neuron, 1)
 
-        bin_centers, zscore = compute_psth_zscore(
-            spike_times[ct], n_neur, onset_abs,
-        )
+        bin_centers, zscore = compute_psth_zscore(spike_times[neuron], n_neur, onset_abs)
 
-        ax.bar(bin_centers, zscore, width=BIN_SIZE_MS * 0.85,
-               color='black', align='center', zorder=2)
+        ax.bar(bin_centers, zscore, width=BIN_SIZE_MS * 0.85, color='black', align='center', zorder=2)
         ax.axhline(0, color='black', linewidth=0.6, zorder=1)
 
         zmax = max(float(zscore.max()) * 1.15, 1.0)
