@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import numpy as np
 import matplotlib
@@ -9,11 +10,12 @@ import h5py
 from utils.plot_styles import cell_colors
 from utils.args_config import args
 
-NEG = True
+NEG = False
+ALL_LEVELS = False # Joins all the runs into one plot
 
-RUN_NAME = 'all_optogenetics_neg' if NEG else 'all_optogenetics_good'
+RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 
-ONSET_TIME_MS = 100.0 if NEG else 200.0
+ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
 BREAK_TIME_MS = 300.0
 
@@ -30,8 +32,6 @@ CELL_TYPES = [
     ('mc',   'MC'),
 ]
 
-OUTPUT_PATH = 'figures/plots/optogenetics_spikes.jpg'
-
 opto_color = 'orange' if NEG else 'cyan'
 
 plt.style.use('seaborn-v0_8-poster')
@@ -41,9 +41,8 @@ plt.rcParams.update({
 })
 
 
-def load_data(run_name):
-    base  = f'res/{run_name}'
-    files = sorted(glob(f'{base}/**/*.h5', recursive=True))
+def load_data(group_file_path):
+    files = sorted(glob(f'{group_file_path}*/**/*.h5', recursive=True))
     # files = sorted(glob(f'{base}/neurogenesis_0.5_ca3_trial_0_pattern_0/*.h5', recursive=True))
     # files = sorted(glob(f'{base}/neurogenesis_0.4_ca3_trial_0_pattern_0/*.h5', recursive=True))
     # files = sorted(glob(f'{base}/neurogenesis_0.1_ca3_trial_*/*.h5', recursive=True))
@@ -53,6 +52,8 @@ def load_data(run_name):
     spike_times = {}
     n_neurons   = {'bc': args.n_bc, 'hipp': args.n_hipp, 'ica3': args.n_ica3, 'igc': args.n_igc, 'mc': args.n_mc, 'mgc': args.n_mgc - args.n_igc, 'pca3': args.n_pca3, 'pp': args.n_pp}
 
+    # Take only first file or all
+    files = files if ALL_LEVELS else files[:1]
     for fpath in files:
         with h5py.File(fpath, 'r') as f:
             if 'spike_times' not in f:
@@ -71,10 +72,10 @@ def load_data(run_name):
     return spike_times, n_neurons
 
 
-def main():
+def main(group_file_path):
     onset_abs = BREAK_TIME_MS + ONSET_TIME_MS
 
-    spike_times, n_neurons = load_data(RUN_NAME)
+    spike_times, n_neurons = load_data(group_file_path)
 
     active = [(ct, lbl) for ct, lbl in CELL_TYPES if ct in spike_times]
 
@@ -132,11 +133,25 @@ def main():
 
     plt.tight_layout(rect=[0.06, 0, 1, 1], h_pad=0.4)
 
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    plt.savefig(OUTPUT_PATH, dpi=300, bbox_inches='tight', format='jpg')
+    sign = 'neg' if NEG else 'pos'
+    p = re.compile(r".*(\d.\d)")
+    neurogenesis_level = 'all' if ALL_LEVELS else p.search(group_file_path).group(1)
+    output_path = f'figures/plots/optogenetics/spikes_{sign}_{neurogenesis_level}.jpg'
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
     plt.close()
-    print(f'Saved: {OUTPUT_PATH}')
+    print(f'Saved: {output_path}')
 
 
 if __name__ == '__main__':
-    main()
+    base  = f'res/{RUN_NAME}'
+    files = sorted(glob(f'{base}/*'))
+
+    groups_file_paths = set([])
+    if ALL_LEVELS:
+        groups_file_paths = set([base])
+    else:
+        groups_file_paths = set([file.split('_ca3')[0] for file in files])
+
+    for group_file_path in groups_file_paths:
+        main(group_file_path)
