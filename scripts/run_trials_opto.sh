@@ -23,8 +23,16 @@ fi
 
 echo "Running $prefix for $trials trials with igc seq $seq"
 
+prefix_pos="${prefix}_positive"
+prefix_neg="${prefix}_negative"
+
 for igc_conn in $seq; do
-  echo "Running: neurogenesis --igc-conn $igc_conn"
-  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix --optogenetics-neg --stim-time 200
+  echo "Running: $prefix_pos --igc-conn $igc_conn"
+  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_pos --optogenetics --stim-time 600
+done
+
+for igc_conn in $seq; do
+  echo "Running: $prefix_neg --igc-conn $igc_conn"
+  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_neg --optogenetics-neg --stim-time 600
 done
 
