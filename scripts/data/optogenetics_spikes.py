@@ -10,7 +10,7 @@ import h5py
 from utils.plot_styles import cell_colors
 from utils.args_config import args
 
-NEG = False
+NEG = True
 ALL_LEVELS = False # Joins all the runs into one plot
 
 RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
@@ -32,7 +32,7 @@ CELL_TYPES = [
     ('mc',   'MC'),
 ]
 
-opto_color = 'orange' if NEG else 'cyan'
+opto_color = 'red' if NEG else 'lime'
 
 plt.style.use('seaborn-v0_8-poster')
 plt.rcParams.update({

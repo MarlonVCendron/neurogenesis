@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from glob import glob
 import h5py
 
-NEG = False
+NEG = True
 
 RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 
@@ -19,7 +19,8 @@ BREAK_TIME_MS = 300.0
 PRE_MS        = 25 if NEG else 60
 POST_MS       = 95 if NEG else 60
 
-BIN_SIZE_MS     = 2.0
+# BIN_SIZE_MS     = 2.0
+BIN_SIZE_MS     = 1.5
 
 GROUPS = [round(g * 0.1, 1) for g in range(1, 11)]  # 0.1 … 1.0
 
@@ -35,7 +36,7 @@ CELL_TYPES = [
 
 OUTPUT_PATH = f'figures/plots/optogenetics_psth_{RUN_NAME}.jpg'
 
-opto_color = 'orange' if NEG else 'cyan'
+opto_color = 'red' if NEG else 'lime'
 
 from utils.plot_styles import cell_colors
 
