@@ -1,5 +1,6 @@
 import os
 import math
+import re
 import sys
 import numpy as np
 import matplotlib
@@ -8,7 +9,8 @@ import matplotlib.pyplot as plt
 from glob import glob
 import h5py
 
-NEG = True
+NEG = False
+ALL_LEVELS = False  # Joins all the runs into one plot
 
 RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 
@@ -19,10 +21,7 @@ BREAK_TIME_MS = 300.0
 PRE_MS        = 25 if NEG else 60
 POST_MS       = 95 if NEG else 60
 
-# BIN_SIZE_MS     = 2.0
-BIN_SIZE_MS     = 1.5
-
-GROUPS = [round(g * 0.1, 1) for g in range(1, 11)]  # 0.1 … 1.0
+BIN_SIZE_MS   = 1.5
 
 CELL_TYPES = [
     ('igc',  'iGC'),
@@ -33,8 +32,6 @@ CELL_TYPES = [
     ('hipp', 'HIPP'),
     ('mc',   'MC'),
 ]
-
-OUTPUT_PATH = f'figures/plots/optogenetics_psth_{RUN_NAME}.jpg'
 
 opto_color = 'red' if NEG else 'lime'
 
@@ -49,12 +46,10 @@ plt.rcParams.update({
 })
 
 
-def load_data(run_name):
-    base  = f'res/{run_name}'
-    files = sorted(glob(f'{base}/**/*.h5', recursive=True))
-    # files = sorted(glob(f'{base}/neurogenesis_0.1_ca3_trial_*/*.h5', recursive=True))
+def load_data(group_file_path):
+    files = sorted(glob(f'{group_file_path}*/**/*.h5', recursive=True))
     if not files:
-        sys.exit(f'No .h5 files found under {base}/')
+        sys.exit(f'No .h5 files found under {group_file_path}/')
 
     spike_times = {}
     n_neurons   = {}
@@ -62,10 +57,9 @@ def load_data(run_name):
     for fpath in files:
         with h5py.File(fpath, 'r') as f:
             for neuron in f['spike_times'].keys():
-                times = np.array(f['spike_times'][neuron]['times_ms'], dtype=np.float64)
+                times   = np.array(f['spike_times'][neuron]['times_ms'], dtype=np.float64)
                 indices = np.array(f['spike_times'][neuron]['indices'],  dtype=np.int32)
                 spike_times.setdefault(neuron, []).append((times, indices))
-                # if neuron not in n_neurons and 'rates' in f and neuron in f['rates']:
                 if neuron not in n_neurons:
                     n_neurons[neuron] = len(f['rates'][neuron])
                 n_neurons[neuron] = max(len(f['rates'][neuron]), n_neurons[neuron])
@@ -77,12 +71,12 @@ def compute_psth_zscore(trials, n_neurons, onset_abs):
     plot_start = onset_abs - PRE_MS
     plot_end   = onset_abs + POST_MS
 
-    bins = np.arange(plot_start, plot_end + BIN_SIZE_MS, BIN_SIZE_MS)
+    bins        = np.arange(plot_start, plot_end + BIN_SIZE_MS, BIN_SIZE_MS)
     before_bins = np.arange(BREAK_TIME_MS, plot_start + BIN_SIZE_MS, BIN_SIZE_MS)
 
     bin_centers = (bins[:-1] + bins[1:]) / 2.0 - onset_abs
 
-    psth_counts = np.zeros(len(bins) - 1)
+    psth_counts   = np.zeros(len(bins) - 1)
     before_counts = np.zeros(max(len(before_bins) - 1, 1))
     n_trials = len(trials)
 
@@ -91,15 +85,14 @@ def compute_psth_zscore(trials, n_neurons, onset_abs):
         if len(before_bins) > 1:
             before_counts += np.histogram(times, bins=before_bins)[0]
 
-    scale = n_neurons * n_trials * (BIN_SIZE_MS / 1000.0)
-    psth_rate = psth_counts / scale
+    scale       = n_neurons * n_trials * (BIN_SIZE_MS / 1000.0)
+    psth_rate   = psth_counts   / scale
     before_rate = before_counts / scale
 
     bl_mean = np.mean(before_rate)
-    bl_std = np.std(before_rate) if np.std(before_rate) > 1e-10 else 1.0
+    bl_std  = np.std(before_rate) if np.std(before_rate) > 1e-10 else 1.0
 
     return bin_centers, (psth_rate - bl_mean) / bl_std
-    # return bin_centers, psth_counts
 
 
 def draw_stimulus_indicator(ax, ymax, ymin):
@@ -112,10 +105,10 @@ def draw_stimulus_indicator(ax, ymax, ymin):
     return abs(y_flat)
 
 
-def main():
+def main(group_file_path):
     onset_abs = BREAK_TIME_MS + ONSET_TIME_MS
 
-    spike_times, n_neurons = load_data(RUN_NAME)
+    spike_times, n_neurons = load_data(group_file_path)
 
     active = [(neuron, label) for neuron, label in CELL_TYPES if neuron in spike_times]
 
@@ -139,7 +132,7 @@ def main():
         ax.axhline(0, color='black', linewidth=0.6, zorder=1)
 
         zmax = max(float(zscore.max()) * 1.15, 1.0)
-        zmin = float(zscore.min()) 
+        zmin = float(zscore.min())
         indicator_h = draw_stimulus_indicator(ax, zmax, zmin)
         if not math.isnan(indicator_h) and not math.isnan(zmax):
             ax.set_ylim(-indicator_h, zmax)
@@ -149,11 +142,10 @@ def main():
         ax.set_ylabel(label, color=color, fontsize=16, fontweight='bold', rotation=0, ha='left', va='top')
         ax.yaxis.set_label_coords(0.04, 1)
 
-
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
-        ax.tick_params(axis='both', length=0)   
+        ax.tick_params(axis='both', length=0)
 
     axes[-1].set_xlabel('Time with respect to iGC current injection (ms)')
     axes[-1].set_xlim(-PRE_MS, POST_MS)
@@ -162,11 +154,25 @@ def main():
 
     plt.tight_layout(rect=[0.06, 0, 1, 1], h_pad=0.4)
 
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    plt.savefig(OUTPUT_PATH, dpi=300, bbox_inches='tight', format='jpg')
+    sign = 'neg' if NEG else 'pos'
+    p = re.compile(r".*(\d.\d)")
+    neurogenesis_level = 'all' if ALL_LEVELS else p.search(group_file_path).group(1)
+    output_path = f'figures/plots/optogenetics/psth_{sign}_{neurogenesis_level}.jpg'
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
     plt.close()
-    print(f'Saved: {OUTPUT_PATH}')
+    print(f'Saved: {output_path}')
 
 
 if __name__ == '__main__':
-    main()
+    base  = f'res/{RUN_NAME}'
+    files = sorted(glob(f'{base}/*'))
+
+    groups_file_paths = set([])
+    if ALL_LEVELS:
+        groups_file_paths = set([base])
+    else:
+        groups_file_paths = set([file.split('_ca3')[0] for file in files])
+
+    for group_file_path in groups_file_paths:
+        main(group_file_path)
