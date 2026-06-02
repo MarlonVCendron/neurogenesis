@@ -10,10 +10,11 @@ import h5py
 from utils.plot_styles import cell_colors
 from utils.args_config import args
 
-NEG = True
+NEG = False
 ALL_LEVELS = False # Joins all the runs into one plot
 
-RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
+# RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
+RUN_NAME = 'FINAL_opto_june_positive'
 
 ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0

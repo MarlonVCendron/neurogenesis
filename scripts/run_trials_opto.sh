@@ -1,7 +1,7 @@
 #!/bin/bash
 
 prefix=$1
-trials=1
+trials=10
 seq=$(seq 0.1 0.1 1.0)
 
 if [ -z "$prefix" ]; then
@@ -31,8 +31,8 @@ for igc_conn in $seq; do
   python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_pos --optogenetics --stim-time 600 --random
 done
 
-for igc_conn in $seq; do
-  echo "Running: $prefix_neg --igc-conn $igc_conn"
-  python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_neg --optogenetics-neg --stim-time 600 --random
-done
+# for igc_conn in $seq; do
+#   echo "Running: $prefix_neg --igc-conn $igc_conn"
+#   python -m main --trials $trials --igc-conn=$igc_conn --prefix $prefix_neg --optogenetics-neg --stim-time 600 --random
+# done
 
