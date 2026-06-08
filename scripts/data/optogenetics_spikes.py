@@ -26,11 +26,11 @@ POST_MS = 95 if NEG else 60
 CELL_TYPES = [
     ('igc',  'iGC'),
     ('mgc',  'mGC'),
-    ('pca3', 'pCA3'),
-    ('ica3', 'iCA3'),
+    ('mc',   'MC'),
     ('bc',   'BC'),
     ('hipp', 'HIPP'),
-    ('mc',   'MC'),
+    ('pca3', 'pCA3'),
+    ('ica3', 'iCA3'),
 ]
 
 opto_color = 'red' if NEG else 'lime'
