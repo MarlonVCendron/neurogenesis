@@ -11,10 +11,11 @@ from utils.plot_styles import cell_colors
 from utils.args_config import args
 
 NEG = False
-ALL_LEVELS = False # Joins all the runs into one plot
+ALL_LEVELS = True # Joins all the runs into one plot
 
 # RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
-RUN_NAME = 'FINAL_opto_june_positive'
+# RUN_NAME = 'FINAL_opto_june_positive'
+RUN_NAME = 'new_pca3_opto_positive'
 
 ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
