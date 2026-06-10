@@ -1,4 +1,4 @@
-\documentclass[12pt, openright, oneside, a4paper, english, brazil]{abntex2}
+\documentclass[12pt, openright, oneside, a4paper, brazil, english]{abntex2}
 
 \usepackage[style=apa,backend=biber,backref=true]{biblatex}
 \addbibresource{references.bib}
@@ -69,5 +69,7 @@
 \newcommand\parindentABNT{
 	\setlength{\parindent}{1.25cm} \setlength{\parskip}{0.1cm} 
 }
+
+\AtBeginDocument{\selectlanguage{english}}
 
 \makeindex

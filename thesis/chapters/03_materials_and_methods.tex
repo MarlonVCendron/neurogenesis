@@ -190,63 +190,6 @@ Equation~\ref{eq_izhikevich_1}.
 \input{tabelas/sinapses.tex}
 
 
-\section{Long-term plasticity}
-
-Long-term plasticity will be implemented exclusively in the recurrent synapses between pyramidal CA3 cells (pCA3), given their
-fundamental role in the formation of neural assemblies and to ensure the computational efficiency of the model. The plasticity
-model will be based on the work of~\textcite{kopsickFormation2024}, which employs a Spike-Timing-Dependent Plasticity (STDP)
-rule.
-
-Specifically, a symmetric, Hebbian STDP rule will be used, which promotes the strengthening of synapses between neurons that
-spike in close temporal proximity, regardless of spiking order. This rule is described by the following equation:
-
-\begin{equation}
-    \label{eq:stdp}
-    \Delta w = A e^{-|\Delta t|/\tau}
-\end{equation}
-
-Where $\Delta w$ is the change in synaptic weight, $A$ is a parameter that determines the maximum magnitude of the weight
-change, $\tau$ is the plasticity decay time constant, and $\Delta t$ is the temporal difference between the spikes of the pre-
-and postsynaptic neuron. Following the model of~\parencite{kopsickFormation2024}, the time constant $\tau$ will be set to
-\SI{20}{\milli\second}. The parameter $A$ will be adjusted to modulate the learning rate of the network.
-
-\begin{figure}[H]
-    \centering
-    \caption{Symmetric Hebbian STDP rule with $A = 70$.}
-    \includegraphics[width=0.5\textwidth]{figures/symmetric_stdp}
-    \label{fig:symmetric_stdp}
-\end{figure}
-
-To prevent synaptic saturation, a synaptic weight renormalization rule (Section~\ref{sec:protocolo_treinamento_teste}) and a
-maximum synaptic weight $w_{max}$ to be determined experimentally will be employed.
-
-\section{Temporal neurogenesis}
-
-To investigate the functional impact of the continuous integration of new neurons, a temporal neurogenesis model will be
-implemented. This process is fundamental for the maintenance of hippocampal functions such as learning and memory over
-time~\parencite{aimoneRegulation2014, berdugo-vegaSharpening2023}. The simulation will be divided into two main phases. In the first
-phase, the network will operate with its initial configuration, with $N_{mGC} = 1900$ and $N_{iGC} = 100$. During this phase,
-the network will be exposed to a set of $N$ input patterns, which will be learned and stored in the recurrent synapses of CA3
-via the STDP mechanism. The number of input patterns $N$ will be varied experimentally to determine how many patterns the model
-can store without a significant deficit in pattern completion (see Section~\ref{sec:quantificacao}).
-
-After the initial learning phase, iGCs will undergo a discrete simulated maturation process, transforming into mGCs all at
-once. This transition reflects the biological changes that occur as new neurons become fully integrated into the DG circuit,
-transitioning from a hyperexcitable state to a more stable mature state~\parencite{abbottAdult2020}. Maturation will be implemented
-by updating their electrophysiological and synaptic parameters to the values corresponding to those of mGCs
-(Tables~\ref{tab:izhikevich_neuron_params} and~\ref{tab:synapse_params}). Existing efferent connections, formed during the
-immature phase, will be preserved. Additionally, the newly matured cells will have their EC afferent connectivity increased to
-the same level as mGCs, completing their functional integration into the circuit.
-
-In the second phase of the simulation, following the maturation of the first iGCs, 100 new iGCs will be added, simulating the
-continuous integration of new neurons by adult neurogenesis, and another batch of $N$ patterns will be presented to the
-network. This process will be repeated 3 times, making it possible to evaluate network performance progressively, tracking the
-maturation of iGCs. Two control models will be implemented: one in which only mGCs are added to the network without iGCs, and
-another in which, when iGCs are added, an equivalent number of mGCs undergo neuronal death. The purpose of these control models
-is to isolate the role of adult neurogenesis and of the immature cells it generates, comparing against the effects of control
-models that also feature a gradual increase in neuron count.
-
-
 \section{Pattern separation}\label{sec:separacao_padroes}
 
 The methodology for quantifying pattern separation was based on that used by~\textcite{kimEffect2024}. To analyze pattern
