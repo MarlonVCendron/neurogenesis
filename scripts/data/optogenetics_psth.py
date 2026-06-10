@@ -13,7 +13,8 @@ NEG = False
 ALL_LEVELS = False  # Joins all the runs into one plot
 
 # RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
-RUN_NAME = 'FINAL_opto_june_positive'
+# RUN_NAME = 'FINAL_opto_june_positive'
+RUN_NAME = 'weak_opto_june_positive'
 
 ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
@@ -158,7 +159,7 @@ def main(group_file_path):
     sign = 'neg' if NEG else 'pos'
     p = re.compile(r".*(\d.\d)")
     neurogenesis_level = 'all' if ALL_LEVELS else p.search(group_file_path).group(1)
-    output_path = f'figures/plots/optogenetics/psth_{sign}_{neurogenesis_level}.jpg'
+    output_path = f'figures/plots/optogenetics/{RUN_NAME}/psth_{sign}_{neurogenesis_level}.jpg'
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
     plt.close()
