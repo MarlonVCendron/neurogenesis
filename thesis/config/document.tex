@@ -1,9 +1,9 @@
 \documentclass[12pt, openright, oneside, a4paper, english, brazil]{abntex2}
 
-% \usepackage[brazilian,hyperpageref]{}	
-\usepackage[hyperpageref]{backref}  
+\usepackage[style=apa,backend=biber,backref=true]{biblatex}
+\addbibresource{references.bib}
+\AtEveryBibitem{\clearfield{annotation}}
 \usepackage[table]{xcolor}
-\usepackage[alf]{abntex2cite}			
 \usepackage{lipsum} 
 \usepackage[T1]{fontenc}	
 \usepackage[utf8]{inputenc}	
@@ -46,7 +46,7 @@
 	pdfauthor={\@author},
 	pdfsubject={\imprimirpreambulo},
 	pdfcreator={LaTeX},
-	pdfkeywords={Projeto}{Neurociência Cognitiva}{Comportamento}{PPGNEC-UFPB}, 
+	pdfkeywords={Cognitive Neuroscience}{Behavior}{PPGNEC-UFPB}, 
 	colorlinks=true, 
 	linkcolor=cor,     
 	citecolor=cor,     
@@ -61,9 +61,9 @@
 \instituicao{\Universidade \par \Departamento \par \Curso}
 
 \preambulo{
-	Projeto a ser apresentado no \Departamento\ da \Universidade ,
-	sob a orientação de \imprimirorientador\ e coorientação de \imprimircoorientador ,
-	no mês de \mesDefesa.
+	Master of science's dissertation project, to be defended at the \Departamento\ of the \Universidade ,
+	under the supervision of \imprimirorientador\ and co-supervision of \imprimircoorientador ,
+	in the month of \mesDefesa.
 }
 
 \newcommand\parindentABNT{
