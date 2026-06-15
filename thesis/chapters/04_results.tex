@@ -9,7 +9,7 @@ discussed in this section.
 Figure~\ref{fig:avg_activity} presents the mean activation of GC populations for the control model (without neurogenesis) and
 for models with neurogenesis at different iGC-to-EC connectivity levels. In the control model, where all GCs are mature, the
 mean population activation, defined as the percentage of cells that spiked at least once during the \SI{1000}{\milli\second}
-simulation interval, was 12.46\%, a level of sparse activity, though not as low as that typically observed in the DG. In
+simulation interval, was 12.46\%, a level of sparse activity, though not as low as that typically observed in the DG\@. In
 future simulations, the impact of increasing inhibitory synapses in the circuit will be analyzed.
 
 The introduction of iGCs into the circuit significantly alters this dynamics. As iGC connectivity increases, their activation
@@ -31,14 +31,14 @@ biological plausibility to the model and will also be explored in the project.
     \centering
     \caption{Mean population activation (\%) per model. The vertical axis contains a break and two different scales for better
     visualization. Error is represented by the shaded area.}
-    \includegraphics[width=0.7\textwidth]{figures/plots/avg_activity}
-    \label{fig:avg_activity}
+    \includegraphics[width=0.7\textwidth]{figures/plots/avg_activity}%
+\label{fig:avg_activity}
 \end{figure}
 
 
 Figure~\ref{fig:pattern_separation} deepens the analysis by detailing the degree of pattern separation ($\mathcal{S}_D$) as a
 function of input pattern similarity. A value of $\mathcal{S}_D > 1$ means that the output representation in the DG is more
-distinct than the input representation in the EC. In general, all models, including the control, achieve higher pattern
+distinct than the input representation in the EC\@. In general, all models, including the control, achieve higher pattern
 separation for highly similar inputs. This occurs because, mathematically, small differences in output encoding are amplified
 when input overlap is very large. The control model's performance with low-similarity inputs was suboptimal, failing to
 separate patterns effectively, which can again be attributed to insufficient network sparsity, as discussed earlier. The
@@ -53,8 +53,8 @@ of output representations and, consequently, the degree of pattern separation.
     \caption{Degree of pattern separation ($\mathcal{S}_D$) per model and input similarity level. The dashed line represents
     a separation degree of 1; values above this indicate that pattern separation occurred, while values below indicate that it
     did not. Error is represented by the shaded area.}
-    \includegraphics[width=0.7\textwidth]{figures/plots/pattern_separation}
-    \label{fig:pattern_separation}
+    \includegraphics[width=0.7\textwidth]{figures/plots/pattern_separation}%
+\label{fig:pattern_separation}
 \end{figure}
 
 To dissect the individual contributions of each neuronal population, Figure~\ref{fig:avg_pattern_separation} presents the mean
@@ -80,8 +80,8 @@ coding and the strengthening of separation in mGCs has on CA3 memory functions.
     the $\mathcal{S}_D$ of the control, while the gray one represents a separation degree of 1. Error is represented by the
     shaded area; in this case, the error is large given that $\mathcal{S}_D$ varies substantially across different similarity
     levels in Figure~\ref{fig:pattern_separation}.}
-    \includegraphics[width=0.7\textwidth]{figures/plots/avg_pattern_separation}
-    \label{fig:avg_pattern_separation}
+    \includegraphics[width=0.7\textwidth]{figures/plots/avg_pattern_separation}%
+\label{fig:avg_pattern_separation}
 \end{figure}
 
 

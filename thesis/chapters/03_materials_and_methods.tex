@@ -17,8 +17,8 @@ compiles multiple data sources on the hippocampal formation~\parencite{wheelerHi
         Granule Cells (iGCs and mGCs, respectively) and Basket Cells (BCs); the hilus is composed of Mossy Cells (MCs) and
         Hilar Perforant Path-associated cells (HIPP). CA3 is composed of pyramidal CA3 cells (pCA3) and inhibitory CA3 cells
         (iCA3).}
-    \includegraphics[width=\textwidth]{figures/arquitetura-rede.pdf}
-    \label{fig:arquitetura-rede}
+    \includegraphics[width=\textwidth]{figures/arquitetura-rede.pdf}%
+\label{fig:arquitetura-rede}
 \end{figure}
 
 \begin{figure}
@@ -28,8 +28,8 @@ compiles multiple data sources on the hippocampal formation~\parencite{wheelerHi
     neuron. The EC is represented by the outermost black circle; the lamellar organization of the DG can be seen with mGCs and
     iGCs (red and pink, respectively) and pCA3 cells at the center in teal. In total, the graph contains 3,260 nodes and
     266,596 edges.}
-    \includegraphics[width=\textwidth]{figures/network_color_edges}
-    \label{fig:graph}
+    \includegraphics[width=\textwidth]{figures/network_color_edges}%
+\label{fig:graph}
 \end{figure}
 
 The network input is composed of cells from the entorhinal cortex (EC), with a total of $N_{EC} = 400$
@@ -37,7 +37,7 @@ neurons~\parencite{amaralChapter1990, kimAdult2024}. In each simulation, the EC 
 pattern is represented by an active subpopulation of 10\% of EC neurons~\parencite{mcnaughtonDead1991}. Inactive neurons not
 belonging to the pattern do not spike during the simulation, whereas active neurons spike according to a Poisson distribution
 with a spike rate of $\lambda = \SI{40}{\hertz}$. EC neurons project their axons via the perforant path to neurons with
-dendrites in the molecular layer of the DG: Granule Cells (GCs), Mossy Cells (MCs)~\parencite{scharfmanHilar2013}, and Basket
+dendrites in the molecular layer of the DG\@: Granule Cells (GCs), Mossy Cells (MCs)~\parencite{scharfmanHilar2013}, and Basket
 Cells (BCs); as well as to CA3 neurons.
 
 GCs are subdivided into two subpopulations: mature Granule Cells (mGCs) and immature Granule Cells (iGCs), representing GCs
@@ -71,9 +71,9 @@ CA3, unlike the DG, does not follow a lamellar structure in the model, as it for
 network~\parencite{pakHippocampal2022, watsonHuman2025}. The CA3 model comprises 600 pyramidal cells ($N_{pCA3} = 600$) and 60
 inhibitory cells ($N_{iCA3} = 60$), modeled according to the physiological data for CA3 basket cells~\parencite{wheelerHippocampomeorg2023}
 so as to simplify the variety of inhibitory neurons present in CA3~\parencite{kopsickFormation2024}. Both neuronal populations
-receive afferent inputs from the EC and from GCs, with iCA3 cells inhibiting pCA3 cells. pCA3 cells excite iCA3 cells and,
+receive afferent inputs from the EC and from GCs, with iCA3 cells inhibiting pCA3 cells\@. pCA3 cells excite iCA3 cells and,
 importantly, form a recurrent network by connecting with other pCA3 cells, a fundamental characteristic for the autoassociation
-and pattern completion functions of CA3~\parencite{kopsickFormation2024, rollsMechanisms2013}. pCA3 cells also send feedback
+and pattern completion functions of CA3~\parencite{kopsickFormation2024, rollsMechanisms2013}\@. pCA3 cells also send feedback
 projections to the DG, connecting with MCs in the model, a process that contributes to pattern
 separation~\parencite{myersPattern2011}.
 
@@ -115,21 +115,21 @@ action potential generation, defined by Equation~\ref{eq_izhikevich_3}.
 \label{eq_izhikevich_3}
 \text{if } V_m \geq V_{\text{peak}}, \quad
 \begin{cases}
-V_m \gets V_{min} \\
+V_m \gets V_{\min} \\
 u \gets u + d
 \end{cases}
 \end{equation}
 
 When the membrane potential reaches the peak value $V_{\text{peak}}$, an action potential is generated, the membrane potential
-is reset to the after-spike potential $V_{min}$, and the recovery variable $u$ is incremented by $d$, making subsequent spike
+is reset to the after-spike potential $V_{\min}$, and the recovery variable $u$ is incremented by $d$, making subsequent spike
 generation more difficult.
 
 
 \begin{figure}[H]
     \centering
     \caption{Spike traces of neurons under constant current as indicated by each subfigure title.}
-    \includegraphics[width=0.9\textwidth]{figures/spike_traces}
-    \label{fig:spike_traces}
+    \includegraphics[width=0.9\textwidth]{figures/spike_traces}%
+\label{fig:spike_traces}
 \end{figure}
 
 \input{tabelas/izhikevich.tex}
@@ -225,8 +225,8 @@ binary vector with value 1 for the index of each neuron that spiked at least onc
     stabilizes; the remainder corresponds to the output pattern.
     \textbf{E.} The output pattern, illustrated here for the mGC population, consists of a binary vector with value 1 for the
     index of each neuron that spiked at least once during the \SI{1000}{\milli\second} interval.}
-    \includegraphics[width=\textwidth]{figures/diagrama_entrada_saida}
-    \label{fig:diagrama_entrada_saida}
+    \includegraphics[width=\textwidth]{figures/diagrama_entrada_saida}%
+\label{fig:diagrama_entrada_saida}
 \end{figure}
 
 To characterize pattern separation, the overlap between the neural activity patterns at the input (entorhinal cortex cells) and
@@ -265,7 +265,7 @@ $i$-th cell in patterns $A^{(l)}$ and $B^{(l)}$ ($l \in \{in, out\}$), the Pears
 
 \begin{equation}
     \label{eq:pearson}
-    \rho^{(l)} = \frac{\sum_{i=1}^{N_l} \Delta a_i^{(l)} \cdot \Delta b_i^{(l)}}{\sqrt{\sum_{i=1}^{N_l} (\Delta a_i^{(l)})^2} \sqrt{\sum_{i=1}^{N_l} (\Delta b_i^{(l)})^2}}
+    \rho^{(l)} = \frac{\sum_{i=1}^{N_l} \Delta a_i^{(l)} \cdot \Delta b_i^{(l)}}{\sqrt{\sum_{i=1}^{N_l} {(\Delta a_i^{(l)})}^2} \sqrt{\sum_{i=1}^{N_l} {(\Delta b_i^{(l)})}^2}}
 \end{equation}
 
 where $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$ and $\Delta b_i^{(l)} = b_i^{(l)} - \langle b^{(l)} \rangle$.
