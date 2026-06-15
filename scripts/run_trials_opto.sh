@@ -2,8 +2,8 @@
 
 prefix=$1
 trials=10
-# seq=$(seq 0.1 0.1 1.0)
-seq='0.2 0.5 1.0'
+seq=$(seq 0.1 0.1 1.0)
+# seq='0.2 0.5 1.0'
 
 if [ -z "$prefix" ]; then
   echo "Usage: $0 <prefix>"
