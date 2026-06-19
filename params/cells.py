@@ -102,7 +102,7 @@ cell_params = {
         "model" : "izhikevich",
         "k"     : 0.79 * nS / mV,
         "a"     : 0.008 * ms**-1,
-        "b"     : -42.55 * nS,
+        "b"     : -10.0 * nS,
         "d"     : 588 * pA,
         # "Cm"    : 366 * pF,
         "Cm"    : 186 * pF,
