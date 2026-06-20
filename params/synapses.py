@@ -123,7 +123,7 @@ syn_params = {
         "p"        : 0.8,
         "condition": lamellar_conn(N_mgc_l, N_pca3_l),
         # "g"        : 1.3842 * nS,
-        "g"        : 1.28 * nS,
+        "g"        : 1.5000 * nS,
         "tau_r"    : 278.2858 * ms,
         "tau_d"    : 6.6572 * ms,
         "tau_f"    : 78.5837 * ms,
@@ -135,7 +135,7 @@ syn_params = {
         "syn_var"  : 2,
         "p"        : 0.5,
         "condition": lamellar_conn(N_mgc_l, N_ica3_l),
-        "g"        : 3.6245 * nS,
+        "g"        : 3.0000 * nS,
         "tau_r"    : 218.9344 * ms,
         "tau_d"    : 3.9147 * ms,
         "tau_f"    : 43.2742 * ms,
@@ -143,11 +143,10 @@ syn_params = {
         "delay"    : 1.0 * ms
     },
 
-    # Just testing
     "igc_mgc": {
         "syn_type" : "inh",
         "syn_var"  : 5,
-        "p"        : 0.05,
+        "p"        : 0.10,
         "g"        : 0.5245 * nS,
         "tau_r"    : 218.9344 * ms,
         "tau_d"    : 3.9147 * ms,
@@ -196,7 +195,7 @@ syn_params = {
         "syn_var"  : 3,
         "p"        : 0.8,
         "condition": lamellar_conn(N_igc_l, N_pca3_l),
-        "g"        : 1.28 * nS,
+        "g"        : 1.5000 * nS,
         "tau_r"    : 278.2858 * ms,
         "tau_d"    : 6.6572 * ms,
         "tau_f"    : 78.5837 * ms,
@@ -208,7 +207,7 @@ syn_params = {
         "syn_var"  : 3,
         "p"        : 0.5,
         "condition": lamellar_conn(N_igc_l, N_ica3_l),
-        "g"        : 4.2245 * nS,
+        "g"        : 3.0000 * nS,
         "tau_r"    : 218.9344 * ms,
         "tau_d"    : 3.9147 * ms,
         "tau_f"    : 43.2742 * ms,
