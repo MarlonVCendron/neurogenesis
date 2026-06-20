@@ -15,7 +15,7 @@ plt.rcParams.update({
     'lines.solid_capstyle': 'round',
 })
 
-RUN = 'new_pca3_june'
+RUN = 'june_final'
 data = load_pattern_data(RUN)
 groups = sorted(list(data.keys()))
 
