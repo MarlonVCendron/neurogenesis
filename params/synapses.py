@@ -303,18 +303,18 @@ syn_params = {
         "U_se"     : 0.2781,
         "delay"    : 1.0 * ms
     },
-    "hipp_bc": {
-        "syn_type" : "inh",
-        "syn_var"  : 5,
-        # "p"        : 0.0061,
-        "p"        : 0.02,
-        "g"        : 1.7092 * nS,
-        "tau_r"    : 367.1976 * ms,
-        "tau_d"    : 5.9816 * ms,
-        "tau_f"    : 15.2920 * ms,
-        "U_se"     : 0.2209,
-        "delay"    : 1.0 * ms
-    },
+    # "hipp_bc": {
+    #     "syn_type" : "inh",
+    #     "syn_var"  : 5,
+    #     # "p"        : 0.0061,
+    #     "p"        : 0.02,
+    #     "g"        : 1.7092 * nS,
+    #     "tau_r"    : 367.1976 * ms,
+    #     "tau_d"    : 5.9816 * ms,
+    #     "tau_f"    : 15.2920 * ms,
+    #     "U_se"     : 0.2209,
+    #     "delay"    : 1.0 * ms
+    # },
 
     "bc_mgc": {
         "syn_type" : "inh",
