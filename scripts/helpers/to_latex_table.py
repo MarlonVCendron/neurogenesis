@@ -66,6 +66,8 @@ def generate_synapse_table():
 
         prob = params.get('p', 0) * 100
         prob_val = f"{prob:.0f}" if prob == int(prob) else f"{prob:.1f}"
+        if synapse_key == 'pp_igc':
+            prob_val += '*'
 
         conn_type = "Random"
         if 'condition' in params:
