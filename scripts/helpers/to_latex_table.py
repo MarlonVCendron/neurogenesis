@@ -67,7 +67,7 @@ def generate_synapse_table():
         prob = params.get('p', 0) * 100
         prob_val = f"{prob:.0f}" if prob == int(prob) else f"{prob:.1f}"
         if synapse_key == 'pp_igc':
-            prob_val += '*'
+            prob_val = '0.8--8*'
 
         conn_type = "Random"
         if 'condition' in params:
@@ -117,7 +117,8 @@ def generate_synapse_table():
                     between all cells of both populations; lamellar connections occur between cells of
                     the same lamella; cross-lamellar connections occur between cells of one lamella and  
                     all others. The connection probability $P$ refers to the percentage of connections
-                    between neuronal populations according to the connection condition.}''', file=f)
+                    between neuronal populations according to the connection condition.
+                    * iGCs were simulated with multiple different EC→iGC excitability levels.}''', file=f)
         print("\\label{tab:synapse_params}", file=f)
         print("\\end{table}", file=f)
 
