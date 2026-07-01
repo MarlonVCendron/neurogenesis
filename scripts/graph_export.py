@@ -238,5 +238,19 @@ def get_neuron_attributes(cell, index):
     }
 
 
+def count_connections():
+  total_nodes = sum(CELL_TOTALS.values())
+  print(f"Nodes: {total_nodes:,}")
+
+  total_edges = 0
+  with h5py.File(join(results_dir, "connectivity_matrices.h5"), 'r') as f:
+      for group_name in sorted(f.keys()):
+          n = len(f[group_name]['row'][:])
+          total_edges += n
+          print(f"  {group_name}: {n:,}")
+  print(f"Edges: {total_edges:,}  (sampled: ~{int(total_edges * EDGE_SAMPLE_FRACTION):,})")
+
+
 if __name__ == "__main__":
+  count_connections()
   export_to_gexf()
