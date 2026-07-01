@@ -103,15 +103,13 @@
 
 \author[1]{\fnm{Marlon} \sur{Valmórbida Cendron}}\email{marlonvcendron@gmail.com}
 
-\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{iiauthor@gmail.com}
+\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{barbosa.flaviof@gmail.com}
 
-\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}\email{iiiauthor@gmail.com}
+\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}\email{wilfredoblanco@uern.br}
 
-\affil[1]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{100190}, \state{State}, \country{Country}}}
+\affil[1]{\orgdiv{Laboratory for Memory and Cognition Studies, Department of Psychology}, \orgname{Federal University of Paraíba}, \orgaddress{\street{Cidade Universitária}, \city{João Pessoa}, \postcode{58051900}, \state{Paraíba}, \country{Brazil}}}
 
-\affil[2]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{10587}, \state{State}, \country{Country}}}
-
-\affil[3]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{610101}, \state{State}, \country{Country}}}
+\affil[2]{\orgdiv{Computational Intelligence Group, Department of Computer Science}, \orgname{State University of Rio Grande do Norte}, \orgaddress{\street{Rua Almino Afonso}, \city{Mossoró}, \postcode{59610210}, \state{Rio Grande do Norte}, \country{Brazil}}}
 
 %%==================================%%
 %% Sample for unstructured abstract %%
@@ -139,23 +137,43 @@
 
 \maketitle
 
-\section{Introduction}\label{sec1}
+\section{Introduction}\label{introduction}
 
 The Introduction section, of referenced text \cite{bib1} expands on the background of the work (some overlap with the Abstract is acceptable). The introduction should not include subheadings.
 
 Springer Nature does not impose a strict layout as standard however authors are advised to check the individual requirements for the journal they are planning to submit to as there may be journal-level preferences. When preparing your text please also be aware that some stylistic choices are not supported in full text XML (publication version), including coloured font. These will not be replicated in the typeset article if it is accepted. 
 
-\section{Results}\label{sec2}
+\section{Materials and Methods}\label{methods}
 
-Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+\begin{figure}
+    \centering
+    \caption{DG-CA3 network architecture. Inhibitory synapses are represented by circles and excitatory ones by arrows. The
+        network input is composed of cells from the entorhinal cortex (EC). The dentate gyrus (DG) has the perforant path and the
+        dendrites of its cells in the molecular layer; the granular layer is composed of immature and mature Granule Cells (iGCs
+        and mGCs, respectively) and Basket Cells (BCs); the hilus is composed of Mossy Cells (MCs) and Hilar Perforant
+        Path-associated cells (HIPP). The CA3 is composed of pyramidal CA3 cells (pCA3) and inhibitory CA3 cells (iCA3).}
 
-\section{This is an example for first level head---section head}\label{sec3}
+        \includegraphics[width=\textwidth]{Fig1.eps}%
+\label{fig:arquitetura-rede}
+\end{figure}
 
-\subsection{This is an example for second level head---subsection head}\label{subsec2}
+\begin{figure}
+    \centering
+    \caption{Ring graph of the DG-CA3 network. Each node represents a neuron in the model, with the same color scheme as
+    Figure~\ref{fig:arquitetura-rede} for each neuron. Each edge represents a synapse, colored according to the presynaptic
+    neuron, although here only a subset of 2\% of the synapses are represented. The EC is represented by the outermost black
+    circle; the lamellar organization of the DG can be seen with mGCs and iGCs (red and pink, respectively) and pCA3 cells at the
+    center in teal. In total, the graph contains 3,280 nodes and 266,596 edges.}
 
-\subsubsection{This is an example for third level head---subsubsection head}\label{subsubsec2}
+    \includegraphics[width=\textwidth]{Fig2.eps}%
+\label{fig:graph}
+\end{figure}
 
-Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. 
+\section{Results}\label{methods}
+
+\section{Discussion}\label{discussion}
+
+
 
 \section{Equations}\label{sec4}
 
