@@ -192,14 +192,14 @@ From these equations, the synaptic current is given by:
 
 \begin{equation}
     \label{eq_tsodyks_I}
-    I = k \cdot A \cdot g \cdot (V_m - E)
+    I_{syn} = s \cdot A \cdot g \cdot (V_m - E)
 \end{equation}
 
 where $V_m$ is the postsynaptic membrane potential, $E$ is the synaptic reversal potential, for inhibitory and excitatory
-synapses, respectively, $E_{inh} = \SI{-86}{\milli\volt}$ and $E_{exc} = \SI{0}{\milli\volt}$, and $k$ is a scaling constant
-defined as $k = 10$ for all synapses. This scaling constant is necessary due to the reduced scale of the network, since, given
+synapses, respectively, $E_{inh} = \SI{-86}{\milli\volt}$ and $E_{exc} = \SI{0}{\milli\volt}$, and $s$ is a scaling constant
+defined as $s = 10$ for all synapses. This scaling constant is necessary due to the reduced scale of the network, since, given
 the low number of synapses in the model compared to the rat hippocampus, the entire network would fall silent without this
-scaling. All synaptic currents $I$ of a neuron are summed and affect the membrane potential $V_m$ according to
+scaling. All synaptic currents $I_{syn}$ of a neuron are summed and affect the membrane potential $V_m$ according to
 Equation~\ref{eq_izhikevich_1}.
 
 \input{tabelas/sinapses.tex}
