@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{13}
+\begin{thebibliography}{29}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -44,180 +44,463 @@
 \csname PreBibitemsHook\endcsname
 
 %%% 1
-\bibitem[\protect\citeauthoryear{Campbell and Gear}{1995}]{bib1}
-\begin{barticle}
-\bauthor{\bsnm{Campbell}, \binits{S.L.}},
-\bauthor{\bsnm{Gear}, \binits{C.W.}}:
-\batitle{The index of general nonlinear {D}{A}{E}{S}}.
-\bjtitle{Numer. {M}ath.}
-\bvolume{72}(\bissue{2}),
-\bfpage{173}--\blpage{196}
-(\byear{1995})
-\end{barticle}
+\bibitem[\protect\citeauthoryear{Amaral et~al.}{1990}]{amaralChapter1990}
+\begin{bchapter}
+\bauthor{\bsnm{Amaral}, \binits{D.G.}},
+\bauthor{\bsnm{Ishizuka}, \binits{N.}},
+\bauthor{\bsnm{Claiborne}, \binits{B.}}:
+\bctitle{Chapter 1 {{Chapter Neurons}}, numbers and the hippocampal network}.
+In: \bbtitle{Progress in {{Brain Research}}}
+vol. \bseriesno{83},
+pp. \bfpage{1}--\blpage{11}.
+\bpublisher{Elsevier}, \blocation{???}
+(\byear{1990}).
+\doiurl{10.1016/S0079-6123(08)61237-6}
+\end{bchapter}
 \endbibitem
 
 %%% 2
-\bibitem[\protect\citeauthoryear{Slifka and Whitton}{2000}]{bib2}
+\bibitem[\protect\citeauthoryear{Aimone et~al.}{2014}]{aimoneRegulation2014}
 \begin{barticle}
-\bauthor{\bsnm{Slifka}, \binits{M.K.}},
-\bauthor{\bsnm{Whitton}, \binits{J.L.}}:
-\batitle{Clinical implications of dysregulated cytokine production}.
-\bjtitle{J. {M}ol. {M}ed.}
-\bvolume{78},
-\bfpage{74}--\blpage{80}
-(\byear{2000})
-\doiurl{10.1007/s001090000086}
+\bauthor{\bsnm{Aimone}, \binits{J.B.}},
+\bauthor{\bsnm{Li}, \binits{Y.}},
+\bauthor{\bsnm{Lee}, \binits{S.W.}},
+\bauthor{\bsnm{Clemenson}, \binits{G.D.}},
+\bauthor{\bsnm{Deng}, \binits{W.}},
+\bauthor{\bsnm{Gage}, \binits{F.H.}}:
+\batitle{Regulation and {{Function}} of {{Adult Neurogenesis}}: {{From Genes}}
+  to {{Cognition}}}.
+\bjtitle{Physiological Reviews}
+\bvolume{94}(\bissue{4}),
+\bfpage{991}--\blpage{1026}
+(\byear{2014})
+\doiurl{10.1152/physrev.00004.2014}
 \end{barticle}
 \endbibitem
 
 %%% 3
-\bibitem[\protect\citeauthoryear{Hamburger}{1995}]{bib3}
+\bibitem[\protect\citeauthoryear{Butcher}{1996}]{butcherHistory1996}
 \begin{barticle}
-\bauthor{\bsnm{Hamburger}, \binits{C.}}:
-\batitle{Quasimonotonicity, regularity and duality for nonlinear systems of
-  partial differential equations}.
-\bjtitle{Ann. Mat. Pura. Appl.}
-\bvolume{169}(\bissue{2}),
-\bfpage{321}--\blpage{354}
-(\byear{1995})
+\bauthor{\bsnm{Butcher}, \binits{J.C.}}:
+\batitle{A history of {{Runge-Kutta}} methods}.
+\bjtitle{Applied Numerical Mathematics}
+\bvolume{20}(\bissue{3}),
+\bfpage{247}--\blpage{260}
+(\byear{1996})
+\doiurl{10.1016/0168-9274(95)00108-5}
 \end{barticle}
 \endbibitem
 
 %%% 4
-\bibitem[\protect\citeauthoryear{Geddes et~al.}{1992}]{bib4}
-\begin{bbook}
-\bauthor{\bsnm{Geddes}, \binits{K.O.}},
-\bauthor{\bsnm{Czapor}, \binits{S.R.}},
-\bauthor{\bsnm{Labahn}, \binits{G.}}:
-\bbtitle{Algorithms for {C}omputer {A}lgebra}.
-\bpublisher{Kluwer},
-\blocation{Boston}
+\bibitem[\protect\citeauthoryear{Coultrip et~al.}{1992}]{coultripCortical1992}
+\begin{barticle}
+\bauthor{\bsnm{Coultrip}, \binits{R.}},
+\bauthor{\bsnm{Granger}, \binits{R.}},
+\bauthor{\bsnm{Lynch}, \binits{G.}}:
+\batitle{A cortical model of winner-take-all competition via lateral
+  inhibition}.
+\bjtitle{Neural Networks}
+\bvolume{5}(\bissue{1}),
+\bfpage{47}--\blpage{54}
 (\byear{1992})
-\end{bbook}
+\doiurl{10.1016/S0893-6080(05)80006-1}
+\end{barticle}
 \endbibitem
 
 %%% 5
-\bibitem[\protect\citeauthoryear{Broy}{1992}]{bib5}
-\begin{bchapter}
-\bauthor{\bsnm{Broy}, \binits{M.}}:
-\bctitle{Software engineering---from auxiliary to key technologies}.
-In: \beditor{\bsnm{Broy}, \binits{M.}},
-\beditor{\bsnm{Denert}, \binits{E.}} (eds.)
-\bbtitle{Software Pioneers},
-pp. \bfpage{10}--\blpage{13}.
-\bpublisher{Springer},
-\blocation{New {Y}ork}
-(\byear{1992})
-\end{bchapter}
+\bibitem[\protect\citeauthoryear{Cameron and Mckay}{2001}]{cameronAdult2001}
+\begin{barticle}
+\bauthor{\bsnm{Cameron}, \binits{H.A.}},
+\bauthor{\bsnm{Mckay}, \binits{R.D.G.}}:
+\batitle{Adult neurogenesis produces a large pool of new granule cells in the
+  dentate gyrus}.
+\bjtitle{Journal of Comparative Neurology}
+\bvolume{435}(\bissue{4}),
+\bfpage{406}--\blpage{417}
+(\byear{2001})
+\doiurl{10.1002/cne.1040}
+\end{barticle}
 \endbibitem
 
 %%% 6
-\bibitem[\protect\citeauthoryear{Seymour}{1981}]{bib6}
-\begin{bbook}
-\beditor{\bsnm{Seymour}, \binits{R.S.}} (ed.):
-\bbtitle{Conductive {P}olymers}.
-\bpublisher{Plenum},
-\blocation{New {Y}ork}
-(\byear{1981})
-\end{bbook}
+\bibitem[\protect\citeauthoryear{Chavlis et~al.}{2017}]{chavlisDendrites2017}
+\begin{barticle}
+\bauthor{\bsnm{Chavlis}, \binits{S.}},
+\bauthor{\bsnm{Petrantonakis}, \binits{P.C.}},
+\bauthor{\bsnm{Poirazi}, \binits{P.}}:
+\batitle{Dendrites of dentate gyrus granule cells contribute to pattern
+  separation by controlling sparsity: {{DENDRITIC ROLE IN PATTERN
+  SEPARATION}}}.
+\bjtitle{Hippocampus}
+\bvolume{27}(\bissue{1}),
+\bfpage{89}--\blpage{110}
+(\byear{2017})
+\doiurl{10.1002/hipo.22675}
+\end{barticle}
 \endbibitem
 
 %%% 7
-\bibitem[\protect\citeauthoryear{Smith}{1976}]{bib7}
-\begin{bchapter}
-\bauthor{\bsnm{Smith}, \binits{S.E.}}:
-\bctitle{Neuromuscular blocking drugs in man}.
-In: \beditor{\bsnm{Zaimis}, \binits{E.}} (ed.)
-\bbtitle{Neuromuscular Junction. {H}andbook of Experimental Pharmacology},
-vol. \bseriesno{42},
-pp. \bfpage{593}--\blpage{660}.
-\bpublisher{Springer},
-\blocation{Heidelberg}
-(\byear{1976})
-\end{bchapter}
+\bibitem[\protect\citeauthoryear{Esp{\'o}sito
+  et~al.}{2005}]{espositoNeuronal2005}
+\begin{barticle}
+\bauthor{\bsnm{Esp{\'o}sito}, \binits{M.S.}},
+\bauthor{\bsnm{Piatti}, \binits{V.C.}},
+\bauthor{\bsnm{Laplagne}, \binits{D.A.}},
+\bauthor{\bsnm{Morgenstern}, \binits{N.A.}},
+\bauthor{\bsnm{Ferrari}, \binits{C.C.}},
+\bauthor{\bsnm{Pitossi}, \binits{F.J.}},
+\bauthor{\bsnm{Schinder}, \binits{A.F.}}:
+\batitle{Neuronal {{Differentiation}} in the {{Adult Hippocampus Recapitulates
+  Embryonic Development}}}.
+\bjtitle{The Journal of Neuroscience}
+\bvolume{25}(\bissue{44}),
+\bfpage{10074}--\blpage{10086}
+(\byear{2005})
+\doiurl{10.1523/JNEUROSCI.3114-05.2005}
+\end{barticle}
 \endbibitem
 
 %%% 8
-\bibitem[\protect\citeauthoryear{Chung and Morris}{1978}]{bib8}
-\begin{botherref}
-\oauthor{\bsnm{Chung}, \binits{S.T.}},
-\oauthor{\bsnm{Morris}, \binits{R.L.}}:
-Isolation and characterization of plasmid deoxyribonucleic acid from
-  Streptomyces fradiae.
-Paper presented at the 3rd international symposium on the genetics of
-  industrial microorganisms, University of {W}isconsin, {M}adison, 4--9 June
-  1978
-(1978)
-\end{botherref}
+\bibitem[\protect\citeauthoryear{Hodgkin and
+  Huxley}{1952}]{hodgkinQuantitative1952b}
+\begin{barticle}
+\bauthor{\bsnm{Hodgkin}, \binits{A.L.}},
+\bauthor{\bsnm{Huxley}, \binits{A.F.}}:
+\batitle{A quantitative description of membrane current and its application to
+  conduction and excitation in nerve}.
+\bjtitle{The Journal of Physiology}
+\bvolume{117}(\bissue{4}),
+\bfpage{500}--\blpage{544}
+(\byear{1952})
+\doiurl{10.1113/jphysiol.1952.sp004764}
+\end{barticle}
 \endbibitem
 
 %%% 9
-\bibitem[\protect\citeauthoryear{Hao et~al.}{2014}]{bib9}
-\begin{botherref}
-\oauthor{\bsnm{Hao}, \binits{Z.}},
-\oauthor{\bsnm{AghaKouchak}, \binits{A.}},
-\oauthor{\bsnm{Nakhjiri}, \binits{N.}},
-\oauthor{\bsnm{Farahmand}, \binits{A.}}:
-Global integrated drought monitoring and prediction system (GIDMaPS) data sets.
-figshare \url{https://doi.org/10.6084/m9.figshare.853801}
-(2014)
-\end{botherref}
+\bibitem[\protect\citeauthoryear{Izhikevich}{2006}]{izhikevichDynamical2006}
+\begin{bbook}
+\bauthor{\bsnm{Izhikevich}, \binits{E.M.}}:
+\bbtitle{Dynamical {{Systems}} in {{Neuroscience}}: {{The Geometry}} of
+  {{Excitability}} and {{Bursting}}}.
+\bpublisher{The MIT Press}, \blocation{???}
+(\byear{2006}).
+\doiurl{10.7551/mitpress/2526.001.0001}
+\end{bbook}
 \endbibitem
 
 %%% 10
-\bibitem[\protect\citeauthoryear{Babichev et~al.}{2002}]{bib10}
-\begin{botherref}
-\oauthor{\bsnm{Babichev}, \binits{S.A.}},
-\oauthor{\bsnm{Ries}, \binits{J.}},
-\oauthor{\bsnm{Lvovsky}, \binits{A.I.}}:
-Quantum scissors: teleportation of single-mode optical states by means of a
-  nonlocal single photon.
-Preprint at \url{https://arxiv.org/abs/quant-ph/0208066v1}
-(2002)
-\end{botherref}
+\bibitem[\protect\citeauthoryear{Kopsick et~al.}{2024}]{kopsickFormation2024}
+\begin{barticle}
+\bauthor{\bsnm{Kopsick}, \binits{J.D.}},
+\bauthor{\bsnm{Kilgore}, \binits{J.A.}},
+\bauthor{\bsnm{Adam}, \binits{G.C.}},
+\bauthor{\bsnm{Ascoli}, \binits{G.A.}}:
+\batitle{Formation and retrieval of cell assemblies in a biologically realistic
+  spiking neural network model of area {{CA3}} in the mouse hippocampus}.
+\bjtitle{Journal of Computational Neuroscience}
+\bvolume{52}(\bissue{4}),
+\bfpage{303}--\blpage{321}
+(\byear{2024})
+\doiurl{10.1007/s10827-024-00881-3}
+\end{barticle}
 \endbibitem
 
 %%% 11
-\bibitem[\protect\citeauthoryear{Beneke et~al.}{1997}]{bib11}
+\bibitem[\protect\citeauthoryear{Kim and Lim}{2024a}]{kimAdult2024}
 \begin{barticle}
-\bauthor{\bsnm{Beneke}, \binits{M.}},
-\bauthor{\bsnm{Buchalla}, \binits{G.}},
-\bauthor{\bsnm{Dunietz}, \binits{I.}}:
-\batitle{Mixing induced {CP} asymmetries in inclusive {B} decays}.
-\bjtitle{Phys. {L}ett.}
-\bvolume{B393},
-\bfpage{132}--\blpage{142}
-(\byear{1997})
-{\href{https://arxiv.org/abs/0707.3168}{{arXiv:0707.3168}}}
-{[gr-gc]}
+\bauthor{\bsnm{Kim}, \binits{S.-Y.}},
+\bauthor{\bsnm{Lim}, \binits{W.}}:
+\batitle{Adult neurogenesis in the hippocampal dentate gyrus affects sparsely
+  synchronized rhythms, associated with pattern separation and integration}.
+\bjtitle{Cognitive Neurodynamics}
+(\byear{2024})
+\doiurl{10.1007/s11571-024-10089-x}
 \end{barticle}
 \endbibitem
 
 %%% 12
-\bibitem[\protect\citeauthoryear{Stahl}{2020}]{bib12}
-\begin{botherref}
-\oauthor{\bsnm{Stahl}, \binits{B.}}:
-Deep{SIP}: Deep Learning of {S}upernova {I}a {P}arameters,
-0.42,
-Astrophysics {S}ource {C}ode {L}ibrary
-(2020),
-{\href{https://ascl.net/2006.023}{{ascl:2006.023}}}
-\end{botherref}
+\bibitem[\protect\citeauthoryear{Kim and Lim}{2024b}]{kimEffect2024}
+\begin{barticle}
+\bauthor{\bsnm{Kim}, \binits{S.-Y.}},
+\bauthor{\bsnm{Lim}, \binits{W.}}:
+\batitle{Effect of adult-born immature granule cells on pattern separation in
+  the hippocampal dentate gyrus}.
+\bjtitle{Cognitive Neurodynamics}
+\bvolume{18}(\bissue{4}),
+\bfpage{2077}--\blpage{2093}
+(\byear{2024})
+\doiurl{10.1007/s11571-023-09985-5}
+\end{barticle}
 \endbibitem
 
 %%% 13
-\bibitem[\protect\citeauthoryear{Abbott et~al.}{2019}]{bib13}
+\bibitem[\protect\citeauthoryear{Moradi et~al.}{2022}]{moradiNormalized2022}
 \begin{barticle}
-\bauthor{\bsnm{Abbott}, \binits{T.M.C.}}, \betal:
-\batitle{{Dark Energy Survey Year 1 Results: Constraints on Extended
-  Cosmological Models from Galaxy Clustering and Weak Lensing}}.
-\bjtitle{Phys. Rev. D}
-\bvolume{99}(\bissue{12}),
-\bfpage{123505}
+\bauthor{\bsnm{Moradi}, \binits{K.}},
+\bauthor{\bsnm{Aldarraji}, \binits{Z.}},
+\bauthor{\bsnm{Luthra}, \binits{M.}},
+\bauthor{\bsnm{Madison}, \binits{G.P.}},
+\bauthor{\bsnm{Ascoli}, \binits{G.A.}}:
+\batitle{Normalized unitary synaptic signaling of the hippocampus and
+  entorhinal cortex predicted by deep learning of experimental recordings}.
+\bjtitle{Communications Biology}
+\bvolume{5}(\bissue{1}),
+\bfpage{418}
+(\byear{2022})
+\doiurl{10.1038/s42003-022-03329-5}
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Mongillo et~al.}{2008}]{mongilloSynaptic2008a}
+\begin{barticle}
+\bauthor{\bsnm{Mongillo}, \binits{G.}},
+\bauthor{\bsnm{Barak}, \binits{O.}},
+\bauthor{\bsnm{Tsodyks}, \binits{M.}}:
+\batitle{Synaptic {{Theory}} of {{Working Memory}}}.
+\bjtitle{Science}
+\bvolume{319}(\bissue{5869}),
+\bfpage{1543}--\blpage{1546}
+(\byear{2008})
+\doiurl{10.1126/science.1150769}
+\end{barticle}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Modak and
+  Chakravarthy}{2018}]{modakIzhikevich2018}
+\begin{bchapter}
+\bauthor{\bsnm{Modak}, \binits{P.}},
+\bauthor{\bsnm{Chakravarthy}, \binits{V.S.}}:
+\bctitle{Izhikevich {{Models For Hippocampal Neurons And Its Sub-Region CA3}}}.
+In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
+\bpublisher{Cognitive Computational Neuroscience},
+\blocation{Philadelphia, Pennsylvania, USA}
+(\byear{2018}).
+\doiurl{10.32470/CCN.2018.1189-0}
+\end{bchapter}
+\endbibitem
+
+%%% 16
+\bibitem[\protect\citeauthoryear{McNaughton et~al.}{1991}]{mcnaughtonDead1991}
+\begin{barticle}
+\bauthor{\bsnm{McNaughton}, \binits{B.L.}},
+\bauthor{\bsnm{Chen}, \binits{L.L.}},
+\bauthor{\bsnm{Markus}, \binits{E.J.}}:
+\batitle{``{{Dead Reckoning}},'' {{Landmark Learning}}, and the {{Sense}} of
+  {{Direction}}: {{A Neurophysiological}} and {{Computational Hypothesis}}}.
+\bjtitle{Journal of Cognitive Neuroscience}
+\bvolume{3}(\bissue{2}),
+\bfpage{190}--\blpage{202}
+(\byear{1991})
+\doiurl{10.1162/jocn.1991.3.2.190}
+\end{barticle}
+\endbibitem
+
+%%% 17
+\bibitem[\protect\citeauthoryear{Myers and Scharfman}{2009}]{myersRole2009}
+\begin{barticle}
+\bauthor{\bsnm{Myers}, \binits{C.E.}},
+\bauthor{\bsnm{Scharfman}, \binits{H.E.}}:
+\batitle{A role for hilar cells in pattern separation in the dentate gyrus:
+  {{A}} computational approach}.
+\bjtitle{Hippocampus}
+\bvolume{19}(\bissue{4}),
+\bfpage{321}--\blpage{337}
+(\byear{2009})
+\doiurl{10.1002/hipo.20516}
+\end{barticle}
+\endbibitem
+
+%%% 18
+\bibitem[\protect\citeauthoryear{Myers and Scharfman}{2011}]{myersPattern2011}
+\begin{barticle}
+\bauthor{\bsnm{Myers}, \binits{C.E.}},
+\bauthor{\bsnm{Scharfman}, \binits{H.E.}}:
+\batitle{Pattern separation in the dentate gyrus: {{A}} role for the {{CA3}}
+  backprojection}.
+\bjtitle{Hippocampus}
+\bvolume{21}(\bissue{11}),
+\bfpage{1190}--\blpage{1215}
+(\byear{2011})
+\doiurl{10.1002/hipo.20828}
+\end{barticle}
+\endbibitem
+
+%%% 19
+\bibitem[\protect\citeauthoryear{Nelder and Mead}{1965}]{nelderSimplex1965}
+\begin{barticle}
+\bauthor{\bsnm{Nelder}, \binits{J.A.}},
+\bauthor{\bsnm{Mead}, \binits{R.}}:
+\batitle{A {{Simplex Method}} for {{Function Minimization}}}.
+\bjtitle{The Computer Journal}
+\bvolume{7}(\bissue{4}),
+\bfpage{308}--\blpage{313}
+(\byear{1965})
+\doiurl{10.1093/comjnl/7.4.308}
+\end{barticle}
+\endbibitem
+
+%%% 20
+\bibitem[\protect\citeauthoryear{Pak et~al.}{2022}]{pakHippocampal2022}
+\begin{barticle}
+\bauthor{\bsnm{Pak}, \binits{S.}},
+\bauthor{\bsnm{Jang}, \binits{D.}},
+\bauthor{\bsnm{Lee}, \binits{J.}},
+\bauthor{\bsnm{Choi}, \binits{G.}},
+\bauthor{\bsnm{Shin}, \binits{H.}},
+\bauthor{\bsnm{Yang}, \binits{S.}},
+\bauthor{\bsnm{Yang}, \binits{S.}}:
+\batitle{Hippocampal interlamellar cell--cell connectome that counts}.
+\bjtitle{Journal of Cellular Physiology}
+\bvolume{237}(\bissue{11}),
+\bfpage{4037}--\blpage{4048}
+(\byear{2022})
+\doiurl{10.1002/jcp.30868}
+\end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem[\protect\citeauthoryear{Rolls}{2013}]{rollsMechanisms2013}
+\begin{botherref}
+\oauthor{\bsnm{Rolls}, \binits{E.T.}}:
+The mechanisms for pattern completion and pattern separation in the
+  hippocampus.
+Frontiers in Systems Neuroscience
+\textbf{7}
+(2013)
+\doiurl{10.3389/fnsys.2013.00074}
+\end{botherref}
+\endbibitem
+
+%%% 22
+\bibitem[\protect\citeauthoryear{Stimberg et~al.}{2019}]{stimbergBrian2019a}
+\begin{barticle}
+\bauthor{\bsnm{Stimberg}, \binits{M.}},
+\bauthor{\bsnm{Brette}, \binits{R.}},
+\bauthor{\bsnm{Goodman}, \binits{D.F.}}:
+\batitle{Brian 2, an intuitive and efficient neural simulator}.
+\bjtitle{eLife}
+\bvolume{8},
+\bfpage{47314}
 (\byear{2019})
-\doiurl{10.1103/PhysRevD.99.123505}
-{\href{https://arxiv.org/abs/1810.02499}{{arXiv:1810.02499}}}
-{[astro-ph.CO]}
+\doiurl{10.7554/eLife.47314}
+\end{barticle}
+\endbibitem
+
+%%% 23
+\bibitem[\protect\citeauthoryear{Sloviter and
+  L{\o}mo}{2012}]{sloviterUpdating2012}
+\begin{botherref}
+\oauthor{\bsnm{Sloviter}, \binits{R.S.}},
+\oauthor{\bsnm{L{\o}mo}, \binits{T.}}:
+Updating the {{Lamellar Hypothesis}} of {{Hippocampal Organization}}.
+Frontiers in Neural Circuits
+\textbf{6}
+(2012)
+\doiurl{10.3389/fncir.2012.00102}
+\end{botherref}
+\endbibitem
+
+%%% 24
+\bibitem[\protect\citeauthoryear{Scharfman and
+  Myers}{2013}]{scharfmanHilar2013}
+\begin{botherref}
+\oauthor{\bsnm{Scharfman}, \binits{H.E.}},
+\oauthor{\bsnm{Myers}, \binits{C.E.}}:
+Hilar mossy cells of the dentate gyrus: A historical perspective.
+Frontiers in Neural Circuits
+\textbf{6}
+(2013)
+\doiurl{10.3389/fncir.2012.00106}
+\end{botherref}
+\endbibitem
+
+%%% 25
+\bibitem[\protect\citeauthoryear{Senn et~al.}{2001}]{sennAlgorithm2001}
+\begin{barticle}
+\bauthor{\bsnm{Senn}, \binits{W.}},
+\bauthor{\bsnm{Markram}, \binits{H.}},
+\bauthor{\bsnm{Tsodyks}, \binits{M.}}:
+\batitle{An {{Algorithm}} for {{Modifying Neurotransmitter Release Probability
+  Based}} on {{Pre-}} and {{Postsynaptic Spike Timing}}}.
+\bjtitle{Neural Computation}
+\bvolume{13}(\bissue{1}),
+\bfpage{35}--\blpage{67}
+(\byear{2001})
+\doiurl{10.1162/089976601300014628}
+\end{barticle}
+\endbibitem
+
+%%% 26
+\bibitem[\protect\citeauthoryear{Wheeler
+  et~al.}{2023}]{wheelerHippocampomeorg2023}
+\begin{botherref}
+\oauthor{\bsnm{Wheeler}, \binits{D.W.}},
+\oauthor{\bsnm{Kopsick}, \binits{J.D.}},
+\oauthor{\bsnm{Sutton}, \binits{N.}},
+\oauthor{\bsnm{Tecuatl}, \binits{C.}},
+\oauthor{\bsnm{Komendantov}, \binits{A.O.}},
+\oauthor{\bsnm{Nadella}, \binits{K.}},
+\oauthor{\bsnm{Ascoli}, \binits{G.A.}}:
+Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
+  Network Simulations of Rodent Hippocampal Circuits
+(2023).
+\doiurl{10.7554/eLife.90597.1}
+\end{botherref}
+\endbibitem
+
+%%% 27
+\bibitem[\protect\citeauthoryear{West et~al.}{1991}]{westUnbiased1991}
+\begin{barticle}
+\bauthor{\bsnm{West}, \binits{M.J.}},
+\bauthor{\bsnm{Slomianka}, \binits{L.}},
+\bauthor{\bsnm{Gundersen}, \binits{H.J.G.}}:
+\batitle{Unbiased stereological estimation of the total number of neurons in
+  the subdivisions of the rat hippocampus using the optical fractionator}.
+\bjtitle{The Anatomical Record}
+\bvolume{231}(\bissue{4}),
+\bfpage{482}--\blpage{497}
+(\byear{1991})
+\doiurl{10.1002/ar.1092310411}
+\end{barticle}
+\endbibitem
+
+%%% 28
+\bibitem[\protect\citeauthoryear{Watson et~al.}{2025}]{watsonHuman2025}
+\begin{barticle}
+\bauthor{\bsnm{Watson}, \binits{J.F.}},
+\bauthor{\bsnm{{Vargas-Barroso}}, \binits{V.}},
+\bauthor{\bsnm{{Morse-Mora}}, \binits{R.J.}},
+\bauthor{\bsnm{{Navas-Olive}}, \binits{A.}},
+\bauthor{\bsnm{Tavakoli}, \binits{M.R.}},
+\bauthor{\bsnm{Danzl}, \binits{J.G.}},
+\bauthor{\bsnm{Tomschik}, \binits{M.}},
+\bauthor{\bsnm{R{\"o}ssler}, \binits{K.}},
+\bauthor{\bsnm{Jonas}, \binits{P.}}:
+\batitle{Human hippocampal {{CA3}} uses specific functional connectivity rules
+  for efficient associative memory}.
+\bjtitle{Cell}
+\bvolume{188}(\bissue{2}),
+\bfpage{501}--\blpage{51418}
+(\byear{2025})
+\doiurl{10.1016/j.cell.2024.11.022}
+\end{barticle}
+\endbibitem
+
+%%% 29
+\bibitem[\protect\citeauthoryear{Yang et~al.}{2025}]{yangDynamic2025}
+\begin{barticle}
+\bauthor{\bsnm{Yang}, \binits{K.}},
+\bauthor{\bsnm{Sun}, \binits{X.}},
+\bauthor{\bsnm{Wang}, \binits{Z.}}:
+\batitle{The dynamic impact of adult neurogenesis on pattern separation within
+  the dentate gyrus neural network}.
+\bjtitle{Cognitive Neurodynamics}
+\bvolume{19}(\bissue{1}),
+\bfpage{57}
+(\byear{2025})
+\doiurl{10.1007/s11571-025-10244-y}
 \end{barticle}
 \endbibitem
 
