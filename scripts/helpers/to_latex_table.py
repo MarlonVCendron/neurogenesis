@@ -6,7 +6,9 @@ from params.synapses import syn_params
 from params.general import latex_dir
 from brian2 import nS, mV, ms, pA, pF
 from os.path import join
-from scripts.helpers.neuron_type_mapping import neuron_type_mapping
+from scripts.helpers.neuron_type_mapping import neuron_type_mapping, display_label
+
+use_abbreviation = True
 
 def format_value(value, unit, precision=3):
     """Formats a Brian2 Quantity or a number to a string with specified precision,
@@ -54,12 +56,12 @@ def generate_synapse_table():
     for synapse_key, params in syn_params.items():
         pre_name, post_name = synapse_key.split('_')
         
-        pre_display_name = neuron_type_mapping.get(pre_name, pre_name)
+        pre_display_name = display_label(pre_name)
         if pre_name in neurons_with_images:
             image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{pre_name}.png}}}}}}$"
             pre_display_name = f"{image_tex} {pre_display_name}"
 
-        post_display_name = neuron_type_mapping.get(post_name, post_name)
+        post_display_name = display_label(post_name)
         if post_name in neurons_with_images:
             image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{post_name}.png}}}}}}$"
             post_display_name = f"{image_tex} {post_display_name}"
@@ -118,7 +120,7 @@ def generate_synapse_table():
                     the same lamella; cross-lamellar connections occur between cells of one lamella and  
                     all others. The connection probability $P$ refers to the percentage of connections
                     between neuronal populations according to the connection condition.
-                    * iGCs were simulated with multiple different EC→iGC excitability levels.}''', file=f)
+                    * iGCs were simulated with multiple different EC$\\to$iGC excitability levels.}''', file=f)
         print("\\label{tab:synapse_params}", file=f)
         print("\\end{table}", file=f)
 
@@ -143,7 +145,8 @@ def generate_neuron_table():
     param_brian2_units = [info[3] for info in parameters_info]
 
     table_rows_data = []
-    for cell_data_key, neuron_display_name in neuron_type_mapping.items():
+    for cell_data_key in neuron_type_mapping:
+        neuron_display_name = display_label(cell_data_key)
         image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{cell_data_key}.png}}}}}}$"
         cell_name_with_img = f"{image_tex} {neuron_display_name}"
 
@@ -197,7 +200,8 @@ def generate_neuron_table():
 def generate_neuron_counts_table():
     table_rows_data = []
 
-    for cell_data_key, neuron_display_name in neuron_type_mapping.items():
+    for cell_data_key in neuron_type_mapping:
+        neuron_display_name = display_label(cell_data_key)
         if cell_data_key in cell_params:
             count = cell_params[cell_data_key].get('N', '-')
             image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{cell_data_key}.png}}}}}}$"
