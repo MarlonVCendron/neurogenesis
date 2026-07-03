@@ -57,11 +57,11 @@ random, non-lamellar excitatory connections with HIPPs and MCs.
 % TODO: mention igc_mgc
 
 iGCs possess distinct electrophysiological characteristics from the mGCs that render them more excitable than mGCs. Furthermore,
-to simulate their not-yet-complete circuit integration, iGCs receive EC afferent inputs at only a fraction $x_{EC:iGC}$ of the
-connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
-(Table~\ref{tab:synapse_params}). Hippocampome.org~\parencite{wheelerHippocampomeorg2023} does not provide iGC
-characteristics. Therefore, the parameters used for iGCs were fitted from the spiking data of~\textcite{espositoNeuronal2005}
-using the method of~\textcite{nelderSimplex1965} (Table~\ref{tab:izhikevich_neuron_params}).
+to simulate their not-yet-complete circuit integration, iGCs receive EC afferent inputs at only a fraction $x_{EC \rightarrow
+iGC}$ of the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
+(Table~\ref{tab:synapse_params}). Hippocampome.org~\parencite{wheelerHippocampomeorg2023} does not provide iGC characteristics.
+Therefore, the parameters used for iGCs were fitted from the spiking data of~\textcite{espositoNeuronal2005} using the method
+of~\textcite{nelderSimplex1965} (Table~\ref{tab:izhikevich_neuron_params}).
 
 % TODO: mention MC connectivity, specailly mc_mc
 
@@ -99,8 +99,6 @@ occurring subsequently for \SI{1000}{\milli\second}. Synaptic connections are ke
 \input{tabelas/neuron_counts.tex}
 
 \section{Neuron model}
-
-% TODO: talk about which values changed from hippocampome.org (and why?)
 
 Neurons were modeled according to the 9-parameter Izhikevich neuron model~\parencite[cap.~8]{izhikevichDynamical2006} with a single
 compartment, without considering dendrites or axons. This model was chosen in this work and by~\textcite{wheelerHippocampomeorg2023}
