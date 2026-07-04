@@ -434,6 +434,14 @@ mean and standard deviation of the baseline bins.
 To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Eq.~\ref{eq:gini}) of
 each population was also compared between the \SI{100}{\milli\second} windows immediately before and after the pulse.
 
+\subsection{Oscillation analysis}\label{sec:oscillation_analysis}
+
+To characterize the rhythmicity evoked in BCs by the activation, the post-pulse population rate (\SIrange{5}{60}{\milli\second}
+after pulse onset, in \SI{1}{\milli\second} bins) was detrended by subtracting a Gaussian-smoothed envelope ($\sigma =
+\SI{8}{\milli\second}$), and the power spectrum of the residual was estimated by Welch's method \citep{welchUse1967}. The peak
+frequency in the \SIrange{20}{200}{\hertz} band was taken as the dominant oscillation frequency (reported for BCs in Online
+Resource 1).
+
 \section{Results}\label{results}
 
 \section{Discussion}\label{discussion}
