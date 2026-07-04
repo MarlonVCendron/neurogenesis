@@ -20,7 +20,7 @@ def res_filename(i, total):
     return f"{args.prefix}/{flag}_trial_{trial_index}_pattern_{pattern_index}"
 
 def optogenetics():
-    onset_time = args.stim_time - 200
+    onset_time = args.stim_time - 100
     if onset_time < args.break_time:
         exit('Stim time too small')
 
