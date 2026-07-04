@@ -161,14 +161,14 @@ $\SI{40}{\hertz}$. EC neurons project their axons via the perforant path to neur
 DG\@: GCs, MCs~\citep{scharfmanHilar2013} and BCs, as well as to CA3 neurons.
 
 The GC population is split into mGCs and iGCs, the latter standing for the cells that adult neurogenesis produces during their
-characteristic 4--6 week electrophysiological window \citep{aimoneRegulation2014}. Of the $N_{GC} = 2000$ GCs
+characteristic 4--7 weeks electrophysiological window \citep{aimoneRegulation2014}. Of the $N_{GC} = 2000$ GCs
 \citep{westUnbiased1991}, 5\% are immature \citep{cameronAdult2001}, so that $N_{mGC} = 1900$ and $N_{iGC} = 100$. Respecting the
 lamellar organization of the DG \citep{sloviterUpdating2012}, the GCs are distributed across 20 lamellae of 100 cells each. Every
 GC contacts the BCs and CA3 neurons of its own lamella and, in addition, forms random non-lamellar excitatory connections onto
 HIPPs and MCs.
 
 iGCs possess distinct electrophysiological characteristics from the mGCs that render them more excitable than mGCs. Furthermore,
-to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a fraction $x_{EC \rightarrow iGC}$ of the
+to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a fraction $x_{EC \to iGC}$ of the
 connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
 (Table~\ref{tab:synapse_params}). Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
 the model includes an inhibitory synapse from iGCs onto mGCs.  Hippocampome.org~\citep{wheelerHippocampomeorg2023} does not
@@ -293,7 +293,7 @@ of its membrane equation (Eq.~\ref{eq_izhikevich_1}).
 
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
-($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC\rightarrow{}iGC excitability, as illustrated in
+($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
 Figure~\ref{fig:diagram-input-output}. This level, ranging from 0.1 to 1.0 in increments of 0.1, fixes the EC to iGC connection
 probability as a fraction relative to that of the mGCs: with 1.0 matching the mGC connection probability, and 0.1 meaning 10\% of
 that probability, and so represents the still-incomplete dendritic integration of the immature cells. Each variant was presented
@@ -373,9 +373,66 @@ their ratio:
 A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, i.e.\ pattern separation, whereas
 $\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow more alike.
 
-% TODO write this section (also to create a better title)
-\subsection{iGC activation}\label{sec:igc_activation}
+\subsection{Population sparsity}\label{sec:population_sparsity}
 
+Population sparsity measures how unevenly spiking is distributed across a population, being high when activity is concentrated in
+a few cells and low when it is spread evenly. Following \citet{mchughAdultborn2022}, it was quantified with two complementary
+indices computed on the per-cell spike counts accumulated over the recording window. For a population of $N$ cells with spike
+count vector $x$ sorted in ascending order ($x_1 \leq \dots \leq x_N$), the Gini index \citep{giniMeasurement1921} is:
+
+\begin{equation}
+    \label{eq:gini}
+    S_{Gini} = \frac{\sum_{i=1}^{N} (2i - N - 1)\, x_i}{N \sum_{i=1}^{N} x_i}
+\end{equation}
+
+where $i$ is the rank of each cell in the sorted vector. As a cross-validation, the Hoyer measure \citep{hoyerNonnegative2004} was
+also computed:
+
+\begin{equation}
+    \label{eq:hoyer}
+    S_{Hoyer} = \frac{\sqrt{N} - \left(\sum_{i=1}^{N} |x_i|\right) \big/ \sqrt{\sum_{i=1}^{N} x_i^2}}{\sqrt{N} - 1}
+\end{equation}
+
+Both indices range over $[0, 1]$, with larger values denoting sparser activity. They were computed for the mGC, iGC and pCA3
+populations and for the combined granule-cell population (mGCs and iGCs together), and averaged over all patterns and trials, with
+the standard error of the mean reported as the error.
+
+\subsection{iGC activation and downstream circuit effects}\label{sec:igc_activation}
+
+\citet{mchughAdultborn2022} showed \textit{in vivo} that briefly activating immature (4--7 weeks) adult-born GCs recruits
+hippocampal interneurons and increases population sparsity in the DG and CA3. To test whether the model reproduces these circuit
+effects, iGCs were activated directly through current injection and the response of every population was measured. The same
+EC$\to$iGC excitability variants as in the pattern-separation experiment were used, each driven by an identical EC input.
+
+In each run, a random half of the iGCs (50 of the 100) received a depolarizing current of \SI{0.5}{\nano\ampere} for
+\SI{5}{\milli\second}, delivered \SI{400}{\milli\second} into the recording window, once network activity had stabilized. This
+injected current $I_{ext}$ enters the neuron as part of the total current $I$ of the Izhikevich model (Eq.~\ref{eq_izhikevich_1}):
+
+\begin{equation}
+    \label{eq:i_ext}
+    I = I_{ext} + I_{syn}
+\end{equation}
+
+where $I_{syn}$ is the summed synaptic current (Eq.~\ref{eq_tsodyks_I}) and $I_{ext} = \SI{0.5}{\nano\ampere}$ during the pulse
+and zero otherwise. For each variant the protocol was repeated over 10 trials of 10 input patterns, and the resulting 100 runs
+were pooled for analysis.
+
+The response of each population was quantified with a peri-stimulus time histogram (PSTH) of its firing rate, computed in
+\SI{1.5}{\milli\second} bins over the interval from \SI{60}{\milli\second} before to \SI{60}{\milli\second} after the pulse. In
+each bin the population firing rate is the pooled spike count divided by the number of cells, the number of runs and the bin
+width, and is expressed as a z-score relative to a pre-pulse baseline, taken as the binned population rate from the start of the
+recording window up to \SI{60}{\milli\second} before the pulse:
+
+\begin{equation}
+    \label{eq:psth_z}
+    z(t) = \frac{r(t) - \mu_{base}}{\sigma_{base}}
+\end{equation}
+
+where $r(t)$ is the population rate in the bin at time $t$ relative to the pulse, and $\mu_{base}$ and $\sigma_{base}$ are the
+mean and standard deviation of the baseline bins.
+
+To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Eq.~\ref{eq:gini}) of
+each population was also compared between the \SI{100}{\milli\second} windows immediately before and after the pulse.
 
 \section{Results}\label{results}
 
