@@ -10,7 +10,7 @@ from glob import glob
 import h5py
 
 NEG = False
-ALL_LEVELS = False  # Joins all the runs into one plot
+ALL_LEVELS = True  # Joins all the runs into one plot
 
 # RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 # RUN_NAME = 'FINAL_opto_june_positive'
@@ -98,14 +98,28 @@ def compute_psth_zscore(trials, n_neurons, onset_abs):
     return bin_centers, (psth_rate - bl_mean) / bl_std
 
 
-def draw_stimulus_indicator(ax, ymax, ymin):
-    y_flat = ymin - (abs(ymax) * 0.05)
+def draw_stimulus_band(fig, axes, active):
+    fig.canvas.draw()  # finalise axes positions/transforms
+    positions = [ax.get_position() for ax in axes]
+    n = len(axes)
 
-    xs = [-PRE_MS, 0,      0,    DURATION_MS, DURATION_MS, POST_MS]
-    ys = [y_flat,  y_flat, ymax,  ymax,         y_flat,      y_flat]
-    ax.plot(xs, ys, color=opto_color, lw=1.2, solid_joinstyle='miter', solid_capstyle='butt', clip_on=False, zorder=5)
-    ax.axvspan(0, DURATION_MS, color=opto_color, alpha=0.15, zorder=0)
-    return abs(y_flat)
+    for i, (ax, (neuron, _label)) in enumerate(zip(axes, active)):
+        pos = positions[i]
+        top_fig    = pos.y1 if i == 0     else (positions[i - 1].y0 + pos.y1) / 2.0
+        bottom_fig = pos.y0 if i == n - 1 else (pos.y0 + positions[i + 1].y1) / 2.0
+
+        ymax_frac = (top_fig    - pos.y0) / pos.height
+        ymin_frac = (bottom_fig - pos.y0) / pos.height
+
+        is_igc = neuron == 'igc'
+        span = ax.axvspan(
+            0, DURATION_MS,
+            ymin=ymin_frac, ymax=ymax_frac,
+            color=opto_color if is_igc else '#cfd3d8',
+            alpha=0.30 if is_igc else 0.55,
+            lw=0, zorder=0,
+        )
+        span.set_clip_on(False)
 
 
 def main(group_file_path):
@@ -136,9 +150,9 @@ def main(group_file_path):
 
         zmax = max(float(zscore.max()) * 1.15, 1.0)
         zmin = float(zscore.min())
-        indicator_h = draw_stimulus_indicator(ax, zmax, zmin)
-        if not math.isnan(indicator_h) and not math.isnan(zmax):
-            ax.set_ylim(-indicator_h, zmax)
+        ybottom = zmin - abs(zmax) * 0.05
+        if not math.isnan(ybottom) and not math.isnan(zmax):
+            ax.set_ylim(ybottom, zmax)
 
         ax.yaxis.set_major_locator(plt.MaxNLocator(nbins=2, min_n_ticks=3, steps=[1, 2, 5, 10], integer=True))
 
@@ -148,7 +162,8 @@ def main(group_file_path):
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
-        ax.tick_params(axis='both', length=0)
+        ax.tick_params(axis='y', length=0)
+        ax.tick_params(axis='x', length=4, width=1.2)
 
     axes[-1].set_xlabel('Time with respect to iGC current injection (ms)')
     axes[-1].set_xlim(-PRE_MS, POST_MS)
@@ -156,6 +171,8 @@ def main(group_file_path):
     fig.text(0.05, 0.5, 'Change in firing rate (Z-score)', va='center', ha='left', rotation='vertical', fontsize=18)
 
     plt.tight_layout(rect=[0.06, 0, 1, 1], h_pad=0.4)
+
+    draw_stimulus_band(fig, axes, active)
 
     sign = 'neg' if NEG else 'pos'
     p = re.compile(r".*(\d.\d)")
