@@ -31,7 +31,9 @@
 %%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
 %%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 %%\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
-\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+
+% TODO: remove iicol
+\documentclass[pdflatex,sn-mathphys-ay,iicol]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
 %%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
 %%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
 %%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
@@ -86,7 +88,7 @@
 \theoremstyle{thmstylethree}%
 \newtheorem{definition}{Definition}%
 
-\raggedbottom
+\raggedbottom{}
 %%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
@@ -140,24 +142,23 @@ subset of neuron and synapse parameters, as well as some connection probabilitie
 each cell type matched its \textit{in vivo} firing rate and population sparsity (Online Resource 1).
 
 % TODO: finish the in vivo table and add it to supplementary info
+% TODO: report the model sparsity mayeb using Gini index instead of average activation
 
-\begin{figure*}
+\begin{figure}[t]
     \centering
-    \includegraphics{Fig1.eps}%
+    \includegraphics[width=0.45\textwidth]{Fig1.eps}
     \caption{DG-CA3 network architecture. Inhibitory synapses are represented by circles and excitatory ones by arrows. The
-        network input is composed of cells from the EC. The DG has the perforant path and the dendrites of its cells in the
+        network input is composed of cells from the EC\@. The DG has the perforant path and the dendrites of its cells in the
         molecular layer; the granular layer is composed of iGCs, mGCs and BCs; the hilus is composed of MCs and HIPPs. The CA3 is
-        composed of pCA3 and iCA3 cells.}
-\label{fig:diagram-network}
-\end{figure*}
+        composed of pCA3 and iCA3 cells.}\label{fig:diagram-network}
+\end{figure}
 
 The network input is composed of cells from the entorhinal cortex, with a total of $N_{EC} = 400$
 neurons~\citep{amaralChapter1990, kimAdult2024}. In each simulation, the EC as a whole presents a specific pattern, where each
-pattern is represented by an active subpopulation of 10\% of EC neurons~\citep{mcnaughtonDead1991}. Inactive neurons not
-belonging to the pattern do not spike during the simulation, whereas active neurons fire according to a Poisson process with at
+pattern is represented by an active subpopulation of 10\% of EC neurons~\citep{mcnaughtonDead1991}. Inactive neurons not belonging
+to the pattern do not spike during the simulation, whereas active neurons fire according to a Poisson process with at
 $\SI{40}{\hertz}$. EC neurons project their axons via the perforant path to neurons with dendrites in the molecular layer of the
-DG: GCs, MCs~\citep{scharfmanHilar2013} and BCs, as well as to CA3 neurons.
-
+DG\@: GCs, MCs~\citep{scharfmanHilar2013} and BCs, as well as to CA3 neurons.
 
 The GC population is split into mGCs and iGCs, the latter standing for the cells that adult neurogenesis produces during their
 characteristic 4--6 week electrophysiological window \citep{aimoneRegulation2014}. Of the $N_{GC} = 2000$ GCs
@@ -200,7 +201,7 @@ Tables~\ref{tab:izhikevich_neuron_params} and~\ref{tab:synapse_params}. For each
 \SI{300}{\milli\second} to reach a steady state, and its activity was then recorded over the following \SI{1000}{\milli\second}.
 Synaptic connections remained fixed throughout.
 
-% ⚠️ TODO before submission: insert table here without using \input
+% ⚠️ TODO before submission: insert table here without using \input, single column
 \input{../thesis/tabelas/neuron_counts.tex}
 
 \subsection{Neuron model}\label{sec:neuron_model}
@@ -237,7 +238,7 @@ u \gets u + d
 When $V_m$ reaches the peak value $V_{\text{peak}}$, a spike is emitted, $V_m$ is reset to the after-spike potential
 $V_{\min}$, and the recovery variable is incremented by $d$, which makes the following spikes harder to elicit.
 
-% ⚠️ TODO before submission: insert table here without using \input
+% ⚠️ TODO before submission: insert table here without using \input, span double column
 \input{../thesis/tabelas/izhikevich.tex}
 
 \subsection{Synapse model}\label{sec:synapse_model}
@@ -285,7 +286,7 @@ the network would otherwise fall silent. The synaptic currents $I_{syn}$ reachin
 of its membrane equation (Eq.~\ref{eq_izhikevich_1}).
 
 
-% ⚠️ TODO before submission: insert table here without using \input
+% ⚠️ TODO before submission: insert table here without using \input, span double column
 \input{../thesis/tabelas/sinapses.tex}
 
 \subsection{Pattern separation}\label{sec:pattern_separation}
@@ -302,33 +303,31 @@ neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz} and ex
 pattern. A pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference pattern's active
 neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
 
-% TODO: add note here that considering coutns doesn´t change
-
 \begin{figure*}[t]
     \centering
-    \includegraphics{Fig2.eps}%
+    \includegraphics[width=\textwidth]{Fig2.eps}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
     \textbf{A.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly
     and the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating
     neurons.
-    \textbf{B.} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different connectivity
-    levels, from 100\% down to 10\% connectivity.
+    \textbf{B.} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different excitability
+    levels, from 100\% down to 10\% excitability.
     \textbf{C.} Spike trace of EC neurons during a simulation; each generated pattern corresponds to the activation of EC
     neurons, with active neurons spiking at a frequency of \SI{40}{\hertz}; each of the 11 models is exposed to 30 sets of
     10 input patterns, totaling 300 simulations of \SI{1300}{\milli\second} each.
     \textbf{D.} Spike trace of mGCs during a simulation; the first \SI{300}{\milli\second} are discarded while the network
     stabilizes; the remainder corresponds to the output pattern.
     \textbf{E.} The output pattern, illustrated here for the mGC population, consists of a binary vector with value 1 for the
-    index of each neuron that spiked at least once during the \SI{1000}{\milli\second} interval.}
-\label{fig:diagram-input-output}
+    index of each neuron that spiked at least once during the \SI{1000}{\milli\second} interval.}\label{fig:diagram-input-output}
 \end{figure*}
 
 Each pattern is simulated for \SI{1300}{\milli\second} of simulation time, with the first \SI{300}{\milli\second} discarded for
 the network to stabilize. Separation was then read from the overlap between the activity patterns at the input (EC cells) and the
 output (GCs or pCA3 cells). The output pattern is a binary vector of length $N$, the number of cells in the principal cell
 population of an area, be it GCs or pCA3s, whose entries are 1 for neurons that fired at least once during the
-\SI{1000}{\milli\second} window and 0 otherwise. For a pair of patterns $A^{(l)}$ and $B^{(l)}$, with $l \in \{in, out\}$ for
-input and output, the pattern distance $D_p^{(l)}$ is defined as:
+\SI{1000}{\milli\second} window and 0 otherwise\footnote{Computing pattern separation from graded spike counts instead of binary
+activation was also considered, but it yields nearly identical results (Pearson $r = 0.99$).}. For a pair of patterns $A^{(l)}$
+and $B^{(l)}$, with $l \in \{in, out\}$ for input and output, the pattern distance $D_p^{(l)}$ is defined as:
 
 \begin{equation}
     \label{eq:dp}
@@ -371,7 +370,7 @@ their ratio:
     \mathcal{S}_D = \frac{D_p^{(out)}}{D_p^{(in)}}
 \end{equation}
 
-A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, i.e. pattern separation, whereas
+A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, i.e.\ pattern separation, whereas
 $\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow more alike.
 
 % TODO write this section (also to create a better title)
@@ -384,7 +383,7 @@ $\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow 
 
 
 
-\backmatter
+\backmatter{}
 
 \bmhead{Supplementary information}
 
