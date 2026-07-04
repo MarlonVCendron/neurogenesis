@@ -10,7 +10,7 @@ from glob import glob
 import h5py
 
 NEG = False
-ALL_LEVELS = True  # Joins all the runs into one plot
+ALL_LEVELS = False  # Joins all the runs into one plot
 
 # RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 # RUN_NAME = 'FINAL_opto_june_positive'
