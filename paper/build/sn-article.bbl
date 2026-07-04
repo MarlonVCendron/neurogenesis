@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{33}
+\begin{thebibliography}{34}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -507,6 +507,21 @@ Frontiers in Neural Circuits
 \endbibitem
 
 %%% 30
+\bibitem[\protect\citeauthoryear{Welch}{1967}]{welchUse1967}
+\begin{barticle}
+\bauthor{\bsnm{Welch}, \binits{P.}}:
+\batitle{The use of fast {{Fourier}} transform for the estimation of power
+  spectra: {{A}} method based on time averaging over short, modified
+  periodograms}.
+\bjtitle{IEEE Transactions on Audio and Electroacoustics}
+\bvolume{15}(\bissue{2}),
+\bfpage{70}--\blpage{73}
+(\byear{1967})
+\doiurl{10.1109/TAU.1967.1161901}
+\end{barticle}
+\endbibitem
+
+%%% 31
 \bibitem[\protect\citeauthoryear{Wheeler
   et~al.}{2023}]{wheelerHippocampomeorg2023}
 \begin{botherref}
@@ -524,7 +539,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{botherref}
 \endbibitem
 
-%%% 31
+%%% 32
 \bibitem[\protect\citeauthoryear{West et~al.}{1991}]{westUnbiased1991}
 \begin{barticle}
 \bauthor{\bsnm{West}, \binits{M.J.}},
@@ -540,7 +555,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{barticle}
 \endbibitem
 
-%%% 32
+%%% 33
 \bibitem[\protect\citeauthoryear{Watson et~al.}{2025}]{watsonHuman2025}
 \begin{barticle}
 \bauthor{\bsnm{Watson}, \binits{J.F.}},
@@ -562,7 +577,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 34
 \bibitem[\protect\citeauthoryear{Yang et~al.}{2025}]{yangDynamic2025}
 \begin{barticle}
 \bauthor{\bsnm{Yang}, \binits{K.}},
