@@ -104,7 +104,7 @@ def plot_measure(fn, ylabel, outfile):
     means, errs = collect_sparsity(fn)
     ng_groups = groups[1:]
 
-    fig, axes = plt.subplots(1, 4, figsize=(16, 4), dpi=300)
+    fig, axes = plt.subplots(4, 1, figsize=(4, 10), dpi=300)
 
     ctrl_line = None
     for ax, (ct, color, label, _) in zip(axes, panel_specs):
@@ -112,13 +112,16 @@ def plot_measure(fn, ylabel, outfile):
         if line is not None:
             ctrl_line = line
 
-    fig.text(0.5, 0.01, igc_connectivity_label, ha='center', va='bottom', fontsize=18)
-    axes[0].set_ylabel(ylabel)
+    for ax in axes[:-1]:
+        ax.tick_params(labelbottom=False)
+
+    fig.text(0.5, 0.04, igc_connectivity_label, ha='center', va='bottom', fontsize=18)
+    fig.supylabel(ylabel, fontsize=18)
 
     if ctrl_line is not None:
-        fig.legend([ctrl_line], ['Control'], loc='lower left', frameon=False, bbox_to_anchor=(0.1, -0.05))
+        fig.legend([ctrl_line], ['Control'], loc='lower center', frameon=False, bbox_to_anchor=(0.5, -0.01))
 
-    plt.tight_layout(rect=[0, 0.06, 1, 1])
+    plt.tight_layout(rect=[0, 0.07, 1, 1])
     plt.savefig(outfile, dpi=300, format='jpg', bbox_inches='tight')
     plt.close()
 
