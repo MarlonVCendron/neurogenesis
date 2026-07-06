@@ -58,6 +58,7 @@
 \usepackage{algpseudocode}%
 \usepackage{listings}%
 \usepackage{siunitx}%
+\usepackage{subcaption}%
 %%%%
 
 %%%%%=============================================================================%%%%
@@ -168,8 +169,8 @@ GC contacts the BCs and CA3 neurons of its own lamella and, in addition, forms r
 HIPPs and MCs.
 
 iGCs possess distinct electrophysiological characteristics from the mGCs that render them more excitable than mGCs. Furthermore,
-to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a fraction $x_{EC \to iGC}$ of the
-connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
+to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a percentage $x_{EC \to iGC}$ of
+the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
 (Table~\ref{tab:synapse_params}). Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
 the model includes an inhibitory synapse from iGCs onto mGCs.  Hippocampome.org~\citep{wheelerHippocampomeorg2023} does not
 characterize iGCs. Therefore, the parameters used for iGCs were fitted from the spiking data of~\citet{espositoNeuronal2005} with
@@ -294,14 +295,15 @@ of its membrane equation (Eq.~\ref{eq_izhikevich_1}).
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
 ($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
-Figure~\ref{fig:diagram-input-output}. This level, ranging from 0.1 to 1.0 in increments of 0.1, fixes the EC to iGC connection
-probability as a fraction relative to that of the mGCs: with 1.0 matching the mGC connection probability, and 0.1 meaning 10\% of
-that probability, and so represents the still-incomplete dendritic integration of the immature cells. Each variant was presented
-with 30 sets of 10 input patterns, a set being one randomly generated reference pattern together with 9 derivatives of it graded
-from 90\% down to 10\% similarity. An input pattern is a binary vector of length $N_{EC} = 400$ encoding the state of each EC
-neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being active in every
-pattern. A pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference pattern's active
-neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
+Figure~\ref{fig:diagram-input-output}. This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC
+connection probability as a percentage relative to that of the mGCs: with 100\% matching the mGC connection probability, and 10\%
+meaning one tenth of that probability, and so represents the still-incomplete dendritic integration of the immature cells. Each
+variant was presented with 30 sets of 10 input patterns, a set being one randomly generated reference pattern together with 9
+derivatives of it graded from 90\% down to 10\% similarity. An input pattern is a binary vector of length $N_{EC} = 400$ encoding
+the state of each EC neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being
+active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference
+pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity
+level.
 
 \begin{figure*}[t]
     \centering
@@ -378,7 +380,7 @@ $\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow 
 Population sparsity measures how unevenly spiking is distributed across a population, being high when activity is concentrated in
 a few cells and low when it is spread evenly. Following \citet{mchughAdultborn2022}, it was quantified with two complementary
 indices computed on the per-cell spike counts accumulated over the recording window. For a population of $N$ cells with spike
-count vector $x$ sorted in ascending order ($x_1 \leq \dots \leq x_N$), the Gini index \citep{giniMeasurement1921} is:
+count vector $x$ sorted in ascending order ($x_1 \leq \cdots \leq x_N$), the Gini index \citep{giniMeasurement1921} is:
 
 \begin{equation}
     \label{eq:gini}
@@ -414,7 +416,7 @@ injected current $I_{ext}$ enters the neuron as part of the total current $I$ of
 \end{equation}
 
 where $I_{syn}$ is the summed synaptic current (Eq.~\ref{eq_tsodyks_I}) and $I_{ext} = \SI{0.5}{\nano\ampere}$ during the pulse
-and zero otherwise. For each variant the protocol was repeated over 10 trials of 10 input patterns, and the resulting 100 runs
+and zero otherwise. For each variant the protocol was repeated over 30 trials of 10 input patterns, and the resulting 300 runs
 were pooled for analysis.
 
 The response of each population was quantified with a peri-stimulus time histogram (PSTH) of its firing rate, computed in
@@ -431,6 +433,8 @@ recording window up to \SI{60}{\milli\second} before the pulse:
 where $r(t)$ is the population rate in the bin at time $t$ relative to the pulse, and $\mu_{base}$ and $\sigma_{base}$ are the
 mean and standard deviation of the baseline bins.
 
+% TODO: include in supplementary info the results of this:
+
 To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Eq.~\ref{eq:gini}) of
 each population was also compared between the \SI{100}{\milli\second} windows immediately before and after the pulse.
 
@@ -444,6 +448,39 @@ Resource 1).
 
 \section{Results}\label{results}
 
+Results
+
+% ⚠️ TODO before submission: use EPS images
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \caption{\label{fig:results-1a}}
+        \includegraphics[width=\linewidth]{figures/avg_activity.pdf}%
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \caption{\label{fig:results-1b}}
+        \includegraphics[width=\linewidth]{figures/avg_pattern_separation.pdf}%
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \caption{\label{fig:results-1c}}
+        \includegraphics[width=\linewidth]{figures/avg_activity_ca3.jpg}%
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \caption{\label{fig:results-1d}}
+        \includegraphics[width=\linewidth]{figures/pattern_separation_ca3.pdf}%
+    \end{subfigure}
+    \caption{Caption}\label{fig:results-1}
+\end{figure*}
+
+
+
+
+
+
+
 \section{Discussion}\label{discussion}
 
 
@@ -455,33 +492,29 @@ Resource 1).
 Online Resource 1 contains a table comparing model firing rates and population sparsity, per cell type, against a compilation
 of \textit{in vivo} electrophysiological data from the literature.
 
-Authors reporting data from electrophoretic gels and blots should supply the full unprocessed scans for key as part of their Supplementary information. This may be requested by the editorial team/s if it is missing.
-
-Please refer to Journal-level guidance for any specific requirements.
-
 \bmhead{Acknowledgements}
 
-Acknowledgements are not compulsory. Where included they should be brief. Grant or contribution numbers may be acknowledged.
-
-Please refer to Journal-level guidance for any specific requirements.
+Not applicable.
 
 \section*{Declarations}
 
-Some journals require declarations to be submitted in a standardised format. Please check the Instructions for Authors of the journal to which you are submitting to see if you need to complete this section. If yes, your manuscript must contain the following sections under the heading `Declarations':
+Not applicable.
 
-\begin{itemize}
-\item Funding
-\item Conflict of interest/Competing interests (check journal-specific guidelines for which heading to use)
-\item Ethics approval and consent to participate
-\item Consent for publication
-\item Data availability 
-\item Materials availability
-\item Code availability 
-\item Author contribution
-\end{itemize}
+% Some journals require declarations to be submitted in a standardised format. Please check the Instructions for Authors of the journal to which you are submitting to see if you need to complete this section. If yes, your manuscript must contain the following sections under the heading `Declarations':
 
-\noindent
-If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
+% \begin{itemize}
+% \item Funding
+% \item Conflict of interest/Competing interests (check journal-specific guidelines for which heading to use)
+% \item Ethics approval and consent to participate
+% \item Consent for publication
+% \item Data availability 
+% \item Materials availability
+% \item Code availability 
+% \item Author contribution
+% \end{itemize}
+
+% \noindent
+% If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
 
 %%===================================================%%
 %% For presentation purpose, we have included        %%
