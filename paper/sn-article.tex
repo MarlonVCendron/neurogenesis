@@ -147,7 +147,7 @@ each cell type matched its \textit{in vivo} firing rate and population sparsity 
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.45\textwidth]{Fig1.eps}
+    \includegraphics[width=\linewidth]{Fig1.eps}
     \caption{DG-CA3 network architecture. Inhibitory synapses are represented by circles and excitatory ones by arrows. The
         network input is composed of cells from the EC\@. The DG has the perforant path and the dendrites of its cells in the
         molecular layer; the granular layer is composed of iGCs, mGCs and BCs; the hilus is composed of MCs and HIPPs. The CA3 is
@@ -307,7 +307,7 @@ level.
 
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=\textwidth]{Fig2.eps}%
+    \includegraphics[width=\linewidth]{Fig2.eps}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
     \textbf{A.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly
     and the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating
@@ -446,6 +446,8 @@ after pulse onset, in \SI{1}{\milli\second} bins) was detrended by subtracting a
 frequency in the \SIrange{20}{200}{\hertz} band was taken as the dominant oscillation frequency (reported for BCs in Online
 Resource 1).
 
+% TODO: describe how firing rates were estimated
+
 \section{Results}\label{results}
 
 Results
@@ -475,6 +477,29 @@ Results
     \caption{Caption}\label{fig:results-1}
 \end{figure*}
 
+% ⚠️ TODO before submission: use EPS images
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}[t]{0.25\textwidth}
+        \caption{\label{fig:results-1a}}
+        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
+    \end{subfigure}
+    \begin{subfigure}[t]{0.25\textwidth}
+        \caption{\label{fig:results-1b}}
+        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
+    \end{subfigure}
+    \caption{Caption}\label{fig:results-2}
+\end{figure*}
+
+
+% ⚠️ TODO before submission: use EPS images
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/psth.jpg}%
+    \caption{Caption}\label{fig:results-3}
+\end{figure}
 
 
 
