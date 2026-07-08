@@ -98,9 +98,9 @@
 
 \author[1]{\fnm{Marlon} \sur{Valmórbida Cendron}}\email{marlonvcendron@gmail.com}
 
-\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{barbosa.flaviof@gmail.com}
-
 \author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}\email{wilfredoblanco@uern.br}
+
+\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{barbosa.flaviof@gmail.com}
 
 \affil[1]{\orgdiv{Laboratory for Memory and Cognition Studies, Department of Psychology}, \orgname{Federal University of Paraíba}, \orgaddress{\city{João Pessoa}, \postcode{58051900}, \country{Brazil}}}
 
@@ -450,7 +450,22 @@ Resource 1).
 
 \section{Results}\label{results}
 
-Results
+% \subsection{Pattern separation}\label{sec:pattern_separation}
+
+% TODO: add figure of raw data
+
+Figure~\ref{fig:results-1a} shows that, with neurogenesis, the mGC population activation  drops, and with each increasing level of
+iGC excitability, the mGC population activation decreases accordingly; the opposite is true for the iGC population, since higher
+levels of excitability are expected to make the iGCs more active, with almost 90\% of the iGC population being active for the
+highest level of excitability simulated. For increasing levels of iGC excitability, as mGC activity decreases and iGC activity
+increases, an equilibrium of approximately 8\% of the entire GC population (iGCs and mGCs counted together) stays active,
+similarly to the control model without neurogenesis.
+
+Figure~\ref{fig:results-1b}
+
+% Same GC activation (8%), but iGCs fire more than mGCs, then why does pCA3 activity decrease?
+
+
 
 % ⚠️ TODO before submission: use EPS images
 
@@ -479,14 +494,16 @@ Results
 
 % ⚠️ TODO before submission: use EPS images
 
+% TODO: fix fig sizes to match label font size
+
 \begin{figure*}[t]
     \centering
-    \begin{subfigure}[t]{0.25\textwidth}
-        \caption{\label{fig:results-1a}}
-        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
+    \begin{subfigure}[t]{0.65\textwidth}
+        \caption{\label{fig:results-2a}}
+        \includegraphics[width=\linewidth]{figures/firing_rate_distribution.jpg}%
     \end{subfigure}
     \begin{subfigure}[t]{0.25\textwidth}
-        \caption{\label{fig:results-1b}}
+        \caption{\label{fig:results-2b}}
         \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
     \end{subfigure}
     \caption{Caption}\label{fig:results-2}
