@@ -9,24 +9,9 @@ from matplotlib.lines import Line2D
 
 from utils.patterns import pattern_separation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, dense_dots, alpha, linewidth, igc_connectivity_label
+from utils.plot_styles import cell_colors, dense_dots, alpha, igc_connectivity_label, apply_paper_style, fig_size
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    # "text.usetex": True,
-    "font.family": "serif",
-    "font.serif": ["Times New Roman"],
-    # "font.size": 16,
-    # "axes.titlesize": 23,
-    # "axes.labelsize": 22,
-    # "xtick.labelsize": 16,
-    # "ytick.labelsize": 16,
-    # "legend.fontsize": 20,
-
-    "lines.linewidth": linewidth,
-    'lines.solid_joinstyle': 'round',
-    'lines.solid_capstyle': 'round',
-})
+apply_paper_style()
 
 data = load_pattern_data('june_final')
 
@@ -88,8 +73,7 @@ def in_similarity():
     sems_i[group] = std_error_i
     sems_m[group] = std_error_m
   
-  fig, ax = plt.subplots(figsize=(6, 6), dpi=300)
-  # fig, ax = plt.subplots()
+  fig, ax = plt.subplots(figsize=fig_size(0.35, aspect=1.0), dpi=300)
 
 
   sds = [sds[group] for group in groups]

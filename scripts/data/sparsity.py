@@ -4,17 +4,10 @@ from matplotlib.ticker import MaxNLocator, FuncFormatter
 from scipy.stats import sem
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, linewidth, igc_connectivity_label
+from utils.plot_styles import cell_colors, igc_connectivity_label, apply_paper_style, fig_size
 from utils.sparsity import gini_index, hoyer
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    "font.family": "serif",
-    "font.serif": ["Times New Roman"],
-    "lines.linewidth": linewidth,
-    'lines.solid_joinstyle': 'round',
-    'lines.solid_capstyle': 'round',
-})
+apply_paper_style()
 
 data = load_pattern_data('june_final')
 groups = sorted(list(data.keys()))
@@ -104,7 +97,7 @@ def plot_measure(fn, ylabel, outfile):
     means, errs = collect_sparsity(fn)
     ng_groups = groups[1:]
 
-    fig, axes = plt.subplots(4, 1, figsize=(4, 10), dpi=300)
+    fig, axes = plt.subplots(4, 1, figsize=fig_size(0.25, aspect=2.5), dpi=300)
 
     ctrl_line = None
     for ax, (ct, color, label, _) in zip(axes, panel_specs):

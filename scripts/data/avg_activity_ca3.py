@@ -7,18 +7,9 @@ from matplotlib.colors import LinearSegmentedColormap
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, alpha, linewidth, igc_connectivity_label
+from utils.plot_styles import cell_colors, alpha, igc_connectivity_label, apply_paper_style, fig_size
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    # "text.usetex": True,
-    "font.family": "serif",
-    "font.serif": ["Times New Roman"],
-
-    "lines.linewidth": linewidth,
-    'lines.solid_joinstyle': 'round',
-    'lines.solid_capstyle': 'round',
-})
+apply_paper_style()
 
 data = load_pattern_data('june_final')
 
@@ -57,7 +48,7 @@ def avg_activity_ca3():
 
     std_errors_c[group] = std_error_cad
 
-  fig, ax = plt.subplots(figsize=(6, 4), dpi=300)
+  fig, ax = plt.subplots(figsize=fig_size(0.35, aspect=2/3), dpi=300)
 
   from matplotlib.ticker import MultipleLocator
   ax.yaxis.set_major_locator(MultipleLocator(0.03))

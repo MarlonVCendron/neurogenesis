@@ -14,6 +14,25 @@ cell_colors = {
 alpha = 0.9
 linewidth = 4
 
+FIG_WIDTH_IN = 17
+
+
+def fig_size(width_frac, aspect=1.0):
+    w = FIG_WIDTH_IN * width_frac
+    return (w, w * aspect)
+
+
+def apply_paper_style():
+    import matplotlib.pyplot as plt
+    plt.style.use('seaborn-v0_8-poster')
+    plt.rcParams.update({
+        "font.family": "serif",
+        "font.serif": ["Times New Roman"],
+        "lines.linewidth": linewidth,
+        "lines.solid_joinstyle": "round",
+        "lines.solid_capstyle": "round",
+    })
+
 igc_connectivity_label = 'EC→iGC excitability (% of mGC)'
 # igc_connectivity_label = 'iGC afferent input fraction'
 # igc_connectivity_label = 'EC→iGC connectivity (% of mGC)'

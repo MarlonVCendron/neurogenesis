@@ -4,16 +4,9 @@ from scipy.stats import sem, linregress
 
 from utils.patterns import pattern_separation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, alpha, linewidth, igc_connectivity_label
+from utils.plot_styles import cell_colors, alpha, igc_connectivity_label, apply_paper_style, fig_size
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    "font.family": "serif",
-    "font.serif": ["Times New Roman"],
-    "lines.linewidth": linewidth,
-    'lines.solid_joinstyle': 'round',
-    'lines.solid_capstyle': 'round',
-})
+apply_paper_style()
 
 RUN = 'june_final'
 data = load_pattern_data(RUN)
@@ -55,7 +48,7 @@ def plot():
     ca3, mgc, igc = np.array(ca3), np.array(mgc), np.array(igc)
     sem_ca3, sem_mgc, sem_igc = np.array(sem_ca3), np.array(sem_mgc), np.array(sem_igc)
 
-    fig, ax = plt.subplots(figsize=(6, 4), dpi=300)
+    fig, ax = plt.subplots(figsize=fig_size(0.35, aspect=2/3), dpi=300)
     ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
     # ax.axhline(y=1, color='gray', linestyle='--')
 
