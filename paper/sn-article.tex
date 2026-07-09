@@ -292,6 +292,8 @@ of its membrane equation (Eq.~\ref{eq_izhikevich_1}).
 
 \subsection{Pattern separation}\label{sec:pattern_separation}
 
+% TODO: what level of excitability is most probable?
+
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
 ($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
@@ -450,47 +452,105 @@ Resource 1).
 
 \section{Results}\label{results}
 
-% \subsection{Pattern separation}\label{sec:pattern_separation}
 
-% TODO: add figure of raw data
+% validation -> separation -> sparsity -> activation .
 
-Figure~\ref{fig:results-1a} shows that, with neurogenesis, the mGC population activation  drops, and with each increasing level of
-iGC excitability, the mGC population activation decreases accordingly; the opposite is true for the iGC population, since higher
-levels of excitability are expected to make the iGCs more active, with almost 90\% of the iGC population being active for the
-highest level of excitability simulated. For increasing levels of iGC excitability, as mGC activity decreases and iGC activity
-increases, an equilibrium of approximately 8\% of the entire GC population (iGCs and mGCs counted together) stays active,
-similarly to the control model without neurogenesis.
 
-Figure~\ref{fig:results-1b}
+\begin{figure}[t]
+    \begin{subfigure}[t]{\linewidth}
+        \caption{\label{fig:raster}}
+        \includegraphics[width=\linewidth]{figures/raster.jpg}%
+    \end{subfigure}
+    \begin{subfigure}[t]{\linewidth}
+        \caption{\label{fig:firing_rate}}
+        \includegraphics[width=\linewidth]{figures/firing_rate_distribution.jpg}%
+    \end{subfigure}
+    \caption{Caption}\label{fig:results-1}
+\end{figure}
 
+
+
+% network behaves plausibly and sits within in-vivo rate/sparsity ranges (-> Online Resource 1)
+
+\subsection{Adult neurogenesis enhances pattern separation in the DG and CA3}\label{sec:res_separation}
+
+% [R] pattern separation (S_D) rises with neurogenesis/excitability, DG AND CA3,
+%     Fig. results-1(b,d).  Stats: regression / Spearman vs excitability (see STATS note at end).
+
+Figure~\ref{fig:dg-activity} shows that, with neurogenesis, the mGC population activation  drops, and with each increasing level
+of iGC excitability, the mGC population activation decreases accordingly; the opposite is true for the iGC population, since
+higher levels of excitability are expected to make the iGCs more active, with almost 90\% of the iGC population being active for
+the highest level of excitability simulated. This happens because of the feedforward inhibition exerted by iGCs upon mGCs, via iGC
+$\to$ mGC, iGC $\to$ BC/HIPP $\to$ mGC and iGC $\to$ MC $\to$ BC/HIPP $\to$ mGC\@. For increasing levels of iGC excitability, as
+mGC activity decreases and iGC activity increases, an equilibrium of approximately 8\% of the entire GC population (iGCs and mGCs
+counted together) stays active, similarly to the control model without neurogenesis.
+
+% TODO: add more references to the encoder x modulator theory
+% TODO: better branching to CA3
+
+This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with less neurons
+active for a given pattern, the sparser coding leads to an increase in pattern separation degree, as seen in
+Figure~\ref{fig:dg-separation}. When considering the entire GC population, pattern separation actually decreases with higher iGC
+excitability, since more iGCs activate for the input, while less mGCs do so, and iGCs are much less sparse and input specific,
+taking more of a role of pattern integrators as also seen in~\citet{kimEffect2024}, never achieving pattern separation in the
+model ($\mathcal{S}_d < 1$). Since iGCs's role is considered to be more on modulating network activity rather than encoding
+information~\citep{mchughAdultborn2022}, we can consider that the encoding population, the mGC, did actually have an increase in
+pattern separation.
+
+% TODO: not sure that the increase in pattern separation for CA3 is because of the mGCS
+% TODO: investigate why pca3 decrease activity if the activity of the dg is the same
 % Same GC activation (8%), but iGCs fire more than mGCs, then why does pCA3 activity decrease?
 
-
+When observing the same analysis for the pCA3 population, we can see in Figures~\ref{fig:ca3-activity}
+and~\ref{fig:ca3-separation} that the increase in pattern separation seen in the encoding cells of the DG also happens for the
+CA3, although to a different degree, for both neurogenesis and increase in iGC excitability. So even though we see a decrease in
+pattern separation for the whole GC population, since the iGCs are not encoders, we see the effect of increase pattern separation
+propagating downstream from the mGCs to the CA3.
 
 % ⚠️ TODO before submission: use EPS images
 
 \begin{figure*}[t]
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-        \caption{\label{fig:results-1a}}
-        \includegraphics[width=\linewidth]{figures/avg_activity.pdf}%
-    \end{subfigure}
+    \begin{minipage}[c]{0.72\textwidth}
+        \centering
+        \begin{subfigure}[t]{0.35\textwidth}
+            \caption{\label{fig:dg-activity}}
+            \includegraphics[width=\linewidth]{figures/avg_activity.pdf}%
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{0.35\textwidth}
+            \caption{\label{fig:dg-separation}}
+            \includegraphics[width=\linewidth]{figures/avg_pattern_separation.pdf}%
+        \end{subfigure}
+
+        \vspace{\floatsep}
+
+        \begin{subfigure}[t]{0.35\textwidth}
+            \caption{\label{fig:ca3-activity}}
+            \includegraphics[width=\linewidth]{figures/avg_activity_ca3.jpg}%
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{0.35\textwidth}
+            \caption{\label{fig:ca3-separation}}
+            \includegraphics[width=\linewidth]{figures/pattern_separation_ca3.pdf}%
+        \end{subfigure}
+    \end{minipage}%
     \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \caption{\label{fig:results-1b}}
-        \includegraphics[width=\linewidth]{figures/avg_pattern_separation.pdf}%
+    % Right: tall figure spanning both rows (no blank line above -> stays on same row)
+    \begin{subfigure}[c]{0.25\textwidth}
+        \caption{\label{fig:sparsity_gini}}
+        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
     \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-        \caption{\label{fig:results-1c}}
-        \includegraphics[width=\linewidth]{figures/avg_activity_ca3.jpg}%
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \caption{\label{fig:results-1d}}
-        \includegraphics[width=\linewidth]{figures/pattern_separation_ca3.pdf}%
-    \end{subfigure}
-    \caption{Caption}\label{fig:results-1}
+    \caption{Caption}\label{fig:results-2}
 \end{figure*}
+
+\subsection{Enhanced separation is driven by increased sparsity}\label{sec:res_sparsity}
+
+% [R] Fig. results-2(a) firing-rate distribution: iGCs fire faster than mGCs for
+%     the same input (reproduces McHugh; comparison inline).
+% [R] Fig. results-2(b) Gini sparsity rises with excitability, DG and CA3
+%     (McHugh's central result; inline).
+% [R] separation tracks / is driven by sparsity (correlation Gini vs S_D; see STATS note).
 
 % ⚠️ TODO before submission: use EPS images
 
@@ -499,29 +559,50 @@ Figure~\ref{fig:results-1b}
 \begin{figure*}[t]
     \centering
     \begin{subfigure}[t]{0.65\textwidth}
-        \caption{\label{fig:results-2a}}
+        \caption{\label{fig:firing_rate}}
         \includegraphics[width=\linewidth]{figures/firing_rate_distribution.jpg}%
     \end{subfigure}
-    \begin{subfigure}[t]{0.25\textwidth}
-        \caption{\label{fig:results-2b}}
-        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
-    \end{subfigure}
-    \caption{Caption}\label{fig:results-2}
+    \caption{Caption}\label{fig:results-3}
 \end{figure*}
 
+
+\subsection{iGC activation recruits circuit-wide inhibition}\label{sec:res_activation}
+
+% Fig. results-3 (PSTH, all levels aggregated). SI: pre/post-pulse Gini; BC spectrum.
+% [R] MC excited -> helps drive BCs.
+% [R] BC activated, synchronous ~123 Hz (< 230 Hz literature max).
+% [R] HIPP inhibited.   (why it is inhibited -> [->D])
+% [R] CA3: iCA3 strongly activated -> pCA3 slightly inhibited.
+% [R] mGC: small net excitation + a time-course inhibition (z ~ 4); note the
+%     iGC->mGC interaction is imperfectly captured [R], expand in Discussion [->D].
+% [R] Inline McHugh: like McHugh, iGC activation recruits DG AND CA3 interneurons
+%     to produce sparsity (the mechanism behind the previous subsection); diverges
+%     on the mGC sign and the small pCA3 inhibition; note McHugh could not
+%     distinguish HIPP vs BC (area-level inhibitory only).
+% [->D]: CA3 inhibition puzzle; MC complexity; why HIPP is inhibited; iGC->mGC
+%     discrepancy; in-vivo latency; CA3 modeled with a single interneuron type.
 
 % ⚠️ TODO before submission: use EPS images
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/psth.jpg}%
-    \caption{Caption}\label{fig:results-3}
+    \caption{Caption}\label{fig:psth}
 \end{figure}
 
 
 
 
 
+
+% ===== STATS note (see G1/G4 in results_questions.md) =====
+% G1 trend: per metric + population, linear regression (slope + p) OR Spearman
+%   (r + p) vs excitability level; SEM bands in figures + control as reference.
+% G4 sparsity->separation: correlate Gini vs S_D across conditions; if strong,
+%   "separation tracked sparsity (r=...)"; frame causation mechanistically
+%   (sparser = more orthogonal codes), not as proof.
+% G2: PSTH z encodes significance (|z|>1.96 ~ p<0.05) -- keep Fig results-3
+%   qualitative, cite key z (mGC z~4); Wilcoxon stars on the SI pre/post figure.
 
 \section{Discussion}\label{discussion}
 
