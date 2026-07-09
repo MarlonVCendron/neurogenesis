@@ -51,7 +51,7 @@ def collect_rates(group, exclude_single_spike=False, include_pca3=False):
     return mgc, igc
 
 
-def plot_kde(ax, rates, color, label, bw=0.25, show_mean=True):
+def plot_kde(ax, rates, color, label, bw=0.25, show_median=True):
     """Plot a normalized KDE on a log x-axis with filled area and white outline."""
     rates = np.asarray(rates)
     rates = rates[rates > 0]
@@ -66,20 +66,20 @@ def plot_kde(ax, rates, color, label, bw=0.25, show_mean=True):
     ax.fill_between(x, y, alpha=0.6, color=color, label=label)
     ax.plot(x, y, color='white', linewidth=2.5, solid_joinstyle='round', solid_capstyle='round')
 
-    mean_rate = np.mean(rates)
-    if show_mean:
-        ax.axvline(mean_rate, color=color, linestyle='--', linewidth=2, alpha=0.9)
-        y_at_mean = kde(np.log10(mean_rate)) / kde(x_log).max()
+    median_rate = np.median(rates)
+    if show_median:
+        ax.axvline(median_rate, color=color, linestyle='--', linewidth=2, alpha=0.9)
+        y_at_median = kde(np.log10(median_rate)) / kde(x_log).max()
         ax.text(
-            mean_rate, float(y_at_mean) + 0.06,
-            f'{mean_rate:.2f} Hz',
+            median_rate, float(y_at_median) + 0.06,
+            f'{median_rate:.2f} Hz',
             color=color, fontsize=12, ha='center', va='bottom',
             bbox=dict(boxstyle='round,pad=0.2', fc='white', ec='none', alpha=0.7),
         )
-    return mean_rate
+    return median_rate
 
 
-def firing_rate_distribution(show_mean=True, exclude_single_spike=False, include_pca3=False):
+def firing_rate_distribution(show_median=True, exclude_single_spike=False, include_pca3=False):
     ng_groups = [g for g in groups if 'neurogenesis' in g]
 
     ncols = len(ng_groups)
@@ -94,16 +94,16 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False, include
         else:
             mgc_rates, igc_rates = rates
 
-        mgc_mean = plot_kde(ax, mgc_rates, color=cell_colors['mgc'], label='mGC', bw=0.5, show_mean=show_mean)
-        igc_mean = plot_kde(ax, igc_rates, color=cell_colors['igc'], label='iGC', bw=0.5, show_mean=show_mean)
+        mgc_median = plot_kde(ax, mgc_rates, color=cell_colors['mgc'], label='mGC', bw=0.5, show_median=show_median)
+        igc_median = plot_kde(ax, igc_rates, color=cell_colors['igc'], label='iGC', bw=0.5, show_median=show_median)
         if include_pca3:
-            pca3_mean = plot_kde(ax, pca3_rates, color=cell_colors['pca3'], label='pCA3', bw=0.5, show_mean=show_mean)
+            pca3_median = plot_kde(ax, pca3_rates, color=cell_colors['pca3'], label='pCA3', bw=0.5, show_median=show_median)
 
         print(f'{group} summary:')
-        print(f'mgc mean: {mgc_mean:.4f} Hz, mode: {mode(mgc_rates).mode} ({mode(mgc_rates).count}), median: {np.median(mgc_rates):.4f} Hz, std: {np.std(mgc_rates):.4f}')
-        print(f'igc mean: {igc_mean:.4f} Hz, mode: {mode(igc_rates).mode} ({mode(igc_rates).count}), median: {np.median(igc_rates):.4f} Hz, std: {np.std(igc_rates):.4f}')
-        if include_pca3 and pca3_mean is not None:
-            print(f'pca3 mean: {pca3_mean:.4f} Hz, mode: {mode(pca3_rates).mode} ({mode(pca3_rates).count}), median: {np.median(pca3_rates):.4f} Hz, std: {np.std(pca3_rates):.4f}')
+        print(f'mgc median: {np.median(mgc_rates):.4f} Hz, mean: {np.mean(mgc_rates):.4f} Hz, mode: {mode(mgc_rates).mode} ({mode(mgc_rates).count}), std: {np.std(mgc_rates):.4f}')
+        print(f'igc median: {np.median(igc_rates):.4f} Hz, mean: {np.mean(igc_rates):.4f} Hz, mode: {mode(igc_rates).mode} ({mode(igc_rates).count}), std: {np.std(igc_rates):.4f}')
+        if include_pca3 and pca3_median is not None:
+            print(f'pca3 median: {np.median(pca3_rates):.4f} Hz, mean: {np.mean(pca3_rates):.4f} Hz, mode: {mode(pca3_rates).mode} ({mode(pca3_rates).count}), std: {np.std(pca3_rates):.4f}')
 
         # group format: 'neurogenesis_0.2' or 'neurogenesis_0.2_ca3' etc.
         parts = group.split('_')
@@ -128,4 +128,4 @@ def firing_rate_distribution(show_mean=True, exclude_single_spike=False, include
     plt.close()
 
 
-firing_rate_distribution(show_mean=True, exclude_single_spike=False, include_pca3=False)
+firing_rate_distribution(show_median=True, exclude_single_spike=False, include_pca3=False)
