@@ -137,7 +137,7 @@ Springer Nature does not impose a strict layout as standard however authors are 
 
 \subsection{Network architecture}\label{sec:network_architecture}
 
-The DG-CA3 network architecture, shown in Fig.~\ref{fig:diagram-network}, was built primarily upon the models of
+The DG-CA3 network architecture, shown in Figure~\ref{fig:diagram-network}, was built primarily upon the models of
 \citet{kopsickFormation2024, kimAdult2024, yangDynamic2025, chavlisDendrites2017} and reproduced at a scale of $\frac{1}{500}$ of
 the rat hippocampus, the per-population cell counts being listed in Table~\ref{tab:neuron_counts}. Each neuron was reduced to a
 single compartment, with no explicit dendrites or axons, yet kept biologically plausible: its neuron and synapse models, together
@@ -154,7 +154,6 @@ subset of neuron and synapse parameters, as well as some connection probabilitie
 each cell type matched its \textit{in vivo} firing rate and population sparsity (Online Resource 1).
 
 % TODO: finish the in vivo table and add it to supplementary info
-% TODO: report the model sparsity mayeb using Gini index instead of average activation
 
 \begin{figure}[tbp]
     \centering
@@ -218,7 +217,7 @@ Synaptic connections remained fixed throughout.
 
 \subsection{Neuron model}\label{sec:neuron_model}
 
-Each neuron obeys the nine-parameter Izhikevich model \citep[chap.~8]{izhikevichDynamical2006}. This model was chosen in this work
+Each neuron obeys the nine-parameter Izhikevich model \citep[chapter~8]{izhikevichDynamical2006}. This model was chosen in this work
 and Hippocampome.org for being capable of reproducing the firing dynamics of neurons across a wide variety of conditions with a
 biological plausibility approaching that of the Hodgkin-Huxley model \citep{hodgkinQuantitative1952b}, but at a far lower
 computational cost. Its dynamics are described by:
@@ -303,20 +302,21 @@ of its membrane equation (Equation~\ref{eq_izhikevich_1}).
 
 \subsection{Pattern separation}\label{sec:pattern_separation}
 
-% TODO: what level of excitability is most probable?
-
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
 ($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
 Figure~\ref{fig:diagram-input-output}. This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC
 connection probability as a percentage relative to that of the mGCs: with 100\% matching the mGC connection probability, and 10\%
-meaning one tenth of that probability, and so represents the still-incomplete dendritic integration of the immature cells. Each
-variant was presented with 30 sets of 10 input patterns, a set being one randomly generated reference pattern together with 9
-derivatives of it graded from 90\% down to 10\% similarity. An input pattern is a binary vector of length $N_{EC} = 400$ encoding
-the state of each EC neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being
-active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference
-pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity
-level.
+meaning one tenth of that probability, and so represents the still-incomplete dendritic integration of the immature cells. Because
+immature granule cells acquire their entorhinal input only gradually over the 4--7 week maturation window
+\citep{espositoNeuronal2005, aimoneRegulation2014}, no single value of this excitability is representative of the immature
+population; the full range was therefore swept, rather than assuming one level, with lower values corresponding to earlier, less
+integrated cells and higher values to more mature ones approaching the connectivity of the mGCs. Each variant was presented with
+30 sets of 10 input patterns, a set being one randomly generated reference pattern together with 9 derivatives of it graded from
+90\% down to 10\% similarity. An input pattern is a binary vector of length $N_{EC} = 400$ encoding the state of each EC neuron,
+its active neurons firing as Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being active in every pattern. A
+pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference pattern's active neurons and
+moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
 
 \begin{figure*}[tp]
     \centering
@@ -385,7 +385,7 @@ their ratio:
     \mathcal{S}_D = \frac{D_p^{(out)}}{D_p^{(in)}}
 \end{equation}
 
-A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, i.e.\ pattern separation, whereas
+A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, that is, pattern separation, whereas
 $\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow more alike.
 
 \subsection{Population sparsity}\label{sec:population_sparsity}
@@ -446,10 +446,9 @@ recording window up to \SI{60}{\milli\second} before the pulse:
 where $r(t)$ is the population rate in the bin at time $t$ relative to the pulse, and $\mu_{base}$ and $\sigma_{base}$ are the
 mean and standard deviation of the baseline bins.
 
-% TODO: include in supplementary info the results of this:
-
-To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Equation~\ref{eq:gini}) of
-each population was also compared between the \SI{100}{\milli\second} windows immediately before and after the pulse.
+To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Equation~\ref{eq:gini})
+of each population was also compared, with a paired Wilcoxon signed-rank test over all runs, between the \SI{50}{\milli\second}
+windows immediately before and after the pulse.
 
 \subsection{Oscillation analysis}\label{sec:oscillation_analysis}
 
@@ -458,8 +457,6 @@ after pulse onset, in \SI{1}{\milli\second} bins) was detrended by subtracting a
 \SI{8}{\milli\second}$), and the power spectrum of the residual was estimated by Welch's method \citep{welchUse1967}. The peak
 frequency in the \SIrange{20}{200}{\hertz} band was taken as the dominant oscillation frequency (reported for BCs in Online
 Resource 1).
-
-% TODO: describe how firing rates were estimated
 
 \section{Results}\label{results}
 
@@ -472,7 +469,7 @@ representative simulation. Driven by the EC input, the mGCs fire sparsely and in
 fraction of the population active at any moment. The iGCs are more active, while the pCA3 cells fire at a moderate rate, spread
 more evenly across the population.
 
-This difference between the two populations can be seen in Fig.~\ref{fig:firing_rate}: the iGC firing-rate distribution is shifted
+This difference between the two populations can be seen in Figure~\ref{fig:firing_rate}: the iGC firing-rate distribution is shifted
 towards higher rates than that of the mGCs, with a median firing rate of \SI{3}{\hertz} against \SI{1}{\hertz} for the mGCs. These
 values closely match those found \textit{in vivo} by \citet{mchughAdultborn2022} (\SI{2.3}{\hertz} for adult-born against
 \SI{1.0}{\hertz} for mature granule cells), although the shape of the distribution differs. For every cell type, the model's
@@ -518,7 +515,7 @@ without neurogenesis.
 This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with fewer neurons
 active for a given pattern, the sparser coding leads to an increase in the mGC pattern separation degree, which rose
 monotonically with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman
-$\rho = 1.00$, $p < 10^{-6}$; Fig.~\ref{fig:dg-separation}). The two granule-cell types, however, behave in opposite ways. Taken
+$\rho = 1.00$, $p < 10^{-6}$; Figure~\ref{fig:dg-separation}). The two granule-cell types, however, behave in opposite ways. Taken
 on their own, the iGC outputs never separate their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability
 rises), acting instead as pattern integrators, as also reported by~\citet{kimEffect2024}. When the whole granule-cell population
 is considered together, pattern separation remains above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$
@@ -532,10 +529,10 @@ the separation achieved by the encoding population, the mGCs, which is enhanced 
 % TODO: investigate why pca3 decrease activity if the activity of the dg is the same
 % Same GC activation (8%), but iGCs fire more than mGCs, then why does pCA3 activity decrease?
 
-The same analysis applied to the pCA3 population (Figs.~\ref{fig:ca3-activity} and~\ref{fig:ca3-separation}) shows that its mean
+The same analysis applied to the pCA3 population (Figures~\ref{fig:ca3-activity} and~\ref{fig:ca3-separation}) shows that its mean
 activation also decreases with neurogenesis and iGC excitability, from 29.7\% to 24.1\%, while its separation degree increases in
 the same direction as that of the mGCs, from $\mathcal{S}_D = 0.51$ to $0.69$ ($\rho = +0.98$, $p < 10^{-5}$). Unlike the DG,
-however, the pCA3 separation degree remains below one throughout: by the definition describe in Eq.~\ref{eq:sd}, the CA3
+however, the pCA3 separation degree remains below one throughout: by the definition describe in Equation~\ref{eq:sd}, the CA3
 operates in the convergence regime, its outputs more alike than its inputs. This is expected of a region whose recurrent
 connectivity supports autoassociation and pattern completion~\citep{rollsMechanisms2013, kopsickFormation2024} rather than
 separation. Neurogenesis therefore does not turn the CA3 into a separator, but reduces its convergence.
@@ -577,7 +574,13 @@ separation. Neurogenesis therefore does not turn the CA3 into a separator, but r
             \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
         \end{subfigure}
     \end{minipage}
-    \caption{Caption}\label{fig:results-2}
+    \caption{Effects of adult neurogenesis and iGC excitability on activation, pattern separation and sparsity in the DG and CA3.
+        In every panel the horizontal axis is the EC$\to$iGC excitability level (10--100\%), each point is the mean over the 30
+        pattern sets, shaded bands show the SEM and the dashed black line marks the control network without neurogenesis.
+        \textbf{(a)} Mean population activation of DG GCs\@. \textbf{(b)} Pattern separation degree $\mathcal{S}_D$ of DG GCs; the
+        grey dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs.
+        \textbf{(c)} Mean population activation of the pCA3 cells. \textbf{(d)} Pattern separation degree of the pCA3 cells.
+        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells.}\label{fig:results-2}
 \end{figure*}
 
 \subsection{Enhanced separation is driven mainly by increased sparsity}\label{sec:res_sparsity}
@@ -601,7 +604,7 @@ likely due to the stronger winner-take-all competition driven by the iGCs \citep
 \subsection{iGC activation recruits circuit-wide inhibition}\label{sec:res_activation}
 
 Directly injecting current into half of the iGCs propagated through the entire DG--CA3 network, as summarized by the peri-stimulus
-time histograms of Fig.~\ref{fig:psth}, pooled over all EC$\to$iGC excitability variants.
+time histograms of Figure~\ref{fig:psth}, pooled over all EC$\to$iGC excitability variants.
 
 Within the DG, the MCs were strongly excited and in turn drove strong excitation to the BCs. The BCs responded with a large,
 significant increase in firing organized as a synchronous rhythm at $\sim\SI{123}{\hertz}$, within the range of maximum BC firing
@@ -623,13 +626,17 @@ follow iGC spikes with a lag of \SIrange{20}{40}{\milli\second} \textit{in vivo}
 modeled, and all spike time were default to \SI{1}{\milli\second}, the absolute latencies here are shorter and not directly
 comparable, although the temporal ordering of the responses is preserved.
 
+Comparing the Gini index of each population between the \SI{50}{\milli\second} windows immediately before and after the pulse
+confirmed that this recruitment of inhibition increased population sparsity in most of the models, the within-trial counterpart of
+the steady-state sparsification reported in Section~\ref{sec:res_sparsity}; the full comparison across populations and
+excitability levels is given in Online Resource 1.
+
 Taken together, and in agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited interneurons in both the DG and
-CA3, which is the circuit mechanism underlying the rise in population sparsity reported in Sec.~\ref{sec:res_sparsity} (Online
-Resource 1). The model departs from their \textit{in vivo} findings in two respects: the sign of the mGC response, a net
-excitation rather than the suppression expected of a principal cell, and the small inhibition of the pCA3 cells, for which
-\citet{mchughAdultborn2022} found no effect. Their area-level recordings, however, could not separate the inhibitory contribution
-of the HIPPs from that of the BCs, so the divergence between the two DG interneuron populations cannot be adjudicated against
-their data.
+CA3, providing the circuit mechanism for the rise in granule-cell population sparsity reported in Section~\ref{sec:res_sparsity}. The
+model departs from their \textit{in vivo} findings in two respects: the sign of the mGC response, a net excitation rather than the
+suppression expected of a principal cell, and the small inhibition of the pCA3 cells, for which \citet{mchughAdultborn2022} found
+no effect. Their area-level recordings, however, could not separate the inhibitory contribution of the HIPPs from that of the BCs,
+so the divergence between the two DG interneuron populations cannot be adjudicated against their data.
 
 % ⚠️ TODO before submission: use EPS images
 
