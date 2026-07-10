@@ -1,0 +1,136 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[round]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% TODO: remove this gambiarra
+\newcommand{\textcite}[1]{\citet{#1}}
+\providecommand{\parencite}[1]{\citep{#1}}
+
+%% Number figures and tables as S1, S2, ... to mark them as supplementary.
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\title{Online Resource 1\\[0.3em]
+\large Supplementary figures and tables}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+%% TODO: replace with the article title
+\textbf{Article:} \emph{[Article title]}\\[0.2em]
+\textbf{Journal:} Cognitive Neurodynamics\\[0.2em]
+\textbf{Authors:} Marlon Valmórbida Cendron, Wilfredo Blanco Figuerola, Flávio Freitas Barbosa\\[0.2em]
+
+\textbf{Corresponding author:} Marlon Valmórbida Cendron, Laboratory for Memory and Cognition Studies, Department of Psychology,
+Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gmail.com
+
+\bigskip
+
+%% =====================================================================
+%% Table S1 -- in vivo firing rates and population sparsity
+%% =====================================================================
+\input{../thesis/tabelas/firing_rates.tex}
+
+%% =====================================================================
+%% Figure S1 -- pattern separation resolved by input similarity
+%% =====================================================================
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{supplementary_figures/pattern_separation.pdf}
+    \caption{Pattern separation of the mature granule cells resolved by input similarity. Each curve shows the pattern separation
+        degree $\mathcal{S}_D$ of the mGC population as a function of the similarity between the input patterns, for the control
+        network without neurogenesis (black dashed line) and for neurogenesis networks at representative EC$\to$iGC excitability
+        levels. Each point is the mean over the 30 pattern sets and the shaded band shows the standard error of the mean. The grey
+        dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs. Separation is
+        strongest for the most similar (most overlapping) inputs, and every neurogenesis network separates better than the control
+        across the whole similarity range.}\label{fig:pattern_separation_similarity}
+\end{figure}
+
+%% =====================================================================
+%% Figure S2 -- Hoyer sparsity (cross-validation of the Gini index)
+%% =====================================================================
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.42\linewidth]{supplementary_figures/sparsity_hoyer.jpg}
+    \caption{Population sparsity measured with the Hoyer index, as a
+        cross-validation of the Gini results reported in the main text. Each
+        panel shows the Hoyer sparsity of one population --- the whole
+        granule-cell population (All GC), the mature granule cells (mGC), the
+        immature granule cells (iGC) and the pyramidal CA3 cells (pCA3) --- as a
+        function of the EC$\to$iGC excitability level; the shaded bands show the
+        standard error of the mean and the dashed line marks the control network
+        without neurogenesis (absent for the iGC panel, which has no counterpart
+        in the control). As with the Gini index, the sparsity of the All GC, mGC
+        and pCA3 populations rises with iGC excitability and stays above the
+        control, whereas the iGC population becomes less
+        sparse.}\label{fig:sparsity_hoyer}
+\end{figure}
+
+%% =====================================================================
+%% Figure S3 -- mGC orthogonalization degree
+%% =====================================================================
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{supplementary_figures/mgc_orthogonalization.pdf}
+    \caption{Orthogonalization of the mature granule-cell output as a function of EC$\to$iGC excitability. The curve shows the
+        orthogonalization degree $\mathcal{O}_D$ of the mGC population, taken as the ratio of the output to the input
+        orthogonalization ($O^{(out)}/O^{(in)}$); the shaded band shows the standard error of the mean and the dashed line marks
+        the control network without neurogenesis. The orthogonalization rises with iGC excitability, indicating that the mGC
+        outputs become increasingly decorrelated as neurogenesis increases, beyond what the reduction in the number of active
+        cells alone would produce.}\label{fig:mgc_orthogonalization}
+\end{figure}
+
+%% =====================================================================
+%% Figure S4 -- pre/post Gini per excitability level (Wilcoxon)
+%% =====================================================================
+\clearpage
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.1.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.2.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.3.pdf}\end{subfigure}
+
+    \medskip
+
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.4.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.5.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.6.pdf}\end{subfigure}
+
+    \medskip
+
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.7.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.8.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_0.9.pdf}\end{subfigure}
+
+    \medskip
+
+    \begin{subfigure}{0.30\linewidth}\centering\includegraphics[width=\linewidth]{supplementary_figures/opto_sparsity_neurogenesis_1.0.pdf}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\end{subfigure}\hfill
+    \begin{subfigure}{0.30\linewidth}\end{subfigure}
+
+    \caption{Population sparsity (Gini index) immediately before and after direct iGC activation, for every EC$\to$iGC
+        excitability level. Each panel corresponds to one excitability level (10\%--100\%, given in the panel title) and compares
+        the Gini index of the mGC, iGC, combined granule-cell (all GC) and pCA3 populations in the \SI{50}{\milli\second} windows
+        immediately before (pre) and after (post) the depolarizing pulse, pooled over all runs. Bars show the mean across runs.
+        The result of the paired Wilcoxon signed-rank test between the pre and post values is indicated above each pair (ns, not
+        significant; {*}~$p < 0.05$; {**}~$p < 0.01$; {***}~$p < 0.001$).}\label{fig:opto_sparsity}
+\end{figure}
+
+\bibliographystyle{plainnat}
+% TODO: should this bibliography be in the main paper?
+\bibliography{sn-bibliography}
+
+\end{document}
