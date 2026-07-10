@@ -109,9 +109,9 @@
 
 \author[1]{\fnm{Marlon} \sur{Valmórbida Cendron}}\email{marlonvcendron@gmail.com}
 
-\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}\email{wilfredoblanco@uern.br}
+\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}%\email{wilfredoblanco@uern.br}
 
-\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{barbosa.flaviof@gmail.com}
+\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}%\email{barbosa.flaviof@gmail.com}
 
 \affil[1]{\orgdiv{Laboratory for Memory and Cognition Studies, Department of Psychology}, \orgname{Federal University of Paraíba}, \orgaddress{\city{João Pessoa}, \postcode{58051900}, \country{Brazil}}}
 
@@ -151,7 +151,7 @@ sufficient to support pattern separation \citep{chavlisDendrites2017, kimEffect2
 types and their connection probabilities were likewise drawn from multiple sources and kept within biologically reasonable ranges.
 Once all parameters had been gathered from Hippocampome.org and the remaining literature and the network had been assembled, a
 subset of neuron and synapse parameters, as well as some connection probabilities, was tweaked within reasonable bounds so that
-each cell type matched its \textit{in vivo} firing rate and population sparsity (Online Resource 1).
+each cell type matched its \textit{in vivo} firing rate and population sparsity (Online Resource 1, Table S1).
 
 % TODO: finish the in vivo table and add it to supplementary info
 
@@ -475,8 +475,8 @@ This difference between the two populations can be seen in Figure~\ref{fig:firin
 shifted towards higher rates than that of the mGCs, with a median firing rate of \SI{3}{\hertz} against \SI{1}{\hertz} for the
 mGCs. These values closely match those found \textit{in vivo} by \citet{mchughAdultborn2022} (\SI{2.3}{\hertz} for adult-born
 against \SI{1.0}{\hertz} for mature granule cells), although the shape of the distribution differs. For every cell type, the
-model's firing rates and population sparsity fell within the ranges compiled from the literature (Online Resource 1), which is
-taken as evidence that the network behaves plausibly.
+model's firing rates and population sparsity fell within the ranges compiled from the literature (Online Resource 1, Table S1),
+which is taken as evidence that the network behaves plausibly.
 
 % ⚠️ TODO before submission: use EPS images
 
@@ -519,15 +519,15 @@ active for a given pattern, the sparser coding leads to an increase in the mGC p
 with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman $\rho = 1.00$,
 $p < 10^{-6}$; Figure~\ref{fig:dg-separation}). Resolved by input similarity, the mGC separation showed the same ordering at every
 level, being strongest for the most similar inputs and higher than the control across the whole similarity range (Online
-Resource~1). The two granule-cell types, however, behave in opposite ways. Taken on their own, the iGC outputs never separate
-their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability rises), acting instead as pattern integrators, as
-also reported by~\citet{kimEffect2024}. When the whole granule-cell population is considered together, pattern separation remains
-above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$ to $1.22$; $\rho = -0.96$, $p < 10^{-5}$). Because the
-total granule-cell activation stays near 8\% across excitability levels, this decline is driven almost entirely by a loss of
-output decorrelation, the mean pairwise correlation between output patterns rising from $0.14$ to $0.55$, rather than by any
-change in activation. Since the role of iGCs is thought to be the modulation of network activity rather than the encoding of
-information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is the separation achieved by the encoding
-population, the mGCs, which is enhanced by neurogenesis.
+Resource~1, Figure~S1). The two granule-cell types, however, behave in opposite ways. Taken on their own, the iGC outputs never
+separate their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability rises), acting instead as pattern
+integrators, as also reported by~\citet{kimEffect2024}. When the whole granule-cell population is considered together, pattern
+separation remains above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$ to $1.22$; $\rho = -0.96$, $p <
+10^{-5}$). Because the total granule-cell activation stays near 8\% across excitability levels, this decline is driven almost
+entirely by a loss of output decorrelation, the mean pairwise correlation between output patterns rising from $0.14$ to $0.55$,
+rather than by any change in activation. Since the role of iGCs is thought to be the modulation of network activity rather than
+the encoding of information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is the separation achieved by
+the encoding population, the mGCs, which is enhanced by neurogenesis.
 
 % TODO: not sure that the increase in pattern separation for CA3 is because of the mGCS
 % TODO: investigate why pca3 decrease activity if the activity of the dg is the same
@@ -594,7 +594,7 @@ progressive excitation of the iGCs, reproducing the central result of \citet{mch
 promote population sparsity throughout the hippocampus. Across the ten excitability levels, the Gini index rose monotonically for
 the whole granule-cell population (from $0.93$ to $0.96$; Spearman $\rho = +0.99$, $p < 10^{-6}$) and for the pCA3 cells (from
 $0.74$ to $0.78$; $\rho = +0.99$, $p < 10^{-6}$), each above its control value. The Gini index is shown here; the Hoyer measure,
-computed for cross-validation, follows the same trend (Online Resource 1).
+computed for cross-validation, follows the same trend (Online Resource 1, Figure S2).
 
 % TODO include in online resource the plot for orthogonalization
 
@@ -602,8 +602,8 @@ The separation degree depends on both the orthogonalization degree and the activ
 (Equations~\ref{eq:dp}--\ref{eq:sd}), so the mGCs could separate better by making their outputs sparser, more decorrelated, or
 both. Because the two combine multiplicatively, the change in $\log \mathcal{S}_D$ splits into an additive contribution from each.
 Most of the increase (about 92\%) comes from the lower activation degree, as fewer mGCs fire for each pattern. The remaining 8\%
-comes from a smaller but real gain in orthogonalization, as the mGC outputs become less correlated; this is not merely an effect
-of the sparser activity, since it remains when the number of active cells is held fixed (Online Resource 1). This extra
+comes from a smaller but real gain in orthogonalization, as the mGC outputs become less correlated (Online Resource~1,
+Figure~S3); this is not merely an effect of the sparser activity, since it remains when the number of active cells is held fixed. This extra
 decorrelation is likely due to the stronger winner-take-all competition driven by the iGCs \citep{coultripCortical1992}. The
 entire GC population behaves the opposite: its decline in separation (Section~\ref{sec:res_separation}) stems almost entirely
 (about 97\%) from the increased correlation among its outputs, rather than from any change in activation.
@@ -637,7 +637,7 @@ comparable, although the temporal ordering of the responses is preserved.
 Comparing the Gini index of each population between the \SI{50}{\milli\second} windows immediately before and after the pulse
 confirmed that this recruitment of inhibition increased population sparsity in most of the models, the within-trial counterpart of
 the steady-state sparsification reported in Section~\ref{sec:res_sparsity}; the full comparison across populations and
-excitability levels is given in Online Resource 1.
+excitability levels is given in Online Resource 1, Figure S4.
 
 Taken together, and in agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited interneurons in both the DG and
 CA3, providing the circuit mechanism for the rise in granule-cell population sparsity reported in Section~\ref{sec:res_sparsity}. The
