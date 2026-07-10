@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{34}
+\begin{thebibliography}{36}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -161,6 +161,21 @@ pp. \bfpage{1}--\blpage{11}.
 \endbibitem
 
 %%% 8
+\bibitem[\protect\citeauthoryear{F{\"o}lsz et~al.}{2023}]{folszAdultborn2023}
+\begin{barticle}
+\bauthor{\bsnm{F{\"o}lsz}, \binits{O.}},
+\bauthor{\bsnm{Trouche}, \binits{S.}},
+\bauthor{\bsnm{Croset}, \binits{V.}}:
+\batitle{Adult-born neurons add flexibility to hippocampal memories}.
+\bjtitle{Frontiers in Neuroscience}
+\bvolume{17},
+\bfpage{1128623}
+(\byear{2023})
+\doiurl{10.3389/fnins.2023.1128623}
+\end{barticle}
+\endbibitem
+
+%%% 9
 \bibitem[\protect\citeauthoryear{Gini}{1921}]{giniMeasurement1921}
 \begin{barticle}
 \bauthor{\bsnm{Gini}, \binits{C.}}:
@@ -174,7 +189,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 9
+%%% 10
 \bibitem[\protect\citeauthoryear{Hodgkin and
   Huxley}{1952}]{hodgkinQuantitative1952b}
 \begin{barticle}
@@ -190,7 +205,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 10
+%%% 11
 \bibitem[\protect\citeauthoryear{Hoyer}{2004}]{hoyerNonnegative2004}
 \begin{barticle}
 \bauthor{\bsnm{Hoyer}, \binits{P.O.}}:
@@ -203,7 +218,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 11
+%%% 12
 \bibitem[\protect\citeauthoryear{Izhikevich}{2006}]{izhikevichDynamical2006}
 \begin{bbook}
 \bauthor{\bsnm{Izhikevich}, \binits{E.M.}}:
@@ -215,7 +230,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{bbook}
 \endbibitem
 
-%%% 12
+%%% 13
 \bibitem[\protect\citeauthoryear{Kopsick et~al.}{2024}]{kopsickFormation2024}
 \begin{barticle}
 \bauthor{\bsnm{Kopsick}, \binits{J.D.}},
@@ -232,7 +247,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 13
+%%% 14
 \bibitem[\protect\citeauthoryear{Kim and Lim}{2024a}]{kimAdult2024}
 \begin{barticle}
 \bauthor{\bsnm{Kim}, \binits{S.-Y.}},
@@ -245,7 +260,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 14
+%%% 15
 \bibitem[\protect\citeauthoryear{Kim and Lim}{2024b}]{kimEffect2024}
 \begin{barticle}
 \bauthor{\bsnm{Kim}, \binits{S.-Y.}},
@@ -260,7 +275,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 15
+%%% 16
 \bibitem[\protect\citeauthoryear{Luna et~al.}{2019}]{lunaAdultborn2019}
 \begin{barticle}
 \bauthor{\bsnm{Luna}, \binits{V.M.}},
@@ -287,7 +302,23 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 16
+%%% 17
+\bibitem[\protect\citeauthoryear{L{\"u}bke et~al.}{1998}]{lubkeSpecialized1998}
+\begin{barticle}
+\bauthor{\bsnm{L{\"u}bke}, \binits{J.}},
+\bauthor{\bsnm{Frotscher}, \binits{M.}},
+\bauthor{\bsnm{Spruston}, \binits{N.}}:
+\batitle{Specialized {{Electrophysiological Properties}} of {{Anatomically
+  Identified Neurons}} in the {{Hilar Region}} of the {{Rat Fascia Dentata}}}.
+\bjtitle{Journal of Neurophysiology}
+\bvolume{79}(\bissue{3}),
+\bfpage{1518}--\blpage{1534}
+(\byear{1998})
+\doiurl{10.1152/jn.1998.79.3.1518}
+\end{barticle}
+\endbibitem
+
+%%% 18
 \bibitem[\protect\citeauthoryear{Moradi et~al.}{2022}]{moradiNormalized2022}
 \begin{barticle}
 \bauthor{\bsnm{Moradi}, \binits{K.}},
@@ -305,7 +336,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 17
+%%% 19
 \bibitem[\protect\citeauthoryear{Mongillo et~al.}{2008}]{mongilloSynaptic2008a}
 \begin{barticle}
 \bauthor{\bsnm{Mongillo}, \binits{G.}},
@@ -320,7 +351,7 @@ pp. \bfpage{1}--\blpage{11}.
 \end{barticle}
 \endbibitem
 
-%%% 18
+%%% 20
 \bibitem[\protect\citeauthoryear{Modak and
   Chakravarthy}{2018}]{modakIzhikevich2018}
 \begin{bchapter}
@@ -335,7 +366,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{bchapter}
 \endbibitem
 
-%%% 19
+%%% 21
 \bibitem[\protect\citeauthoryear{McNaughton et~al.}{1991}]{mcnaughtonDead1991}
 \begin{barticle}
 \bauthor{\bsnm{McNaughton}, \binits{B.L.}},
@@ -351,7 +382,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 20
+%%% 22
 \bibitem[\protect\citeauthoryear{McHugh et~al.}{2022}]{mchughAdultborn2022}
 \begin{barticle}
 \bauthor{\bsnm{McHugh}, \binits{S.B.}},
@@ -371,7 +402,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 21
+%%% 23
 \bibitem[\protect\citeauthoryear{Myers and Scharfman}{2009}]{myersRole2009}
 \begin{barticle}
 \bauthor{\bsnm{Myers}, \binits{C.E.}},
@@ -386,7 +417,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 22
+%%% 24
 \bibitem[\protect\citeauthoryear{Myers and Scharfman}{2011}]{myersPattern2011}
 \begin{barticle}
 \bauthor{\bsnm{Myers}, \binits{C.E.}},
@@ -401,7 +432,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 23
+%%% 25
 \bibitem[\protect\citeauthoryear{Nelder and Mead}{1965}]{nelderSimplex1965}
 \begin{barticle}
 \bauthor{\bsnm{Nelder}, \binits{J.A.}},
@@ -415,7 +446,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 24
+%%% 26
 \bibitem[\protect\citeauthoryear{Pak et~al.}{2022}]{pakHippocampal2022}
 \begin{barticle}
 \bauthor{\bsnm{Pak}, \binits{S.}},
@@ -434,7 +465,7 @@ In: \bbtitle{2018 {{Conference}} on {{Cognitive Computational Neuroscience}}}.
 \end{barticle}
 \endbibitem
 
-%%% 25
+%%% 27
 \bibitem[\protect\citeauthoryear{Rolls}{2013}]{rollsMechanisms2013}
 \begin{botherref}
 \oauthor{\bsnm{Rolls}, \binits{E.T.}}:
@@ -447,7 +478,7 @@ Frontiers in Systems Neuroscience
 \end{botherref}
 \endbibitem
 
-%%% 26
+%%% 28
 \bibitem[\protect\citeauthoryear{Stimberg et~al.}{2019}]{stimbergBrian2019a}
 \begin{barticle}
 \bauthor{\bsnm{Stimberg}, \binits{M.}},
@@ -462,7 +493,7 @@ Frontiers in Systems Neuroscience
 \end{barticle}
 \endbibitem
 
-%%% 27
+%%% 29
 \bibitem[\protect\citeauthoryear{Sloviter and
   L{\o}mo}{2012}]{sloviterUpdating2012}
 \begin{botherref}
@@ -476,7 +507,7 @@ Frontiers in Neural Circuits
 \end{botherref}
 \endbibitem
 
-%%% 28
+%%% 30
 \bibitem[\protect\citeauthoryear{Scharfman and
   Myers}{2013}]{scharfmanHilar2013}
 \begin{botherref}
@@ -490,7 +521,7 @@ Frontiers in Neural Circuits
 \end{botherref}
 \endbibitem
 
-%%% 29
+%%% 31
 \bibitem[\protect\citeauthoryear{Senn et~al.}{2001}]{sennAlgorithm2001}
 \begin{barticle}
 \bauthor{\bsnm{Senn}, \binits{W.}},
@@ -506,7 +537,7 @@ Frontiers in Neural Circuits
 \end{barticle}
 \endbibitem
 
-%%% 30
+%%% 32
 \bibitem[\protect\citeauthoryear{Welch}{1967}]{welchUse1967}
 \begin{barticle}
 \bauthor{\bsnm{Welch}, \binits{P.}}:
@@ -521,7 +552,7 @@ Frontiers in Neural Circuits
 \end{barticle}
 \endbibitem
 
-%%% 31
+%%% 33
 \bibitem[\protect\citeauthoryear{Wheeler
   et~al.}{2023}]{wheelerHippocampomeorg2023}
 \begin{botherref}
@@ -539,7 +570,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{botherref}
 \endbibitem
 
-%%% 32
+%%% 34
 \bibitem[\protect\citeauthoryear{West et~al.}{1991}]{westUnbiased1991}
 \begin{barticle}
 \bauthor{\bsnm{West}, \binits{M.J.}},
@@ -555,7 +586,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 35
 \bibitem[\protect\citeauthoryear{Watson et~al.}{2025}]{watsonHuman2025}
 \begin{barticle}
 \bauthor{\bsnm{Watson}, \binits{J.F.}},
@@ -577,7 +608,7 @@ Hippocampome.Org v2.0: A Knowledge Base Enabling Data-Driven Spiking Neural
 \end{barticle}
 \endbibitem
 
-%%% 34
+%%% 36
 \bibitem[\protect\citeauthoryear{Yang et~al.}{2025}]{yangDynamic2025}
 \begin{barticle}
 \bauthor{\bsnm{Yang}, \binits{K.}},

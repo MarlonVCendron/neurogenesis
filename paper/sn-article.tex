@@ -338,7 +338,7 @@ and $B^{(l)}$, with $l \in \{in, out\}$ for input and output, the pattern distan
     D_p^{(l)} = \frac{O^{(l)}}{D_a^{(l)}}
 \end{equation}
 
-where $O^{(l)}$ is the degree of orthogonalization and $D_a^{(l)}$ the mean activation of the pair, itself the arithmetic mean of
+where $O^{(l)}$ is the orthogonalization degree  and $D_a^{(l)}$ the mean activation of the pair, itself the arithmetic mean of
 the activation degrees of $A^{(l)}$ and $B^{(l)}$:
 
 \begin{equation}
@@ -526,51 +526,56 @@ mGCs to the CA3.
 
 \begin{figure*}[t]
     \centering
-    \begin{minipage}[c]{0.72\textwidth}
+    \begin{minipage}[c]{0.7\textwidth}
         \centering
-        \begin{subfigure}[t]{0.35\textwidth}
+        \begin{subfigure}[t]{0.49\linewidth}
             \caption{\label{fig:dg-activity}}
             \includegraphics[width=\linewidth]{figures/avg_activity.pdf}%
         \end{subfigure}
         \hfill
-        \begin{subfigure}[t]{0.35\textwidth}
+        \begin{subfigure}[t]{0.49\linewidth}
             \caption{\label{fig:dg-separation}}
             \includegraphics[width=\linewidth]{figures/avg_pattern_separation.pdf}%
         \end{subfigure}
 
         \vspace{\floatsep}
 
-        \begin{subfigure}[t]{0.35\textwidth}
+        \begin{subfigure}[t]{0.49\linewidth}
             \caption{\label{fig:ca3-activity}}
             \includegraphics[width=\linewidth]{figures/avg_activity_ca3.jpg}%
         \end{subfigure}
         \hfill
-        \begin{subfigure}[t]{0.35\textwidth}
+        \begin{subfigure}[t]{0.49\linewidth}
             \caption{\label{fig:ca3-separation}}
             \includegraphics[width=\linewidth]{figures/pattern_separation_ca3.pdf}%
         \end{subfigure}
     \end{minipage}%
     \hfill
-
-    \begin{subfigure}[c]{0.25\textwidth}
-        \caption{\label{fig:sparsity_gini}}
-        \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
-    \end{subfigure}
+    \begin{minipage}[c]{0.28\textwidth}
+        \centering
+        \begin{subfigure}[t]{\linewidth}
+            \caption{\label{fig:sparsity_gini}}
+            \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
+        \end{subfigure}
+    \end{minipage}
     \caption{Caption}\label{fig:results-2}
 \end{figure*}
 
-\subsection{Enhanced separation is driven by increased sparsity}\label{sec:res_sparsity}
+\subsection{Enhanced separation is driven mainly by increased sparsity}\label{sec:res_sparsity}
 
 Figure~\ref{fig:sparsity_gini} shows that the sparsity indices of both the DG and the CA3 increase with neurogenesis and with the
 progressive excitation of the iGCs, reproducing the central result of \citet{mchughAdultborn2022}, where adult-born granule cells
 promote population sparsity throughout the hippocampus. The Gini index is shown here; the Hoyer measure, computed for
 cross-validation, follows the same trend (Online Resource 1).
 
-The increase in pattern separation is explained mainly by this increase in sparsity: a sparser code activates fewer and less
-overlapping cells for a given input, which makes the output patterns more orthogonal and, therefore, easier to separate
-\citep{chavlisDendrites2017, galloniRecurrent2022}. So the gain in pattern separation follows the gain in sparsity, both with
-neurogenesis and with increasing iGC excitability.
-% TODO: insert the Gini vs S_D correlation (r, p) here if computed (see STATS note at end of section).
+% TODO include in online resource the plot for orthogonalization
+
+The separation degree depends on both the orthogonalization degree and the activation degree of the patterns
+(Eqs.~\ref{eq:dp}--\ref{eq:sd}), so the mGCs could separate better by making their outputs sparser, more decorrelated, or both. Because the two combine multiplicatively, the change in $\log \mathcal{S}_D$ splits into an additive
+contribution from each. Most of the increase (about 92\%) comes from the lower activation degree, as fewer mGCs fire for each pattern. The rest comes from
+a smaller but real gain in orthogonalization, as the mGC outputs become less correlated; this is not merely an effect of the
+sparser activity, since it remains when the number of active cells is held fixed (Online Resource 1). This extra decorrelation is
+likely due to the stronger winner-take-all competition driven by the iGCs \citep{coultripCortical1992}.
 
 \subsection{iGC activation recruits circuit-wide inhibition}\label{sec:res_activation}
 
@@ -623,9 +628,6 @@ their data.
 % ===== STATS note (see G1/G4 in results_questions.md) =====
 % G1 trend: per metric + population, linear regression (slope + p) OR Spearman
 %   (r + p) vs excitability level; SEM bands in figures + control as reference.
-% G4 sparsity->separation: correlate Gini vs S_D across conditions; if strong,
-%   "separation tracked sparsity (r=...)"; frame causation mechanistically
-%   (sparser = more orthogonal codes), not as proof.
 % G2: PSTH z encodes significance (|z|>1.96 ~ p<0.05) -- keep Fig results-3
 %   qualitative, cite key z (mGC z~4); Wilcoxon stars on the SI pre/post figure.
 
