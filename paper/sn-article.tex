@@ -236,7 +236,7 @@ C_m \frac{dV_m}{dt} = k (V_m - V_r)(V_m - V_t) - u + I
 where $V_m$ is the membrane potential, $u$ the recovery variable, $C_m$ the membrane capacitance, $V_r$ the resting potential,
 $V_t$ the threshold potential, $I$ the total current into the neuron, and $k$, $a$ and $b$ constants that shape the neuron's
 dynamics. These continuous equations are complemented by a discrete rule for action-potential generation
-(Eq.~\ref{eq_izhikevich_3}):
+(Equation~\ref{eq_izhikevich_3}):
 
 \begin{equation}
 \label{eq_izhikevich_3}
@@ -295,7 +295,7 @@ where $V_m$ is the postsynaptic membrane potential and $E$ the reversal potentia
 inhibitory synapses and $E_{exc} = \SI{0}{\milli\volt}$ for excitatory ones. The constant $s = 10$, applied uniformly to every
 synapse, is a scaling factor required by the reduced size of the network: with so few synapses relative to the rat hippocampus,
 the network would otherwise fall silent. The synaptic currents $I_{syn}$ reaching a neuron are summed into the total current $I$
-of its membrane equation (Eq.~\ref{eq_izhikevich_1}).
+of its membrane equation (Equation~\ref{eq_izhikevich_1}).
 
 
 % ⚠️ TODO before submission: insert table here without using \input, span double column
@@ -375,7 +375,7 @@ $B^{(l)}$ ($l \in \{in, out\}$), this coefficient is:
 
 with $\Delta a_i^{(l)} = a_i^{(l)} - \langle a^{(l)} \rangle$, $\Delta b_i^{(l)} = b_i^{(l)} - \langle b^{(l)} \rangle$ and
 $\langle \dots \rangle$ the mean over the whole population. Since $\rho^{(l)}$ ranges over $[-1, 1]$, the orthogonalization
-$O^{(l)}$ ranges over $[0, 1]$ (Eq.~\ref{eq:o}).
+$O^{(l)}$ ranges over $[0, 1]$ (Equation~\ref{eq:o}).
 
 From the input ($D_p^{(in)}$) and output ($D_p^{(out)}$) distances, the degree of pattern separation $\mathcal{S}_D$ is taken as
 their ratio:
@@ -421,14 +421,14 @@ EC$\to$iGC excitability variants as in the pattern-separation experiment were us
 
 In each run, a random half of the iGCs (50 of the 100) received a depolarizing current of \SI{0.5}{\nano\ampere} for
 \SI{5}{\milli\second}, delivered \SI{400}{\milli\second} into the recording window, once network activity had stabilized. This
-injected current $I_{ext}$ enters the neuron as part of the total current $I$ of the Izhikevich model (Eq.~\ref{eq_izhikevich_1}):
+injected current $I_{ext}$ enters the neuron as part of the total current $I$ of the Izhikevich model (Equation~\ref{eq_izhikevich_1}):
 
 \begin{equation}
     \label{eq:i_ext}
     I = I_{ext} + I_{syn}
 \end{equation}
 
-where $I_{syn}$ is the summed synaptic current (Eq.~\ref{eq_tsodyks_I}) and $I_{ext} = \SI{0.5}{\nano\ampere}$ during the pulse
+where $I_{syn}$ is the summed synaptic current (Equation~\ref{eq_tsodyks_I}) and $I_{ext} = \SI{0.5}{\nano\ampere}$ during the pulse
 and zero otherwise. For each variant the protocol was repeated over 30 trials of 10 input patterns, and the resulting 300 runs
 were pooled for analysis.
 
@@ -448,7 +448,7 @@ mean and standard deviation of the baseline bins.
 
 % TODO: include in supplementary info the results of this:
 
-To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Eq.~\ref{eq:gini}) of
+To relate the activation to sparsity, as \citet{mchughAdultborn2022} did \textit{in vivo}, the Gini index (Equation~\ref{eq:gini}) of
 each population was also compared between the \SI{100}{\milli\second} windows immediately before and after the pulse.
 
 \subsection{Oscillation analysis}\label{sec:oscillation_analysis}
@@ -503,35 +503,43 @@ evidence that the network behaves plausibly.
 % [R] pattern separation (S_D) rises with neurogenesis/excitability, DG AND CA3,
 %     Fig. results-1(b,d).  Stats: regression / Spearman vs excitability (see STATS note at end).
 
-Figure~\ref{fig:dg-activity} shows that, with neurogenesis, the mGC population activation  drops, and with each increasing level
-of iGC excitability, the mGC population activation decreases accordingly; the opposite is true for the iGC population, since
-higher levels of excitability are expected to make the iGCs more active, with almost 90\% of the iGC population being active for
-the highest level of excitability simulated. This happens because of the feedforward inhibition exerted by iGCs upon mGCs, via iGC
-$\to$ mGC, iGC $\to$ BC/HIPP $\to$ mGC and iGC $\to$ MC $\to$ BC/HIPP $\to$ mGC\@. For increasing levels of iGC excitability, as
-mGC activity decreases and iGC activity increases, an equilibrium of approximately 8\% of the entire GC population (iGCs and mGCs
-counted together) stays active, similarly to the control model without neurogenesis.
+Figure~\ref{fig:dg-activity} shows that, with neurogenesis, the mGC population activation drops, and with each increasing level of
+iGC excitability the mGC activation decreases further, from 7.9\% in the control network to 3.6\% at the highest excitability; the
+opposite is true for the iGC population, since higher levels of excitability are expected to make the iGCs more active, with
+almost 90\% of the iGC population being active for the highest level of excitability simulated. This happens because of the
+feedforward inhibition exerted by iGCs upon mGCs, via iGC $\to$ mGC, iGC $\to$ BC/HIPP $\to$ mGC and iGC $\to$ MC $\to$ BC/HIPP
+$\to$ mGC\@. For increasing levels of iGC excitability, as mGC activity decreases and iGC activity increases, an equilibrium of
+approximately 8\% of the entire GC population (iGCs and mGCs counted together) stays active, similarly to the control model
+without neurogenesis.
 
 % TODO: add more references to the encoder x modulator theory
 % TODO: better branching to CA3
 
-This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with less neurons
-active for a given pattern, the sparser coding leads to an increase in pattern separation degree, as seen in
-Figure~\ref{fig:dg-separation}. When considering the entire GC population, pattern separation actually decreases with higher iGC
-excitability, since more iGCs activate for the input, while less mGCs do so, and iGCs are much less sparse and input specific,
-taking more of a role of pattern integrators as also seen in~\citet{kimEffect2024}, never achieving pattern separation in the
-model ($\mathcal{S}_d < 1$). Since iGCs's role is considered to be more on modulating network activity rather than encoding
-information~\citep{mchughAdultborn2022, folszAdultborn2023}, it can be considered that the encoding population, the mGC, did
-actually have an increase in pattern separation.
+This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with fewer neurons
+active for a given pattern, the sparser coding leads to an increase in the mGC pattern separation degree, which rose
+monotonically with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman
+$\rho = 1.00$, $p < 10^{-6}$; Fig.~\ref{fig:dg-separation}). The two granule-cell types, however, behave in opposite ways. Taken
+on their own, the iGC outputs never separate their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability
+rises), acting instead as pattern integrators, as also reported by~\citet{kimEffect2024}. When the whole granule-cell population
+is considered together, pattern separation remains above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$
+to $1.22$; $\rho = -0.96$, $p < 10^{-5}$). Because the total granule-cell activation stays near 8\% across excitability levels,
+this decline is driven almost entirely by a loss of output decorrelation, the mean pairwise correlation between output patterns
+rising from $0.14$ to $0.55$, rather than by any change in activation. Since the role of iGCs is thought to be the modulation of
+network activity rather than the encoding of information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is
+the separation achieved by the encoding population, the mGCs, which is enhanced by neurogenesis.
 
 % TODO: not sure that the increase in pattern separation for CA3 is because of the mGCS
 % TODO: investigate why pca3 decrease activity if the activity of the dg is the same
 % Same GC activation (8%), but iGCs fire more than mGCs, then why does pCA3 activity decrease?
 
-When observing the same analysis for the pCA3 population, the Figures~\ref{fig:ca3-activity} and~\ref{fig:ca3-separation} show
-that the increase in pattern separation seen in the encoding cells of the DG also happens for the CA3, although to a different
-degree, for both neurogenesis and increase in iGC excitability. So even though there's a decrease in pattern separation for the
-whole GC population, since the iGCs are not encoders, the effect of increase in pattern separation propagates downstream from the
-mGCs to the CA3.
+The same analysis applied to the pCA3 population (Figs.~\ref{fig:ca3-activity} and~\ref{fig:ca3-separation}) shows that its mean
+activation also decreases with neurogenesis and iGC excitability, from 29.7\% to 24.1\%, while its separation degree increases in
+the same direction as that of the mGCs, from $\mathcal{S}_D = 0.51$ to $0.69$ ($\rho = +0.98$, $p < 10^{-5}$). Unlike the DG,
+however, the pCA3 separation degree remains below one throughout: by the definition describe in Eq.~\ref{eq:sd}, the CA3
+operates in the convergence regime, its outputs more alike than its inputs. This is expected of a region whose recurrent
+connectivity supports autoassociation and pattern completion~\citep{rollsMechanisms2013, kopsickFormation2024} rather than
+separation. Neurogenesis therefore does not turn the CA3 into a separator, but reduces its convergence.
+
 
 % ⚠️ TODO before submission: use EPS images
 
@@ -576,13 +584,15 @@ mGCs to the CA3.
 
 Figure~\ref{fig:sparsity_gini} shows that the sparsity indices of both the DG and the CA3 increase with neurogenesis and with the
 progressive excitation of the iGCs, reproducing the central result of \citet{mchughAdultborn2022}, where adult-born granule cells
-promote population sparsity throughout the hippocampus. The Gini index is shown here; the Hoyer measure, computed for
-cross-validation, follows the same trend (Online Resource 1).
+promote population sparsity throughout the hippocampus. Across the ten excitability levels, the Gini index rose monotonically for
+the whole granule-cell population (from $0.93$ to $0.96$; Spearman $\rho = +0.99$, $p < 10^{-6}$) and for the pCA3 cells (from
+$0.74$ to $0.78$; $\rho = +0.99$, $p < 10^{-6}$), each above its control value. The Gini index is shown here; the Hoyer measure,
+computed for cross-validation, follows the same trend (Online Resource 1).
 
 % TODO include in online resource the plot for orthogonalization
 
 The separation degree depends on both the orthogonalization degree and the activation degree of the patterns
-(Eqs.~\ref{eq:dp}--\ref{eq:sd}), so the mGCs could separate better by making their outputs sparser, more decorrelated, or both. Because the two combine multiplicatively, the change in $\log \mathcal{S}_D$ splits into an additive
+(Equations~\ref{eq:dp}--\ref{eq:sd}), so the mGCs could separate better by making their outputs sparser, more decorrelated, or both. Because the two combine multiplicatively, the change in $\log \mathcal{S}_D$ splits into an additive
 contribution from each. Most of the increase (about 92\%) comes from the lower activation degree, as fewer mGCs fire for each pattern. The rest comes from
 a smaller but real gain in orthogonalization, as the mGC outputs become less correlated; this is not merely an effect of the
 sparser activity, since it remains when the number of active cells is held fixed (Online Resource 1). This extra decorrelation is
@@ -627,7 +637,7 @@ their data.
     \centering
     \includegraphics[width=\linewidth]{figures/psth.jpg}%
     \caption{Circuit-wide response to direct iGC activation. Peri-stimulus time histograms of the population firing rate for each
-        cell type, expressed as a z-score relative to a pre-pulse baseline (Eq.~\ref{eq:psth_z}) and aligned to the onset of the
+        cell type, expressed as a z-score relative to a pre-pulse baseline (Equation~\ref{eq:psth_z}) and aligned to the onset of the
         \SI{5}{\milli\second} depolarizing current injected into half of the iGCs (shaded band). Bins are \SI{1.5}{\milli\second}
         wide and span \SIrange{-60}{60}{\milli\second} relative to the pulse; data are pooled over all EC$\to$iGC excitability
         variants and all trials. Vertical scales differ across panels. The directly driven iGCs (top) dominate during the pulse;
