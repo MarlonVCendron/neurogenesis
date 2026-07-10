@@ -9,6 +9,12 @@ import h5py
 from scipy.stats import wilcoxon
 
 from utils.sparsity import gini_index
+from utils.plot_styles import cell_colors, alpha, apply_paper_style, fig_size
+
+apply_paper_style()
+
+PRE_COLOR  = cell_colors['pp']
+POST_COLOR = cell_colors['igc']
 
 RUN_NAME      = 'opto_final_july_positive'
 ONSET_TIME_MS = 400
@@ -106,20 +112,35 @@ def main(group_file_path):
     for l, a, b, p in zip(labels, pre, post, pvals):
         print(f'{l:<10} {a:>8.3f} {b:>8.3f} {b - a:>+8.3f} {p:>10.4g}')
 
+    base_name = os.path.basename(group_file_path)
+    try:
+        title = f'{int(round(float(base_name.split("_")[1]) * 100))}% excitability'
+    except (IndexError, ValueError):
+        title = base_name
+
     x = np.arange(len(labels))
-    plt.figure(figsize=(6, 4))
-    plt.bar(x - 0.2, pre,  0.4, label='pre')
-    plt.bar(x + 0.2, post, 0.4, label='post')
+    fig, ax = plt.subplots(figsize=fig_size(0.32, aspect=0.85), dpi=300)
+    ax.bar(x - 0.2, pre,  0.4, label='pre',  color=PRE_COLOR,  alpha=alpha)
+    ax.bar(x + 0.2, post, 0.4, label='post', color=POST_COLOR, alpha=alpha)
     for xi, a, b, p in zip(x, pre, post, pvals):
         if not np.isnan(p):
-            plt.text(xi, max(a, b) + 0.01, _stars(p), ha='center', va='bottom', fontsize=13)
-    plt.ylim(0, max(pre.max(), post.max()) * 1.2)
-    plt.xticks(x, labels); plt.ylabel('Gini sparsity'); plt.legend()
-    plt.title(os.path.basename(group_file_path)); plt.tight_layout()
-    out = f'figures/plots/optogenetics/opto_sparsity_{os.path.basename(group_file_path)}.png'
-    os.makedirs(os.path.dirname(out), exist_ok=True)
-    plt.savefig(out, dpi=150); plt.close()
-    print(f'Saved: {out}')
+            ax.text(xi, max(a, b) + 0.02, _stars(p), ha='center', va='bottom', fontsize=12)
+    ax.set_ylim(0, max(pre.max(), post.max()) * 1.25)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylabel('Gini sparsity')
+    ax.set_title(title)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.legend(frameon=False)
+    fig.tight_layout()
+
+    out_base = f'figures/plots/optogenetics/opto_sparsity_{base_name}'
+    os.makedirs(os.path.dirname(out_base), exist_ok=True)
+    fig.savefig(f'{out_base}.pdf', format='pdf', bbox_inches='tight')
+    fig.savefig(f'{out_base}.png', dpi=300, bbox_inches='tight')
+    plt.close(fig)
+    print(f'Saved: {out_base}.pdf')
 
 
 if __name__ == '__main__':
