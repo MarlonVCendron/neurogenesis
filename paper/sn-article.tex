@@ -183,8 +183,10 @@ to simulate their still-incomplete circuit integration, iGCs receive EC afferent
 the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
 (Table~\ref{tab:synapse_params}). Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
 the model includes an inhibitory synapse from iGCs onto mGCs.  Hippocampome.org~\citep{wheelerHippocampomeorg2023} does not
-characterize iGCs. Therefore, the parameters used for iGCs were fitted from the spiking data of~\citet{espositoNeuronal2005} with
-the simplex method of \citet{nelderSimplex1965} (Table~\ref{tab:izhikevich_neuron_params}).
+characterize iGCs. Therefore, six of the nine iGC parameters were fitted to the spiking data of~\citet{espositoNeuronal2005} with
+the simplex method of \citet{nelderSimplex1965}, minimizing the squared error between the model and the number and timing of the
+spikes evoked by a range of depolarizing current steps; the membrane capacitance, resting potential and spike peak were held fixed
+(Table~\ref{tab:izhikevich_neuron_params}).
 
 BCs ($N_{BC} = 60$) are inhibitory cells that ensure sparse GC activation through winner-take-all competition among them
 \citep{coultripCortical1992, chavlisDendrites2017, kimAdult2024}, where only the most active GCs in a lamella remain active,
@@ -513,17 +515,19 @@ without neurogenesis.
 % TODO: better branching to CA3
 
 This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with fewer neurons
-active for a given pattern, the sparser coding leads to an increase in the mGC pattern separation degree, which rose
-monotonically with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman
-$\rho = 1.00$, $p < 10^{-6}$; Figure~\ref{fig:dg-separation}). The two granule-cell types, however, behave in opposite ways. Taken
-on their own, the iGC outputs never separate their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability
-rises), acting instead as pattern integrators, as also reported by~\citet{kimEffect2024}. When the whole granule-cell population
-is considered together, pattern separation remains above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$
-to $1.22$; $\rho = -0.96$, $p < 10^{-5}$). Because the total granule-cell activation stays near 8\% across excitability levels,
-this decline is driven almost entirely by a loss of output decorrelation, the mean pairwise correlation between output patterns
-rising from $0.14$ to $0.55$, rather than by any change in activation. Since the role of iGCs is thought to be the modulation of
-network activity rather than the encoding of information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is
-the separation achieved by the encoding population, the mGCs, which is enhanced by neurogenesis.
+active for a given pattern, the sparser coding leads to an increase in the mGC pattern separation degree, which rose monotonically
+with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman $\rho = 1.00$,
+$p < 10^{-6}$; Figure~\ref{fig:dg-separation}). Resolved by input similarity, the mGC separation showed the same ordering at every
+level, being strongest for the most similar inputs and higher than the control across the whole similarity range (Online
+Resource~1). The two granule-cell types, however, behave in opposite ways. Taken on their own, the iGC outputs never separate
+their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability rises), acting instead as pattern integrators, as
+also reported by~\citet{kimEffect2024}. When the whole granule-cell population is considered together, pattern separation remains
+above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$ to $1.22$; $\rho = -0.96$, $p < 10^{-5}$). Because the
+total granule-cell activation stays near 8\% across excitability levels, this decline is driven almost entirely by a loss of
+output decorrelation, the mean pairwise correlation between output patterns rising from $0.14$ to $0.55$, rather than by any
+change in activation. Since the role of iGCs is thought to be the modulation of network activity rather than the encoding of
+information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is the separation achieved by the encoding
+population, the mGCs, which is enhanced by neurogenesis.
 
 % TODO: not sure that the increase in pattern separation for CA3 is because of the mGCS
 % TODO: investigate why pca3 decrease activity if the activity of the dg is the same
@@ -610,8 +614,9 @@ Directly injecting current into half of the iGCs propagated through the entire D
 time histograms of Figure~\ref{fig:psth}, pooled over all EC$\to$iGC excitability variants.
 
 Within the DG, the MCs were strongly excited and in turn drove strong excitation to the BCs. The BCs responded with a large,
-significant increase in firing organized as a synchronous rhythm at $\sim\SI{123}{\hertz}$, within the range of maximum BC firing
-rates reported \textit{in vivo}, which is up to $\sim\SI{230}{\hertz}$ \citep{lubkeSpecialized1998}.
+significant increase in firing, organized as a synchronous population rhythm at $\sim\SI{123}{\hertz}$. The fast-spiking BCs are
+able to sustain a rhythm of this frequency, as their firing rate reaches up to $\sim\SI{230}{\hertz}$ \textit{in vivo}
+\citep{lubkeSpecialized1998}.
 
 The HIPPs, by contrast, were only weakly inhibited (peak $z \approx -1$), a counterintuitive outcome given that they receive
 excitatory input from both the iGCs and the MCs; a plausible cause is that the transient drop in overall GC output following the
