@@ -95,9 +95,9 @@ def generate_synapse_table():
         # Print LaTeX table for synapses
         print("% Synapse Parameters Table", file=f)
         print("% Required packages: \\usepackage{amsmath}, \\usepackage{graphicx}, \\usepackage{multirow}", file=f)
-        print("\\begin{table*}[h!]", file=f)
+        print("\\begin{table*}[htbp]", file=f)
         print("\\centering", file=f)
-        print("\\renewcommand{\\arraystretch}{1.4}", file=f)
+        print("\\renewcommand{\\arraystretch}{1.2}", file=f)
         print("\\resizebox{\\textwidth}{!}{%", file=f)
         print(f"\\begin{{tabular}}{{llcc{'c' * len(parameters_info)}}}", file=f)
         print("\\toprule", file=f)
@@ -174,7 +174,7 @@ def generate_neuron_table():
     with open(output_path, 'w') as f:
         # Print LaTeX table
         print("% Required packages: \\usepackage{amsmath}, \\usepackage{graphicx}, \\usepackage{multirow}", file=f)
-        print("\\begin{table*}[h!]", file=f)
+        print("\\begin{table*}[htbp]", file=f)
         print("\\centering", file=f)
         print("\\renewcommand{\\arraystretch}{1.4}", file=f)
         print("\\resizebox{\\textwidth}{!}{%", file=f)
@@ -215,7 +215,7 @@ def generate_neuron_counts_table():
     with open(output_path, 'w') as f:
         print("% Neuron Counts Table", file=f)
         print("% Required packages: \\usepackage{amsmath}, \\usepackage{graphicx}", file=f)
-        print("\\begin{table}[h!]", file=f)
+        print("\\begin{table}[htbp]", file=f)
         print("\\centering", file=f)
         print("\\renewcommand{\\arraystretch}{1.4}", file=f)
         # 'l' for neuron name column, 'c' for count

@@ -59,6 +59,17 @@
 \usepackage{listings}%
 \usepackage{siunitx}%
 \usepackage{subcaption}%
+
+\setcounter{topnumber}{3}%
+\setcounter{bottomnumber}{2}%
+\setcounter{totalnumber}{6}%
+\setcounter{dbltopnumber}{3}%
+\renewcommand{\topfraction}{0.9}%
+\renewcommand{\bottomfraction}{0.9}%
+\renewcommand{\textfraction}{0.07}%
+\renewcommand{\floatpagefraction}{0.75}%
+\renewcommand{\dbltopfraction}{0.9}%
+\renewcommand{\dblfloatpagefraction}{0.7}%
 %%%%
 
 %%%%%=============================================================================%%%%
@@ -145,7 +156,7 @@ each cell type matched its \textit{in vivo} firing rate and population sparsity 
 % TODO: finish the in vivo table and add it to supplementary info
 % TODO: report the model sparsity mayeb using Gini index instead of average activation
 
-\begin{figure}[t]
+\begin{figure}[tbp]
     \centering
     \includegraphics[width=\linewidth]{Fig1.eps}
     \caption{DG-CA3 network architecture. Inhibitory synapses are represented by circles and excitatory ones by arrows. The
@@ -307,7 +318,7 @@ active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a
 pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity
 level.
 
-\begin{figure*}[t]
+\begin{figure*}[tp]
     \centering
     \includegraphics[width=\linewidth]{Fig2.eps}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
@@ -470,7 +481,7 @@ evidence that the network behaves plausibly.
 
 % ⚠️ TODO before submission: use EPS images
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
     \begin{subfigure}[t]{\linewidth}
         \caption{\label{fig:raster}}
         \includegraphics[width=\linewidth]{figures/raster.jpg}%
@@ -524,7 +535,7 @@ mGCs to the CA3.
 
 % ⚠️ TODO before submission: use EPS images
 
-\begin{figure*}[t]
+\begin{figure*}[!tp]
     \centering
     \begin{minipage}[c]{0.7\textwidth}
         \centering
@@ -612,7 +623,7 @@ their data.
 
 % ⚠️ TODO before submission: use EPS images
 
-\begin{figure}[t]
+\begin{figure}[tbp]
     \centering
     \includegraphics[width=\linewidth]{figures/psth.jpg}%
     \caption{Circuit-wide response to direct iGC activation. Peri-stimulus time histograms of the population firing rate for each
