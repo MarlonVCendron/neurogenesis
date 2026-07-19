@@ -1,4 +1,4 @@
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, apply_paper_style, panel_label
 import h5py
 from glob import glob
 import matplotlib.pyplot as plt
@@ -32,11 +32,7 @@ CELL_TYPES = [
     ('ica3', 'iCA3'),
 ]
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    'font.family': 'serif',
-    'font.serif': ['Times New Roman'],
-})
+apply_paper_style()
 
 
 def resolve_target(base):
@@ -85,9 +81,8 @@ def load_data(file_path):
   return spike_times, n_neurons
 
 
-def main(base):
+def draw(fig, spec, base, label=None):
   model, trial, pat, file_path = resolve_target(base)
-
   spike_times, n_neurons = load_data(file_path)
 
   wanted = NEURONS if NEURONS is not None else [ct for ct, _ in CELL_TYPES]
@@ -97,18 +92,14 @@ def main(base):
   ]
 
   n_panels = len(active)
-  fig, axes = plt.subplots(
-      n_panels, 1,
-      figsize=(6, 1.8 * n_panels),
-      dpi=300,
-      sharex=True,
-  )
-  if n_panels == 1:
-    axes = [axes]
+  inner = spec.subgridspec(n_panels, 1, hspace=0.15)
+  axes = [fig.add_subplot(inner[0])]
+  for i in range(1, n_panels):
+    axes.append(fig.add_subplot(inner[i], sharex=axes[0]))
 
   xticks = np.arange(TIME_START_MS, TIME_END_MS + 1, XTICK_STEP_MS)
 
-  for ax, (ct, label) in zip(axes, active):
+  for ax, (ct, lbl) in zip(axes, active):
     color = cell_colors.get(ct, '#333333')
     n_neur = n_neurons.get(ct, 1)
 
@@ -119,7 +110,7 @@ def main(base):
     ax.set_ylim(0, n_neur)
     ax.set_yticks([0, n_neur])
 
-    ax.set_ylabel(label, color=color, fontsize=16, fontweight='bold', rotation=0, ha='left', va='top')
+    ax.set_ylabel(lbl, color=color, fontsize=16, fontweight='bold', rotation=0, ha='left', va='top')
     ax.yaxis.set_label_coords(0.04, 1)
 
     ax.set_xticks(xticks)
@@ -135,14 +126,28 @@ def main(base):
   axes[-1].set_xlabel('Time (ms)')
   axes[-1].set_xlim(TIME_START_MS, TIME_END_MS)
 
-  fig.text(0.05, 0.5, 'Neuron index', va='center', ha='left', rotation='vertical', fontsize=18)
+  # shared y-label across the stacked panels
+  host = fig.add_subplot(spec, frameon=False)
+  host.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+  host.set_xticks([])
+  host.set_yticks([])
+  host.set_ylabel('Neuron index', labelpad=42)
 
-  plt.tight_layout(rect=[0.06, 0, 1, 1], h_pad=0.4)
+  if label:
+    panel_label(axes[0], label)
+
+  return axes
+
+
+def main(base):
+  fig = plt.figure(figsize=(6, 1.8 * len(NEURONS)), dpi=300)
+  model, trial, pat, _ = resolve_target(base)
+  draw(fig, fig.add_gridspec(1, 1)[0], base)
 
   output_path = f'figures/plots/simulation/{RUN_NAME}/spikes_{model}_trial{trial}_pattern{pat}.jpg'
   os.makedirs(os.path.dirname(output_path), exist_ok=True)
-  plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
-  plt.close()
+  fig.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
+  plt.close(fig)
   print(f'Saved: {output_path}')
 
 

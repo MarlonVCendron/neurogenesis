@@ -1,95 +1,78 @@
 import numpy as np
-from matplotlib.ticker import FuncFormatter
-from matplotlib.ticker import MaxNLocator
+from matplotlib.ticker import FuncFormatter, MultipleLocator
 import matplotlib.pyplot as plt
 from scipy.stats import sem
-from matplotlib.colors import LinearSegmentedColormap
 
 from utils.patterns import activation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, alpha, igc_connectivity_label, apply_paper_style, fig_size
+from utils.plot_styles import (
+    cell_colors, alpha, igc_connectivity_label,
+    apply_paper_style, fig_size, panel_label,
+)
 
 apply_paper_style()
 
-data = load_pattern_data('june_final')
 
-groups = sorted(list(data.keys()))
-
-
-def avg_activity_ca3():
-  cads = {}
-  std_errors_c = {}
-
-  group_cads = {}
+def _compute(data, groups):
+  cads, se = {}, {}
 
   for group in groups:
-    c_in_sim_dict = {}
+    c_in_sim = {}
     for trial in data[group]:
       for pattern in trial['patterns'][:-1]:
-        sim = pattern['in_similarity']
-        cout = pattern['pca3_pattern']
+        c_in_sim.setdefault(pattern['in_similarity'], []).append(activation_degree(pattern['pca3_pattern']))
 
-        cad = activation_degree(cout)
+    cads[group] = np.mean([np.mean(v) for v in c_in_sim.values()])
+    se[group]   = sem([np.mean(v) for v in c_in_sim.values()])
 
-        if sim not in c_in_sim_dict:
-          c_in_sim_dict[sim] = []
-        c_in_sim_dict[sim].append(cad)
+  return cads, se
 
-        if group not in group_cads:
-          group_cads[group] = []
 
-        group_cads[group].append(cad)
+def draw(fig, spec, data, groups, label=None):
+  cads, se = _compute(data, groups)
 
-    mean_cad = np.mean([np.mean(ads) for ads in c_in_sim_dict.values()])
+  ax = fig.add_subplot(spec)
 
-    std_error_cad = sem([np.mean(ads) for ads in c_in_sim_dict.values()])
-
-    cads[group] = mean_cad
-
-    std_errors_c[group] = std_error_cad
-
-  fig, ax = plt.subplots(figsize=fig_size(0.35, aspect=2/3), dpi=300)
-
-  from matplotlib.ticker import MultipleLocator
   ax.yaxis.set_major_locator(MultipleLocator(0.03))
-  formatter = FuncFormatter(lambda y, _: f'{round(y*100)}')
-  ax.yaxis.set_major_formatter(formatter)
-  print(cads)
-
-  cads = [cads[group] for group in groups]
-  std_errors_c = [std_errors_c[group] for group in groups]
+  ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f'{round(y*100)}'))
 
   ng_groups = groups[1:]
+  y = np.array([cads[g] for g in ng_groups])
+  e = np.array([se[g] for g in ng_groups])
+  x = range(len(ng_groups))
 
-  cads_arr = np.array(cads[1:])
-  sems_arr = np.array(std_errors_c[1:])
-  x_idx = range(len(ng_groups))
-
-  ax.axhline(y=cads[0], color=cell_colors['control'], linestyle='--', label='Control')
-
-  ax.plot(x_idx, cads_arr, color=cell_colors['pca3'], label='pCA3', marker='', alpha=alpha)
-  ax.fill_between(x_idx, cads_arr - sems_arr, cads_arr + sems_arr, color=cell_colors['pca3'], alpha=0.2)
+  ax.axhline(y=cads[groups[0]], color=cell_colors['control'], linestyle='--', label='Control')
+  ax.plot(x, y, color=cell_colors['pca3'], label='pCA3', marker='', alpha=alpha)
+  ax.fill_between(x, y - e, y + e, color=cell_colors['pca3'], alpha=0.2)
 
   ax.spines['right'].set_visible(False)
   ax.spines['top'].set_visible(False)
 
-  max_val = np.max(cads_arr)
-  min_val = np.min(cads_arr)
   pad = 0.2
-  ax.set_ylim((1-pad) * min_val, (1+pad) * max_val)
-
+  ax.set_ylim((1 - pad) * y.min(), (1 + pad) * y.max())
   ax.legend(frameon=False)
 
-  plt.ylabel('Mean population activation (%)')
-  plt.xlabel(igc_connectivity_label)
+  ax.set_ylabel('Mean population activation (%)')
+  ax.set_xlabel(igc_connectivity_label)
+  ax.set_xticks(range(len(ng_groups)))
+  ax.set_xticklabels([10, '', '', 40, '', '', 70, '', '', 100])
 
-  xlabels = range(10, 101, 10)
-  plt.xticks(ticks=range(len(xlabels)), labels=[10, '', '', 40, '', '', 70, '', '', 100])
+  if label:
+    panel_label(ax, label)
 
-  plt.tight_layout()
-  # plt.show()
-  plt.savefig(f'figures/plots/avg_activity_ca3.jpg', dpi=300, format='jpg', bbox_inches='tight')
-  plt.close()
+  return ax
 
 
-avg_activity_ca3()
+def main():
+  data = load_pattern_data('june_final')
+  groups = sorted(list(data.keys()))
+
+  fig = plt.figure(figsize=fig_size(0.35, aspect=2/3), dpi=300)
+  draw(fig, fig.add_gridspec(1, 1)[0], data, groups)
+  # fig.savefig('figures/plots/avg_activity_ca3.jpg', dpi=300, format='jpg', bbox_inches='tight')
+  fig.savefig('figures/plots/avg_activity_ca3.pdf', format='pdf', bbox_inches='tight')
+  plt.close(fig)
+
+
+if __name__ == '__main__':
+  main()

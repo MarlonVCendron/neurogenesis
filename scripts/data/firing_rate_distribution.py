@@ -1,30 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde, mode
+from scipy.stats import gaussian_kde
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors
+from utils.plot_styles import cell_colors, apply_paper_style, panel_label
 
-plt.style.use('seaborn-v0_8-poster')
-plt.rcParams.update({
-    "font.family": "serif",
-    "font.serif": ["Times New Roman"],
-    "font.size": 16,
-    "axes.titlesize": 23,
-    "axes.labelsize": 22,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    "legend.fontsize": 20,
-    "lines.linewidth": 3,
-    'lines.solid_joinstyle': 'round',
-    'lines.solid_capstyle': 'round',
-})
-
-data = load_pattern_data('rate8')
-groups = sorted(list(data.keys()))
+apply_paper_style()
 
 
-def collect_rates(group, exclude_single_spike=False, include_pca3=False):
+def collect_rates(data, group, exclude_single_spike=False, include_pca3=False):
     """Return concatenated firing rates (>0) for mgc and igc (and optionally pca3) across all trials/patterns."""
     mgc_rates, igc_rates, pca3_rates = [], [], []
     for trial in data[group]:
@@ -79,53 +63,44 @@ def plot_kde(ax, rates, color, label, bw=0.25, show_median=True):
     return median_rate
 
 
-def firing_rate_distribution(show_median=True, exclude_single_spike=False, include_pca3=False):
+def draw(fig, spec, data, groups, group=None, label=None, show_median=True,
+         exclude_single_spike=False):
     ng_groups = [g for g in groups if 'neurogenesis' in g]
+    group = group or ng_groups[0]
 
-    ncols = len(ng_groups)
-    fig, axes = plt.subplots(1, ncols, figsize=(8 * ncols, 8), dpi=300, sharey=True)
-    if ncols == 1:
-        axes = [axes]
+    ax = fig.add_subplot(spec)
 
-    for ax, group in zip(axes, ng_groups):
-        rates = collect_rates(group, exclude_single_spike=exclude_single_spike, include_pca3=include_pca3)
-        if include_pca3:
-            mgc_rates, igc_rates, pca3_rates = rates
-        else:
-            mgc_rates, igc_rates = rates
+    mgc_rates, igc_rates = collect_rates(data, group, exclude_single_spike=exclude_single_spike)
+    plot_kde(ax, mgc_rates, color=cell_colors['mgc'], label='mGC', bw=0.5, show_median=show_median)
+    plot_kde(ax, igc_rates, color=cell_colors['igc'], label='iGC', bw=0.5, show_median=show_median)
 
-        mgc_median = plot_kde(ax, mgc_rates, color=cell_colors['mgc'], label='mGC', bw=0.5, show_median=show_median)
-        igc_median = plot_kde(ax, igc_rates, color=cell_colors['igc'], label='iGC', bw=0.5, show_median=show_median)
-        if include_pca3:
-            pca3_median = plot_kde(ax, pca3_rates, color=cell_colors['pca3'], label='pCA3', bw=0.5, show_median=show_median)
+    ax.set_xscale('log')
+    ax.set_xlabel('Firing rate (Hz)')
+    ax.set_xlim(0.1, 10)
+    ax.set_xticks([0.1, 1, 10, 100])
+    ax.set_xticklabels(['0.1', '1', '10', '100'])
+    ax.set_ylim(0, 1.1)
+    ax.set_ylabel('Cell density')
+    ax.legend(frameon=False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
 
-        print(f'{group} summary:')
-        print(f'mgc median: {np.median(mgc_rates):.4f} Hz, mean: {np.mean(mgc_rates):.4f} Hz, mode: {mode(mgc_rates).mode} ({mode(mgc_rates).count}), std: {np.std(mgc_rates):.4f}')
-        print(f'igc median: {np.median(igc_rates):.4f} Hz, mean: {np.mean(igc_rates):.4f} Hz, mode: {mode(igc_rates).mode} ({mode(igc_rates).count}), std: {np.std(igc_rates):.4f}')
-        if include_pca3 and pca3_median is not None:
-            print(f'pca3 median: {np.median(pca3_rates):.4f} Hz, mean: {np.mean(pca3_rates):.4f} Hz, mode: {mode(pca3_rates).mode} ({mode(pca3_rates).count}), std: {np.std(pca3_rates):.4f}')
+    if label:
+        panel_label(ax, label)
 
-        # group format: 'neurogenesis_0.2' or 'neurogenesis_0.2_ca3' etc.
-        parts = group.split('_')
-        connectivity = next(p for p in parts if p.replace('.', '', 1).isdigit())
-        # ax.set_title(f'Conectividade {float(connectivity)*100:.0f}%')
-        ax.set_xscale('log')
-        ax.set_xlabel('Firing rate (Hz)')
-        ax.set_xlim(0.1, 10)
-        # ax.set_xticks([0.01, 0.1, 1, 10, 100])                                     
-        # ax.set_xticklabels(['0.01', '0.1', '1', '10', '100'])
-        ax.set_xticks([0.1, 1, 10, 100])                                     
-        ax.set_xticklabels(['0.1', '1', '10', '100'])
-        ax.set_ylim(0, 1.1)
-        ax.legend(frameon=False)
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-
-    axes[0].set_ylabel('Cell density')
-
-    plt.tight_layout()
-    plt.savefig('figures/plots/firing_rate_distribution.jpg', dpi=300, format='jpg')
-    plt.close()
+    return ax
 
 
-firing_rate_distribution(show_median=True, exclude_single_spike=False, include_pca3=False)
+def main():
+    data = load_pattern_data('rate8')
+    groups = sorted(list(data.keys()))
+
+    fig = plt.figure(figsize=(8, 8), dpi=300)
+    draw(fig, fig.add_gridspec(1, 1)[0], data, groups)
+    # fig.savefig('figures/plots/firing_rate_distribution.jpg', dpi=300, format='jpg')
+    fig.savefig('figures/plots/firing_rate_distribution.pdf', format='pdf', bbox_inches='tight')
+    plt.close(fig)
+
+
+if __name__ == '__main__':
+    main()

@@ -33,6 +33,11 @@ def apply_paper_style():
         "lines.solid_capstyle": "round",
     })
 
+def panel_label(ax, text, x=-0.16, y=1.04, size=22):
+    ax.text(x, y, text, transform=ax.transAxes, fontsize=size,
+            fontweight='bold', va='bottom', ha='right')
+
+
 igc_connectivity_label = 'EC→iGC excitability (% of mGC)'
 # igc_connectivity_label = 'iGC afferent input fraction'
 # igc_connectivity_label = 'EC→iGC connectivity (% of mGC)'

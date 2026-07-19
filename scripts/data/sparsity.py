@@ -1,16 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator, FuncFormatter
+
 from scipy.stats import sem
 
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, igc_connectivity_label, apply_paper_style, fig_size
+from utils.plot_styles import (
+    cell_colors, igc_connectivity_label, apply_paper_style, fig_size, panel_label,
+)
 from utils.sparsity import gini_index, hoyer
 
 apply_paper_style()
-
-data = load_pattern_data('june_final')
-groups = sorted(list(data.keys()))
 
 
 def compute_sparsity(spike_counts, fn, has_neurogenesis):
@@ -29,7 +29,7 @@ def compute_sparsity(spike_counts, fn, has_neurogenesis):
     }
 
 
-def collect_sparsity(fn):
+def collect_sparsity(fn, data, groups):
     """Collect mean sparsity and SEM per group for each cell type."""
     group_values = {g: {'mgc': [], 'igc': [], 'pca3': [], 'gc': []} for g in groups}
 
@@ -84,8 +84,8 @@ def _draw_panel(ax, ct, color, label, fn_means, fn_errs, ng_groups):
     ax.set_xticklabels([10, '', '', 40, '', '', 70, '', '', 100])
     ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
     ax.yaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{x:.2f}'.lstrip('0')))
-    
-    label_x = 0.9 if label == 'iGC' else 0.03 
+
+    label_x = 0.9 if label == 'iGC' else 0.03
     ax.text(label_x, 0.97, label, transform=ax.transAxes, ha='left', va='top', color=color, fontweight='bold', fontsize=16)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -93,31 +93,56 @@ def _draw_panel(ax, ct, color, label, fn_means, fn_errs, ng_groups):
     return ctrl_line
 
 
-def plot_measure(fn, ylabel, outfile):
-    means, errs = collect_sparsity(fn)
+_MEASURES = {
+    'gini': (gini_index, 'Gini Sparsity'),
+    'hoyer': (hoyer, 'Hoyer Sparsity'),
+}
+
+
+def draw(fig, spec, data, groups, measure='gini', label=None):
+    fn, ylabel = _MEASURES[measure]
+    means, errs = collect_sparsity(fn, data, groups)
     ng_groups = groups[1:]
 
-    fig, axes = plt.subplots(4, 1, figsize=fig_size(0.25, aspect=2.5), dpi=300)
+    inner = spec.subgridspec(4, 1, hspace=0.15)
+    axes = [fig.add_subplot(inner[i]) for i in range(4)]
 
     ctrl_line = None
-    for ax, (ct, color, label, _) in zip(axes, panel_specs):
-        line = _draw_panel(ax, ct, color, label, means, errs, ng_groups)
+    for ax, (ct, color, lab, _) in zip(axes, panel_specs):
+        line = _draw_panel(ax, ct, color, lab, means, errs, ng_groups)
         if line is not None:
             ctrl_line = line
 
     for ax in axes[:-1]:
         ax.tick_params(labelbottom=False)
 
-    fig.text(0.5, 0.04, igc_connectivity_label, ha='center', va='bottom', fontsize=18)
-    fig.supylabel(ylabel, fontsize=18)
+    host = fig.add_subplot(spec, frameon=False)
+    host.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+    host.set_xticks([])
+    host.set_yticks([])
+    host.set_xlabel(igc_connectivity_label, labelpad=28)
+    host.set_ylabel(ylabel, labelpad=28)
 
     if ctrl_line is not None:
-        fig.legend([ctrl_line], ['Control'], loc='lower center', frameon=False, bbox_to_anchor=(0.5, -0.01))
+        axes[0].legend([ctrl_line], ['Control'], loc='upper right', frameon=False)
 
-    plt.tight_layout(rect=[0, 0.07, 1, 1])
-    plt.savefig(outfile, dpi=300, format='jpg', bbox_inches='tight')
-    plt.close()
+    if label:
+        panel_label(axes[0], label)
+
+    return axes
 
 
-plot_measure(gini_index, 'Gini Sparsity',  'figures/plots/sparsity_gini.jpg')
-plot_measure(hoyer,      'Hoyer Sparsity', 'figures/plots/sparsity_hoyer.jpg')
+def main():
+    data = load_pattern_data('june_final')
+    groups = sorted(list(data.keys()))
+
+    for measure in ('gini', 'hoyer'):
+        fig = plt.figure(figsize=fig_size(0.25, aspect=2.5), dpi=300)
+        draw(fig, fig.add_gridspec(1, 1)[0], data, groups, measure=measure)
+        # fig.savefig(f'figures/plots/sparsity_{measure}.jpg', dpi=300, format='jpg', bbox_inches='tight')
+        fig.savefig(f'figures/plots/sparsity_{measure}.pdf', format='pdf', bbox_inches='tight')
+        plt.close(fig)
+
+
+if __name__ == '__main__':
+    main()

@@ -14,3 +14,5 @@ python -m scripts.data.pattern_separation_cosine
 python -m scripts.data.pattern_separation_hamming
 python -m scripts.data.pattern_separation_overlap
 python -m scripts.data.sparsity
+python -m scripts.data.results_panel
+python -m scripts.data.baseline_panel

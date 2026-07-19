@@ -1,82 +1,73 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import sem, linregress
+from scipy.stats import sem
 
 from utils.patterns import pattern_separation_degree
 from utils.data import load_pattern_data
-from utils.plot_styles import cell_colors, alpha, igc_connectivity_label, apply_paper_style, fig_size
+from utils.plot_styles import (
+    cell_colors, alpha, igc_connectivity_label,
+    apply_paper_style, fig_size, panel_label,
+)
 
 apply_paper_style()
 
-RUN = 'june_final'
-data = load_pattern_data(RUN)
-groups = sorted(list(data.keys()))
+
+def _collect(data, group):
+  ca3_sds = {}
+  for trial in data[group]:
+    orig = trial['original_pattern']
+    o_pp = orig['pp_pattern']
+    o_ca3 = orig['pca3_pattern']
+
+    for pattern in trial['patterns'][:-1]:
+      sim = pattern['in_similarity']
+      ca3_sds.setdefault(sim, []).append(
+          pattern_separation_degree(o_pp, pattern['pp_pattern'], o_ca3, pattern['pca3_pattern']))
+
+  mean = np.mean([np.mean(v) for v in ca3_sds.values()])
+  se = sem([np.mean(v) for v in ca3_sds.values()])
+  return mean, se
 
 
-def collect(group):
-    ca3_sds, mgc_sds, igc_sds = {}, {}, {}
-    for trial in data[group]:
-        orig = trial['original_pattern']
-        orig_pp   = orig['pp_pattern']
-        orig_ca3  = orig['pca3_pattern']
-        orig_mgc  = orig['mgc_pattern']
-        orig_igc  = orig['igc_pattern']
+def draw(fig, spec, data, groups, label=None):
+  results = {g: _collect(data, g) for g in groups}
 
-        for pattern in trial['patterns'][:-1]:
-            sim = pattern['in_similarity']
-            pp  = pattern['pp_pattern']
+  control_sd = results['control_ca3'][0]
+  ng_groups = groups[1:]
+  x = [float(g.split('_')[1]) * 100 for g in ng_groups]
+  ca3 = np.array([results[g][0] for g in ng_groups])
+  se = np.array([results[g][1] for g in ng_groups])
 
-            ca3_sds.setdefault(sim, []).append(pattern_separation_degree(orig_pp, pp, orig_ca3,  pattern['pca3_pattern']))
-            mgc_sds.setdefault(sim, []).append(pattern_separation_degree(orig_pp, pp, orig_mgc,  pattern['mgc_pattern']))
-            igc_sds.setdefault(sim, []).append(pattern_separation_degree(orig_pp, pp, orig_igc,  pattern['igc_pattern']))
+  ax = fig.add_subplot(spec)
+  ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
 
-    mean = lambda d: np.mean([np.mean(v) for v in d.values()])
-    se   = lambda d: sem([np.mean(v) for v in d.values()])
-    return (mean(ca3_sds), mean(mgc_sds), mean(igc_sds), se(ca3_sds),   se(mgc_sds),   se(igc_sds))
+  ax.plot(x, ca3, color=cell_colors['pca3'], label='pCA3', alpha=alpha)
+  ax.fill_between(x, ca3 - se, ca3 + se, color=cell_colors['pca3'], alpha=0.2)
 
-def plot():
-    results = {g: collect(g) for g in groups}
+  ax.spines['right'].set_visible(False)
+  ax.spines['top'].set_visible(False)
+  ax.set_xlabel(igc_connectivity_label)
+  ax.set_ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
+  ax.set_xticks(range(10, 101, 10))
+  ax.set_xticklabels([10, '', '', 40, '', '', 70, '', '', 100])
+  ax.legend(loc='upper left', bbox_to_anchor=(0, 1), frameon=False)
 
-    control_group = groups[groups.index('control_ca3')]
-    control_sd = results[control_group][0]
-    ng_groups  = groups[1:]
-    x = [float(g.split('_')[1]) * 100 for g in ng_groups]
+  if label:
+    panel_label(ax, label)
 
-    print('neurogenesis groups', ng_groups)
-    ca3, mgc, igc = zip(*[(results[g][0], results[g][1], results[g][2]) for g in ng_groups])
-    sem_ca3, sem_mgc, sem_igc = zip(*[(results[g][3], results[g][4], results[g][5]) for g in ng_groups])
-    ca3, mgc, igc = np.array(ca3), np.array(mgc), np.array(igc)
-    sem_ca3, sem_mgc, sem_igc = np.array(sem_ca3), np.array(sem_mgc), np.array(sem_igc)
-
-    fig, ax = plt.subplots(figsize=fig_size(0.35, aspect=2/3), dpi=300)
-    ax.axhline(y=control_sd, color=cell_colors['control'], linestyle='--', label='Control')
-    # ax.axhline(y=1, color='gray', linestyle='--')
-
-    print(x)
-    print(ca3)
-    ax.plot(x, ca3, color=cell_colors['pca3'], label='pCA3', alpha=alpha)
-    # ax.plot(x, mgc, color=cell_colors['mgc'],  label='mGC', alpha=alpha, linestyle=dense_dots)
-    # ax.plot(x, igc, color=cell_colors['igc'],  label='iGC', alpha=alpha, linestyle=dense_dots)
-    ax.fill_between(x, ca3 - sem_ca3, ca3 + sem_ca3, color=cell_colors['pca3'], alpha=0.2)
-    # ax.fill_between(x, mgc - sem_mgc, mgc + sem_mgc, color=cell_colors['mgc'],  alpha=0.2)
-    # ax.fill_between(x, igc - sem_igc, igc + sem_igc, color=cell_colors['igc'],  alpha=0.2)
-
-    slope, intercept, r, p, _ = linregress(x, ca3)
-    print(f"pCA3 S_D: slope={slope:.4f}, R²={r**2:.4f}, p={p:.4f}")
-
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    ax.set_xlabel(igc_connectivity_label)
-    ax.set_ylabel('Pattern separation degree ($\\mathcal{S}_D$)')
-    ax.set_xticks(ticks=range(10, 101, 10), labels=[10, '', '', 40, '', '', 70, '', '', 100])
-    # ax.set_xlim(5, 105)
-    ax.legend(loc='upper left', bbox_to_anchor=(0, 1), frameon=False)
-
-    plt.tight_layout()
-
-    plt.savefig('figures/plots/pattern_separation_ca3.jpg', dpi=300, format='jpg', bbox_inches='tight')
-    plt.savefig('figures/plots/pattern_separation_ca3.pdf', format='pdf', bbox_inches='tight')
-    plt.close()
+  return ax
 
 
-plot()
+def main():
+  data = load_pattern_data('june_final')
+  groups = sorted(list(data.keys()))
+
+  fig = plt.figure(figsize=fig_size(0.35, aspect=2/3), dpi=300)
+  draw(fig, fig.add_gridspec(1, 1)[0], data, groups)
+  # fig.savefig('figures/plots/pattern_separation_ca3.jpg', dpi=300, format='jpg', bbox_inches='tight')
+  fig.savefig('figures/plots/pattern_separation_ca3.pdf', format='pdf', bbox_inches='tight')
+  plt.close(fig)
+
+
+if __name__ == '__main__':
+  main()
