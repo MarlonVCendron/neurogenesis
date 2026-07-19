@@ -198,15 +198,12 @@ def generate_neuron_table():
         print("\\end{table*}", file=f)
 
 def generate_neuron_counts_table():
-    table_rows_data = []
-
+    cells = []  # (cell_key, display_name, count)
     for cell_data_key in neuron_type_mapping:
         neuron_display_name = display_label(cell_data_key)
         if cell_data_key in cell_params:
             count = cell_params[cell_data_key].get('N', '-')
-            image_tex = f"$\\vcenter{{\\hbox{{\\includegraphics[height=1.5em]{{figures/neurons/{cell_data_key}.png}}}}}}$"
-            neuron_name_with_img = f"{image_tex} {neuron_display_name}"
-            table_rows_data.append([neuron_name_with_img, str(count)])
+            cells.append((cell_data_key, neuron_display_name, str(count)))
         else:
             print(f"Warning: Cell key '{cell_data_key}' (for '{neuron_display_name}') not found in cell_params for counts table.", file=sys.stderr)
 
@@ -217,22 +214,24 @@ def generate_neuron_counts_table():
         print("% Required packages: \\usepackage{amsmath}, \\usepackage{graphicx}", file=f)
         print("\\begin{table}[htbp]", file=f)
         print("\\centering", file=f)
-        print("\\renewcommand{\\arraystretch}{1.4}", file=f)
-        # 'l' for neuron name column, 'c' for count
-        print("\\begin{tabular}{lc}", file=f)
+        print("\\renewcommand{\\arraystretch}{1.2}", file=f)
+        print("{\\footnotesize\\setlength{\\tabcolsep}{3pt}%", file=f)
+        print(f"\\begin{{tabular}}{{l{'c' * len(cells)}}}", file=f)
         print("\\toprule", file=f)
 
-        # Header row
-        print("\\textbf{Cell} & \\textbf{N} \\\\", file=f)
+        print("\\textbf{Cell}", file=f)
+        for i, (key, name, _) in enumerate(cells):
+            terminator = " \\\\" if i == len(cells) - 1 else ""
+            print(f"  & \\shortstack{{\\includegraphics[height=1.3em]{{figures/neurons/{key}.png}} \\\\ \\textbf{{{name}}}}}{terminator}", file=f)
         print("\\midrule", file=f)
 
-        # Data rows
-        for row_data in table_rows_data:
-            print(" & ".join(row_data) + " \\\\", file=f)
+        counts = " & ".join(count for _, _, count in cells)
+        print(f"\\textbf{{N}} & {counts} \\\\", file=f)
 
         print("\\bottomrule", file=f)
-        print("\\end{tabular}", file=f)
+        print("\\end{tabular}}", file=f)
         print("\\caption{Neuronal population size (N).}\\label{tab:neuron_counts}", file=f)
+        print("\\vspace{-16pt}", file=f)
         print("\\end{table}", file=f)
 
 

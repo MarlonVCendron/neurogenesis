@@ -2,20 +2,23 @@
 % Required packages: \usepackage{amsmath}, \usepackage{graphicx}
 \begin{table}[htbp]
 \centering
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{lc}
+\renewcommand{\arraystretch}{1.2}
+{\footnotesize\setlength{\tabcolsep}{3pt}%
+\begin{tabular}{lcccccccc}
 \toprule
-\textbf{Cell} & \textbf{N} \\
+\textbf{Cell}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/pp.png} \\ \textbf{EC}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/mgc.png} \\ \textbf{mGC}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/igc.png} \\ \textbf{iGC}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/mc.png} \\ \textbf{MC}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/hipp.png} \\ \textbf{HIPP}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/bc.png} \\ \textbf{BC}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/pca3.png} \\ \textbf{pCA3}}
+  & \shortstack{\includegraphics[height=1.3em]{figures/neurons/ica3.png} \\ \textbf{iCA3}} \\
 \midrule
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/pp.png}}}$ EC & 400 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/mgc.png}}}$ mGC & 1900 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/igc.png}}}$ iGC & 100 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/mc.png}}}$ MC & 100 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/hipp.png}}}$ HIPP & 60 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/bc.png}}}$ BC & 60 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/pca3.png}}}$ pCA3 & 600 \\
-$\vcenter{\hbox{\includegraphics[height=1.5em]{figures/neurons/ica3.png}}}$ iCA3 & 60 \\
+\textbf{N} & 400 & 1900 & 100 & 100 & 60 & 60 & 600 & 60 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Neuronal population size (N).}\label{tab:neuron_counts}
+\vspace{-16pt}
 \end{table}
