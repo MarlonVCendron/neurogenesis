@@ -1,0 +1,6 @@
+{
+  "basedpyright.disableLanguageServices": true,
+  "basedpyright.disableOrganizeImports": true,
+  "basedpyright.analysis.ignore": ["**"],
+  "python.analysis.typeCheckingMode": "off"
+}
