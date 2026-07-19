@@ -120,11 +120,12 @@ def draw(fig, spec, data, groups, measure='gini', label=None):
     host.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
     host.set_xticks([])
     host.set_yticks([])
-    host.set_xlabel(igc_connectivity_label, labelpad=28)
-    host.set_ylabel(ylabel, labelpad=28)
+    host.set_ylabel(ylabel, labelpad=42, y=0.54)
+
+    axes[-1].set_xlabel(igc_connectivity_label)
 
     if ctrl_line is not None:
-        axes[0].legend([ctrl_line], ['Control'], loc='upper right', frameon=False)
+        axes[0].legend([ctrl_line], ['Control'], loc='lower right', frameon=False)
 
     if label:
         panel_label(axes[0], label)

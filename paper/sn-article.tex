@@ -512,19 +512,15 @@ evidence that the network behaves plausibly.
 % ⚠️ TODO before submission: use EPS images
 
 \begin{figure}[!tbp]
-    \begin{subfigure}[t]{\linewidth}
-        \caption{\label{fig:raster}}
-        \includegraphics[width=\linewidth]{figures/raster.jpg}%
-    \end{subfigure}
-    \begin{subfigure}[t]{\linewidth}
-        \caption{\label{fig:firing_rate}}
-        \includegraphics[width=\linewidth]{figures/firing_rate_distribution.jpg}%
-    \end{subfigure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/baseline_panel.pdf}%
     \caption{Baseline network activity. \textbf{(a)} Raster plot of the spike times of the EC, iGC, mGC and pCA3 populations in a
         representative simulation, over the \SIrange{300}{1300}{\milli\second} recording window (the first \SI{300}{\milli\second}
         discarded for stabilization). \textbf{(b)} Kernel-density estimate of the per-cell firing-rate distribution in logarithmic
         scale of the mGC and iGC populations; the dashed lines mark the population medians (mGC, \SI{1}{\hertz}; iGC,
-        \SI{3}{\hertz}).}\label{fig:results-1}
+        \SI{3}{\hertz}).}\label{fig:results-1}%
+    \phantomsubcaption\label{fig:raster}%
+    \phantomsubcaption\label{fig:firing_rate}%
 \end{figure}
 
 
@@ -577,45 +573,19 @@ separation. Neurogenesis therefore does not turn the CA3 into a separator, but r
 
 \begin{figure*}[!tp]
     \centering
-    \begin{minipage}[c]{0.7\textwidth}
-        \centering
-        \begin{subfigure}[t]{0.49\linewidth}
-            \caption{\label{fig:dg-activity}}
-            \includegraphics[width=\linewidth]{figures/avg_activity.pdf}%
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[t]{0.49\linewidth}
-            \caption{\label{fig:dg-separation}}
-            \includegraphics[width=\linewidth]{figures/avg_pattern_separation.pdf}%
-        \end{subfigure}
-
-        \vspace{\floatsep}
-
-        \begin{subfigure}[t]{0.49\linewidth}
-            \caption{\label{fig:ca3-activity}}
-            \includegraphics[width=\linewidth]{figures/avg_activity_ca3.jpg}%
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[t]{0.49\linewidth}
-            \caption{\label{fig:ca3-separation}}
-            \includegraphics[width=\linewidth]{figures/pattern_separation_ca3.pdf}%
-        \end{subfigure}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}[c]{0.28\textwidth}
-        \centering
-        \begin{subfigure}[t]{\linewidth}
-            \caption{\label{fig:sparsity_gini}}
-            \includegraphics[width=\linewidth]{figures/sparsity_gini.jpg}%
-        \end{subfigure}
-    \end{minipage}
+    \includegraphics[width=\linewidth]{figures/results_panel.pdf}%
     \caption{Effects of adult neurogenesis and iGC excitability on activation, pattern separation and sparsity in the DG and CA3.
         In every panel the horizontal axis is the EC$\to$iGC excitability level (10--100\%), each point is the mean over the 30
         pattern sets, shaded bands show the SEM and the dashed black line marks the control network without neurogenesis.
         \textbf{(a)} Mean population activation of DG GCs\@. \textbf{(b)} Pattern separation degree $\mathcal{S}_D$ of DG GCs; the
         grey dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs.
         \textbf{(c)} Mean population activation of the pCA3 cells. \textbf{(d)} Pattern separation degree of the pCA3 cells.
-        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells.}\label{fig:results-2}
+        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells.}\label{fig:results-2}%
+    \phantomsubcaption\label{fig:dg-activity}%
+    \phantomsubcaption\label{fig:dg-separation}%
+    \phantomsubcaption\label{fig:ca3-activity}%
+    \phantomsubcaption\label{fig:ca3-separation}%
+    \phantomsubcaption\label{fig:sparsity_gini}%
 \end{figure*}
 
 \subsection{Enhanced separation is driven mainly by increased sparsity}\label{sec:res_sparsity}
