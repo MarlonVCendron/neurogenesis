@@ -170,21 +170,19 @@ microcircuitry has likewise not been examined in a biophysically detailed model.
 
 The DG-CA3 network architecture, shown in Figure~\ref{fig:diagram-network}, was built primarily upon the models of
 \citet{chavlisDendrites2017, kimAdult2024, kopsickFormation2024, yangDynamic2025} and reproduced at a scale of $\frac{1}{500}$ of
-the rat hippocampus, the per-population cell counts being listed in Table~\ref{tab:neuron_counts}. Each neuron was reduced to a
-single compartment, with no explicit dendrites or axons, yet kept biologically plausible: its neuron and synapse models, together
-with the cell counts and connectivity, were adapted from Hippocampome.org, an open-access knowledge base that consolidates
-multiple experimental sources on the hippocampal formation \citep{wheelerHippocampomeorg2023}.
+the rat hippocampus, the per-population cell counts being listed in Table~\ref{tab:neuron_counts}. The neuron and synapse models,
+together with the cell counts and connectivity, were adapted from Hippocampome.org, an open-access knowledge base that
+consolidates multiple experimental sources on the hippocampal formation \citep{wheelerHippocampomeorg2023}.
 
-% TODO: fix "remaining literature"
 The model included the core excitatory and inhibitory cell types of the DG-CA3 network underlying pattern separation and
 completion. Although both regions contain many additional interneuron subtypes, several of which are also characterized in
 Hippocampome.org \citep{wheelerHippocampomeorg2023}, this reduced set has been shown in previous computational models to be
 sufficient to support pattern separation \citep{chavlisDendrites2017, kimEffect2024, yangDynamic2025}. Synaptic connectivity
 between cell types and their connection probabilities were likewise derived from multiple sources and constrained to biologically
-plausible ranges. After the parameters had been gathered from Hippocampome.org and the remaining literature and the network had
-been assembled, a subset of neuron and synapse parameters, together with the selected connection probabilities, was adjusted
-within biologically reasonable bounds to reproduce the \textit{in vivo} firing rate and population sparsity associated with each
-cell type (Online Resource 1, Table S1).
+plausible ranges. After the parameters had been gathered from Hippocampome.org, and the network had been assembled, a subset of
+neuron and synapse parameters, together with the selected connection probabilities, was adjusted within biologically reasonable
+bounds to reproduce the \textit{in vivo} firing rate and population sparsity associated with each cell type (Online Resource 1,
+Table S1).
 
 % TODO: finish the in vivo table and add it to supplementary info
 
@@ -256,9 +254,10 @@ Synaptic connections remained fixed throughout.
 
 \subsection{Neuron model}\label{sec:neuron_model}
 
-Each neuron obeys the nine-parameter Izhikevich model \citep[chapter~8]{izhikevichDynamical2006}. This model was chosen in this
-work and Hippocampome.org for being capable of reproducing the firing dynamics of neurons across a wide variety of conditions with
-a biological plausibility approaching that of the Hodgkin-Huxley model \citep{hodgkinQuantitative1952b}, but at a far lower
+Each neuron was reduced to a single compartment, with no explicit dendrites or axons, yet kept biologically plausible, and obeys
+the nine-parameter Izhikevich model \citep[chapter~8]{izhikevichDynamical2006}. This model was chosen in this work and
+Hippocampome.org for being capable of reproducing the firing dynamics of neurons across a wide variety of conditions with a
+biological plausibility approaching that of the Hodgkin-Huxley model \citep{hodgkinQuantitative1952b}, but at a far lower
 computational cost. Its dynamics are described by:
 
 \begin{equation}
@@ -630,10 +629,7 @@ excitatory input from both the iGCs and the MCs; a plausible cause is that the t
 pulse withdraws the GC$\to$HIPP excitation that would otherwise engage them, outweighing the direct MC drive.
 
 The mGCs displayed a biphasic response to the activation of the iGCs: a small excitation at first (peak $z \approx 4$), followed
-by an even smaller inhibition afterwards, with the net effect over the \SI{60}{\milli\second} being excitatory. That neither the
-direct iGC$\to$mGC inhibitory synapse nor the feedforward and feedback inhibition triggered by the pulse were able to suppress the
-mGCs indicates that the model captures the iGC$\to$mGC interaction only imperfectly, and points to a missing inhibitory
-contribution, plausibly from interneuron types not represented in the reduced circuit.
+by an even smaller inhibition afterwards, with the net effect over the \SI{60}{\milli\second} being excitatory.
 
 In CA3, the iCA3 interneurons were strongly and significantly activated, and this recruitment translated into a small inhibition
 of the pCA3 cells through the iCA3$\to$pCA3 projection. \citet{mchughAdultborn2022} reported this interneuron recruitment to
@@ -644,14 +640,8 @@ comparable, although the temporal ordering of the responses is preserved.
 Comparing the Gini index of each population between the \SI{50}{\milli\second} windows immediately before and after the pulse
 confirmed that this recruitment of inhibition increased population sparsity in most of the models, the within-trial counterpart of
 the steady-state sparsification reported in Section~\ref{sec:res_sparsity}; the full comparison across populations and
-excitability levels is given in Online Resource 1, Figure S4.
-
-Taken together, and in agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited interneurons in both the DG and
-CA3, providing the circuit mechanism for the rise in granule-cell population sparsity reported in Section~\ref{sec:res_sparsity}. The
-model departs from their \textit{in vivo} findings in two respects: the sign of the mGC response, a net excitation rather than the
-suppression expected of a principal cell, and the small inhibition of the pCA3 cells, for which \citet{mchughAdultborn2022} found
-no effect. Their area-level recordings, however, could not separate the inhibitory contribution of the HIPPs from that of the BCs,
-so the divergence between the two DG interneuron populations cannot be adjudicated against their data.
+excitability levels is given in Online Resource 1, Figure S4. Overall, direct iGC activation recruited inhibitory interneurons
+across both the DG and CA3.
 
 % ⚠️ TODO before submission: use EPS images
 
@@ -670,7 +660,20 @@ so the divergence between the two DG interneuron populations cannot be adjudicat
 
 \section{Discussion}\label{discussion}
 
-Discussion
+Taken together, and in agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited interneurons in both the DG and
+CA3, providing the circuit mechanism for the rise in granule-cell population sparsity reported in
+Section~\ref{sec:res_sparsity}. The model departs from their \textit{in vivo} findings in two respects: the sign of the mGC
+response, a net excitation rather than the suppression expected of a principal cell, and the small inhibition of the pCA3 cells,
+for which \citet{mchughAdultborn2022} found no effect. Their area-level recordings, however, could not separate the inhibitory
+contribution of the HIPPs from that of the BCs, so the divergence between the two DG interneuron populations cannot be adjudicated
+against their data.
+
+The net excitation of the mGCs is itself informative. That neither the direct iGC$\to$mGC inhibitory synapse nor the feedforward
+and feedback inhibition triggered by the pulse were able to suppress the mGCs indicates that the model captures the
+iGC$\to$mGC interaction only imperfectly, and points to a missing inhibitory contribution, plausibly from interneuron types not
+represented in the reduced circuit.
+
+% TODO: expand Discussion (main findings, encoder-vs-modulator interpretation, comparison to literature, limitations, conclusions)
 
 
 \backmatter{}
