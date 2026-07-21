@@ -1,0 +1,274 @@
+\begin{thebibliography}{47}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{\url{https://doi.org/#1}}
+\providecommand{\eprint}[2][]{\url{#2}}
+ \bibcommenthead
+
+\bibitem[{Aimone(2016)}]{aimoneComputational2016}
+Aimone JB (2016) Computational {{Modeling}} of {{Adult Neurogenesis}}. Cold
+  Spring Harbor Perspectives in Biology 8(4):a018960.
+  \doi{10.1101/cshperspect.a018960}
+
+\bibitem[{Aimone et~al.(2014)Aimone, Li, Lee, Clemenson, Deng, and
+  Gage}]{aimoneRegulation2014}
+Aimone JB, Li Y, Lee SW, et~al (2014) Regulation and {{Function}} of {{Adult
+  Neurogenesis}}: {{From Genes}} to {{Cognition}}. Physiological Reviews
+  94(4):991--1026. \doi{10.1152/physrev.00004.2014}
+
+\bibitem[{Altman and Das(1965)}]{altmanAutoradiographic1965}
+Altman J, Das GD (1965) Autoradiographic and histological evidence of postnatal
+  hippocampal neurogenesis in rats. Journal of Comparative Neurology
+  124(3):319--335. \doi{10.1002/cne.901240303}
+
+\bibitem[{Amaral et~al.(1990)Amaral, Ishizuka, and
+  Claiborne}]{amaralChapter1990}
+Amaral DG, Ishizuka N, Claiborne B (1990) Chapter 1 {{Chapter Neurons}},
+  numbers and the hippocampal network. In: Progress in {{Brain Research}},
+  vol~83. Elsevier, p 1--11, \doi{10.1016/S0079-6123(08)61237-6}
+
+\bibitem[{Amaral et~al.(2007)Amaral, Scharfman, and
+  Lavenex}]{amaralDentate2007}
+Amaral DG, Scharfman HE, Lavenex P (2007) The dentate gyrus: Fundamental
+  neuroanatomical organization (dentate gyrus for dummies). In: Progress in
+  {{Brain Research}}, vol 163. Elsevier, p 3--790,
+  \doi{10.1016/S0079-6123(07)63001-5}
+
+\bibitem[{Berdugo-Vega et~al.(2023)Berdugo-Vega, Dhingra, and
+  Calegari}]{berdugo-vegaSharpening2023}
+Berdugo-Vega G, Dhingra S, Calegari F (2023) Sharpening the blades of the
+  dentate gyrus: How adult-born neurons differentially modulate diverse aspects
+  of hippocampal learning and memory. The EMBO Journal 42(22):e113524.
+  \doi{10.15252/embj.2023113524}
+
+\bibitem[{Butcher(1996)}]{butcherHistory1996}
+Butcher J (1996) A history of {{Runge-Kutta}} methods. Applied Numerical
+  Mathematics 20(3):247--260. \doi{10.1016/0168-9274(95)00108-5}
+
+\bibitem[{Cameron and Mckay(2001)}]{cameronAdult2001}
+Cameron HA, Mckay RD (2001) Adult neurogenesis produces a large pool of new
+  granule cells in the dentate gyrus. Journal of Comparative Neurology
+  435(4):406--417. \doi{10.1002/cne.1040}
+
+\bibitem[{Chavlis et~al.(2017)Chavlis, Petrantonakis, and
+  Poirazi}]{chavlisDendrites2017}
+Chavlis S, Petrantonakis PC, Poirazi P (2017) Dendrites of dentate gyrus
+  granule cells contribute to pattern separation by controlling sparsity:
+  {{DENDRITIC ROLE IN PATTERN SEPARATION}}. Hippocampus 27(1):89--110.
+  \doi{10.1002/hipo.22675}
+
+\bibitem[{Coultrip et~al.(1992)Coultrip, Granger, and
+  Lynch}]{coultripCortical1992}
+Coultrip R, Granger R, Lynch G (1992) A cortical model of winner-take-all
+  competition via lateral inhibition. Neural Networks 5(1):47--54.
+  \doi{10.1016/S0893-6080(05)80006-1}
+
+\bibitem[{{Denoth-Lippuner} and
+  Jessberger(2021)}]{denoth-lippunerFormation2021}
+{Denoth-Lippuner} A, Jessberger S (2021) Formation and integration of new
+  neurons in the adult hippocampus. Nature Reviews Neuroscience 22(4):223--236.
+  \doi{10.1038/s41583-021-00433-z}
+
+\bibitem[{Esp{\'o}sito et~al.(2005)Esp{\'o}sito, Piatti, Laplagne, Morgenstern,
+  Ferrari, Pitossi, and Schinder}]{espositoNeuronal2005}
+Esp{\'o}sito MS, Piatti VC, Laplagne DA, et~al (2005) Neuronal
+  {{Differentiation}} in the {{Adult Hippocampus Recapitulates Embryonic
+  Development}}. The Journal of Neuroscience 25(44):10074--10086.
+  \doi{10.1523/JNEUROSCI.3114-05.2005}
+
+\bibitem[{F{\"o}lsz et~al.(2023)F{\"o}lsz, Trouche, and
+  Croset}]{folszAdultborn2023}
+F{\"o}lsz O, Trouche S, Croset V (2023) Adult-born neurons add flexibility to
+  hippocampal memories. Frontiers in Neuroscience 17:1128623.
+  \doi{10.3389/fnins.2023.1128623}
+
+\bibitem[{Gini(1921)}]{giniMeasurement1921}
+Gini C (1921) Measurement of {{Inequality}} of {{Incomes}}. The Economic
+  Journal 31(121):124--126. \doi{10.2307/2223319},
+  {\href{https://arxiv.org/abs/2223319}{{2223319}}}
+
+\bibitem[{Hainmueller and Bartos(2020)}]{hainmuellerDentate2020}
+Hainmueller T, Bartos M (2020) Dentate gyrus circuits for encoding, retrieval
+  and discrimination of episodic memories. Nature Reviews Neuroscience
+  21(3):153--168. \doi{10.1038/s41583-019-0260-z}
+
+\bibitem[{Hodgkin and Huxley(1952)}]{hodgkinQuantitative1952b}
+Hodgkin AL, Huxley AF (1952) A quantitative description of membrane current and
+  its application to conduction and excitation in nerve. The Journal of
+  Physiology 117(4):500--544. \doi{10.1113/jphysiol.1952.sp004764}
+
+\bibitem[{Hoyer(2004)}]{hoyerNonnegative2004}
+Hoyer PO (2004) Non-negative {{Matrix Factorization}} with {{Sparseness
+  Constraints}}. Journal of Machine Learning Research 5:1457--1469
+
+\bibitem[{Izhikevich(2006)}]{izhikevichDynamical2006}
+Izhikevich EM (2006) Dynamical {{Systems}} in {{Neuroscience}}: {{The
+  Geometry}} of {{Excitability}} and {{Bursting}}. The MIT Press,
+  \doi{10.7551/mitpress/2526.001.0001}
+
+\bibitem[{Kesner and Hopkins(2006)}]{kesnerMnemonic2006}
+Kesner RP, Hopkins RO (2006) Mnemonic functions of the hippocampus: {{A}}
+  comparison between animals and humans. Biological Psychology 73(1):3--18.
+  \doi{10.1016/j.biopsycho.2006.01.004}
+
+\bibitem[{Kim and Lim(2024{\natexlab{a}})}]{kimAdult2024}
+Kim SY, Lim W (2024{\natexlab{a}}) Adult neurogenesis in the hippocampal
+  dentate gyrus affects sparsely synchronized rhythms, associated with pattern
+  separation and integration. Cognitive Neurodynamics
+  \doi{10.1007/s11571-024-10089-x}
+
+\bibitem[{Kim and Lim(2024{\natexlab{b}})}]{kimEffect2024}
+Kim SY, Lim W (2024{\natexlab{b}}) Effect of adult-born immature granule cells
+  on pattern separation in the hippocampal dentate gyrus. Cognitive
+  Neurodynamics 18(4):2077--2093. \doi{10.1007/s11571-023-09985-5}
+
+\bibitem[{Ko et~al.(2025)Ko, Rong, Ramsaran, Chen, Rashid, Mocle, Dhaliwal,
+  Awasthi, Guskjolen, Josselyn, and Frankland}]{koSystems2025}
+Ko SY, Rong Y, Ramsaran AI, et~al (2025) Systems consolidation reorganizes
+  hippocampal engram circuitry. Nature \doi{10.1038/s41586-025-08993-1}
+
+\bibitem[{Kopsick et~al.(2024)Kopsick, Kilgore, Adam, and
+  Ascoli}]{kopsickFormation2024}
+Kopsick JD, Kilgore JA, Adam GC, et~al (2024) Formation and retrieval of cell
+  assemblies in a biologically realistic spiking neural network model of area
+  {{CA3}} in the mouse hippocampus. Journal of Computational Neuroscience
+  52(4):303--321. \doi{10.1007/s10827-024-00881-3}
+
+\bibitem[{L{\"u}bke et~al.(1998)L{\"u}bke, Frotscher, and
+  Spruston}]{lubkeSpecialized1998}
+L{\"u}bke J, Frotscher M, Spruston N (1998) Specialized {{Electrophysiological
+  Properties}} of {{Anatomically Identified Neurons}} in the {{Hilar Region}}
+  of the {{Rat Fascia Dentata}}. Journal of Neurophysiology 79(3):1518--1534.
+  \doi{10.1152/jn.1998.79.3.1518}
+
+\bibitem[{Luna et~al.(2019)Luna, Anacker, Burghardt, Khandaker, Andreu,
+  Millette, Leary, Ravenelle, Jimenez, Mastrodonato, Denny, Fenton, Scharfman,
+  and Hen}]{lunaAdultborn2019}
+Luna VM, Anacker C, Burghardt NS, et~al (2019) Adult-born hippocampal neurons
+  bidirectionally modulate entorhinal inputs into the dentate gyrus. Science
+  364(6440):578--583. \doi{10.1126/science.aat8789}
+
+\bibitem[{McHugh et~al.(2022)McHugh, {Lopes-dos-Santos}, Gava, Hartwich, Tam,
+  Bannerman, and Dupret}]{mchughAdultborn2022}
+McHugh SB, {Lopes-dos-Santos} V, Gava GP, et~al (2022) Adult-born dentate
+  granule cells promote hippocampal population sparsity. Nature Neuroscience
+  25(11):1481--1491. \doi{10.1038/s41593-022-01176-5}
+
+\bibitem[{McNaughton et~al.(1991)McNaughton, Chen, and
+  Markus}]{mcnaughtonDead1991}
+McNaughton BL, Chen LL, Markus EJ (1991) ``{{Dead Reckoning}},'' {{Landmark
+  Learning}}, and the {{Sense}} of {{Direction}}: {{A Neurophysiological}} and
+  {{Computational Hypothesis}}. Journal of Cognitive Neuroscience
+  3(2):190--202. \doi{10.1162/jocn.1991.3.2.190}
+
+\bibitem[{Ming and Song(2011)}]{mingAdult2011}
+Ming Gl, Song H (2011) Adult {{Neurogenesis}} in the {{Mammalian Brain}}:
+  {{Significant Answers}} and {{Significant Questions}}. Neuron 70(4):687--702.
+  \doi{10.1016/j.neuron.2011.05.001}
+
+\bibitem[{Modak and Chakravarthy(2018)}]{modakIzhikevich2018}
+Modak P, Chakravarthy VS (2018) Izhikevich {{Models For Hippocampal Neurons And
+  Its Sub-Region CA3}}. In: 2018 {{Conference}} on {{Cognitive Computational
+  Neuroscience}}. Cognitive Computational Neuroscience, Philadelphia,
+  Pennsylvania, USA, \doi{10.32470/CCN.2018.1189-0}
+
+\bibitem[{Mongillo et~al.(2008)Mongillo, Barak, and
+  Tsodyks}]{mongilloSynaptic2008a}
+Mongillo G, Barak O, Tsodyks M (2008) Synaptic {{Theory}} of {{Working
+  Memory}}. Science 319(5869):1543--1546. \doi{10.1126/science.1150769}
+
+\bibitem[{Moradi et~al.(2022)Moradi, Aldarraji, Luthra, Madison, and
+  Ascoli}]{moradiNormalized2022}
+Moradi K, Aldarraji Z, Luthra M, et~al (2022) Normalized unitary synaptic
+  signaling of the hippocampus and entorhinal cortex predicted by deep learning
+  of experimental recordings. Communications Biology 5(1):418.
+  \doi{10.1038/s42003-022-03329-5}
+
+\bibitem[{Myers and Scharfman(2009)}]{myersRole2009}
+Myers CE, Scharfman HE (2009) A role for hilar cells in pattern separation in
+  the dentate gyrus: {{A}} computational approach. Hippocampus 19(4):321--337.
+  \doi{10.1002/hipo.20516}
+
+\bibitem[{Myers and Scharfman(2011)}]{myersPattern2011}
+Myers CE, Scharfman HE (2011) Pattern separation in the dentate gyrus: {{A}}
+  role for the {{CA3}} backprojection. Hippocampus 21(11):1190--1215.
+  \doi{10.1002/hipo.20828}
+
+\bibitem[{Nelder and Mead(1965)}]{nelderSimplex1965}
+Nelder JA, Mead R (1965) A {{Simplex Method}} for {{Function Minimization}}.
+  The Computer Journal 7(4):308--313. \doi{10.1093/comjnl/7.4.308}
+
+\bibitem[{Pak et~al.(2022)Pak, Jang, Lee, Choi, Shin, Yang, and
+  Yang}]{pakHippocampal2022}
+Pak S, Jang D, Lee J, et~al (2022) Hippocampal interlamellar cell--cell
+  connectome that counts. Journal of Cellular Physiology 237(11):4037--4048.
+  \doi{10.1002/jcp.30868}
+
+\bibitem[{Rolls(2013)}]{rollsMechanisms2013}
+Rolls ET (2013) The mechanisms for pattern completion and pattern separation in
+  the hippocampus. Frontiers in Systems Neuroscience 7.
+  \doi{10.3389/fnsys.2013.00074}
+
+\bibitem[{Sahay et~al.(2011)Sahay, Scobie, Hill, O'Carroll, Kheirbek,
+  Burghardt, Fenton, Dranovsky, and Hen}]{sahayIncreasing2011}
+Sahay A, Scobie KN, Hill AS, et~al (2011) Increasing adult hippocampal
+  neurogenesis is sufficient to improve pattern separation. Nature
+  472(7344):466--470. \doi{10.1038/nature09817}
+
+\bibitem[{Scharfman and Myers(2013)}]{scharfmanHilar2013}
+Scharfman HE, Myers CE (2013) Hilar mossy cells of the dentate gyrus: A
+  historical perspective. Frontiers in Neural Circuits 6.
+  \doi{10.3389/fncir.2012.00106}
+
+\bibitem[{Senn et~al.(2001)Senn, Markram, and Tsodyks}]{sennAlgorithm2001}
+Senn W, Markram H, Tsodyks M (2001) An {{Algorithm}} for {{Modifying
+  Neurotransmitter Release Probability Based}} on {{Pre-}} and {{Postsynaptic
+  Spike Timing}}. Neural Computation 13(1):35--67.
+  \doi{10.1162/089976601300014628}
+
+\bibitem[{Sloviter and L{\o}mo(2012)}]{sloviterUpdating2012}
+Sloviter RS, L{\o}mo T (2012) Updating the {{Lamellar Hypothesis}} of
+  {{Hippocampal Organization}}. Frontiers in Neural Circuits 6.
+  \doi{10.3389/fncir.2012.00102}
+
+\bibitem[{Stimberg et~al.(2019)Stimberg, Brette, and
+  Goodman}]{stimbergBrian2019a}
+Stimberg M, Brette R, Goodman DF (2019) Brian 2, an intuitive and efficient
+  neural simulator. eLife 8:e47314. \doi{10.7554/eLife.47314}
+
+\bibitem[{Watson et~al.(2025)Watson, {Vargas-Barroso}, {Morse-Mora},
+  {Navas-Olive}, Tavakoli, Danzl, Tomschik, R{\"o}ssler, and
+  Jonas}]{watsonHuman2025}
+Watson JF, {Vargas-Barroso} V, {Morse-Mora} RJ, et~al (2025) Human hippocampal
+  {{CA3}} uses specific functional connectivity rules for efficient associative
+  memory. Cell 188(2):501--514.e18. \doi{10.1016/j.cell.2024.11.022}
+
+\bibitem[{Welch(1967)}]{welchUse1967}
+Welch P (1967) The use of fast {{Fourier}} transform for the estimation of
+  power spectra: {{A}} method based on time averaging over short, modified
+  periodograms. IEEE Transactions on Audio and Electroacoustics 15(2):70--73.
+  \doi{10.1109/TAU.1967.1161901}
+
+\bibitem[{West et~al.(1991)West, Slomianka, and Gundersen}]{westUnbiased1991}
+West MJ, Slomianka L, Gundersen HJG (1991) Unbiased stereological estimation of
+  the total number of neurons in the subdivisions of the rat hippocampus using
+  the optical fractionator. The Anatomical Record 231(4):482--497.
+  \doi{10.1002/ar.1092310411}
+
+\bibitem[{Wheeler et~al.(2023)Wheeler, Kopsick, Sutton, Tecuatl, Komendantov,
+  Nadella, and Ascoli}]{wheelerHippocampomeorg2023}
+Wheeler DW, Kopsick JD, Sutton N, et~al (2023) Hippocampome.org v2.0: A
+  knowledge base enabling data-driven spiking neural network simulations of
+  rodent hippocampal circuits. \doi{10.7554/eLife.90597.1}
+
+\bibitem[{Yang et~al.(2025)Yang, Sun, and Wang}]{yangDynamic2025}
+Yang K, Sun X, Wang Z (2025) The dynamic impact of adult neurogenesis on
+  pattern separation within the dentate gyrus neural network. Cognitive
+  Neurodynamics 19(1):57. \doi{10.1007/s11571-025-10244-y}
+
+\bibitem[{Yassa and Stark(2011)}]{yassaPattern2011}
+Yassa MA, Stark CE (2011) Pattern separation in the hippocampus. Trends in
+  Neurosciences 34(10):515--525. \doi{10.1016/j.tins.2011.06.006}
+
+\end{thebibliography}
