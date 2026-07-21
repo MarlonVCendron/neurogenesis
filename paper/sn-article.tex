@@ -116,7 +116,7 @@
 
 \affil[2]{\orgdiv{Computational Intelligence Group, Department of Computer Science}, \orgname{State University of Rio Grande do Norte}, \orgaddress{\city{Mossoró}, \postcode{59610210}, \country{Brazil}}}
 
-% ⚠️ TODO: make sure all abbreviations are defined once and before they are used
+% ⚠️ TODO: make sure all abbreviations are defined once and before they are used 
 
 \abstract{The dentate gyrus (DG) transforms similar inputs into more distinct representations, a computation termed pattern
 separation, and is one of the few brain regions that generate new neurons throughout adulthood. These adult-born granule cells
@@ -193,7 +193,9 @@ together with the cell counts and connectivity, were adapted from Hippocampome.o
 consolidates multiple experimental sources on the hippocampal formation \citep{wheelerHippocampomeorg2023}.
 
 The model included the core excitatory and inhibitory cell types of the DG-CA3 network underlying pattern separation and
-completion. Although both regions contain many additional interneuron subtypes, several of which are also characterized in
+completion: in the DG, GCs, mossy cells (MCs), basket cells (BCs) and hilar perforant path-associated cells (HIPPs); in CA3,
+excitatory pyramidal cells (pCA3) and inhibitory interneurons (iCA3). Although both regions contain many additional interneuron
+subtypes, several of which are also characterized in
 Hippocampome.org \citep{wheelerHippocampomeorg2023}, this reduced set has been shown in previous computational models to be
 sufficient to support pattern separation \citep{chavlisDendrites2017, kimEffect2024, yangDynamic2025}. Synaptic connectivity
 between cell types and their connection probabilities were likewise derived from multiple sources and constrained to biologically
@@ -207,27 +209,25 @@ Table S1).
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=\linewidth]{Fig1.eps}
-    \caption{DG--CA3 network architecture. Network input is provided by entorhinal cortex (EC) neurons. In the dentate gyrus (DG),
-        the perforant path terminates in the molecular layer, where the dendrites of DG neurons are located. The granule cell
-        layer comprises immature granule cells (iGCs), mature granule cells (mGCs), and basket cells (BCs), whereas the hilus
-        contains mossy cells (MCs) and hilar perforant path-associated cells (HIPPs). The CA3 region comprises excitatory
-        pyramidal cells (pCA3) and inhibitory interneurons (iCA3). Excitatory synapses are represented by arrows, whereas
-        inhibitory synapses are represented by circles.}\label{fig:diagram-network}
+    \caption{DG--CA3 network architecture. Network input is provided by EC neurons. In the DG, the perforant path terminates in
+        the molecular layer, where the dendrites of DG neurons are located. The granule cell layer comprises iGCs, mGCs and BCs,
+        whereas the hilus contains MCs and HIPPs. The CA3 region comprises the pCA3 and iCA3 cells. Excitatory synapses are
+        represented by arrows, whereas inhibitory synapses are represented by circles.}\label{fig:diagram-network}
 \end{figure}
 
-The network receives input from a population of ($N_{EC} = 400$) entorhinal cortex (EC) neurons~\citep{amaralChapter1990,
+The network receives input from a population of ($N_{EC} = 400$) EC neurons~\citep{amaralChapter1990,
 kimAdult2024}. In each simulation, the EC encodes a specific input pattern, represented by an active subpopulation comprising 10\%
 of the EC neurons~\citep{mcnaughtonDead1991}. Neurons not included in the active pattern remain silent throughout the simulation,
 whereas active neurons generate spikes according to a Poisson process with a mean firing rate of $\SI{40}{\hertz}$. EC neurons
-project their axons via the perforant path to neurons with dendrites in the molecular layer of the DG\@: including granule cells
-(GCs), mossy cells (MCs)~\citep{scharfmanHilar2013} and basket cells (BCs), as well as to neurons in CA3.
+project their axons via the perforant path to neurons with dendrites in the molecular layer of the DG\@: including GCs,
+MCs~\citep{scharfmanHilar2013} and BCs, as well as to neurons in CA3.
 
 The GC population is split into mGCs and iGCs, the latter standing for the cells that adult neurogenesis produces during their
 characteristic 4--7 weeks electrophysiological window \citep{aimoneRegulation2014}. Of the $N_{GC} = 2000$ GCs
 \citep{westUnbiased1991}, 5\% are immature \citep{cameronAdult2001}, yielding $N_{mGC} = 1900$ and $N_{iGC} = 100$. To reflect the
 lamellar organization of the DG \citep{sloviterUpdating2012}, the GCs are distributed across 20 lamellae, each containing 100
 cells. Each GC connects to the BCs and CA3 neurons within its own lamella and also forms random non-lamellar excitatory
-connections with hilar perforant path-associated cells (HIPPs) and MCs.
+connections with HIPPs and MCs.
 
 iGCs are characterized by electrophysiological properties distinct from the mGCs that make them more excitable than the mGCs.
 Furthermore, to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a percentage $x_{EC
@@ -374,22 +374,27 @@ Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being active 
 was obtained by keeping a random fraction of $X\%$ of the reference pattern's active neurons and moving the remaining $(100 -
 X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
 
-\begin{figure*}[tp]
+\begin{figure*}[!tp]
     \centering
-    \includegraphics[width=\linewidth]{Fig2.eps}%
+    \includegraphics[width=\linewidth]{diagrama_entrada_saida.pdf}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
-    \textbf{A.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly
-    and the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating
-    neurons.
-    \textbf{B.} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different excitability
+    \textbf{a.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly and
+    the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating neurons.
+    \textbf{b.} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different excitability
     levels, from 100\% down to 10\% excitability.
-    \textbf{C.} Spike trace of EC neurons during a simulation; each generated pattern corresponds to the activation of EC
-    neurons, with active neurons spiking at a frequency of \SI{40}{\hertz}; each of the 11 models is exposed to 30 sets of
-    10 input patterns, totaling 300 simulations of \SI{1300}{\milli\second} each.
-    \textbf{D.} Spike trace of mGCs during a simulation; the first \SI{300}{\milli\second} are discarded while the network
+    \textbf{c.} Spike trace of EC neurons during a simulation; each generated
+    pattern corresponds to the activation of EC neurons, with active neurons spiking at a frequency of \SI{40}{\hertz}; each of
+    the 11 models is exposed to 30 sets of 10 input patterns, totaling 300 simulations of \SI{1300}{\milli\second} each.
+    \textbf{d.} Spike trace of mGCs during a simulation; the first \SI{300}{\milli\second} are discarded while the network
     stabilizes; the remainder corresponds to the output pattern.
-    \textbf{E.} The output pattern, illustrated here for the mGC population, consists of a binary vector with value 1 for the
-    index of each neuron that spiked at least once during the \SI{1000}{\milli\second} interval.}\label{fig:diagram-input-output}
+    \textbf{e.} The output pattern, illustrated here for the mGC
+    population, consists of a binary vector with value 1 for the index of each neuron that spiked at least once during the
+    \SI{1000}{\milli\second} interval.}\label{fig:pipeline}%
+    \phantomsubcaption\label{fig:input-gen}%
+    \phantomsubcaption\label{fig:models}%
+    \phantomsubcaption\label{fig:ec-raster}%
+    \phantomsubcaption\label{fig:mgc-raster}%
+    \phantomsubcaption\label{fig:output-pattern}%
 \end{figure*}
 
 Each pattern is simulated for \SI{1300}{\milli\second} of simulation time, with the first \SI{300}{\milli\second} discarded for
@@ -466,7 +471,7 @@ also computed:
 
 Both indices range over $[0, 1]$, with larger values denoting sparser activity. They were computed for the mGC, iGC and pCA3
 populations and for the combined granule-cell population (mGCs and iGCs together), and averaged over all patterns and trials, with
-the standard error of the mean reported as the error.
+the standard error of the mean (SEM) reported as the error.
 
 \subsection{iGC activation and downstream circuit effects}\label{sec:igc_activation}
 
