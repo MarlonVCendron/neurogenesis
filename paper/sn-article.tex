@@ -118,9 +118,21 @@
 
 % ⚠️ TODO: make sure all abbreviations are defined once and before they are used
 
-\abstract{The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. Authors are advised to check the author instructions for the journal they are submitting to for word limits and if structural elements like subheadings, citations, or equations are permitted.}
+\abstract{The dentate gyrus (DG) transforms similar inputs into more distinct representations, a computation termed pattern
+separation, and is one of the few brain regions that generate new neurons throughout adulthood. These adult-born granule cells
+pass through an immature, highly excitable stage, and activating them \textit{in vivo} recruits inhibitory interneurons and
+increases population sparsity across both the DG and CA3. Whether this circuit-wide effect follows from the known DG--CA3
+microcircuitry has not been examined in a biophysically detailed model, and existing models of neurogenesis and pattern separation
+are confined to the DG. Here, a spiking model of the DG--CA3 network was built from the Hippocampome.org knowledge base and
+extended with a population of immature granule cells. Pattern separation and population sparsity were measured while the level of
+neurogenesis and immature-cell excitability was varied, and the immature cells were then activated directly. Neurogenesis enhanced
+pattern separation in the mature granule cells and pushed CA3 in the same direction, mainly by making population activity sparser;
+direct activation of the immature cells recruited inhibitory interneurons throughout the DG and CA3 and increased population
+sparsity, reproducing the effect observed \textit{in vivo}. The sparsifying influence of adult neurogenesis can therefore emerge
+from the known DG--CA3 circuitry and reaches beyond the DG, consistent with a modulatory rather than an encoding role for immature
+granule cells.}
 
-\keywords{Adult neurogenesis, hippocampus, computational model, plasticity, dentate gyrus, CA3}
+\keywords{Adult neurogenesis, Pattern separation, Dentate gyrus, CA3, Spiking neural network, Sparsity}
 
 \pacs[MSC Classification]{92C20}
 
@@ -524,7 +536,7 @@ evidence that the network behaves plausibly.
 
 \begin{figure}[!tbp]
     \centering
-    \includegraphics[width=\linewidth]{figures/baseline_panel.pdf}%
+    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/baseline_panel.pdf}%
     \caption{Baseline network activity. \textbf{(a)} Raster plot of the spike times of the EC, iGC, mGC and pCA3 populations in a
         representative simulation, over the \SIrange{300}{1300}{\milli\second} recording window (the first \SI{300}{\milli\second}
         discarded for stabilization). \textbf{(b)} Kernel-density estimate of the per-cell firing-rate distribution in logarithmic
@@ -653,7 +665,7 @@ across both the DG and CA3.
 
 \begin{figure}[tbp]
     \centering
-    \includegraphics[width=\linewidth]{figures/psth.jpg}%
+    \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{figures/psth.jpg}%
     \caption{Circuit-wide response to direct iGC activation. PSTHs of the population firing rate for each cell type, expressed as
         a z-score relative to a pre-pulse baseline (Equation~\ref{eq:psth_z}) and aligned to the onset of the
         \SI{5}{\milli\second} depolarizing current injected into half of the iGCs (shaded band). Bins are \SI{1.5}{\milli\second}
@@ -666,20 +678,40 @@ across both the DG and CA3.
 
 \section{Discussion}\label{discussion}
 
-Taken together, and in agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited interneurons in both the DG and
-CA3, providing the circuit mechanism for the rise in granule-cell population sparsity reported in
-Section~\ref{sec:res_sparsity}. The model departs from their \textit{in vivo} findings in two respects: the sign of the mGC
-response, a net excitation rather than the suppression expected of a principal cell, and the small inhibition of the pCA3 cells,
-for which \citet{mchughAdultborn2022} found no effect. Their area-level recordings, however, could not separate the inhibitory
-contribution of the HIPPs from that of the BCs, so the divergence between the two DG interneuron populations cannot be adjudicated
-against their data.
+Previous models of adult neurogenesis and pattern separation have been confined to the dentate gyrus \citep{chavlisDendrites2017,
+kimEffect2024, yangDynamic2025}, leaving open whether the circuit-wide sparsification observed \textit{in vivo}
+\citep{mchughAdultborn2022} follows from the known DG--CA3 microcircuitry. In the  model built here, the DG reproduces the
+division of roles reported by \citet{kimEffect2024}, the mGCs separating their inputs while the iGCs integrate them, with
+separation improving through sparser coding \citep{chavlisDendrites2017}. The same computation, together with the interneuron
+recruitment it drives, extends to CA3, whose activity also becomes sparser, consistent with a modulatory rather than an encoding
+role for immature granule cells \citep{mchughAdultborn2022, folszAdultborn2023}.
 
-The net excitation of the mGCs is itself informative. That neither the direct iGC$\to$mGC inhibitory synapse nor the feedforward
-and feedback inhibition triggered by the pulse were able to suppress the mGCs indicates that the model captures the
-iGC$\to$mGC interaction only imperfectly, and points to a missing inhibitory contribution, plausibly from interneuron types not
-represented in the reduced circuit.
+In agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited inhibitory interneurons in both the DG and CA3, the
+circuit counterpart of the increased granule-cell population sparsity of Section~\ref{sec:res_sparsity}. Two features of the model
+response differ from the \textit{in vivo} findings: the mGCs showed a net excitation rather than the suppression expected of a
+principal cell, and the pCA3 cells showed a small inhibition, for which \citet{mchughAdultborn2022} reported no effect. The
+area-level recordings of that study could not separate the inhibitory contributions of the HIPPs and the BCs, so the divergence
+between the two DG interneuron populations cannot be adjudicated against their data.
 
-% TODO: expand Discussion (main findings, encoder-vs-modulator interpretation, comparison to literature, limitations, conclusions)
+Neither the direct iGC$\to$mGC inhibitory synapse nor the feedforward and feedback inhibition triggered by the pulse suppressed
+the mGCs. This residual excitation suggests that the iGC$\to$mGC interaction is captured only in part, and that an inhibitory
+contribution is missing, plausibly from interneuron types absent from the reduced circuit: at least 13 morpho-physiological
+interneuron types have been distinguished in the dentate gyrus \citep{degroInterneuron2022}, against the two represented here.
+
+Several simplifications bound these results. Each neuron is reduced to a single compartment, so the dendritic processing that
+controls granule-cell sparsity and separation \citep{chavlisDendrites2017}, and that varies across granule-cell subtypes
+\citep{maoExcitatory2025}, is not represented. The interneuron repertoire is minimal, comprising a single basket-cell and hilar
+type in the DG and one inhibitory type in CA3 \citep{kopsickFormation2024}, a likely source of the unresolved mGC response.
+Synaptic weights are fixed, leaving out activity-dependent plasticity; all synaptic delays are fixed at \SI{1}{\milli\second}, so
+the response latencies are not directly comparable with experiment (Section~\ref{sec:res_activation}); and the reduced scale of
+the network requires a uniform synaptic scaling factor to sustain activity. A further limitation, shared with most computational
+models of adult neurogenesis, is that the immature granule cells are represented as a single static population, though they change
+continuously as they mature; fixing their properties cannot capture that progression so relevant to their nature.
+
+The effects on CA3 require further investigation. Because its synapses are held fixed here, the model cannot address how adult
+neurogenesis affects storage and recall in the recurrent CA3 network; introducing synaptic plasticity would allow this to be
+studied, along with the influence of adult-born cells on the formation and retrieval of CA3 engrams \citep{rollsMechanisms2013,
+kopsickFormation2024, koSystems2025}.
 
 
 \backmatter{}
