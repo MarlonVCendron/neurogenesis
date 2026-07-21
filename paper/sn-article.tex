@@ -159,8 +159,14 @@ models have been invaluable for understanding the role of neurogenesis~\citep{ai
 neurogenesis and pattern separation, however, are confined almost entirely to the DG \citep{chavlisDendrites2017, kimEffect2024,
 yangDynamic2025}, and so cannot investigate the influence of iGCs into CA3 and CA1.
 
-This work aims to investigate whether the circuit-wide sparsification observed \textit{in vivo} emerges from the known DG--CA3
-microcircuitry has likewise not been examined in a biophysically detailed model.
+This work investigates whether the circuit-wide sparsification observed \textit{in vivo} emerges from the known DG--CA3
+microcircuitry, using a biophysically detailed spiking model of the DG--CA3 network that includes a population of immature granule
+cells. Pattern separation and population sparsity were measured while the level of adult neurogenesis was varied, and the iGCs
+were then activated directly to probe their effect on the rest of the circuit. Neurogenesis enhanced pattern separation in the
+mature granule cells and pushed CA3 in the same direction, mainly by making the population activity sparser. Directly activating
+the iGCs recruited inhibitory interneurons throughout the DG and CA3 and increased population sparsity. Together, these results
+support the view of immature granule cells as modulators that regulate activity across the hippocampal network rather than as
+encoders confined to the DG\@.
 
 % TODO introduction
 
@@ -424,7 +430,7 @@ their ratio:
 \end{equation}
 
 A value $\mathcal{S}_D > 1$ means that the output patterns are more distinct than the inputs, that is, pattern separation, whereas
-$\mathcal{S}_D < 1$ means the opposite, a convergence in which the outputs grow more alike.
+$\mathcal{S}_D < 1$ means the opposite, with the output patterns growing more alike than the inputs.
 
 \subsection{Population sparsity}\label{sec:population_sparsity}
 
@@ -569,9 +575,9 @@ The same analysis applied to the pCA3 population (Figures~\ref{fig:ca3-activity}
 activation also decreases with neurogenesis and iGC excitability, from 29.7\% to 24.1\%, while its separation degree increases in
 the same direction as that of the mGCs, from $\mathcal{S}_D = 0.51$ to $0.69$ ($\rho = +0.98$, $p < 10^{-5}$). Unlike the DG,
 however, the pCA3 separation degree remains below one throughout: by the definition described in Equation~\ref{eq:sd}, the CA3
-operates in the convergence regime, its outputs more alike than its inputs. This is expected of a region whose recurrent
-connectivity supports autoassociation and pattern completion~\citep{rollsMechanisms2013, kopsickFormation2024} rather than
-separation. Neurogenesis therefore does not turn the CA3 into a separator, but reduces its convergence.
+keeps its outputs more alike than its inputs. This is expected of a region whose recurrent connectivity supports autoassociation
+and pattern completion~\citep{rollsMechanisms2013, kopsickFormation2024} rather than separation. Neurogenesis therefore does not
+turn the CA3 into a separator, but pushes it toward separation.
 
 
 % ⚠️ TODO before submission: use EPS images
