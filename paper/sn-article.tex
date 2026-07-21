@@ -29,11 +29,10 @@
 %%The option is available for: sn-basic.bst, sn-chicago.bst%  
  
 %%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
-%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 %%\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
 
-% TODO: remove iicol
-\documentclass[pdflatex,sn-mathphys-ay,iicol]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
 %%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
 %%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
 %%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
@@ -134,8 +133,8 @@ neural representations, so that overlapping experiences can be encoded without i
 region \citep{yassaPattern2011, rollsMechanisms2013, hainmuellerDentate2020}. This function is commonly attributed to the sparse,
 competitive activity of its principal excitatory cells, the granule cells (GCs): of the large GC population in the granular layer
 of the DG, one of the densest regions of the brain in cell bodies \citep{amaralDentate2007}, only a small fraction fires in
-response to any given input arriving from the entorhinal cortex (EC), the main afferent to the DG \citep{chavlisDendrites2017,
-kesnerMnemonic2006}.
+response to any given input arriving from the entorhinal cortex (EC), the main afferent to the DG \citep{kesnerMnemonic2006,
+chavlisDendrites2017}.
 
 The DG is also one of the few regions of the adult mammalian brain that sustains adult neurogenesis, continually generating new
 GCs throughout life \citep{altmanAutoradiographic1965, mingAdult2011}. These cells mature over several weeks, passing through a
@@ -157,8 +156,8 @@ being restricted to a local function in the DG only.
 
 Given the difficulty of experimentation in the DG and the complexity of information processed in the hippocampus, computational
 models have been invaluable for understanding the role of neurogenesis~\citep{aimoneComputational2016}. Existing models of
-neurogenesis and pattern separation, however, are confined almost entirely to the DG \citep{kimEffect2024, yangDynamic2025,
-chavlisDendrites2017}, and so cannot investigate the influence of iGCs into CA3 and CA1. Whether the circuit-wide sparsification
+neurogenesis and pattern separation, however, are confined almost entirely to the DG \citep{chavlisDendrites2017, kimEffect2024,
+yangDynamic2025}, and so cannot investigate the influence of iGCs into CA3 and CA1. Whether the circuit-wide sparsification
 observed \textit{in vivo} emerges from the known DG--CA3 microcircuitry has likewise not been examined in a biophysically detailed
 model.
 
@@ -169,7 +168,7 @@ model.
 \subsection{Network architecture}\label{sec:network_architecture}
 
 The DG-CA3 network architecture, shown in Figure~\ref{fig:diagram-network}, was built primarily upon the models of
-\citet{kopsickFormation2024, kimAdult2024, yangDynamic2025, chavlisDendrites2017} and reproduced at a scale of $\frac{1}{500}$ of
+\citet{chavlisDendrites2017, kimAdult2024, kopsickFormation2024, yangDynamic2025} and reproduced at a scale of $\frac{1}{500}$ of
 the rat hippocampus, the per-population cell counts being listed in Table~\ref{tab:neuron_counts}. Each neuron was reduced to a
 single compartment, with no explicit dendrites or axons, yet kept biologically plausible: its neuron and synapse models, together
 with the cell counts and connectivity, were adapted from Hippocampome.org, an open-access knowledge base that consolidates
@@ -209,7 +208,7 @@ lamellar organization of the DG \citep{sloviterUpdating2012}, the GCs are distri
 GC contacts the BCs and CA3 neurons of its own lamella and, in addition, forms random non-lamellar excitatory connections onto
 HIPPs and MCs.
 
-iGCs possess distinct electrophysiological characteristics from the mGCs that render them more excitable than mGCs. Furthermore,
+iGCs possess distinct electrophysiological characteristics that make them more excitable than the mGCs. Furthermore,
 to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a percentage $x_{EC \to iGC}$ of
 the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
 (Table~\ref{tab:synapse_params}). Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
@@ -226,7 +225,7 @@ acting on all GCs in a lamella. MCs ($N_{MC} = 100$) are excitatory hilar cells 
 to GCs, BCs, HIPPs and other MCs via cross-lamellar connections. Although these excitatory MC to GC projections exist, their net
 effect is generally inhibitory through the control of BCs and HIPPs~\citep{myersRole2009, scharfmanHilar2013}.
 
-The HIPP parameters given by Hippocampome.org \citep{wheelerHippocampomeorg2023} reproduce a ``rebound burst spiking''
+The HIPP parameters given by Hippocampome.org \citep{wheelerHippocampomeorg2023} reproduce a rebound burst spiking
 behavior, in which a burst of spikes follows the end of a hyperpolarization. Because large hyperpolarizations then drive
 unbounded bursts that the network cannot tolerate, the HIPP parameters were instead taken from \citet{modakIzhikevich2018}.
 
@@ -236,7 +235,7 @@ latter modeled after CA3 basket cells~\citep{wheelerHippocampomeorg2023} so as t
 neurons present in CA3~\citep{kopsickFormation2024}. Both neuronal populations receive afferent inputs from the EC and from GCs,
 with iCA3 cells inhibiting pCA3 cells. The iCA3 cells inhibit the pCA3 cells, which in turn excite the iCA3 cells and, crucially,
 wire recurrently among themselves, the substrate of the autoassociation and pattern-completion functions of CA3
-\citep{kopsickFormation2024, rollsMechanisms2013}. A portion of the pCA3 cells further feed back to the DG by contacting MCs, a
+\citep{rollsMechanisms2013, kopsickFormation2024}. A portion of the pCA3 cells further feed back to the DG by contacting MCs, a
 projection that contributes to pattern separation \citep{myersPattern2011}.
 
 All simulations were run in Brian2 \citep{stimbergBrian2019a} with the fourth-order Runge-Kutta method at a fixed time step of
@@ -661,12 +660,6 @@ so the divergence between the two DG interneuron populations cannot be adjudicat
         a small biphasic response.}\label{fig:psth}
 \end{figure}
 
-
-% ===== STATS note (see G1/G4 in results_questions.md) =====
-% G1 trend: per metric + population, linear regression (slope + p) OR Spearman
-%   (r + p) vs excitability level; SEM bands in figures + control as reference.
-% G2: PSTH z encodes significance (|z|>1.96 ~ p<0.05) -- keep Fig results-3
-%   qualitative, cite key z (mGC z~4); Wilcoxon stars on the SI pre/post figure.
 
 \section{Discussion}\label{discussion}
 
