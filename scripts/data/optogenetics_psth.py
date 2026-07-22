@@ -10,7 +10,7 @@ from glob import glob
 import h5py
 
 NEG = False
-ALL_LEVELS = False  # Joins all the runs into one plot
+ALL_LEVELS = True  # Joins all the runs into one plot
 
 # RUN_NAME = 'final_opto_negative' if NEG else 'final_opto_positive'
 # RUN_NAME = 'FINAL_opto_june_positive'
@@ -177,9 +177,9 @@ def main(group_file_path):
     sign = 'neg' if NEG else 'pos'
     p = re.compile(r".*(\d.\d)")
     neurogenesis_level = 'all' if ALL_LEVELS else p.search(group_file_path).group(1)
-    output_path = f'figures/plots/optogenetics/{RUN_NAME}/psth_{sign}_{neurogenesis_level}.jpg'
+    output_path = f'figures/plots/optogenetics/{RUN_NAME}/psth_{sign}_{neurogenesis_level}.pdf'
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
+    plt.savefig(output_path, dpi=300, bbox_inches='tight', format='pdf')
     plt.close()
     print(f'Saved: {output_path}')
 
