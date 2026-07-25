@@ -98,7 +98,7 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ Immature granule
 \midrule
 
 $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP
-  & n/a                                     &
+  & $111.4 \pm 10.2$\textsuperscript{max}   & \citet{yuanSomatostatinpositive2017}
   & 6.38
   &                                         &
   & 100\% \\
@@ -149,8 +149,8 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP
 \end{tabular}}
 \caption{%
   \textit{In vivo} firing rates and activation (the fraction of active cells) for each cell type, alongside model values.
-  \textit{In vivo} firing rates are mean $\pm$ SD\@. \textsuperscript{max} maximum observed rate. $\approx$ approximate value read
-  from figure. Model firing rates are the mean over active cells and model activation the fraction of active cells; both are from
+  \textit{In vivo} firing rates are mean $\pm$ SD\@. \textsuperscript{max} maximum firing rate evoked by depolarizing current
+  injection \textit{in vitro} (mean $\pm$ SEM for the HIPP cells). $\approx$ approximate value read from figure. Model firing rates are the mean over active cells and model activation the fraction of active cells; both are from
   the control network, except the immature granule cells (absent in the control), which are from the neurogenesis model at 50\%
   EC$\to$iGC excitability}
 \label{tab:firing_rates}
@@ -239,6 +239,24 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP
         immediately before (pre) and after (post) the depolarizing pulse, pooled over all runs. Bars show the mean across runs.
         The result of the paired Wilcoxon signed-rank test between the pre and post values is indicated above each pair (ns, not
         significant; {*}~$p < 0.05$; {**}~$p < 0.01$; {***}~$p < 0.001$)}\label{fig:opto_sparsity}
+\end{figure}
+
+%% =====================================================================
+%% Figure S5 -- post-pulse population rate and power spectrum per cell type
+%% =====================================================================
+\clearpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{supplementary_figures/frequency_pos_all.pdf}
+    \caption{Rhythmicity of the post-pulse response of each population. Left column, population firing rate over the
+        \SIrange{5}{60}{\milli\second} window following the onset of the depolarizing pulse delivered to half of the iGCs, pooled
+        over all EC$\to$iGC excitability levels and all runs. Right column, power spectrum of the same signal after subtraction of
+        a Gaussian-smoothed envelope, estimated by Welch's method over the \SIrange{20}{200}{\hertz} band; the dashed line and the
+        label mark the peak frequency. Only the BCs show a spectral peak that stands out from the background of their own
+        spectrum, at the frequency reported in the main text; the peak of the MCs carries a power close to the median of their
+        band and the remaining populations peak at the lower edge of the band. The \SI{55}{\milli\second} analysis window sets the
+        frequency resolution at \SI{18}{\hertz}, so the peak frequencies are accurate only to within one
+        bin}\label{fig:frequency_spectra}
 \end{figure}
 
 \bibliographystyle{plainnat}
