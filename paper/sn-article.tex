@@ -122,17 +122,16 @@
 
 \abstract{The dentate gyrus (DG) transforms similar inputs into more distinct representations, a computation termed pattern
 separation, and is one of the few brain regions that generate new neurons throughout adulthood. These adult-born granule cells
-pass through an immature, highly excitable stage, and activating them \textit{in vivo} recruits inhibitory interneurons and
-increases population sparsity across both the DG and CA3 (Cornu Ammonis area 3). Whether this circuit-wide effect follows from the known DG--CA3
-microcircuitry has not been examined in a biophysically detailed model, and existing models of neurogenesis and pattern separation
-are confined to the DG. Here, a spiking model of the DG--CA3 network was built from the Hippocampome.org knowledge base and
-extended with a population of immature granule cells. Pattern separation and population sparsity were measured while the level of
-neurogenesis and immature-cell excitability was varied, and the immature cells were then activated directly. Neurogenesis enhanced
-pattern separation in the mature granule cells and pushed CA3 in the same direction, mainly by making population activity sparser;
-direct activation of the immature cells recruited inhibitory interneurons throughout the DG and CA3 and increased population
-sparsity, reproducing the effect observed \textit{in vivo}. The sparsifying influence of adult neurogenesis can therefore emerge
-from the known DG--CA3 circuitry and reaches beyond the DG, consistent with a modulatory rather than an encoding role for immature
-granule cells.}
+(GCs) pass through an immature, highly excitable stage, and activating them \textit{in vivo} recruits inhibitory interneurons and
+increases population sparsity across both the DG and CA3 (Cornu Ammonis area 3). Whether this circuit-wide effect follows from the
+known DG--CA3 microcircuitry has not been examined in a biophysically detailed model, and existing models of neurogenesis and
+pattern separation are confined to the DG. Here, a spiking model of the DG--CA3 network was built from the Hippocampome.org
+knowledge base and extended with a population of immature GCs (iGCs). Pattern separation and population sparsity were measured
+while the level of neurogenesis and iGC excitability was varied, and the iGCs were then activated directly. Neurogenesis enhanced
+pattern separation in the mature GCs (mGCs) and pushed CA3 in the same direction, mainly by making population activity sparser;
+direct activation of the iGCs recruited inhibitory interneurons throughout the DG and CA3 and increased population sparsity,
+reproducing the effect observed \textit{in vivo}. The sparsifying influence of adult neurogenesis can therefore emerge from the
+known DG--CA3 circuitry and reaches beyond the DG, consistent with a modulatory rather than an encoding role for iGCs.}
 
 \keywords{Adult neurogenesis, Pattern separation, Dentate gyrus, CA3, Spiking neural network, Sparsity}
 
@@ -163,11 +162,12 @@ another, gaining more recent support, views them instead as transient modulators
 network rather than encoding information themselves \citep{aimoneComputational2016, folszAdultborn2023}. Consistent with the
 latter, \citet{mchughAdultborn2022} showed \textit{in vivo} that immature adult-born GCs carry little spatial information,
 specially when compared to mGCs; this study also showed that briefly activating those iGCs recruits inhibitory interneurons
-throughout the hippocampus and increases population sparsity in both the DG and CA3, pointing to a circuit-level mechanism by
-which a small population of new cells could regulate activity well beyond the DG\@. Similarly, \citet{koSystems2025} showed that
-adult neurogenesis drives the reorganization of hippocampal engram circuitry as memories are consolidated, remodeling the
-DG--CA3--CA1 (Cornu Ammonis area 1) network so that its representations generalize over time. These results show that iGCs have
-important effects across the hippocampus network, not being restricted to a local function in the DG only.
+throughout the hippocampus and increases population sparsity in both the DG and CA3 (Cornu Ammonis area 3), pointing to a
+circuit-level mechanism by which a small population of new cells could regulate activity well beyond the DG\@. Similarly,
+\citet{koSystems2025} showed that adult neurogenesis drives the reorganization of hippocampal engram circuitry as memories are
+consolidated, remodeling the DG--CA3--CA1 (Cornu Ammonis area 1) network so that its representations generalize over time. These
+results show that iGCs have important effects across the hippocampus network, not being restricted to a local function in the DG
+only.
 
 Given the difficulty of experimentation in the DG and the complexity of information processed in the hippocampus, computational
 models have been invaluable for understanding the role of neurogenesis~\citep{aimoneComputational2016}. Existing models of
@@ -450,16 +450,16 @@ neurogenesis, 11 variants of the network were compared: a control without neurog
 ($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in Figure~\ref{fig:pipeline}.
 This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC connection probability as a percentage relative
 to that of the mGCs: with 100\% matching the mGC connection probability, and 10\% meaning one tenth of that probability, and so
-represents the still-incomplete dendritic integration of the immature cells. Because iGCs acquire their entorhinal input only
-gradually over the 4--7 week maturation window \citep{espositoNeuronal2005, aimoneRegulation2014}, no single value of this
-excitability is representative of the immature population; the full range was therefore swept, rather than assuming one level,
-with lower values corresponding to earlier, less integrated cells and higher values to more mature ones approaching the
-connectivity of the mGCs. Each variant was presented with 30 sets of 10 input patterns, a set being one randomly generated
-reference pattern together with 9 derivatives of it graded from 90\% down to 10\% similarity. An input pattern is a binary vector
-of length $N_{EC} = 400$ encoding the state of each EC neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz}
-and exactly 10\% (40 neurons) being active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a random
-fraction of $X\%$ of the reference pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons,
-which preserves the 10\% activity level.
+represents the still-incomplete dendritic integration of the iGCs. Because iGCs acquire their entorhinal input only gradually over
+the 4--7 week maturation window \citep{espositoNeuronal2005, aimoneRegulation2014}, no single value of this excitability is
+representative of the immature population; the full range was therefore swept, rather than assuming one level, with lower values
+corresponding to earlier, less integrated cells and higher values to more mature ones approaching the connectivity of the mGCs.
+Each variant was presented with 30 sets of 10 input patterns, a set being one randomly generated reference pattern together with 9
+derivatives of it graded from 90\% down to 10\% similarity. An input pattern is a binary vector of length $N_{EC} = 400$ encoding
+the state of each EC neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being
+active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a random fraction of $X\%$ of the reference
+pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons, which preserves the 10\% activity
+level.
 
 \begin{figure*}[!tp]
     \centering
