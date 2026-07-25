@@ -158,15 +158,16 @@ aimoneRegulation2014, denoth-lippunerFormation2021}. Enhancing neurogenesis has 
 separation \citep{sahayIncreasing2011}, showing that these cells are central to the DG's discriminative function.
 
 How iGCs exert this influence at the level of the circuit, however, remains unsettled \citep{berdugo-vegaSharpening2023}. One view
-treats them as encoders that integrate directly into memory representations alongside mGCs; another, gaining more recent support,
-views them instead as transient modulators that shape the activity of the surrounding network rather than encoding information
-themselves \citep{aimoneComputational2016, folszAdultborn2023}. Consistent with the latter, \citet{mchughAdultborn2022} showed
-\textit{in vivo} that briefly activating immature adult-born GCs recruits inhibitory interneurons throughout the hippocampus and
-increases population sparsity in both the DG and CA3, pointing to a circuit-level mechanism by which a small population of new
-cells could regulate activity well beyond the DG\@. Similarly, \citet{koSystems2025} showed that adult neurogenesis drives the
-reorganization of hippocampal engram circuitry as memories are consolidated, remodeling the DG--CA3--CA1 (Cornu Ammonis area 1)
-network so that its representations generalize over time. These results show that iGCs have important effects across the
-hippocampus network, not being restricted to a local function in the DG only.
+treats them as encoders that integrate directly into memory representations alongside mGCs \citep{piattiNeurogenesis2013};
+another, gaining more recent support, views them instead as transient modulators that shape the activity of the surrounding
+network rather than encoding information themselves \citep{aimoneComputational2016, folszAdultborn2023}. Consistent with the
+latter, \citet{mchughAdultborn2022} showed \textit{in vivo} that immature adult-born GCs carry little spatial information,
+specially when compared to mGCs; this study also showed that briefly activating those iGCs recruits inhibitory interneurons
+throughout the hippocampus and increases population sparsity in both the DG and CA3, pointing to a circuit-level mechanism by
+which a small population of new cells could regulate activity well beyond the DG\@. Similarly, \citet{koSystems2025} showed that
+adult neurogenesis drives the reorganization of hippocampal engram circuitry as memories are consolidated, remodeling the
+DG--CA3--CA1 (Cornu Ammonis area 1) network so that its representations generalize over time. These results show that iGCs have
+important effects across the hippocampus network, not being restricted to a local function in the DG only.
 
 Given the difficulty of experimentation in the DG and the complexity of information processed in the hippocampus, computational
 models have been invaluable for understanding the role of neurogenesis~\citep{aimoneComputational2016}. Existing models of
@@ -174,12 +175,12 @@ neurogenesis and pattern separation, however, are confined almost entirely to th
 yangDynamic2025}, and so cannot investigate the influence of iGCs into CA3 and CA1.
 
 This work investigates whether the circuit-wide sparsification observed \textit{in vivo} emerges from the known DG--CA3
-microcircuitry, using a biophysically detailed spiking model of the DG--CA3 network that includes a population of immature granule
-cells. Pattern separation and population sparsity were measured while the level of adult neurogenesis was varied, and the iGCs
+microcircuitry, using a biophysically detailed spiking model of the DG--CA3 network that includes a population of iGCs.
+Pattern separation and population sparsity were measured while the level of adult neurogenesis was varied, and the iGCs
 were then activated directly to probe their effect on the rest of the circuit. Neurogenesis enhanced pattern separation in the
-mature granule cells and pushed CA3 in the same direction, mainly by making the population activity sparser. Directly activating
+mGCs and pushed CA3 in the same direction, mainly by making the population activity sparser. Directly activating
 the iGCs recruited inhibitory interneurons throughout the DG and CA3 and increased population sparsity. Together, these results
-support the view of immature granule cells as modulators that regulate activity across the hippocampal network rather than as
+support the view of iGCs as modulators that regulate activity across the hippocampal network rather than as
 encoders confined to the DG\@.
 
 % TODO introduction
@@ -212,7 +213,7 @@ Table S1).
     \centering
     \includegraphics[width=\linewidth]{Fig1.pdf}
     \caption{DG--CA3 network architecture. Network input is provided by EC neurons. In the DG, the perforant path terminates in
-        the molecular layer, where the dendrites of DG neurons are located. The granule cell layer comprises iGCs, mGCs and BCs,
+        the molecular layer, where the dendrites of DG neurons are located. The GC layer comprises iGCs, mGCs and BCs,
         whereas the hilus contains MCs and HIPPs. The CA3 region comprises the pCA3 and iCA3 cells. Excitatory synapses are
         represented by arrows, whereas inhibitory synapses are represented by circles}\label{fig:diagram-network}
 \end{figure}
@@ -446,19 +447,19 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & $\vcenter{\hb
 
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
-($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
-Figure~\ref{fig:pipeline}. This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC
-connection probability as a percentage relative to that of the mGCs: with 100\% matching the mGC connection probability, and 10\%
-meaning one tenth of that probability, and so represents the still-incomplete dendritic integration of the immature cells. Because
-iGCs acquire their entorhinal input only gradually over the 4--7 week maturation window \citep{espositoNeuronal2005,
-aimoneRegulation2014}, no single value of this excitability is representative of the immature population; the full range was
-therefore swept, rather than assuming one level, with lower values corresponding to earlier, less integrated cells and higher
-values to more mature ones approaching the connectivity of the mGCs. Each variant was presented with 30 sets of 10 input patterns,
-a set being one randomly generated reference pattern together with 9 derivatives of it graded from 90\% down to 10\% similarity.
-An input pattern is a binary vector of length $N_{EC} = 400$ encoding the state of each EC neuron, its active neurons firing as
-Poisson processes at \SI{40}{\hertz} and exactly 10\% (40 neurons) being active in every pattern. A pattern of similarity $X\%$
-was obtained by keeping a random fraction of $X\%$ of the reference pattern's active neurons and moving the remaining $(100 -
-X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
+($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in Figure~\ref{fig:pipeline}.
+This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC connection probability as a percentage relative
+to that of the mGCs: with 100\% matching the mGC connection probability, and 10\% meaning one tenth of that probability, and so
+represents the still-incomplete dendritic integration of the immature cells. Because iGCs acquire their entorhinal input only
+gradually over the 4--7 week maturation window \citep{espositoNeuronal2005, aimoneRegulation2014}, no single value of this
+excitability is representative of the immature population; the full range was therefore swept, rather than assuming one level,
+with lower values corresponding to earlier, less integrated cells and higher values to more mature ones approaching the
+connectivity of the mGCs. Each variant was presented with 30 sets of 10 input patterns, a set being one randomly generated
+reference pattern together with 9 derivatives of it graded from 90\% down to 10\% similarity. An input pattern is a binary vector
+of length $N_{EC} = 400$ encoding the state of each EC neuron, its active neurons firing as Poisson processes at \SI{40}{\hertz}
+and exactly 10\% (40 neurons) being active in every pattern. A pattern of similarity $X\%$ was obtained by keeping a random
+fraction of $X\%$ of the reference pattern's active neurons and moving the remaining $(100 - X)\%$ to previously inactive neurons,
+which preserves the 10\% activity level.
 
 \begin{figure*}[!tp]
     \centering
@@ -556,7 +557,7 @@ also computed:
 \end{equation}
 
 Both indices range over $[0, 1]$, with larger values denoting sparser activity. They were computed for the mGC, iGC and pCA3
-populations and for the combined granule-cell population (mGCs and iGCs together), and averaged over all patterns and trials, with
+populations and for the combined GC population (mGCs and iGCs together), and averaged over all patterns and trials, with
 the standard error of the mean (SEM) reported as the error.
 
 \subsection{iGC activation and downstream circuit effects}\label{sec:igc_activation}
@@ -658,11 +659,11 @@ active for a given pattern, the sparser coding leads to an increase in the mGC p
 with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman $\rho = 1.00$,
 $p < 10^{-6}$; Figure~\ref{fig:dg-separation}). Resolved by input similarity, the mGC separation showed the same ordering at every
 level, being strongest for the most similar inputs and higher than the control across the whole similarity range (Online
-Resource~1, Figure~S1). The two granule-cell types, however, behave in opposite ways. Taken on their own, the iGC outputs never
+Resource~1, Figure~S1). The two GC types, however, behave in opposite ways. Taken on their own, the iGC outputs never
 separate their inputs ($\mathcal{S}_D < 1$, falling from $0.45$ to $0.20$ as excitability rises), acting instead as pattern
-integrators, as also reported by~\citet{kimEffect2024}. When the whole granule-cell population is considered together, pattern
+integrators, as also reported by~\citet{kimEffect2024}. When the whole GC population is considered together, pattern
 separation remains above one but decreases with iGC excitability (from $\mathcal{S}_D = 2.40$ to $1.22$; $\rho = -0.96$, $p <
-10^{-5}$). Because the total granule-cell activation stays near 8\% across excitability levels, this decline is driven almost
+10^{-5}$). Because the total GC activation stays near 8\% across excitability levels, this decline is driven almost
 entirely by a loss of output decorrelation, the mean pairwise correlation between output patterns rising from $0.14$ to $0.55$,
 rather than by any change in activation. Since the role of iGCs is thought to be the modulation of network activity rather than
 the encoding of information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is the separation achieved by
@@ -701,9 +702,9 @@ turn the CA3 into a separator, but pushes it toward separation.
 \subsection{Enhanced separation is driven mainly by increased sparsity}\label{sec:res_sparsity}
 
 Figure~\ref{fig:sparsity_gini} shows that the sparsity indices of both the DG and the CA3 increase with neurogenesis and with the
-progressive excitation of the iGCs, reproducing the central result of \citet{mchughAdultborn2022}, where adult-born granule cells
+progressive excitation of the iGCs, reproducing the central result of \citet{mchughAdultborn2022}, where adult-born GCs
 promote population sparsity throughout the hippocampus. Across the ten excitability levels, the Gini index rose monotonically for
-the whole granule-cell population (from $0.93$ to $0.96$; Spearman $\rho = +0.99$, $p < 10^{-6}$) and for the pCA3 cells (from
+the whole GC population (from $0.93$ to $0.96$; Spearman $\rho = +0.99$, $p < 10^{-6}$) and for the pCA3 cells (from
 $0.74$ to $0.78$; $\rho = +0.99$, $p < 10^{-6}$), each above its control value. The Gini index is shown here; the Hoyer measure,
 computed for cross-validation, follows the same trend (Online Resource 1, Figure S2).
 
@@ -763,16 +764,16 @@ across both the DG and CA3.
 
 \section{Discussion}\label{discussion}
 
-Previous models of adult neurogenesis and pattern separation have been confined to the dentate gyrus \citep{chavlisDendrites2017,
+Previous models of adult neurogenesis and pattern separation have been confined to the DG \citep{chavlisDendrites2017,
 kimEffect2024, yangDynamic2025}, leaving open whether the circuit-wide sparsification observed \textit{in vivo}
 \citep{mchughAdultborn2022} follows from the known DG--CA3 microcircuitry. In the  model built here, the DG reproduces the
 division of roles reported by \citet{kimEffect2024}, the mGCs separating their inputs while the iGCs integrate them, with
 separation improving through sparser coding \citep{chavlisDendrites2017}. The same computation, together with the interneuron
 recruitment it drives, extends to CA3, whose activity also becomes sparser, consistent with a modulatory rather than an encoding
-role for immature granule cells \citep{mchughAdultborn2022, folszAdultborn2023}.
+role for iGCs \citep{mchughAdultborn2022, folszAdultborn2023}.
 
 In agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited inhibitory interneurons in both the DG and CA3, the
-circuit counterpart of the increased granule-cell population sparsity of Section~\ref{sec:res_sparsity}. Two features of the model
+circuit counterpart of the increased GC population sparsity of Section~\ref{sec:res_sparsity}. Two features of the model
 response differ from the \textit{in vivo} findings: the mGCs showed a net excitation rather than the suppression expected of a
 principal cell, and the pCA3 cells showed a small inhibition, for which \citet{mchughAdultborn2022} reported no effect. The
 area-level recordings of that study could not separate the inhibitory contributions of the HIPPs and the BCs, so the divergence
@@ -781,16 +782,16 @@ between the two DG interneuron populations cannot be adjudicated against their d
 Neither the direct iGC$\to$mGC inhibitory synapse nor the feedforward and feedback inhibition triggered by the pulse suppressed
 the mGCs. This residual excitation suggests that the iGC$\to$mGC interaction is captured only in part, and that an inhibitory
 contribution is missing, plausibly from interneuron types absent from the reduced circuit: at least 13 morpho-physiological
-interneuron types have been distinguished in the dentate gyrus \citep{degroInterneuron2022}, against the two represented here.
+interneuron types have been distinguished in the DG \citep{degroInterneuron2022}, against the two represented here.
 
 Several simplifications bound these results. Each neuron is reduced to a single compartment, so the dendritic processing that
-controls granule-cell sparsity and separation \citep{chavlisDendrites2017}, and that varies across granule-cell subtypes
-\citep{maoExcitatory2025}, is not represented. The interneuron repertoire is minimal, comprising a single basket-cell and hilar
+controls GC sparsity and separation \citep{chavlisDendrites2017}, and that varies across GC subtypes
+\citep{maoExcitatory2025}, is not represented. The interneuron repertoire is minimal, comprising a single BC and HIPP
 type in the DG and one inhibitory type in CA3 \citep{kopsickFormation2024}, a likely source of the unresolved mGC response.
 Synaptic weights are fixed, leaving out activity-dependent plasticity; all synaptic delays are fixed at \SI{1}{\milli\second}, so
 the response latencies are not directly comparable with experiment (Section~\ref{sec:res_activation}); and the reduced scale of
 the network requires a uniform synaptic scaling factor to sustain activity. A further limitation, shared with most computational
-models of adult neurogenesis, is that the immature granule cells are represented as a single static population, though they change
+models of adult neurogenesis, is that the iGCs are represented as a single static population, though they change
 continuously as they mature; fixing their properties cannot capture that progression so relevant to their nature.
 
 The effects on CA3 require further investigation. Because its synapses are held fixed here, the model cannot address how adult
@@ -804,10 +805,10 @@ kopsickFormation2024, koSystems2025}.
 \bmhead{Supplementary information}
 
 Additional supporting results are provided in Online Resource 1, which reports the \textit{in vivo} and model firing rates and
-activation levels for every cell type (Table S1), the pattern separation of the mature granule cells resolved by input similarity
+activation levels for every cell type (Table S1), the pattern separation of the mGCs resolved by input similarity
 (Figure S1), the population sparsity measured with the Hoyer index as a cross-validation of the Gini results (Figure S2), the
-orthogonalization of the mature granule-cell output (Figure S3), and the population sparsity immediately before and after direct
-immature granule cell activation for each excitability level (Figure S4).
+orthogonalization of the mGC output (Figure S3), and the population sparsity immediately before and after direct
+iGC activation for each excitability level (Figure S4).
 
 \bmhead{Acknowledgements}
 

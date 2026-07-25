@@ -1,4 +1,4 @@
-\begin{thebibliography}{49}
+\begin{thebibliography}{50}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{{#1}}
 \providecommand{\urlprefix}{URL }
@@ -215,6 +215,12 @@ Nelder JA, Mead R (1965) A {{Simplex Method}} for {{Function Minimization}}.
 Pak S, Jang D, Lee J, et~al (2022) Hippocampal interlamellar cell--cell
   connectome that counts. Journal of Cellular Physiology 237(11):4037--4048.
   \doi{10.1002/jcp.30868}
+
+\bibitem[{Piatti et~al.(2013)Piatti, Ewell, and
+  Leutgeb}]{piattiNeurogenesis2013}
+Piatti VC, Ewell LA, Leutgeb JK (2013) Neurogenesis in the dentate gyrus:
+  Carrying the message or dictating the tone. Frontiers in Neuroscience 7.
+  \doi{10.3389/fnins.2013.00050}
 
 \bibitem[{Rolls(2013)}]{rollsMechanisms2013}
 Rolls ET (2013) The mechanisms for pattern completion and pattern separation in
