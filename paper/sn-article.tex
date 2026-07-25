@@ -104,13 +104,13 @@
 
 \begin{document}
 
-\title[Article Title]{Adult neurogenesis promotes pattern separation and sparsity beyond the dentate gyrus in a spiking DG--CA3 model}
+\title[Adult neurogenesis promotes pattern separation and sparsity beyond the dentate gyrus in a spiking DG--CA3 model]{Adult neurogenesis promotes pattern separation and sparsity beyond the dentate gyrus in a spiking DG--CA3 model}
 
-\author[1]{\fnm{Marlon} \sur{Valmórbida Cendron}}\email{marlonvcendron@gmail.com}
+\author*[1]{\fnm{Marlon} \sur{Valmórbida Cendron}}\email{marlonvcendron@gmail.com}
 
-\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}%\email{wilfredoblanco@uern.br}
+\author[2]{\fnm{Wilfredo} \sur{Blanco Figuerola}}\email{wilfredoblanco@uern.br}
 
-\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}%\email{barbosa.flaviof@gmail.com}
+\author[1]{\fnm{Flávio} \sur{Freitas Barbosa}}\email{barbosa.flaviof@gmail.com}
 
 \affil[1]{\orgdiv{Laboratory for Memory and Cognition Studies, Department of Psychology}, \orgname{Federal University of Paraíba}, \orgaddress{\city{João Pessoa}, \postcode{58051900}, \country{Brazil}}}
 
@@ -121,7 +121,7 @@
 \abstract{The dentate gyrus (DG) transforms similar inputs into more distinct representations, a computation termed pattern
 separation, and is one of the few brain regions that generate new neurons throughout adulthood. These adult-born granule cells
 pass through an immature, highly excitable stage, and activating them \textit{in vivo} recruits inhibitory interneurons and
-increases population sparsity across both the DG and CA3. Whether this circuit-wide effect follows from the known DG--CA3
+increases population sparsity across both the DG and CA3 (Cornu Ammonis area 3). Whether this circuit-wide effect follows from the known DG--CA3
 microcircuitry has not been examined in a biophysically detailed model, and existing models of neurogenesis and pattern separation
 are confined to the DG. Here, a spiking model of the DG--CA3 network was built from the Hippocampome.org knowledge base and
 extended with a population of immature granule cells. Pattern separation and population sparsity were measured while the level of
@@ -162,9 +162,9 @@ themselves \citep{aimoneComputational2016, folszAdultborn2023}. Consistent with 
 \textit{in vivo} that briefly activating immature adult-born GCs recruits inhibitory interneurons throughout the hippocampus and
 increases population sparsity in both the DG and CA3, pointing to a circuit-level mechanism by which a small population of new
 cells could regulate activity well beyond the DG\@. Similarly, \citet{koSystems2025} showed that adult neurogenesis drives the
-reorganization of hippocampal engram circuitry as memories are consolidated, remodeling the DG--CA3--CA1 network so that its
-representations generalize over time. These results show that iGCs have important effects across the hippocampus network, not
-being restricted to a local function in the DG only.
+reorganization of hippocampal engram circuitry as memories are consolidated, remodeling the DG--CA3--CA1 (Cornu Ammonis area 1)
+network so that its representations generalize over time. These results show that iGCs have important effects across the
+hippocampus network, not being restricted to a local function in the DG only.
 
 Given the difficulty of experimentation in the DG and the complexity of information processed in the hippocampus, computational
 models have been invaluable for understanding the role of neurogenesis~\citep{aimoneComputational2016}. Existing models of
@@ -186,13 +186,13 @@ encoders confined to the DG\@.
 
 \subsection{Network architecture}\label{sec:network_architecture}
 
-The DG-CA3 network architecture, shown in Figure~\ref{fig:diagram-network}, was built primarily upon the models of
+The DG--CA3 network architecture, shown in Figure~\ref{fig:diagram-network}, was built primarily upon the models of
 \citet{chavlisDendrites2017, kimAdult2024, kopsickFormation2024, yangDynamic2025} and reproduced at a scale of $\frac{1}{500}$ of
 the rat hippocampus, the per-population cell counts being listed in Table~\ref{tab:neuron_counts}. The neuron and synapse models,
 together with the cell counts and connectivity, were adapted from Hippocampome.org, an open-access knowledge base that
 consolidates multiple experimental sources on the hippocampal formation \citep{wheelerHippocampomeorg2023}.
 
-The model included the core excitatory and inhibitory cell types of the DG-CA3 network underlying pattern separation and
+The model included the core excitatory and inhibitory cell types of the DG--CA3 network underlying pattern separation and
 completion: in the DG, GCs, mossy cells (MCs), basket cells (BCs) and hilar perforant path-associated cells (HIPPs); in CA3,
 excitatory pyramidal cells (pCA3) and inhibitory interneurons (iCA3). Although both regions contain many additional interneuron
 subtypes, several of which are also characterized in
@@ -208,11 +208,11 @@ Table S1).
 
 \begin{figure}[tbp]
     \centering
-    \includegraphics[width=\linewidth]{Fig1.eps}
+    \includegraphics[width=\linewidth]{Fig1.pdf}
     \caption{DG--CA3 network architecture. Network input is provided by EC neurons. In the DG, the perforant path terminates in
         the molecular layer, where the dendrites of DG neurons are located. The granule cell layer comprises iGCs, mGCs and BCs,
         whereas the hilus contains MCs and HIPPs. The CA3 region comprises the pCA3 and iCA3 cells. Excitatory synapses are
-        represented by arrows, whereas inhibitory synapses are represented by circles.}\label{fig:diagram-network}
+        represented by arrows, whereas inhibitory synapses are represented by circles}\label{fig:diagram-network}
 \end{figure}
 
 The network receives input from a population of ($N_{EC} = 400$) EC neurons~\citep{amaralChapter1990,
@@ -231,8 +231,7 @@ connections with HIPPs and MCs.
 
 iGCs are characterized by electrophysiological properties distinct from the mGCs that make them more excitable than the mGCs.
 Furthermore, to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a percentage $x_{EC
-\to iGC}$ of the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs
-(Table~\ref{tab:synapse_params}). Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
+\to iGC}$ of the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs. Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
 the model includes an inhibitory synapse from iGCs onto mGCs.  Because Hippocampome.org~\citep{wheelerHippocampomeorg2023} does
 not characterize iGCs, six of the nine iGC parameters were fitted to electrophysiological data reported
 by~\citet{espositoNeuronal2005}. Parameter fitting was performed using the \citet{nelderSimplex1965} simplex method by minimizing
@@ -267,8 +266,28 @@ Tables~\ref{tab:izhikevich_neuron_params} and~\ref{tab:synapse_params}. For each
 \SI{300}{\milli\second} to reach a steady state, and its activity was then recorded over the following \SI{1000}{\milli\second}.
 Synaptic connections remained fixed throughout.
 
-% ⚠️ TODO before submission: insert table here without using \input, single column
-\input{../thesis/tabelas/neuron_counts.tex}
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\makebox[\linewidth]{{\footnotesize\setlength{\tabcolsep}{3pt}%
+\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Cell}
+  & \shortstack{\includegraphics[height=1.3em]{pp.png} \\ \textbf{EC}}
+  & \shortstack{\includegraphics[height=1.3em]{mgc.png} \\ \textbf{mGC}}
+  & \shortstack{\includegraphics[height=1.3em]{igc.png} \\ \textbf{iGC}}
+  & \shortstack{\includegraphics[height=1.3em]{mc.png} \\ \textbf{MC}}
+  & \shortstack{\includegraphics[height=1.3em]{hipp.png} \\ \textbf{HIPP}}
+  & \shortstack{\includegraphics[height=1.3em]{bc.png} \\ \textbf{BC}}
+  & \shortstack{\includegraphics[height=1.3em]{pca3.png} \\ \textbf{pCA3}}
+  & \shortstack{\includegraphics[height=1.3em]{ica3.png} \\ \textbf{iCA3}} \\
+\midrule
+\textbf{N} & 400 & 1900 & 100 & 100 & 60 & 60 & 600 & 60 \\
+\bottomrule
+\end{tabular}}}
+\caption{Neuronal population size (N)}\label{tab:neuron_counts}
+\vspace{-16pt}
+\end{table}
 
 \subsection{Neuron model}\label{sec:neuron_model}
 
@@ -305,8 +324,26 @@ u \gets u + d
 When $V_m$ reaches the peak value $V_{\text{peak}}$, a spike is emitted, $V_m$ is reset to the after-spike potential
 $V_{\min}$, and the recovery variable is incremented by $d$, which makes the following spikes harder to elicit.
 
-% ⚠️ TODO before submission: insert table here without using \input, span double column
-\input{../thesis/tabelas/izhikevich.tex}
+\begin{table*}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Cell}} & \textbf{$k$} & \textbf{$a$} & \textbf{$b$} & \textbf{$d$} & \textbf{$C_m$} & \textbf{$V_r$} & \textbf{$V_t$} & \textbf{$V_{min}$} & \textbf{$V_{peak}$} \\
+ & (nS/mV) & (ms$^{-1}$) & (nS) & (pA) & (pF) & (mV) & (mV) & (mV) & (mV) \\
+\midrule
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & 0.45 & 0.003 & 24.48 & 50 & 38 & -77.4 & -44.9 & -66.47 & 15.49 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & 0.139 & 0.002 & -1.877 & 12.149 & 24.6 & -63.66 & -38.41 & -48.2 & 83.5 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & 1.5 & 0.004 & -20.84 & 117 & 258 & -63.67 & -37.11 & -47.98 & 28.29 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & 0.01 & 0.004 & -2 & 40.52 & 58.7 & -70 & -50 & -75 & 90 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & 0.81 & 0.097 & 1.89 & 553 & 208 & -61.02 & -37.84 & -36.23 & 14.08 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & 0.79 & 0.008 & -10 & 588 & 186 & -63.2 & -33.6 & -38.87 & 35.86 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & 1 & 0.004 & -18.26 & 12 & 45 & -57.51 & -23.38 & -47.56 & 18.45 \\
+\bottomrule
+\end{tabular}}
+\caption{Izhikevich model parameters per cell type}\label{tab:izhikevich_neuron_params}
+\end{table*}
 
 \subsection{Synapse model}\label{sec:synapse_model}
 
@@ -353,15 +390,62 @@ the network would otherwise fall silent. The synaptic currents $I_{syn}$ reachin
 of its membrane equation (Equation~\ref{eq_izhikevich_1}).
 
 
-% ⚠️ TODO before submission: insert table here without using \input, span double column
-\input{../thesis/tabelas/sinapses.tex}
+\begin{table*}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Presynaptic}} & \multirow{2}{*}{\textbf{Postsynaptic}} & \multirow{2}{*}{\textbf{Connection}} & $P$ & \textbf{$g$} & \textbf{$\tau_d$} & \textbf{$\tau_r$} & \textbf{$\tau_f$} & \textbf{$U$} \\
+ & & & (\%) & (nS) & (ms) & (ms) & (ms) &  \\
+\midrule
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & Random & 8 & 1.655 & 5.333 & 266.239 & 18.714 & 0.27 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & Random & 0.8--8* & 1.655 & 5.333 & 266.239 & 18.714 & 0.27 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & Random & 20 & 1.522 & 4.671 & 319.835 & 57.766 & 0.204 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & Random & 25 & 1.406 & 3.849 & 144.415 & 48.2 & 0.214 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Random & 12 & 1.5 & 6.55 & 258.318 & 53.478 & 0.184 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pp.png}}}$ EC & $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & Random & 12 & 2 & 3.602 & 257.468 & 35.904 & 0.21 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & Random & 40 & 2.713 & 5.347 & 98.583 & 27.479 & 0.151 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & Random & 10 & 1.805 & 5.181 & 362.814 & 48.986 & 0.15 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & Lamellar & 100 & 4.258 & 5.566 & 31.265 & 4.278 & 0.497 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Lamellar & 80 & 1.5 & 6.657 & 278.286 & 78.584 & 0.155 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & Lamellar & 50 & 3 & 3.915 & 218.934 & 43.274 & 0.176 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & Random & 10 & 0.524 & 3.915 & 218.934 & 43.274 & 0.176 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & Random & 40 & 2.713 & 5.347 & 98.583 & 27.479 & 0.151 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & Random & 10 & 1.805 & 5.181 & 362.814 & 48.986 & 0.15 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & Lamellar & 100 & 4.258 & 5.566 & 31.265 & 4.278 & 0.497 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Lamellar & 80 & 1.5 & 6.657 & 278.286 & 78.584 & 0.155 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & Lamellar & 50 & 3 & 3.915 & 218.934 & 43.274 & 0.176 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & Cross-lamellar & 0.2 & 1.894 & 5.357 & 166.162 & 20.224 & 0.304 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & $\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & Cross-lamellar & 0.2 & 1.894 & 5.357 & 166.162 & 20.224 & 0.304 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & Cross-lamellar & 5 & 0.068 & 4.257 & 149.329 & 71.642 & 0.245 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & Cross-lamellar & 50 & 2.376 & 4.824 & 358.431 & 54.872 & 0.181 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & $\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & Cross-lamellar & 100 & 1.996 & 3.396 & 117.365 & 69.316 & 0.255 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & $\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & Random & 30 & 3.202 & 8.935 & 159.143 & 10.396 & 0.278 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP & $\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & Random & 10 & 3.202 & 8.935 & 159.143 & 10.396 & 0.278 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & $\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ mGC & Lamellar & 100 & 4.351 & 3.543 & 103.876 & 12.347 & 0.332 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ BC & $\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ iGC & Lamellar & 10 & 4.351 & 3.543 & 103.876 & 12.347 & 0.332 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Random & 2.5 & 0.9 & 9.516 & 278.258 & 27.513 & 0.172 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & $\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ MC & Lamellar & 10 & 2.035 & 4.297 & 359.116 & 40.457 & 0.236 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & Random & 20 & 2 & 4.525 & 275.604 & 23.321 & 0.189 \\
+$\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Random & 30 & 2 & 7.793 & 416.282 & 20.63 & 0.203 \\
+\bottomrule
+\end{tabular}}
+\caption{Parameters of the synapses between neuronal populations. Random connections occur
+                    between all cells of both populations; lamellar connections occur between cells of
+                    the same lamella; cross-lamellar connections occur between cells of one lamella and  
+                    all others. The connection probability $P$ refers to the percentage of connections
+                    between neuronal populations according to the connection condition.
+                    * iGCs were simulated with multiple different EC$\to$iGC excitability levels}
+\label{tab:synapse_params}
+\end{table*}
 
 \subsection{Pattern separation}\label{sec:pattern_separation}
 
 Pattern separation was quantified following \citet{kimEffect2024}. To probe its dependence on input similarity and on adult
 neurogenesis, 11 variants of the network were compared: a control without neurogenesis ($N_{mGC} = 2000$) and 10 with neurogenesis
 ($N_{mGC} = 1900$, $N_{iGC} = 100$) at increasing levels of EC$\to$iGC excitability, as illustrated in
-Figure~\ref{fig:diagram-input-output}. This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC
+Figure~\ref{fig:pipeline}. This level, ranging from 10\% to 100\% in increments of 10\%, fixes the EC to iGC
 connection probability as a percentage relative to that of the mGCs: with 100\% matching the mGC connection probability, and 10\%
 meaning one tenth of that probability, and so represents the still-incomplete dendritic integration of the immature cells. Because
 iGCs acquire their entorhinal input only gradually over the 4--7 week maturation window \citep{espositoNeuronal2005,
@@ -376,7 +460,7 @@ X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
 
 \begin{figure*}[!tp]
     \centering
-    \includegraphics[width=\linewidth]{diagrama_entrada_saida.pdf}%
+    \includegraphics[width=\linewidth]{Fig2.pdf}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
     \textbf{a.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly and
     the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating neurons.
@@ -389,7 +473,7 @@ X)\%$ to previously inactive neurons, which preserves the 10\% activity level.
     stabilizes; the remainder corresponds to the output pattern.
     \textbf{e.} The output pattern, illustrated here for the mGC
     population, consists of a binary vector with value 1 for the index of each neuron that spiked at least once during the
-    \SI{1000}{\milli\second} interval.}\label{fig:pipeline}%
+    \SI{1000}{\milli\second} interval}\label{fig:pipeline}%
     \phantomsubcaption\label{fig:input-gen}%
     \phantomsubcaption\label{fig:models}%
     \phantomsubcaption\label{fig:ec-raster}%
@@ -537,16 +621,14 @@ against \SI{1.0}{\hertz} for mGCs), although the shape of the distribution diffe
 and population sparsity fell within the ranges compiled from the literature (Online Resource 1, Table S1), which is taken as
 evidence that the network behaves plausibly.
 
-% ⚠️ TODO before submission: use EPS images
-
 \begin{figure}[!tbp]
     \centering
-    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/baseline_panel.pdf}%
+    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{Fig3.pdf}%
     \caption{Baseline network activity. \textbf{(a)} Raster plot of the spike times of the EC, iGC, mGC and pCA3 populations in a
         representative simulation, over the \SIrange{300}{1300}{\milli\second} recording window (the first \SI{300}{\milli\second}
         discarded for stabilization). \textbf{(b)} Kernel-density estimate of the per-cell firing-rate distribution in logarithmic
         scale of the mGC and iGC populations; the dashed lines mark the population medians (mGC, \SI{1}{\hertz}; iGC,
-        \SI{3}{\hertz}).}\label{fig:results-1}%
+        \SI{3}{\hertz})}\label{fig:results-1}%
     \phantomsubcaption\label{fig:raster}%
     \phantomsubcaption\label{fig:firing_rate}%
 \end{figure}
@@ -597,18 +679,16 @@ and pattern completion~\citep{rollsMechanisms2013, kopsickFormation2024} rather 
 turn the CA3 into a separator, but pushes it toward separation.
 
 
-% ⚠️ TODO before submission: use EPS images
-
 \begin{figure*}[!tp]
     \centering
-    \includegraphics[width=\linewidth]{figures/results_panel.pdf}%
+    \includegraphics[width=\linewidth]{Fig4.pdf}%
     \caption{Effects of adult neurogenesis and iGC excitability on activation, pattern separation and sparsity in the DG and CA3.
         In every panel the horizontal axis is the EC$\to$iGC excitability level (10--100\%), each point is the mean over the 30
         pattern sets, shaded bands show the SEM and the dashed black line marks the control network without neurogenesis.
         \textbf{(a)} Mean population activation of DG GCs\@. \textbf{(b)} Pattern separation degree $\mathcal{S}_D$ of DG GCs; the
         grey dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs.
         \textbf{(c)} Mean population activation of the pCA3 cells. \textbf{(d)} Pattern separation degree of the pCA3 cells.
-        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells.}\label{fig:results-2}%
+        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells}\label{fig:results-2}%
     \phantomsubcaption\label{fig:dg-activity}%
     \phantomsubcaption\label{fig:dg-separation}%
     \phantomsubcaption\label{fig:ca3-activity}%
@@ -666,18 +746,16 @@ the steady-state sparsification reported in Section~\ref{sec:res_sparsity}; the 
 excitability levels is given in Online Resource 1, Figure S4. Overall, direct iGC activation recruited inhibitory interneurons
 across both the DG and CA3.
 
-% ⚠️ TODO before submission: use EPS images
-
 \begin{figure}[tbp]
     \centering
-    \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{figures/psth.jpg}%
+    \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{Fig5.pdf}%
     \caption{Circuit-wide response to direct iGC activation. PSTHs of the population firing rate for each cell type, expressed as
         a z-score relative to a pre-pulse baseline (Equation~\ref{eq:psth_z}) and aligned to the onset of the
         \SI{5}{\milli\second} depolarizing current injected into half of the iGCs (shaded band). Bins are \SI{1.5}{\milli\second}
         wide and span \SIrange{-60}{60}{\milli\second} relative to the pulse; data are pooled over all EC$\to$iGC excitability
         variants and all trials. Vertical scales differ across panels. The directly driven iGCs (top) dominate during the pulse;
         downstream, the MCs, BCs and iCA3 cells show strong excitation, the pCA3 cells and HIPPs a weaker inhibition, and the mGCs
-        a small biphasic response.}\label{fig:psth}
+        a small biphasic response}\label{fig:psth}
 \end{figure}
 
 
@@ -723,7 +801,11 @@ kopsickFormation2024, koSystems2025}.
 
 \bmhead{Supplementary information}
 
-TODO
+Additional supporting results are provided in Online Resource 1, which reports the \textit{in vivo} and model firing rates and
+activation levels for every cell type (Table S1), the pattern separation of the mature granule cells resolved by input similarity
+(Figure S1), the population sparsity measured with the Hoyer index as a cross-validation of the Gini results (Figure S2), the
+orthogonalization of the mature granule-cell output (Figure S3), and the population sparsity immediately before and after direct
+immature granule cell activation for each excitability level (Figure S4).
 
 \bmhead{Acknowledgements}
 
@@ -731,7 +813,38 @@ Not applicable.
 
 \section*{Declarations}
 
+\bmhead{Funding}
+No funding was received to assist with the preparation of this manuscript.
+
+\bmhead{Competing interests}
+The authors declare no competing interests.
+
+\bmhead{Ethics approval and consent to participate}
+Not applicable. This study is based entirely on computational simulations and did not involve human participants, human samples,
+or animals.
+
+\bmhead{Consent for publication}
 Not applicable.
+
+\bmhead{Data availability}
+The datasets generated and analysed during the current study are available in a public repository at
+\url{https://github.com/MarlonVCendron/neurogenesis}.
+
+\bmhead{Materials availability}
+Not applicable.
+
+\bmhead{Code availability}
+The source code for the model, simulations, and analyses is publicly available at
+\url{https://github.com/MarlonVCendron/neurogenesis}.
+
+\bmhead{Author contributions}
+Conceptualization: M.V.C., W.B.F., F.F.B.; Methodology and Software: M.V.C.; Formal analysis and Investigation: M.V.C.; Writing -
+original draft preparation: M.V.C.; Writing - review and editing: W.B.F., F.F.B.; Supervision: W.B.F., F.F.B. All authors read and
+approved the final manuscript.
+
+\bmhead{LLM use disclosure}
+A large language model (LLM) was used to assist in writing the figure-plotting code. All code and figures were reviewed
+and validated by the authors, who take full responsibility for the content of this work.
 
 % Some journals require declarations to be submitted in a standardised format. Please check the Instructions for Authors of the journal to which you are submitting to see if you need to complete this section. If yes, your manuscript must contain the following sections under the heading `Declarations':
 
