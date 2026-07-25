@@ -183,8 +183,6 @@ the iGCs recruited inhibitory interneurons throughout the DG and CA3 and increas
 support the view of iGCs as modulators that regulate activity across the hippocampal network rather than as
 encoders confined to the DG\@.
 
-% TODO introduction
-
 \section{Methods}\label{methods}
 
 \subsection{Network architecture}\label{sec:network_architecture}
@@ -206,8 +204,6 @@ plausible ranges. After the parameters had been gathered from Hippocampome.org, 
 neuron and synapse parameters, together with the selected connection probabilities, was adjusted within biologically reasonable
 bounds to reproduce the \textit{in vivo} firing rate and population sparsity associated with each cell type (Online Resource 1,
 Table S1).
-
-% TODO: finish the in vivo table and add it to supplementary info
 
 \begin{figure}[tbp]
     \centering
@@ -234,13 +230,16 @@ connections with HIPPs and MCs.
 
 iGCs are characterized by electrophysiological properties distinct from the mGCs that make them more excitable than the mGCs.
 Furthermore, to simulate their still-incomplete circuit integration, iGCs receive EC afferent inputs at only a percentage $x_{EC
-\to iGC}$ of the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs. Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so
-the model includes an inhibitory synapse from iGCs onto mGCs.  Because Hippocampome.org~\citep{wheelerHippocampomeorg2023} does
-not characterize iGCs, six of the nine iGC parameters were fitted to electrophysiological data reported
-by~\citet{espositoNeuronal2005}. Parameter fitting was performed using the \citet{nelderSimplex1965} simplex method by minimizing
-the squared error between the model output and the number and timing of the spikes evoked by a range of depolarizing current
-steps. The membrane capacitance, resting potential and spike peak voltage were held fixed
-(Table~\ref{tab:izhikevich_neuron_params}).
+\to iGC}$ of the connection probability between the EC and mGCs, and also receive reduced inhibitory inputs from BCs and HIPPs.
+Additionally, some iGCs are known to also directly inhibit mGCs~\citep{lunaAdultborn2019}, so the model includes an inhibitory
+synapse from iGCs onto mGCs. The MC$\to$iGC projection is left unscaled, since MC axons terminate on the proximal dendrites in the
+inner molecular layer while the EC afferents terminate distally \citep{amaralDentate2007}, and the dendrites of an adult-born GC
+extend outwards as it matures \citep{zhaoDistinct2006}, reaching the MC input before the EC one.  Because
+Hippocampome.org~\citep{wheelerHippocampomeorg2023} does not characterize iGCs, six of the nine iGC parameters were fitted to
+electrophysiological data reported by~\citet{espositoNeuronal2005}. Parameter fitting was performed using the
+\citet{nelderSimplex1965} simplex method by minimizing the squared error between the model output and the number and timing of the
+spikes evoked by a range of depolarizing current steps. The membrane capacitance, resting potential and spike peak voltage were
+held fixed (Table~\ref{tab:izhikevich_neuron_params}).
 
 BCs ($N_{BC} = 60$) are inhibitory cells that ensure sparse GC activation through winner-take-all competition among them
 \citep{coultripCortical1992, chavlisDendrites2017, kimAdult2024}, such that only the most active GCs remain active in a lamella,
@@ -608,9 +607,6 @@ Resource 1).
 
 \section{Results}\label{results}
 
-
-% validation -> separation -> sparsity -> activation .
-
 Before the effects of neurogenesis were analysed, it was first verified that the network settles into a stable and biologically
 plausible behavior. Figure~\ref{fig:raster} shows the spiking activity of the EC, iGC, mGC and pCA3 populations during a
 representative simulation. Driven by the EC input, the mGCs fire sparsely and in short, synchronized bouts, with only a small
@@ -651,9 +647,6 @@ $\to$ mGC\@. For increasing levels of iGC excitability, as mGC activity decrease
 approximately 8\% of the entire GC population (iGCs and mGCs counted together) stays active, similarly to the control model
 without neurogenesis.
 
-% TODO: add more references to the encoder x modulator theory
-% TODO: better branching to CA3
-
 This lower activation seen in the mGC population with adult neurogenesis directly affects pattern separation: with fewer neurons
 active for a given pattern, the sparser coding leads to an increase in the mGC pattern separation degree, which rose monotonically
 with iGC excitability from $\mathcal{S}_D = 2.40$ in the control network to $5.80$ at full excitability (Spearman $\rho = 1.00$,
@@ -668,10 +661,6 @@ entirely by a loss of output decorrelation, the mean pairwise correlation betwee
 rather than by any change in activation. Since the role of iGCs is thought to be the modulation of network activity rather than
 the encoding of information~\citep{mchughAdultborn2022, folszAdultborn2023}, the relevant quantity is the separation achieved by
 the encoding population, the mGCs, which is enhanced by neurogenesis.
-
-% TODO: not sure that the increase in pattern separation for CA3 is because of the mGCS
-% TODO: investigate why pca3 decrease activity if the activity of the dg is the same
-% Same GC activation (8%), but iGCs fire more than mGCs, then why does pCA3 activity decrease?
 
 The same analysis applied to the pCA3 population (Figures~\ref{fig:ca3-activity} and~\ref{fig:ca3-separation}) shows that its mean
 activation also decreases with neurogenesis and iGC excitability, from 29.7\% to 24.1\%, while its separation degree increases in
@@ -708,8 +697,6 @@ the whole GC population (from $0.93$ to $0.96$; Spearman $\rho = +0.99$, $p < 10
 $0.74$ to $0.78$; $\rho = +0.99$, $p < 10^{-6}$), each above its control value. The Gini index is shown here; the Hoyer measure,
 computed for cross-validation, follows the same trend (Online Resource 1, Figure S2).
 
-% TODO include in online resource the plot for orthogonalization
-
 The separation degree depends on both the orthogonalization degree and the activation degree of the patterns
 (Equations~\ref{eq:dp}--\ref{eq:sd}), so the mGCs could separate better by making their outputs sparser, more decorrelated, or
 both. Because the two combine multiplicatively, the change in $\log \mathcal{S}_D$ splits into an additive contribution from each.
@@ -726,7 +713,7 @@ Directly injecting current into half of the iGCs propagated through the entire D
 Figure~\ref{fig:psth}, pooled over all EC$\to$iGC excitability variants.
 
 Within the DG, the MCs were strongly excited and in turn drove strong excitation to the BCs. The BCs responded with a large,
-significant increase in firing, organized as a synchronous population rhythm at $\sim\SI{123}{\hertz}$. The fast-spiking BCs are
+significant increase in firing, organized as a synchronous population rhythm at $\sim\SI{127}{\hertz}$. The fast-spiking BCs are
 able to sustain a rhythm of this frequency, as their firing rate reaches up to $\sim\SI{230}{\hertz}$ \textit{in vivo}
 \citep{lubkeSpecialized1998}.
 
@@ -772,17 +759,54 @@ separation improving through sparser coding \citep{chavlisDendrites2017}. The sa
 recruitment it drives, extends to CA3, whose activity also becomes sparser, consistent with a modulatory rather than an encoding
 role for iGCs \citep{mchughAdultborn2022, folszAdultborn2023}.
 
+% TODO remove word regime
+
+The gain in mGC separation follows from a redistribution of activity within the GC population. Increasing the EC$\to$iGC
+connectivity raises the iGC activation, and the iGCs drive the BCs and the HIPPs both directly and through the MCs; the resulting
+inhibition lowers the mGC activation, and the sparser mGC output raises its separation degree. Since the total GC activation stays
+close to the control value at every connectivity level, the DG does not become less active, and the activity given up by the mGCs
+is taken up by the iGCs. The separation degree measured over the whole GC population moves in the opposite direction for the same
+reason: the iGCs are few and are active for a large share of the patterns, so they are shared between patterns, and pooling them
+with the mGCs adds correlation to the output. That decline is accounted for almost entirely by the loss of decorrelation, the
+activation term showing no trend across connectivity levels.\ \citet{kimEffect2024} varied the same quantity and found two states
+divided by a threshold, the separation degree falling below that of a network without iGCs at low synaptic maturity, where the
+reduced innervation of the iGCs lowers their activation enough to withdraw inhibition from the mGCs. No such state appears here,
+the mGC separation degree staying above the control at every level. The difference is consistent with how the two models
+reduce the input to the iGCs: \citet{kimEffect2024} scale the connection probability from the EC and the MCs together, whereas
+here only the EC$\to$iGC probability is scaled and the MC$\to$iGC projection is left intact, so the iGCs retain enough excitatory
+drive to engage the BCs and the HIPPs even at the lowest EC$\to$iGC connectivity.
+
+The pCA3 separation degree rises with neurogenesis but stays below one. Of the two factors combined in Equation~\ref{eq:dp}, it is
+the activation term that holds it there: the pCA3 population is active at 24\% to 30\% against the 10\% of the input patterns, and
+the measure returns values below one for any code denser than its input, whichever way the correlations move. Measured against the
+GC output that drives it rather than against the EC input, the pCA3 code is the more correlated of the two at low EC$\to$iGC
+excitability and the less correlated at high ones, its own output correlation staying between $0.22$ and $0.28$ while that of the
+GC patterns rises from $0.14$ to $0.55$. The balance between the two factors also differs from the one found in the DG, the rise
+in the pCA3 separation degree being divided roughly two to one between the fall in activation and the gain in orthogonalization,
+against a much larger share for activation in the mGCs.
+
 In agreement with \citet{mchughAdultborn2022}, activating the iGCs recruited inhibitory interneurons in both the DG and CA3, the
-circuit counterpart of the increased GC population sparsity of Section~\ref{sec:res_sparsity}. Two features of the model
-response differ from the \textit{in vivo} findings: the mGCs showed a net excitation rather than the suppression expected of a
-principal cell, and the pCA3 cells showed a small inhibition, for which \citet{mchughAdultborn2022} reported no effect. The
-area-level recordings of that study could not separate the inhibitory contributions of the HIPPs and the BCs, so the divergence
-between the two DG interneuron populations cannot be adjudicated against their data.
+circuit counterpart of the increased GC population sparsity of Section~\ref{sec:res_sparsity}. This recruitment was not a uniform
+elevation of firing: of all the populations, only the BCs show a spectral peak standing clearly above the background of their own
+spectrum (Online Resource~1, Figure~S5), so the perisomatic inhibition engaged by the pulse is organized as a population rhythm.
+The resolution set by the analysis window locates that frequency only to within one bin, so it should be taken as approximate. Two
+features of the model response differ from the \textit{in vivo} findings: the mGCs showed a net excitation rather than the
+suppression expected of a principal cell, and the pCA3 cells showed a small inhibition, for which \citet{mchughAdultborn2022}
+reported no effect. The area-level recordings of that study could not separate the inhibitory contributions of the HIPPs and the
+BCs, so the divergence between the two DG interneuron populations cannot be adjudicated against their data.
 
 Neither the direct iGC$\to$mGC inhibitory synapse nor the feedforward and feedback inhibition triggered by the pulse suppressed
 the mGCs. This residual excitation suggests that the iGC$\to$mGC interaction is captured only in part, and that an inhibitory
 contribution is missing, plausibly from interneuron types absent from the reduced circuit: at least 13 morpho-physiological
 interneuron types have been distinguished in the DG \citep{degroInterneuron2022}, against the two represented here.
+
+The size of the effect produced by the pulse depends on how much the iGCs already contribute at baseline. The same current is
+delivered to the same number of iGCs at every level and adds a roughly constant increment to the iGC population rate, while the
+baseline iGC rate rises about elevenfold across the connectivity range, so the pulse raises that rate some thirtyfold at the
+lowest connectivity and about fourfold at the highest. The gain in GC population sparsity produced by the pulse falls over the
+same range (Online Resource~1, Figure~S4). The sparsification that follows a brief activation of adult-born GCs would therefore be
+expected to depend on how far the activated cells have integrated into the circuit, and to be largest for the least mature of
+them.
 
 Several simplifications bound these results. Each neuron is reduced to a single compartment, so the dendritic processing that
 controls GC sparsity and separation \citep{chavlisDendrites2017}, and that varies across GC subtypes
@@ -799,6 +823,11 @@ neurogenesis affects storage and recall in the recurrent CA3 network; introducin
 studied, along with the influence of adult-born cells on the formation and retrieval of CA3 engrams \citep{rollsMechanisms2013,
 kopsickFormation2024, koSystems2025}.
 
+The circuit-wide sparsification reported \textit{in vivo} is reproduced here without synaptic plasticity and without any mechanism
+beyond the DG--CA3 microcircuitry itself: a population of iGCs amounting to 5\% of the GCs is enough to sparsen the mGC code and
+to recruit inhibition as far as the CA3. The DG does not become less active in the process, the activity being redistributed from
+the mGCs to the iGCs rather than removed.
+
 
 \backmatter{}
 
@@ -807,8 +836,9 @@ kopsickFormation2024, koSystems2025}.
 Additional supporting results are provided in Online Resource 1, which reports the \textit{in vivo} and model firing rates and
 activation levels for every cell type (Table S1), the pattern separation of the mGCs resolved by input similarity
 (Figure S1), the population sparsity measured with the Hoyer index as a cross-validation of the Gini results (Figure S2), the
-orthogonalization of the mGC output (Figure S3), and the population sparsity immediately before and after direct
-iGC activation for each excitability level (Figure S4).
+orthogonalization of the mGC output (Figure S3), the population sparsity immediately before and after direct
+iGC activation for each excitability level (Figure S4), and the post-pulse population rate and power spectrum of every cell type
+(Figure S5).
 
 \bmhead{Acknowledgements}
 
