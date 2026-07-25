@@ -12,9 +12,9 @@ import h5py
 from utils.plot_styles import cell_colors
 
 NEG = False
-ALL_LEVELS = False
+ALL_LEVELS = True
 
-RUN_NAME = 'FINAL_opto_june_positive'
+RUN_NAME = 'opto_final_july_positive'
 
 ONSET_TIME_MS = 400
 DURATION_MS   = 30.0 if NEG else 5.0
@@ -158,10 +158,10 @@ def main(group_file_path, neurogenesis_level):
     plt.tight_layout()
 
     sign = 'neg' if NEG else 'pos'
-    output_path = f'figures/plots/optogenetics/frequency_{sign}_{neurogenesis_level}.jpg'
+    output_path = f'figures/plots/optogenetics/frequency_{sign}_{neurogenesis_level}.pdf'
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    plt.savefig(output_path, dpi=300, bbox_inches='tight', format='jpg')
+    plt.savefig(output_path, bbox_inches='tight', format='pdf')
     plt.close()
     print(f'Saved: {output_path}')
 
