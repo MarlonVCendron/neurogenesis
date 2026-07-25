@@ -12,10 +12,6 @@
 \usepackage[round]{natbib}
 \usepackage[hidelinks]{hyperref}
 
-% TODO: remove this gambiarra
-\newcommand{\textcite}[1]{\citet{#1}}
-\providecommand{\parencite}[1]{\citep{#1}}
-
 %% Number figures and tables as S1, S2, ... to mark them as supplementary.
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
@@ -29,8 +25,8 @@
 \maketitle
 
 \noindent
-%% TODO: replace with the article title
-\textbf{Article:} \emph{[Article title]}\\[0.2em]
+\textbf{Article:} \emph{Adult neurogenesis promotes pattern separation and sparsity beyond the dentate gyrus in a spiking
+DG--CA3 model}\\[0.2em]
 \textbf{Journal:} Cognitive Neurodynamics\\[0.2em]
 \textbf{Authors:} Marlon Valmórbida Cendron, Wilfredo Blanco Figuerola, Flávio Freitas Barbosa\\[0.2em]
 
@@ -42,7 +38,123 @@ Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gma
 %% =====================================================================
 %% Table S1 -- in vivo firing rates and population sparsity
 %% =====================================================================
-\input{../thesis/tabelas/firing_rates.tex}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+\textbf{Cell}
+  & \textbf{\textit{In Vivo} Firing Rate (Hz)} & \textbf{Reference}
+  & \textbf{Model Firing Rate (Hz)}
+  & \textbf{\textit{In Vivo} Activation} & \textbf{Reference}
+  & \textbf{Model Activation} \\
+\midrule
+
+
+\multirow[t]{7}{*}{$\vcenter{\hbox{\includegraphics[height=1.5em]{mgc.png}}}$ Mature granule}
+  & 1.2 (0.56--2.38)                        & \citet{mchughAdultborn2022}
+  & \multirow[t]{7}{*}{1.08}
+  & 2--5\%                                  & \citet{galloniRecurrent2022, hainmuellerParallel2018}
+  & \multirow[t]{7}{*}{8.0\%} \\
+  & 0.49                                    & \citet{diamantakiSparse2016}
+  &
+  & 9\%                                     & \citet{goodsmithSpatial2017}
+  & \\
+  & $0.031 \pm 0.096$                       & \citet{zhangSelective2020}
+  & & & & \\
+  & 0.4                                     & \citet{wheelerHippocampomeorg2023}
+  & & & & \\
+  & $0.96 \pm 0.19$                         & \citet{goodsmithDentate2019}
+  & & & & \\
+  & $\approx 0.2$                           & \citet{senzaiExtracellular2016}
+  & & & & \\
+  & $72 \pm 8$\textsuperscript{max}         & \citet{lubkeSpecialized1998}
+  & & & & \\
+\midrule
+
+
+$\vcenter{\hbox{\includegraphics[height=1.5em]{igc.png}}}$ Immature granule
+  & 2.3 (1.6--6.7)                          & \citet{mchughAdultborn2022}
+  & 2.96
+  &                                         &
+  & 63.8\% \\
+\midrule
+
+
+\multirow[t]{4}{*}{$\vcenter{\hbox{\includegraphics[height=1.5em]{mc.png}}}$ Mossy}
+  & 0.84                                    & \citet{wheelerHippocampomeorg2023}
+  & \multirow[t]{4}{*}{3.45}
+  & $\approx 100\%$                         & \citet{danielsonVivo2017}
+  & \multirow[t]{4}{*}{96.7\%} \\
+  & $1.05 \pm 0.07$                         & \citet{goodsmithDentate2019}
+  &
+  & 88\%                                    & \citet{goodsmithSpatial2017}
+  & \\
+  & $\approx 0.8$                           & \citet{senzaiExtracellular2016}
+  & & & & \\
+  & $50 \pm 6$\textsuperscript{max}         & \citet{lubkeSpecialized1998}
+  & & & & \\
+\midrule
+
+$\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP
+  & n/a                                     &
+  & 6.38
+  &                                         &
+  & 100\% \\
+\midrule
+
+\multirow[t]{2}{*}{$\vcenter{\hbox{\includegraphics[height=1.5em]{bc.png}}}$ Basket}
+  & $13.6 \pm 0.8$                          & \citet{liSustained2022}
+  & \multirow[t]{2}{*}{17.35}
+  &                                         &
+  & \multirow[t]{2}{*}{100\%} \\
+  & $230 \pm 15$\textsuperscript{max}       & \citet{lubkeSpecialized1998}
+  & & & & \\
+\midrule
+
+
+\multirow[t]{7}{*}{$\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ CA3 pyramidal}
+  & 0.2                                     & \citet{mizusekiPreconfigured2013}
+  & \multirow[t]{7}{*}{1.17}
+  & 29\%                                    & \citet{goodsmithSpatial2017}
+  & \multirow[t]{7}{*}{30.0\%} \\
+  & 0.5                                     & \citet{kayHippocampal2016}
+  &
+  & 20--30\%                                & \citet{galloniRecurrent2022}
+  & \\
+  & $0.72 \pm 0.51$                         & \citet{lasztocziTerminal2011}
+  & & & & \\
+  & CA3a: 0.4; CA3b: 0.3                    & \citet{olivaRole2016}
+  & & & & \\
+  & 1.2                                     & \citet{mchughAdultborn2022}
+  & & & & \\
+  & $0.92 \pm 0.06$                         & \citet{goodsmithDentate2019}
+  & & & & \\
+  & $\approx 0.6$                           & \citet{senzaiExtracellular2016}
+  & & & & \\
+\midrule
+
+
+\multirow[t]{3}{*}{$\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ CA3 inhibitory}
+  & $20 \pm 7$                              & \citet{tukkerDistinct2013}
+  & \multirow[t]{3}{*}{6.51}
+  &                                         &
+  & \multirow[t]{3}{*}{65.4\%} \\
+  & $17 \pm 7$                              & \citet{laprayBehaviordependent2012}
+  & & & & \\
+  & $8.2 \pm 5.6$                           & \citet{leaoOLM2012}
+  & & & & \\
+\bottomrule
+\end{tabular}}
+\caption{%
+  \textit{In vivo} firing rates and activation (the fraction of active cells) for each cell type, alongside model values.
+  \textit{In vivo} firing rates are mean $\pm$ SD\@. \textsuperscript{max} maximum observed rate. $\approx$ approximate value read
+  from figure. Model firing rates are the mean over active cells and model activation the fraction of active cells; both are from
+  the control network, except the immature granule cells (absent in the control), which are from the neurogenesis model at 50\%
+  EC$\to$iGC excitability}
+\label{tab:firing_rates}
+\end{table}
 
 %% =====================================================================
 %% Figure S1 -- pattern separation resolved by input similarity
@@ -56,7 +168,7 @@ Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gma
         levels. Each point is the mean over the 30 pattern sets and the shaded band shows the standard error of the mean. The grey
         dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs. Separation is
         strongest for the most similar (most overlapping) inputs, and every neurogenesis network separates better than the control
-        across the whole similarity range.}\label{fig:pattern_separation_similarity}
+        across the whole similarity range}\label{fig:pattern_separation_similarity}
 \end{figure}
 
 %% =====================================================================
@@ -67,16 +179,16 @@ Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gma
     \includegraphics[width=0.42\linewidth]{supplementary_figures/sparsity_hoyer.jpg}
     \caption{Population sparsity measured with the Hoyer index, as a
         cross-validation of the Gini results reported in the main text. Each
-        panel shows the Hoyer sparsity of one population --- the whole
+        panel shows the Hoyer sparsity of one population, the whole
         granule-cell population (All GC), the mature granule cells (mGC), the
-        immature granule cells (iGC) and the pyramidal CA3 cells (pCA3) --- as a
+        immature granule cells (iGC) and the pyramidal CA3 cells (pCA3), as a
         function of the EC$\to$iGC excitability level; the shaded bands show the
         standard error of the mean and the dashed line marks the control network
         without neurogenesis (absent for the iGC panel, which has no counterpart
         in the control). As with the Gini index, the sparsity of the All GC, mGC
         and pCA3 populations rises with iGC excitability and stays above the
         control, whereas the iGC population becomes less
-        sparse.}\label{fig:sparsity_hoyer}
+        sparse}\label{fig:sparsity_hoyer}
 \end{figure}
 
 %% =====================================================================
@@ -90,7 +202,7 @@ Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gma
         orthogonalization ($O^{(out)}/O^{(in)}$); the shaded band shows the standard error of the mean and the dashed line marks
         the control network without neurogenesis. The orthogonalization rises with iGC excitability, indicating that the mGC
         outputs become increasingly decorrelated as neurogenesis increases, beyond what the reduction in the number of active
-        cells alone would produce.}\label{fig:mgc_orthogonalization}
+        cells alone would produce}\label{fig:mgc_orthogonalization}
 \end{figure}
 
 %% =====================================================================
@@ -126,11 +238,10 @@ Federal University of Paraíba, João Pessoa, Brazil. E-mail: marlonvcendron@gma
         the Gini index of the mGC, iGC, combined granule-cell (all GC) and pCA3 populations in the \SI{50}{\milli\second} windows
         immediately before (pre) and after (post) the depolarizing pulse, pooled over all runs. Bars show the mean across runs.
         The result of the paired Wilcoxon signed-rank test between the pre and post values is indicated above each pair (ns, not
-        significant; {*}~$p < 0.05$; {**}~$p < 0.01$; {***}~$p < 0.001$).}\label{fig:opto_sparsity}
+        significant; {*}~$p < 0.05$; {**}~$p < 0.01$; {***}~$p < 0.001$)}\label{fig:opto_sparsity}
 \end{figure}
 
 \bibliographystyle{plainnat}
-% TODO: should this bibliography be in the main paper?
 \bibliography{sn-bibliography}
 
 \end{document}
