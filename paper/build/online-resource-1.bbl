@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -186,6 +186,18 @@ Diek~W. Wheeler, Jeffrey~D. Kopsick, Nate Sutton, Carolina Tecuatl,
   Alexander~O. Komendantov, Kasturi Nadella, and Giorgio~A. Ascoli.
 \newblock Hippocampome.org v2.0: A knowledge base enabling data-driven spiking
   neural network simulations of rodent hippocampal circuits, September 2023.
+
+\bibitem[Yuan et~al.(2017)Yuan, Meyer, Benkowitz, Savanthrapadian,
+  {Ansel-Bollepalli}, Foggetti, Wulff, Alcami, Elgueta, and
+  Bartos]{yuanSomatostatinpositive2017}
+Mei Yuan, Thomas Meyer, Christoph Benkowitz, Shakuntala Savanthrapadian, Laura
+  {Ansel-Bollepalli}, Angelica Foggetti, Peer Wulff, Pepe Alcami, Claudio
+  Elgueta, and Marlene Bartos.
+\newblock Somatostatin-positive interneurons in the dentate gyrus of mice
+  provide local- and long-range septal synaptic inhibition.
+\newblock \emph{eLife}, 6:\penalty0 e21105, April 2017.
+\newblock ISSN 2050-084X.
+\newblock \doi{10.7554/eLife.21105}.
 
 \bibitem[Zhang et~al.(2020)Zhang, Schl{\"o}gl, and Jonas]{zhangSelective2020}
 Xiaomin Zhang, Alois Schl{\"o}gl, and Peter Jonas.
