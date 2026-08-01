@@ -809,24 +809,20 @@ expected to depend on how far the activated cells have integrated into the circu
 them.
 
 Several simplifications bound these results. Each neuron is reduced to a single compartment, so the dendritic processing that
-controls GC sparsity and separation \citep{chavlisDendrites2017}, and that varies across GC subtypes
-\citep{maoExcitatory2025}, is not represented. The interneuron repertoire is minimal, comprising a single BC and HIPP
-type in the DG and one inhibitory type in CA3 \citep{kopsickFormation2024}, a likely source of the unresolved mGC response.
-Synaptic weights are fixed, leaving out activity-dependent plasticity; all synaptic delays are fixed at \SI{1}{\milli\second}, so
-the response latencies are not directly comparable with experiment (Section~\ref{sec:res_activation}); and the reduced scale of
-the network requires a uniform synaptic scaling factor to sustain activity. A further limitation, shared with most computational
-models of adult neurogenesis, is that the iGCs are represented as a single static population, though they change
-continuously as they mature; fixing their properties cannot capture that progression so relevant to their nature.
+controls GC sparsity and separation \citep{chavlisDendrites2017}, and that varies across GC subtypes \citep{maoExcitatory2025}, is
+not represented. The interneuron repertoire is minimal, comprising a single BC and HIPP type in the DG and one inhibitory type in
+CA3 \citep{kopsickFormation2024}, a likely source of the unresolved mGC response. The iGCs are represented as a single static
+population, so the sweep over EC$\to$iGC connectivity samples the maturation range rather than following cells through it.
 
 The effects on CA3 require further investigation. Because its synapses are held fixed here, the model cannot address how adult
 neurogenesis affects storage and recall in the recurrent CA3 network; introducing synaptic plasticity would allow this to be
 studied, along with the influence of adult-born cells on the formation and retrieval of CA3 engrams \citep{rollsMechanisms2013,
 kopsickFormation2024, koSystems2025}.
 
-The circuit-wide sparsification reported \textit{in vivo} is reproduced here without synaptic plasticity and without any mechanism
-beyond the DG--CA3 microcircuitry itself: a population of iGCs amounting to 5\% of the GCs is enough to sparsen the mGC code and
-to recruit inhibition as far as the CA3. The DG does not become less active in the process, the activity being redistributed from
-the mGCs to the iGCs rather than removed.
+A population of iGCs amounting to 5\% of the GCs was enough to sparsen the mGC code, raise its pattern separation, and carry both
+effects into the CA3, while separating none of its own inputs. Regulation of coding sparsity across both regions therefore rests
+on the DG--CA3 microcircuitry alone, without synaptic plasticity, with the iGCs acting as modulators of activity rather than as
+encoders.
 
 
 \backmatter{}
