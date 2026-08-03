@@ -1,211 +1,133 @@
 \begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{\url{https://doi.org/#1}}
+\providecommand{\eprint}[2][]{\url{#2}}
+ \bibcommenthead
 
-\bibitem[Danielson et~al.(2017)Danielson, Turi, Ladow, Chavlis, Petrantonakis,
-  Poirazi, and Losonczy]{danielsonVivo2017}
-Nathan~B. Danielson, Gergely~F. Turi, Max Ladow, Spyridon Chavlis,
-  Panagiotis~C. Petrantonakis, Panayiota Poirazi, and Attila Losonczy.
-\newblock In {{Vivo Imaging}} of {{Dentate Gyrus Mossy Cells}} in {{Behaving
-  Mice}}.
-\newblock \emph{Neuron}, 93\penalty0 (3):\penalty0 552--559.e4, February 2017.
-\newblock ISSN 08966273.
-\newblock \doi{10.1016/j.neuron.2016.12.019}.
+\bibitem[{Danielson et~al.(2017)Danielson, Turi, Ladow, Chavlis, Petrantonakis,
+  Poirazi, and Losonczy}]{danielsonVivo2017}
+Danielson NB, Turi GF, Ladow M, et~al (2017) In {{Vivo Imaging}} of {{Dentate
+  Gyrus Mossy Cells}} in {{Behaving Mice}}. Neuron 93(3):552--559.e4.
+  \doi{10.1016/j.neuron.2016.12.019}
 
-\bibitem[Diamantaki et~al.(2016)Diamantaki, Frey, Berens, {Preston-Ferrer}, and
-  Burgalossi]{diamantakiSparse2016}
-Maria Diamantaki, Markus Frey, Philipp Berens, Patricia {Preston-Ferrer}, and
-  Andrea Burgalossi.
-\newblock Sparse activity of identified dentate granule cells during spatial
-  exploration.
-\newblock \emph{eLife}, 5:\penalty0 e20252, October 2016.
-\newblock ISSN 2050-084X.
-\newblock \doi{10.7554/eLife.20252}.
+\bibitem[{Diamantaki et~al.(2016)Diamantaki, Frey, Berens, {Preston-Ferrer},
+  and Burgalossi}]{diamantakiSparse2016}
+Diamantaki M, Frey M, Berens P, et~al (2016) Sparse activity of identified
+  dentate granule cells during spatial exploration. eLife 5:e20252.
+  \doi{10.7554/eLife.20252}
 
-\bibitem[Galloni et~al.(2022)Galloni, Samadzelkava, Hiremath, Oumnov, and
-  Milstein]{galloniRecurrent2022}
-Alessandro~R. Galloni, Aya Samadzelkava, Kiran Hiremath, Reuben Oumnov, and
-  Aaron~D. Milstein.
-\newblock Recurrent {{Excitatory Feedback From Mossy Cells Enhances Sparsity}}
-  and {{Pattern Separation}} in the {{Dentate Gyrus}} via {{Indirect Feedback
-  Inhibition}}.
-\newblock \emph{Frontiers in Computational Neuroscience}, 16:\penalty0 826278,
-  February 2022.
-\newblock ISSN 1662-5188.
-\newblock \doi{10.3389/fncom.2022.826278}.
+\bibitem[{Galloni et~al.(2022)Galloni, Samadzelkava, Hiremath, Oumnov, and
+  Milstein}]{galloniRecurrent2022}
+Galloni AR, Samadzelkava A, Hiremath K, et~al (2022) Recurrent {{Excitatory
+  Feedback From Mossy Cells Enhances Sparsity}} and {{Pattern Separation}} in
+  the {{Dentate Gyrus}} via {{Indirect Feedback Inhibition}}. Frontiers in
+  Computational Neuroscience 16:826278. \doi{10.3389/fncom.2022.826278}
 
-\bibitem[GoodSmith et~al.(2017)GoodSmith, Chen, Wang, Kim, Song, Burgalossi,
-  Christian, and Knierim]{goodsmithSpatial2017}
-Douglas GoodSmith, Xiaojing Chen, Cheng Wang, Sang~Hoon Kim, Hongjun Song,
-  Andrea Burgalossi, Kimberly~M. Christian, and James~J. Knierim.
-\newblock Spatial {{Representations}} of {{Granule Cells}} and {{Mossy Cells}}
-  of the {{Dentate Gyrus}}.
-\newblock \emph{Neuron}, 93\penalty0 (3):\penalty0 677--690.e5, February 2017.
-\newblock ISSN 08966273.
-\newblock \doi{10.1016/j.neuron.2016.12.026}.
+\bibitem[{GoodSmith et~al.(2017)GoodSmith, Chen, Wang, Kim, Song, Burgalossi,
+  Christian, and Knierim}]{goodsmithSpatial2017}
+GoodSmith D, Chen X, Wang C, et~al (2017) Spatial {{Representations}} of
+  {{Granule Cells}} and {{Mossy Cells}} of the {{Dentate Gyrus}}. Neuron
+  93(3):677--690.e5. \doi{10.1016/j.neuron.2016.12.026}
 
-\bibitem[GoodSmith et~al.(2019)GoodSmith, Lee, Neunuebel, Song, and
-  Knierim]{goodsmithDentate2019}
-Douglas GoodSmith, Heekyung Lee, Joshua~P. Neunuebel, Hongjun Song, and
-  James~J. Knierim.
-\newblock Dentate {{Gyrus Mossy Cells Share}} a {{Role}} in {{Pattern
-  Separation}} with {{Dentate Granule Cells}} and {{Proximal CA3 Pyramidal
-  Cells}}.
-\newblock \emph{The Journal of Neuroscience}, 39\penalty0 (48):\penalty0
-  9570--9584, November 2019.
-\newblock ISSN 0270-6474, 1529-2401.
-\newblock \doi{10.1523/JNEUROSCI.0940-19.2019}.
+\bibitem[{GoodSmith et~al.(2019)GoodSmith, Lee, Neunuebel, Song, and
+  Knierim}]{goodsmithDentate2019}
+GoodSmith D, Lee H, Neunuebel JP, et~al (2019) Dentate {{Gyrus Mossy Cells
+  Share}} a {{Role}} in {{Pattern Separation}} with {{Dentate Granule Cells}}
+  and {{Proximal CA3 Pyramidal Cells}}. The Journal of Neuroscience
+  39(48):9570--9584. \doi{10.1523/JNEUROSCI.0940-19.2019}
 
-\bibitem[Hainmueller and Bartos(2018)]{hainmuellerParallel2018}
-Thomas Hainmueller and Marlene Bartos.
-\newblock Parallel emergence of stable and dynamic memory engrams in the
-  hippocampus.
-\newblock \emph{Nature}, 558\penalty0 (7709):\penalty0 292--296, June 2018.
-\newblock ISSN 0028-0836, 1476-4687.
-\newblock \doi{10.1038/s41586-018-0191-2}.
+\bibitem[{Hainmueller and Bartos(2018)}]{hainmuellerParallel2018}
+Hainmueller T, Bartos M (2018) Parallel emergence of stable and dynamic memory
+  engrams in the hippocampus. Nature 558(7709):292--296.
+  \doi{10.1038/s41586-018-0191-2}
 
-\bibitem[Kay et~al.(2016)Kay, Sosa, Chung, Karlsson, Larkin, and
-  Frank]{kayHippocampal2016}
-Kenneth Kay, Marielena Sosa, Jason~E. Chung, Mattias~P. Karlsson, Margaret~C.
-  Larkin, and Loren~M. Frank.
-\newblock A hippocampal network for spatial coding during immobility and sleep.
-\newblock \emph{Nature}, 531\penalty0 (7593):\penalty0 185--190, March 2016.
-\newblock ISSN 0028-0836, 1476-4687.
-\newblock \doi{10.1038/nature17144}.
+\bibitem[{Kay et~al.(2016)Kay, Sosa, Chung, Karlsson, Larkin, and
+  Frank}]{kayHippocampal2016}
+Kay K, Sosa M, Chung JE, et~al (2016) A hippocampal network for spatial coding
+  during immobility and sleep. Nature 531(7593):185--190.
+  \doi{10.1038/nature17144}
 
-\bibitem[Lapray et~al.(2012)Lapray, Lasztoczi, Lagler, Viney, Katona, Valenti,
-  Hartwich, Borhegyi, Somogyi, and Klausberger]{laprayBehaviordependent2012}
-Damien Lapray, Balint Lasztoczi, Michael Lagler, Tim~James Viney, Linda Katona,
-  Ornella Valenti, Katja Hartwich, Zsolt Borhegyi, Peter Somogyi, and Thomas
-  Klausberger.
-\newblock Behavior-dependent specialization of identified hippocampal
-  interneurons.
-\newblock \emph{Nature Neuroscience}, 15\penalty0 (9):\penalty0 1265--1271,
-  September 2012.
-\newblock ISSN 1097-6256, 1546-1726.
-\newblock \doi{10.1038/nn.3176}.
+\bibitem[{Lapray et~al.(2012)Lapray, Lasztoczi, Lagler, Viney, Katona, Valenti,
+  Hartwich, Borhegyi, Somogyi, and Klausberger}]{laprayBehaviordependent2012}
+Lapray D, Lasztoczi B, Lagler M, et~al (2012) Behavior-dependent specialization
+  of identified hippocampal interneurons. Nature Neuroscience 15(9):1265--1271.
+  \doi{10.1038/nn.3176}
 
-\bibitem[Laszt{\'o}czi et~al.(2011)Laszt{\'o}czi, Tukker, Somogyi, and
-  Klausberger]{lasztocziTerminal2011}
-B{\'a}lint Laszt{\'o}czi, John~J. Tukker, Peter Somogyi, and Thomas
-  Klausberger.
-\newblock Terminal {{Field}} and {{Firing Selectivity}} of
-  {{Cholecystokinin-Expressing Interneurons}} in the {{Hippocampal CA3 Area}}.
-\newblock \emph{The Journal of Neuroscience}, 31\penalty0 (49):\penalty0
-  18073--18093, December 2011.
-\newblock ISSN 0270-6474, 1529-2401.
-\newblock \doi{10.1523/JNEUROSCI.3573-11.2011}.
+\bibitem[{Laszt{\'o}czi et~al.(2011)Laszt{\'o}czi, Tukker, Somogyi, and
+  Klausberger}]{lasztocziTerminal2011}
+Laszt{\'o}czi B, Tukker JJ, Somogyi P, et~al (2011) Terminal {{Field}} and
+  {{Firing Selectivity}} of {{Cholecystokinin-Expressing Interneurons}} in the
+  {{Hippocampal CA3 Area}}. The Journal of Neuroscience 31(49):18073--18093.
+  \doi{10.1523/JNEUROSCI.3573-11.2011}
 
-\bibitem[Le{\~a}o et~al.(2012)Le{\~a}o, Mikulovic, Le{\~a}o, Munguba, Gezelius,
-  Enjin, Patra, Eriksson, Loew, Tort, and Kullander]{leaoOLM2012}
-Richardson~N Le{\~a}o, Sanja Mikulovic, Katarina~E Le{\~a}o, Hermany Munguba,
-  Henrik Gezelius, Anders Enjin, Kalicharan Patra, Anders Eriksson, Leslie~M
-  Loew, Adriano B~L Tort, and Klas Kullander.
-\newblock {{OLM}} interneurons differentially modulate {{CA3}} and entorhinal
-  inputs to hippocampal {{CA1}} neurons.
-\newblock \emph{Nature Neuroscience}, 15\penalty0 (11):\penalty0 1524--1530,
-  November 2012.
-\newblock ISSN 1097-6256, 1546-1726.
-\newblock \doi{10.1038/nn.3235}.
+\bibitem[{Le{\~a}o et~al.(2012)Le{\~a}o, Mikulovic, Le{\~a}o, Munguba,
+  Gezelius, Enjin, Patra, Eriksson, Loew, Tort, and Kullander}]{leaoOLM2012}
+Le{\~a}o RN, Mikulovic S, Le{\~a}o KE, et~al (2012) {{OLM}} interneurons
+  differentially modulate {{CA3}} and entorhinal inputs to hippocampal {{CA1}}
+  neurons. Nature Neuroscience 15(11):1524--1530. \doi{10.1038/nn.3235}
 
-\bibitem[Li et~al.(2022)Li, Zhang, Zhang, Zhang, Chen, Hu, Yao, Chen, and
-  Hu]{liSustained2022}
-Rongrong Li, Weiwei Zhang, Jie Zhang, Haibo Zhang, Hui Chen, Zhian Hu,
-  Zhongxiang Yao, Hao Chen, and Bo~Hu.
-\newblock Sustained {{Activity}} of {{Hippocampal Parvalbumin-Expressing
-  Interneurons Supports Trace Eyeblink Conditioning}} in {{Mice}}.
-\newblock \emph{The Journal of Neuroscience}, 42\penalty0 (44):\penalty0
-  8343--8360, November 2022.
-\newblock ISSN 0270-6474, 1529-2401.
-\newblock \doi{10.1523/JNEUROSCI.0834-22.2022}.
+\bibitem[{Li et~al.(2022)Li, Zhang, Zhang, Zhang, Chen, Hu, Yao, Chen, and
+  Hu}]{liSustained2022}
+Li R, Zhang W, Zhang J, et~al (2022) Sustained {{Activity}} of {{Hippocampal
+  Parvalbumin-Expressing Interneurons Supports Trace Eyeblink Conditioning}} in
+  {{Mice}}. The Journal of Neuroscience 42(44):8343--8360.
+  \doi{10.1523/JNEUROSCI.0834-22.2022}
 
-\bibitem[L{\"u}bke et~al.(1998)L{\"u}bke, Frotscher, and
-  Spruston]{lubkeSpecialized1998}
-Joachim L{\"u}bke, Michael Frotscher, and Nelson Spruston.
-\newblock Specialized {{Electrophysiological Properties}} of {{Anatomically
-  Identified Neurons}} in the {{Hilar Region}} of the {{Rat Fascia Dentata}}.
-\newblock \emph{Journal of Neurophysiology}, 79\penalty0 (3):\penalty0
-  1518--1534, March 1998.
-\newblock ISSN 0022-3077, 1522-1598.
-\newblock \doi{10.1152/jn.1998.79.3.1518}.
+\bibitem[{L{\"u}bke et~al.(1998)L{\"u}bke, Frotscher, and
+  Spruston}]{lubkeSpecialized1998}
+L{\"u}bke J, Frotscher M, Spruston N (1998) Specialized {{Electrophysiological
+  Properties}} of {{Anatomically Identified Neurons}} in the {{Hilar Region}}
+  of the {{Rat Fascia Dentata}}. Journal of Neurophysiology 79(3):1518--1534.
+  \doi{10.1152/jn.1998.79.3.1518}
 
-\bibitem[McHugh et~al.(2022)McHugh, {Lopes-dos-Santos}, Gava, Hartwich, Tam,
-  Bannerman, and Dupret]{mchughAdultborn2022}
-Stephen~B. McHugh, V{\'i}tor {Lopes-dos-Santos}, Giuseppe~P. Gava, Katja
-  Hartwich, Shu K.~E. Tam, David~M. Bannerman, and David Dupret.
-\newblock Adult-born dentate granule cells promote hippocampal population
-  sparsity.
-\newblock \emph{Nature Neuroscience}, 25\penalty0 (11):\penalty0 1481--1491,
-  November 2022.
-\newblock ISSN 1097-6256, 1546-1726.
-\newblock \doi{10.1038/s41593-022-01176-5}.
+\bibitem[{McHugh et~al.(2022)McHugh, {Lopes-dos-Santos}, Gava, Hartwich, Tam,
+  Bannerman, and Dupret}]{mchughAdultborn2022}
+McHugh SB, {Lopes-dos-Santos} V, Gava GP, et~al (2022) Adult-born dentate
+  granule cells promote hippocampal population sparsity. Nature Neuroscience
+  25(11):1481--1491. \doi{10.1038/s41593-022-01176-5}
 
-\bibitem[Mizuseki and Buzs{\'a}ki(2013)]{mizusekiPreconfigured2013}
-Kenji Mizuseki and Gy{\"o}rgy Buzs{\'a}ki.
-\newblock Preconfigured, {{Skewed Distribution}} of {{Firing Rates}} in the
-  {{Hippocampus}} and {{Entorhinal Cortex}}.
-\newblock \emph{Cell Reports}, 4\penalty0 (5):\penalty0 1010--1021, September
-  2013.
-\newblock ISSN 22111247.
-\newblock \doi{10.1016/j.celrep.2013.07.039}.
+\bibitem[{Mizuseki and Buzs{\'a}ki(2013)}]{mizusekiPreconfigured2013}
+Mizuseki K, Buzs{\'a}ki G (2013) Preconfigured, {{Skewed Distribution}} of
+  {{Firing Rates}} in the {{Hippocampus}} and {{Entorhinal Cortex}}. Cell
+  Reports 4(5):1010--1021. \doi{10.1016/j.celrep.2013.07.039}
 
-\bibitem[Oliva et~al.(2016)Oliva, {Fern{\'a}ndez-Ruiz}, Buzs{\'a}ki, and
-  Ber{\'e}nyi]{olivaRole2016}
-Azahara Oliva, Antonio {Fern{\'a}ndez-Ruiz}, Gy{\"o}rgy Buzs{\'a}ki, and Antal
-  Ber{\'e}nyi.
-\newblock Role of {{Hippocampal CA2 Region}} in {{Triggering Sharp-Wave
-  Ripples}}.
-\newblock \emph{Neuron}, 91\penalty0 (6):\penalty0 1342--1355, September 2016.
-\newblock ISSN 08966273.
-\newblock \doi{10.1016/j.neuron.2016.08.008}.
+\bibitem[{Oliva et~al.(2016)Oliva, {Fern{\'a}ndez-Ruiz}, Buzs{\'a}ki, and
+  Ber{\'e}nyi}]{olivaRole2016}
+Oliva A, {Fern{\'a}ndez-Ruiz} A, Buzs{\'a}ki G, et~al (2016) Role of
+  {{Hippocampal CA2 Region}} in {{Triggering Sharp-Wave Ripples}}. Neuron
+  91(6):1342--1355. \doi{10.1016/j.neuron.2016.08.008}
 
-\bibitem[Senzai and {Gyorgy Buzsaki}(2016)]{senzaiExtracellular2016}
-Yuta Senzai and {Gyorgy Buzsaki}.
-\newblock Extracellular recordings of dentate granule cells, mossy cells and
-  {{CA3}} neurons during spatial navigation and sleep in mice, 2016.
+\bibitem[{Senzai and Buzs{\'a}ki(2016)}]{senzaiExtracellular2016}
+Senzai Y, Buzs{\'a}ki G (2016) Extracellular recordings of dentate granule
+  cells, mossy cells and {{CA3}} neurons during spatial navigation and sleep in
+  mice. CRCNS.org, \doi{10.6080/K0VX0DFT}
 
-\bibitem[Tukker et~al.(2013)Tukker, Laszt{\'o}czi, Katona, Roberts, Pissadaki,
-  Dalezios, M{\'a}rton, Zhang, Klausberger, and Somogyi]{tukkerDistinct2013}
-John~J. Tukker, B{\'a}lint Laszt{\'o}czi, Linda Katona, J.~David~B. Roberts,
-  Eleftheria~K. Pissadaki, Yannis Dalezios, L{\'a}szl{\'o} M{\'a}rton, Limei
-  Zhang, Thomas Klausberger, and Peter Somogyi.
-\newblock Distinct {{Dendritic Arborization}} and {{{\emph{In Vivo}}}} {{Firing
-  Patterns}} of {{Parvalbumin-Expressing Basket Cells}} in the {{Hippocampal
-  Area CA3}}.
-\newblock \emph{The Journal of Neuroscience}, 33\penalty0 (16):\penalty0
-  6809--6825, April 2013.
-\newblock ISSN 0270-6474, 1529-2401.
-\newblock \doi{10.1523/JNEUROSCI.5052-12.2013}.
+\bibitem[{Tukker et~al.(2013)Tukker, Laszt{\'o}czi, Katona, Roberts, Pissadaki,
+  Dalezios, M{\'a}rton, Zhang, Klausberger, and Somogyi}]{tukkerDistinct2013}
+Tukker JJ, Laszt{\'o}czi B, Katona L, et~al (2013) Distinct {{Dendritic
+  Arborization}} and {{{\emph{In Vivo}}}} {{Firing Patterns}} of
+  {{Parvalbumin-Expressing Basket Cells}} in the {{Hippocampal Area CA3}}. The
+  Journal of Neuroscience 33(16):6809--6825.
+  \doi{10.1523/JNEUROSCI.5052-12.2013}
 
-\bibitem[Wheeler et~al.(2023)Wheeler, Kopsick, Sutton, Tecuatl, Komendantov,
-  Nadella, and Ascoli]{wheelerHippocampomeorg2023}
-Diek~W. Wheeler, Jeffrey~D. Kopsick, Nate Sutton, Carolina Tecuatl,
-  Alexander~O. Komendantov, Kasturi Nadella, and Giorgio~A. Ascoli.
-\newblock Hippocampome.org v2.0: A knowledge base enabling data-driven spiking
-  neural network simulations of rodent hippocampal circuits, September 2023.
+\bibitem[{Wheeler et~al.(2024)Wheeler, Kopsick, Sutton, Tecuatl, Komendantov,
+  Nadella, and Ascoli}]{wheelerHippocampomeorg2023}
+Wheeler DW, Kopsick JD, Sutton N, et~al (2024) Hippocampome.org 2.0 is a
+  knowledge base enabling data-driven spiking neural network simulations of
+  rodent hippocampal circuits. eLife 12:RP90597. \doi{10.7554/eLife.90597}
 
-\bibitem[Yuan et~al.(2017)Yuan, Meyer, Benkowitz, Savanthrapadian,
+\bibitem[{Yuan et~al.(2017)Yuan, Meyer, Benkowitz, Savanthrapadian,
   {Ansel-Bollepalli}, Foggetti, Wulff, Alcami, Elgueta, and
-  Bartos]{yuanSomatostatinpositive2017}
-Mei Yuan, Thomas Meyer, Christoph Benkowitz, Shakuntala Savanthrapadian, Laura
-  {Ansel-Bollepalli}, Angelica Foggetti, Peer Wulff, Pepe Alcami, Claudio
-  Elgueta, and Marlene Bartos.
-\newblock Somatostatin-positive interneurons in the dentate gyrus of mice
-  provide local- and long-range septal synaptic inhibition.
-\newblock \emph{eLife}, 6:\penalty0 e21105, April 2017.
-\newblock ISSN 2050-084X.
-\newblock \doi{10.7554/eLife.21105}.
+  Bartos}]{yuanSomatostatinpositive2017}
+Yuan M, Meyer T, Benkowitz C, et~al (2017) Somatostatin-positive interneurons
+  in the dentate gyrus of mice provide local- and long-range septal synaptic
+  inhibition. eLife 6:e21105. \doi{10.7554/eLife.21105}
 
-\bibitem[Zhang et~al.(2020)Zhang, Schl{\"o}gl, and Jonas]{zhangSelective2020}
-Xiaomin Zhang, Alois Schl{\"o}gl, and Peter Jonas.
-\newblock Selective {{Routing}} of {{Spatial Information Flow}} from {{Input}}
-  to {{Output}} in {{Hippocampal Granule Cells}}.
-\newblock \emph{Neuron}, 107\penalty0 (6):\penalty0 1212--1225.e7, September
-  2020.
-\newblock ISSN 08966273.
-\newblock \doi{10.1016/j.neuron.2020.07.006}.
+\bibitem[{Zhang et~al.(2020)Zhang, Schl{\"o}gl, and Jonas}]{zhangSelective2020}
+Zhang X, Schl{\"o}gl A, Jonas P (2020) Selective {{Routing}} of {{Spatial
+  Information Flow}} from {{Input}} to {{Output}} in {{Hippocampal Granule
+  Cells}}. Neuron 107(6):1212--1225.e7. \doi{10.1016/j.neuron.2020.07.006}
 
 \end{thebibliography}
