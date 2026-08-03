@@ -118,7 +118,6 @@
 
 \affil[3]{\orgdiv{Bioinformatics Multidisciplinary Environment (BioME)}, \orgname{Federal University of Rio Grande do Norte}, \orgaddress{\city{Natal}, \postcode{59120--555}, \country{Brazil}}}
 
-% ⚠️ TODO: make sure all abbreviations are defined once and before they are used 
 
 \abstract{The dentate gyrus (DG) transforms similar inputs into more distinct representations, a computation termed pattern
 separation, and is one of the few brain regions that generate new neurons throughout adulthood. These adult-born granule cells
@@ -209,9 +208,11 @@ Table S1).
     \centering
     \includegraphics[width=\linewidth]{Fig1.pdf}
     \caption{DG--CA3 network architecture. Network input is provided by EC neurons. In the DG, the perforant path terminates in
-        the molecular layer, where the dendrites of DG neurons are located. The GC layer comprises iGCs, mGCs and BCs,
-        whereas the hilus contains MCs and HIPPs. The CA3 region comprises the pCA3 and iCA3 cells. Excitatory synapses are
-        represented by arrows, whereas inhibitory synapses are represented by circles.}\label{fig:diagram-network}
+        the molecular layer, where the dendrites of DG neurons are located. The GC layer comprises iGCs, mGCs and BCs, whereas the
+        hilus contains MCs and HIPPs. The CA3 region comprises the pyramidal cells, labelled \textbf{P}, and the inhibitory
+        interneurons, labelled \textbf{I}, referred to in the text as pCA3 and iCA3, respectively. Excitatory synapses are
+        represented by arrows, whereas inhibitory synapses are represented by circles. The CA1 box marks the efferent target of
+        the pCA3 cells and is not part of the model}\label{fig:diagram-network}
 \end{figure}
 
 The network receives input from a population of ($N_{EC} = 400$) EC neurons~\citep{amaralChapter1990,
@@ -270,8 +271,10 @@ Synaptic connections remained fixed throughout.
 
 \begin{table}[htbp]
 \centering
+\caption{Neuronal population size (N)}\label{tab:neuron_counts}
 \renewcommand{\arraystretch}{1.2}
-\makebox[\linewidth]{{\footnotesize\setlength{\tabcolsep}{3pt}%
+\setlength{\tabcolsep}{3pt}
+{\footnotesize
 \begin{tabular}{lcccccccc}
 \toprule
 \textbf{Cell}
@@ -286,9 +289,7 @@ Synaptic connections remained fixed throughout.
 \midrule
 \textbf{N} & 400 & 1900 & 100 & 100 & 60 & 60 & 600 & 60 \\
 \bottomrule
-\end{tabular}}}
-\caption{Neuronal population size (N).}\label{tab:neuron_counts}
-\vspace{-16pt}
+\end{tabular}}
 \end{table}
 
 \subsection{Neuron model}\label{sec:neuron_model}
@@ -328,8 +329,10 @@ $V_{\min}$, and the recovery variable is incremented by $d$, which makes the fol
 
 \begin{table*}[htbp]
 \centering
+\caption{Izhikevich model parameters per cell type}\label{tab:izhikevich_neuron_params}
 \renewcommand{\arraystretch}{1.4}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{4pt}
+{\footnotesize
 \begin{tabular}{lccccccccc}
 \toprule
 \multirow{2}{*}{\textbf{Cell}} & \textbf{$k$} & \textbf{$a$} & \textbf{$b$} & \textbf{$d$} & \textbf{$C_m$} & \textbf{$V_r$} & \textbf{$V_t$} & \textbf{$V_{min}$} & \textbf{$V_{peak}$} \\
@@ -344,7 +347,6 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & 0.79 & 0.008 
 $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & 1 & 0.004 & -18.26 & 12 & 45 & -57.51 & -23.38 & -47.56 & 18.45 \\
 \bottomrule
 \end{tabular}}
-\caption{Izhikevich model parameters per cell type.}\label{tab:izhikevich_neuron_params}
 \end{table*}
 
 \subsection{Synapse model}\label{sec:synapse_model}
@@ -394,8 +396,16 @@ of its membrane equation (Equation~\ref{eq_izhikevich_1}).
 
 \begin{table*}[htbp]
 \centering
+\caption{Parameters of the synapses between neuronal populations. Random connections occur
+                    between all cells of both populations; lamellar connections occur between cells of
+                    the same lamella; cross-lamellar connections occur between cells of one lamella and
+                    all others. The connection probability $P$ refers to the percentage of connections
+                    between neuronal populations according to the connection condition.
+                    * iGCs were simulated with multiple different EC$\to$iGC excitability levels}
+\label{tab:synapse_params}
 \renewcommand{\arraystretch}{1.2}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{4pt}
+{\footnotesize
 \begin{tabular}{llccccccc}
 \toprule
 \multirow{2}{*}{\textbf{Presynaptic}} & \multirow{2}{*}{\textbf{Postsynaptic}} & \multirow{2}{*}{\textbf{Connection}} & $P$ & \textbf{$g$} & \textbf{$\tau_d$} & \textbf{$\tau_r$} & \textbf{$\tau_f$} & \textbf{$U$} \\
@@ -433,13 +443,6 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & $\vcenter{\hb
 $\vcenter{\hbox{\includegraphics[height=1.5em]{ica3.png}}}$ iCA3 & $\vcenter{\hbox{\includegraphics[height=1.5em]{pca3.png}}}$ pCA3 & Random & 30 & 2 & 7.793 & 416.282 & 20.63 & 0.203 \\
 \bottomrule
 \end{tabular}}
-\caption{Parameters of the synapses between neuronal populations. Random connections occur
-                    between all cells of both populations; lamellar connections occur between cells of
-                    the same lamella; cross-lamellar connections occur between cells of one lamella and  
-                    all others. The connection probability $P$ refers to the percentage of connections
-                    between neuronal populations according to the connection condition.
-                    * iGCs were simulated with multiple different EC$\to$iGC excitability levels.}
-\label{tab:synapse_params}
 \end{table*}
 
 \subsection{Pattern separation}\label{sec:pattern_separation}
@@ -464,18 +467,18 @@ level.
     \centering
     \includegraphics[width=\linewidth]{Fig2.pdf}%
     \caption{Diagram of the input and output pattern generation and recall protocol.
-    \textbf{a.} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly and
+    \textbf{(a)} Input patterns are generated in sets of 10 patterns of size $N_{EC} = 400$; the first is generated randomly and
     the remaining ones are generated from it at different levels of similarity by randomly activating and deactivating neurons.
-    \textbf{b.} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different excitability
+    \textbf{(b)} 11 model variants are simulated: one without neurogenesis and 10 with neurogenesis at different excitability
     levels, from 100\% down to 10\% excitability.
-    \textbf{c.} Spike trace of EC neurons during a simulation; each generated
+    \textbf{(c)} Spike trace of EC neurons during a simulation; each generated
     pattern corresponds to the activation of EC neurons, with active neurons spiking at a frequency of \SI{40}{\hertz}; each of
     the 11 models is exposed to 30 sets of 10 input patterns, totaling 300 simulations of \SI{1300}{\milli\second} each.
-    \textbf{d.} Spike trace of mGCs during a simulation; the first \SI{300}{\milli\second} are discarded while the network
+    \textbf{(d)} Spike trace of mGCs during a simulation; the first \SI{300}{\milli\second} are discarded while the network
     stabilizes; the remainder corresponds to the output pattern.
-    \textbf{e.} The output pattern, illustrated here for the mGC
+    \textbf{(e)} The output pattern, illustrated here for the mGC
     population, consists of a binary vector with value 1 for the index of each neuron that spiked at least once during the
-    \SI{1000}{\milli\second} interval.}\label{fig:pipeline}%
+    \SI{1000}{\milli\second} interval}\label{fig:pipeline}%
     \phantomsubcaption\label{fig:input-gen}%
     \phantomsubcaption\label{fig:models}%
     \phantomsubcaption\label{fig:ec-raster}%
@@ -627,7 +630,7 @@ evidence that the network behaves plausibly.
         representative simulation, over the \SIrange{300}{1300}{\milli\second} recording window (the first \SI{300}{\milli\second}
         discarded for stabilization). \textbf{(b)} Kernel-density estimate of the per-cell firing-rate distribution in logarithmic
         scale of the mGC and iGC populations; the dashed lines mark the population medians (mGC, \SI{1}{\hertz}; iGC,
-        \SI{3}{\hertz}).}\label{fig:results-1}%
+        \SI{3}{\hertz})}\label{fig:results-1}%
     \phantomsubcaption\label{fig:raster}%
     \phantomsubcaption\label{fig:firing_rate}%
 \end{figure}
@@ -635,8 +638,6 @@ evidence that the network behaves plausibly.
 
 \subsection{Adult neurogenesis enhances pattern separation in the DG and CA3}\label{sec:res_separation}
 
-% [R] pattern separation (S_D) rises with neurogenesis/excitability, DG AND CA3,
-%     Fig. results-1(b,d).  Stats: regression / Spearman vs excitability (see STATS note at end).
 
 Figure~\ref{fig:dg-activity} shows that, with neurogenesis, the mGC population activation drops, and with each increasing level of
 iGC excitability the mGC activation decreases further, from 7.9\% in the control network to 3.6\% at the highest excitability; the
@@ -680,7 +681,7 @@ turn the CA3 into a separator, but pushes it toward separation.
         \textbf{(a)} Mean population activation of DG GCs\@. \textbf{(b)} Pattern separation degree $\mathcal{S}_D$ of DG GCs; the
         grey dashed line marks $\mathcal{S}_D = 1$, above which the output patterns are more distinct than their inputs.
         \textbf{(c)} Mean population activation of the pCA3 cells. \textbf{(d)} Pattern separation degree of the pCA3 cells.
-        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells.}\label{fig:results-2}%
+        \textbf{(e)} Population sparsity (Gini index) of the DG GCs and pCA3 cells}\label{fig:results-2}%
     \phantomsubcaption\label{fig:dg-activity}%
     \phantomsubcaption\label{fig:dg-separation}%
     \phantomsubcaption\label{fig:ca3-activity}%
@@ -741,11 +742,12 @@ across both the DG and CA3.
     \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{Fig5.pdf}%
     \caption{Circuit-wide response to direct iGC activation. PSTHs of the population firing rate for each cell type, expressed as
         a z-score relative to a pre-pulse baseline (Equation~\ref{eq:psth_z}) and aligned to the onset of the
-        \SI{5}{\milli\second} depolarizing current injected into half of the iGCs (shaded band). Bins are \SI{1.5}{\milli\second}
+        \SI{5}{\milli\second} depolarizing current injected into half of the iGCs. The shaded band marks the pulse, in green for
+        the directly stimulated iGCs and in grey for every other population. Bins are \SI{1.5}{\milli\second}
         wide and span \SIrange{-60}{60}{\milli\second} relative to the pulse; data are pooled over all EC$\to$iGC excitability
         variants and all trials. Vertical scales differ across panels. The directly driven iGCs (top) dominate during the pulse;
         downstream, the MCs, BCs and iCA3 cells show strong excitation, the pCA3 cells and HIPPs a weaker inhibition, and the mGCs
-        a small biphasic response.}\label{fig:psth}
+        a small biphasic response}\label{fig:psth}
 \end{figure}
 
 
@@ -759,7 +761,6 @@ separation improving through sparser coding \citep{chavlisDendrites2017}. The sa
 recruitment it drives, extends to CA3, whose activity also becomes sparser, consistent with a modulatory rather than an encoding
 role for iGCs \citep{mchughAdultborn2022, folszAdultborn2023}.
 
-% TODO remove word regime
 
 The gain in mGC separation follows from a redistribution of activity within the GC population. Increasing the EC$\to$iGC
 connectivity raises the iGC activation, and the iGCs drive the BCs and the HIPPs both directly and through the MCs; the resulting

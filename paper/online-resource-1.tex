@@ -12,6 +12,10 @@
 \usepackage[round]{natbib}
 \usepackage[hidelinks]{hyperref}
 
+%% Springer .bst macros that are provided by the sn-jnl class, not by article.
+\providecommand{\bibcommenthead}{}
+\providecommand{\mciteSetBstSublistMode}[1]{}
+
 %% Number figures and tables as S1, S2, ... to mark them as supplementary.
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
@@ -259,7 +263,7 @@ $\vcenter{\hbox{\includegraphics[height=1.5em]{hipp.png}}}$ HIPP
         bin.}\label{fig:frequency_spectra}
 \end{figure}
 
-\bibliographystyle{plainnat}
+\bibliographystyle{sn-basic}
 \bibliography{sn-bibliography}
 
 \end{document}
